@@ -1,0 +1,63 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+    config.vm.box = "ubuntu/trusty64"
+
+    config.vm.network "forwarded_port", guest: 22, host: 2202
+    config.vm.network "forwarded_port", guest: 8000, host: 8002
+    config.vm.network "forwarded_port", guest: 80, host: 8003
+    config.vm.network "forwarded_port", guest: 3306, host: 3302
+
+    config.vm.provision "shell", inline: <<-SHELL
+        set -xe
+
+        cd /vagrant
+
+        echo "America/Detroit" > /etc/timezone
+        dpkg-reconfigure -f noninteractive tzdata
+
+        apt-get update
+        apt-get dist-upgrade -y
+
+        # "debconf-set-selections" lines are need to prevent the mysql-server install from prompting for a password
+        debconf-set-selections <<< 'mysql-server mysql-server/root_password password 12345'
+        debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password 12345'
+
+        apt-get --no-install-recommends install --yes mysql-server libmysqlclient-dev
+        apt-get --no-install-recommends install --yes python-pip python-dev
+        apt-get --no-install-recommends install --yes apache2 apache2-utils
+        apt-get --no-install-recommends install --yes libldap2-dev libsasl2-dev
+
+        echo -e "[mysqld]\nbind-address = 0.0.0.0" > /tmp/mysqld_bind_vagrant.cnf
+        mv -f /tmp/mysqld_bind_vagrant.cnf /etc/mysql/conf.d/
+        service mysql restart
+
+        cat <<EOM > /etc/apache2/sites-available/001-se_proxy.conf
+<VirtualHost *:80>
+        ErrorLog \${APACHE_LOG_DIR}/error.log
+        CustomLog \${APACHE_LOG_DIR}/access.log combined
+        ProxyPass / http://0.0.0.0:8000/
+        ProxyPassReverse / http://0.0.0.0:8000/
+
+        RequestHeader set Proxy-User "foobar"
+
+</VirtualHost>
+EOM
+        a2enmod rewrite headers proxy_*
+
+        a2dissite 000-default.conf
+        a2ensite 001-se_proxy.conf
+
+        service apache2 restart
+
+        echo "CREATE DATABASE IF NOT EXISTS student_explorer;" | mysql -v -u root -p12345
+        echo "GRANT ALL PRIVILEGES ON *.* TO 'student_explorer'@'%' IDENTIFIED BY 'student_explorer';" | mysql -v -u root -p12345
+
+        pip install -r requirements.txt
+
+        if [ ! -e settings/local.py ]; then
+            cp settings/local_sample.py settings/local.py
+        fi
+    SHELL
+end

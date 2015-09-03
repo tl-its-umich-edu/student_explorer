@@ -1,0 +1,7 @@
+*.pyc
+
+/settings/local.py
+/settings/extras/
+!/settings/extras/README
+
+/.vagrant
