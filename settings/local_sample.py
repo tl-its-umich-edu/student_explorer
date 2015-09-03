@@ -27,15 +27,6 @@ if REMOTE_USER_HEADER:
         'umichdig.backends.DigRemoteUserBackend',
 
     )
-    # LDAP = {
-    #     'mcommunity': {
-    #         'HOST': 'ldap://ldap.umich.edu/',
-    #         'USER': None,
-    #         'PASSWORD': None,
-    #         'SEARCH_BASE': 'ou=People,dc=umich,dc=edu',
-    #         'CA_CERT_FILE': None,
-    #     },
-    # }
 
     LDAP = {
         'mcommunity': {
