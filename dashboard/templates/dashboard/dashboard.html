@@ -1,0 +1,50 @@
+{% extends 'dashboard/base.html' %}
+
+{% block page-title %}SE{% endblock %}
+
+{% block main %}
+{% verbatim %}
+<body ng-app="studentexplorerApp" layout="row" ng-controller="StudentController as ctrl" ng-cloak>
+
+<div flex layout="row">
+
+<md-content>
+  <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+    <md-toolbar >
+      <div class="md-toolbar-tools" >
+        <span ng-if="ctrl.selected == null">All Students</span>
+        <span ng-if="ctrl.selected != null">{{ctrl.selected.name}}</span>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+  </div>
+
+  <div layout="row" layout-sm="column">
+    <md-content id="content" ng-if="ctrl.selected == null">
+      <p>{{ctrl.students}}</p>
+      <!-- <dtable options="options" rows="ctrl.students" class="material dt">
+        <column name="Name" width="300" flex-grow="2">
+          <strong>{{$row.name}}</strong>
+        </column>
+        <column name="Gender" width="300" flex-grow="2">
+          <strong>{{$row.student_ID}}</strong>
+        </column>
+        <column name="Gender" width="300" flex-grow="2">
+          <strong>{{$row.GPA}}</strong>
+        </column>
+        <column name="Gender" width="300" flex-grow="2">
+          <strong>{{$row.year}}</strong>
+        </column>
+      </dtable> -->
+      <dtable options="ctrl.options" rows="ctrl.students" class="material dt"></dtable>
+      
+    </md-content>
+  </div>
+</md-content>
+
+</div>
+<hr/>
+<center class="smallnote"><p>Copyright &copy; 2015 The Regents of the Univerisity of Michigan</p></center>
+</body>
+{% endverbatim %}
+{% endblock %}

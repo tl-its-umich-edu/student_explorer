@@ -1,0 +1,65 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+  <title>{% block page-title %}{% endblock %}</title>
+  <meta name="description" content="{% block description-content %}{% endblock %}">
+  <meta name="author" content="{% block author-content %}{% endblock %}">
+</head>
+<body class="{% block body-class %}{% endblock %}" {% block body-attributes %}{% endblock %}>
+  {% block body %}
+  {% block body-content %}
+  {% block ie6-warning %}
+<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+  {% endblock ie6-warning %}
+
+  {% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/nv.d3.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/additional-styles.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/stylesheet.css" />
+  {% endblock styles %}
+  
+  {% block extrascripts %}{% endblock %}
+  {% block extrastyles %}{% endblock %}
+  <div class="navbar-wrapper">
+  {% block navbar %}{% endblock navbar %}
+  </div>
+  <div class="wrapper {% block wrapper-class %}{% endblock wrapper-class %} ">
+  
+  
+    {% block main %}{% endblock main %}
+    
+	</div>
+    <footer>
+    {% block footer %}{% endblock footer %}
+    </footer>
+    
+    <!-- scripts concatenated and minified via build script -->
+  {% endblock body-content %}
+  {% endblock body %}
+    {% block jquery %}
+    <!-- // <script type="text/javascript" src="{{STATIC_URL}}js/libs/jquery-1.11.2.min.js"></script> -->
+    {% endblock jquery %}
+    
+    {% block fastclick %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/libs/fastclick.min.js"></script>
+    {% endblock fastclick %}
+  
+  {% block scripts %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/libs/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/libs/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/libs/d3.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/libs/nv.d3.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/additional-scripts.js"></script>
+  {% endblock scripts %}
+  {% block user-feedback %}
+    <script type="text/javascript" src="https://umichdig.atlassian.net/s/3035c2e0085ea26a42de5c8b2c0e1587-T/en_US2msj6z/65007/8/1.4.25/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&amp;collectorId=82b69de9"></script>
+    {% endblock user-feedback %}
+
+</body>
+</html>
