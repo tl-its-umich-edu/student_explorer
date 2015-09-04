@@ -62,7 +62,7 @@ EOM
 
         cd settings/extras
         ls *.deb; if [ $? -eq 0 ]; then
-            apt-get --no-install-recommends install --yes libaio1 libaio-
+            apt-get --no-install-recommends install --yes libaio1 libaio-dev
             dpkg -i *.deb
             export ORACLE_HOME=/usr/lib/oracle/12.1/client64
             export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME/lib
