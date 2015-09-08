@@ -4,10 +4,10 @@
 Vagrant.configure(2) do |config|
     config.vm.box = "ubuntu/trusty64"
 
-    config.vm.network "forwarded_port", guest: 22, host: 2202
-    config.vm.network "forwarded_port", guest: 8000, host: 8002
-    config.vm.network "forwarded_port", guest: 80, host: 8003
-    config.vm.network "forwarded_port", guest: 3306, host: 3302
+    config.vm.network "forwarded_port", guest: 22,   host: 2022
+    config.vm.network "forwarded_port", guest: 8000, host: 2080
+    config.vm.network "forwarded_port", guest: 80,   host: 2081
+    config.vm.network "forwarded_port", guest: 3306, host: 2033
 
     config.vm.provision "shell", inline: <<-SHELL
         set -xe
