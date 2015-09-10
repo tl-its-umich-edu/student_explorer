@@ -1,0 +1,84 @@
+{% extends 'dashboard/base.html' %}
+
+{% block page-title %}SE{% endblock %}
+
+{% block main %}
+{% verbatim %}
+<body ng-app="studentexplorerApp" layout="row" ng-controller="StudentController as ctrl" ng-cloak>
+
+<div flex layout="row">
+
+<md-content>
+  <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+    <md-toolbar >
+      <div class="md-toolbar-tools" >
+        <span ng-if="ctrl.selected == null">All Students</span>
+        <span ng-if="ctrl.selected != null">{{ctrl.selected.name}}</span>
+        <span flex></span>
+        <form class="search-bar">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-search"></i></div>
+              <input type="text" class="form-control" placeholder="Search student" ng-model="ctrl.searchStudent">
+            </div>      
+          </div>
+        </form>
+      </div>
+    </md-toolbar>
+  </div>
+
+  <div layout="row" layout-sm="column">
+    <md-content id="content" ng-if="ctrl.selected == null">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <td>
+              <a href="" ng-click="ctrl.sortType = 'name'; ctrl.sortReverse = !ctrl.sortReverse">
+                Name
+                <span ng-show="ctrl.sortType == 'name' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="ctrl.sortType == 'name' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </td>
+            <td>
+              <a href="" ng-click="ctrl.sortType = 'student_ID'; ctrl.sortReverse = !ctrl.sortReverse">
+                Student ID
+                <span ng-show="ctrl.sortType == 'student_ID' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="ctrl.sortType == 'student_ID' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </td>
+            <td>
+              <a href="" ng-click="ctrl.sortType = 'GPA'; ctrl.sortReverse = !ctrl.sortReverse">
+                GPA
+                <span ng-show="ctrl.sortType == 'GPA' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="ctrl.sortType == 'GPA' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </td>
+            <td>
+              <a href="" ng-click="ctrl.sortType = 'year'; ctrl.sortReverse = !ctrl.sortReverse">
+                Year
+                <span ng-show="ctrl.sortType == 'year' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="ctrl.sortType == 'year' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="student in ctrl.students | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchStudent">
+            <td>{{ student.name }}</td>
+            <td>{{ student.student_ID }}</td>
+            <td>{{ student.GPA }}</td>
+            <td>{{ student.year }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </md-content>
+  </div>
+</md-content>
+
+</div>
+<hr/>
+<center class="smallnote"><p>Copyright &copy; 2015 The Regents of the Univerisity of Michigan</p></center>
+</body>
+{% endverbatim %}
+{% endblock %}
