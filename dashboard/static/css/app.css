@@ -32,9 +32,9 @@ md-toolbar h1 {
     color: #03a9f4;
   }*/
 
-  md-sidenav  md-list {
-    padding: 0px 0px 8px 0px;
-  }
+md-sidenav  md-list {
+  padding: 0px 0px 8px 0px;
+}
 
 
 /* Primary content area */
@@ -81,12 +81,6 @@ md-button.menuBtn > md-icon {
   border-radius: 75%;
   padding:4px;
   transition: all 100ms ease-out 30ms;
-}
-
-#content img {
-  display: block;
-  height: auto;
-  max-width: 500px;
 }
 
 /* Utils */
@@ -164,15 +158,24 @@ md-content li {
   list-style-type: none;
 }
 
-md-autocomplete {
-  width: 100px;
-}
-
 .smallnote  {
-  font-size: x-small;;
+  font-size: x-small;
 }
 
 /* Fade the grid lines a bit in the NVD3 charts */
 .tick line:not(.zero) {
   opacity: 0.5 !important;
 }
+
+.search-bar {
+  width: 35%;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+table {
+  width: 1200px !important;
+}
+

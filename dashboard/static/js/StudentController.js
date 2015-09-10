@@ -25,7 +25,9 @@
 
     self.selected             = null;
     self.students             = [ ];
-    self.options              = null;
+    self.sortType             = 'name';
+    self.sortReverse          = false;
+    self.searchStudent        = '';
 
     StudentExplorerApiService
           .students()
@@ -33,23 +35,6 @@
           self.students = [].concat(student);
           });
 
-    self.options = {
-      rowHeight: 50,
-      headerHeight: 50,
-      footerHeight: false,
-      scrollbarV: false,
-      selectable: false,
-      columns: [{
-        name: "Name",
-        width: 300
-      }, {
-        name: "student_ID"
-      }, {
-        name: "GPA"
-      }, {
-        name: "year"
-      }]
-    };
     // *********************************
     // Internal methods
     // *********************************
