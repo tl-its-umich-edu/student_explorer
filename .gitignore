@@ -5,3 +5,9 @@
 !/settings/extras/README
 
 /.vagrant
+.DS_Store
+dashboard/.DS_Store
+dashboard/static/.DS_Store
+dashboard/static/bower_components/.DS_Store
+dashboard/static/bower_components/nvd3/.DS_Store
+dashboard/static/js/.DS_Store

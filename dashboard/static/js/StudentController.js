@@ -30,6 +30,7 @@
     self.searchStudent        = '';
     self.checkGPA             = checkGPA;
     self.checkYear            = checkYear;
+    self.icons                = [];
 
     self.gpaSlider            = { min:0, max:4};
     self.classStanding        = { Freshman: true, Sophomore: true, Junior: true, Senior: true};
@@ -40,9 +41,11 @@
           self.students = [].concat(student);
           });
 
-    // *********************************
-    // Internal methods
-    // *********************************
+    self.icons = [
+      {name:"Engage", url:'{{STATIC_URL}}images/Status_Icons_Engage.png'},
+      {name:"Explore", url:'{{STATIC_URL}}images/Status_Icons_Explore.png'},
+      {name:"Encourage", url:'{{STATIC_URL}}images/Status_Icons_Encourage.png'}
+    ]
 
     function checkGPA(GPA) {
       if (GPA >= self.gpaSlider.min && GPA <= self.gpaSlider.max) {

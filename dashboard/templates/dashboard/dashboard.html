@@ -41,9 +41,7 @@
               <td class="side-title">
                 Status
                 <ul style="list-style-type:none">
-                  <li>Engage</li>
-                  <li>Explore</li>
-                  <li>Encourage</li>
+                  <li ng-repeat="icon in ctrl.icons"><img ng-src="{{icon.url}}" alt="{{icon.name}}"/>{{icon.name}}</li>
                 </ul>
               </td>
             </tr>
