@@ -16,7 +16,6 @@ class Advisor(models.Model):
     univ_id = models.CharField(max_length=10)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    advisees = models.ManyToManyField(Student, through='StudentAdvisorRole')
 
     def __unicode__(self):
         return self.username
