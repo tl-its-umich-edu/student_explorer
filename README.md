@@ -6,4 +6,5 @@
 3. `vagrant up`
 4. `vagrant ssh -c 'python /vagrant/manage.py migrate'`
 5. `vagrant ssh -c 'python /vagrant/manage.py runserver'`
-6. Browse to [http://localhost:2080/](http://localhost:2080/)
+6. `vagrant ssh -c 'python /vagrant/manage.py loaddata advising/fixtures/*.json'`
+7. Browse to [http://localhost:2080/](http://localhost:2080/)
