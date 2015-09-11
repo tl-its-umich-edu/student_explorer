@@ -1,19 +1,26 @@
-from advising import models
-from django.http import HttpResponse
-from django.views.generic import View
-import json
+from advising.models import Advisor, Student
+from advising.serializers import AdvisorSerializer, StudentSerializer
+from rest_framework import viewsets
+
+# from django.http import HttpResponse
+# import json
+#
+# def advisor_list(request):
+#     data = models.Advisor.objects.all()
+#     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-def advisor_list(request):
-    data = models.Advisor.objects.all()
-    return HttpResponse(json.dumps(data), content_type="application/json")
+class AdvisorViewSet(viewsets.ReadOnlyModelViewSet):
+    '''
+    API endpoint that allows advisors to be viewed.
+    '''
+    queryset = Advisor.objects.all()
+    serializer_class = AdvisorSerializer
 
 
-class Courses(View):
-
-    def get(self, request):
-        data = models.Course.objects.values_list('course', flat=True)
-        return HttpResponse(json.dumps(map(unicode, data)),
-                            content_type="application/json")
-
-courses = Courses.as_view()
+class StudentViewSet(viewsets.ReadOnlyModelViewSet):
+    '''
+    API endpoint that allows students to be viewed.
+    '''
+    queryset = Student.objects.all()
+    serializer_class = AdvisorSerializer
