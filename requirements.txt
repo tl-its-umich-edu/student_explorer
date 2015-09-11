@@ -2,3 +2,8 @@ Django<1.9
 mysql-python
 python-ldap
 requests
+nodejs-legacy
+npm
+git
+bower
+angular-rangeslider
