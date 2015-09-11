@@ -12,8 +12,8 @@
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
     <md-toolbar >
       <div class="md-toolbar-tools" >
-        <span ng-if="ctrl.selected == null">All Students</span>
-        <span ng-if="ctrl.selected != null">{{ctrl.selected.name}}</span>
+        <h1><span ng-if="ctrl.selected == null">All Students</span></h1>
+        <h1><span ng-if="ctrl.selected != null">{{ctrl.selected.name}}</span></h1>
         <span flex></span>
         <form class="search-bar">
           <div class="form-group">
@@ -29,49 +29,114 @@
 
   <div layout="row" layout-sm="column">
     <md-content id="content" ng-if="ctrl.selected == null">
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <td>
-              <a href="" ng-click="ctrl.sortType = 'name'; ctrl.sortReverse = !ctrl.sortReverse">
-                Name
-                <span ng-show="ctrl.sortType == 'name' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="ctrl.sortType == 'name' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </td>
-            <td>
-              <a href="" ng-click="ctrl.sortType = 'student_ID'; ctrl.sortReverse = !ctrl.sortReverse">
-                Student ID
-                <span ng-show="ctrl.sortType == 'student_ID' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="ctrl.sortType == 'student_ID' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </td>
-            <td>
-              <a href="" ng-click="ctrl.sortType = 'GPA'; ctrl.sortReverse = !ctrl.sortReverse">
-                GPA
-                <span ng-show="ctrl.sortType == 'GPA' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="ctrl.sortType == 'GPA' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </td>
-            <td>
-              <a href="" ng-click="ctrl.sortType = 'year'; ctrl.sortReverse = !ctrl.sortReverse">
-                Year
-                <span ng-show="ctrl.sortType == 'year' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="ctrl.sortType == 'year' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="student in ctrl.students | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchStudent">
-            <td>{{ student.name }}</td>
-            <td>{{ student.student_ID }}</td>
-            <td>{{ student.GPA }}</td>
-            <td>{{ student.year }}</td>
-          </tr>
-        </tbody>
-      </table>
-
+      <div class="tb filter-table">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <td><a>Filters<a></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="side-title">
+                Status
+                <ul style="list-style-type:none">
+                  <li ng-repeat="icon in ctrl.icons"><img ng-src="{{icon.url}}" alt="{{icon.name}}"/>{{icon.name}}</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="side-title">Cohorts</td>
+            </tr>
+            <tr>
+              <td class="side-title">
+                Class Standing
+                <ul style="list-style-type:none">
+                  <li><a href="" ng-click="ctrl.classStanding.Freshman = !ctrl.classStanding.Freshman" ng-class="{'unselected': !ctrl.classStanding.Freshman}">Freshman</a></li>
+                  <li><a href="" ng-click="ctrl.classStanding.Sophomore = !ctrl.classStanding.Sophomore" ng-class="{'unselected': !ctrl.classStanding.Sophomore}">Sophomore</a></li>
+                  <li><a href="" ng-click="ctrl.classStanding.Junior = !ctrl.classStanding.Junior" ng-class="{'unselected': !ctrl.classStanding.Junior}">Junior</a></li>
+                  <li><a href="" ng-click="ctrl.classStanding.Senior = !ctrl.classStanding.Senior" ng-class="{'unselected': !ctrl.classStanding.Senior}">Senior</a></li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="side-title">GPA Range
+                <p><span>{{ctrl.gpaSlider.min}}</span> to <span>{{ctrl.gpaSlider.max}}</span></p>
+                <div class="range-slider" range-slider min="0" max="4" model-min="ctrl.gpaSlider.min" model-max="ctrl.gpaSlider.max" step="0.5" decimal-places="1" disabled="false"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- comment used for removing the gap
+   --><div class="tb student-table">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <td>
+                <a href="" ng-click="ctrl.sortType = 'name'; ctrl.sortReverse = !ctrl.sortReverse">
+                  Name
+                  <span ng-show="ctrl.sortType == 'name' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="ctrl.sortType == 'name' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </td>
+              <td>
+                <a href="" ng-click="ctrl.sortType = 'student_ID'; ctrl.sortReverse = !ctrl.sortReverse">
+                  Student ID
+                  <span ng-show="ctrl.sortType == 'student_ID' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="ctrl.sortType == 'student_ID' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </td>
+              <td>
+                <a href="" ng-click="ctrl.sortType = 'status'; ctrl.sortReverse = !ctrl.sortReverse">
+                  Status
+                  <span ng-show="ctrl.sortType == 'status' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="ctrl.sortType == 'status' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </td>
+              <td>
+                <a href="" ng-click="ctrl.sortType = 'cohorts'; ctrl.sortReverse = !ctrl.sortReverse">
+                  Cohorts
+                  <span ng-show="ctrl.sortType == 'cohorts' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="ctrl.sortType == 'cohorts' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </td>
+              <td>
+                <a href="" ng-click="ctrl.sortType = 'GPA'; ctrl.sortReverse = !ctrl.sortReverse">
+                  GPA
+                  <span ng-show="ctrl.sortType == 'GPA' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="ctrl.sortType == 'GPA' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </td>
+              <td>
+                <a href="" ng-click="ctrl.sortType = 'year'; ctrl.sortReverse = !ctrl.sortReverse">
+                  Year
+                  <span ng-show="ctrl.sortType == 'year' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="ctrl.sortType == 'year' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="student in ctrl.students | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchStudent" ng-if="ctrl.checkGPA(student.GPA) &amp;&amp; ctrl.checkYear(student.year)">
+              <td class="bold">{{ student.name }}</td>
+              <td>{{ student.student_ID }}</td>
+              <td>
+                <ul style="list-style-type:none">
+                  <li>{{ student.status[0].engage }} course<span ng-if="student.status[0].engage > 1">s</span></li>
+                  <li>{{ student.status[0].explore }} course<span ng-if="student.status[0].explore > 1">s</span></li>
+                  <li>{{ student.status[0].encourage }} course<span ng-if="student.status[0].encourage > 1">s</span></li>
+                </ul>
+              </td>
+              <td>
+                <ul style="list-style-type:none">
+                  <li ng-repeat="cohort in student.cohorts">{{ cohort.cohorts_name }}</li>
+                </ul></td>
+              <td>{{ student.GPA }}</td>
+              <td>{{ student.year }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </md-content>
   </div>
 </md-content>
