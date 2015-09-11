@@ -1,7 +1,7 @@
 [
 {
     "fields": {
-        "username": "Graciela",
+        "username": "graciela",
         "first_name": "Graciela",
         "last_name": "Devilbiss",
         "univ_id": "00000001"
@@ -11,7 +11,7 @@
 },
 {
     "fields": {
-        "username": "Sandra",
+        "username": "sandra",
         "first_name": "Sandra",
         "last_name": "Hollis",
         "univ_id": "00000002"
@@ -21,7 +21,7 @@
 },
 {
     "fields": {
-        "username": "Shannon",
+        "username": "shannon",
         "first_name": "Shannon",
         "last_name": "Pedersen",
         "univ_id": "00000003"
@@ -31,7 +31,7 @@
 },
 {
     "fields": {
-        "username": "May",
+        "username": "may",
         "first_name": "May",
         "last_name": "Mejorado",
         "univ_id": "00000004"
@@ -41,7 +41,7 @@
 },
 {
     "fields": {
-        "username": "Gianna",
+        "username": "gianna",
         "first_name": "Gianna",
         "last_name": "Fekete",
         "univ_id": "00000005"
@@ -51,7 +51,7 @@
 },
 {
     "fields": {
-        "username": "Caroyln",
+        "username": "caroyln",
         "first_name": "Caroyln",
         "last_name": "Grayer",
         "univ_id": "00000006"
@@ -61,7 +61,7 @@
 },
 {
     "fields": {
-        "username": "Clelia",
+        "username": "clelia",
         "first_name": "Clelia",
         "last_name": "Glessner",
         "univ_id": "00000007"
@@ -71,7 +71,7 @@
 },
 {
     "fields": {
-        "username": "Theo",
+        "username": "theo",
         "first_name": "Theo",
         "last_name": "Callan",
         "univ_id": "00000008"
@@ -81,7 +81,7 @@
 },
 {
     "fields": {
-        "username": "Janell",
+        "username": "janell",
         "first_name": "Janell",
         "last_name": "Deckard",
         "univ_id": "00000009"
@@ -91,7 +91,7 @@
 },
 {
     "fields": {
-        "username": "Deirdre",
+        "username": "deirdre",
         "first_name": "Deirdre",
         "last_name": "Haupt",
         "univ_id": "000000010"
@@ -101,7 +101,7 @@
 },
 {
     "fields": {
-        "username": "Lesha",
+        "username": "lesha",
         "first_name": "Lesha",
         "last_name": "Paulino",
         "univ_id": "00000011"
@@ -111,7 +111,7 @@
 },
 {
     "fields": {
-        "username": "Valentin",
+        "username": "valentin",
         "first_name": "Valentin",
         "last_name": "Aziz",
         "univ_id": "00000012"
@@ -121,7 +121,7 @@
 },
 {
     "fields": {
-        "username": "Evangelina",
+        "username": "evangelina",
         "first_name": "Evangelina",
         "last_name": "Manchester",
         "univ_id": "000000013"
@@ -131,7 +131,7 @@
 },
 {
     "fields": {
-        "username": "Jeana",
+        "username": "jeana",
         "first_name": "Jeana",
         "last_name": "Caver",
         "univ_id": "00000014"
@@ -141,7 +141,7 @@
 },
 {
     "fields": {
-        "username": "Wendi",
+        "username": "wendi",
         "first_name": "Wendi",
         "last_name": "Minyard",
         "univ_id": "00000015"
@@ -151,7 +151,7 @@
 },
 {
     "fields": {
-        "username": "Gabriela",
+        "username": "gabriela",
         "first_name": "Gabriela",
         "last_name": "Rea",
         "univ_id": "00000016"
@@ -161,7 +161,7 @@
 },
 {
     "fields": {
-        "username": "Deeanna",
+        "username": "deeanna",
         "first_name": "Deeanna",
         "last_name": "Buss",
         "univ_id": "00000017"
@@ -171,7 +171,7 @@
 },
 {
     "fields": {
-        "username": "Gennie",
+        "username": "gennie",
         "first_name": "Gennie",
         "last_name": "Ditmore",
         "univ_id": "00000018"
@@ -181,7 +181,7 @@
 },
 {
     "fields": {
-        "username": "Geneva",
+        "username": "geneva",
         "first_name": "Geneva",
         "last_name": "Michie",
         "univ_id": "00000019"
@@ -191,7 +191,7 @@
 },
 {
     "fields": {
-        "username": "Desmond",
+        "username": "desmond",
         "first_name": "Desmond",
         "last_name": "Foxx",
         "univ_id": "00000020"
@@ -201,7 +201,7 @@
 },
 {
     "fields": {
-        "username": "Zander",
+        "username": "zander",
         "first_name": "Zander",
         "last_name": "Agrippa",
         "univ_id": "00000101"
@@ -211,7 +211,7 @@
 },
 {
     "fields": {
-        "username": "Burl",
+        "username": "burl",
         "first_name": "Burl",
         "last_name": "Chandler",
         "univ_id": "0000102"
@@ -221,7 +221,7 @@
 },
 {
     "fields": {
-        "username": "Lavera",
+        "username": "lavera",
         "first_name": "Lavera",
         "last_name": "Rumore",
         "univ_id": "00000103"
@@ -231,7 +231,7 @@
 },
 {
     "fields": {
-        "username": "Mollie",
+        "username": "mollie",
         "first_name": "Mollie",
         "last_name": "Whistler",
         "univ_id": "00000104"
@@ -241,7 +241,7 @@
 },
 {
     "fields": {
-        "username": "Carla",
+        "username": "carla",
         "first_name": "Carla",
         "last_name": "Beumer",
         "univ_id": "00000105"
