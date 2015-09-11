@@ -28,6 +28,11 @@
     self.sortType             = 'name';
     self.sortReverse          = false;
     self.searchStudent        = '';
+    self.checkGPA             = checkGPA;
+    self.checkYear            = checkYear;
+
+    self.gpaSlider            = { min:0, max:4};
+    self.classStanding        = { Freshman: true, Sophomore: true, Junior: true, Senior: true};
 
     StudentExplorerApiService
           .students()
@@ -39,6 +44,16 @@
     // Internal methods
     // *********************************
 
+    function checkGPA(GPA) {
+      if (GPA >= self.gpaSlider.min && GPA <= self.gpaSlider.max) {
+        return true;
+      }
+      return false;
+    }
+
+    function checkYear(year) {
+      return self.classStanding[year];
+    }
   }
 
 })();

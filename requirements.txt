@@ -3,3 +3,8 @@ mysql-python
 python-ldap
 requests
 djangorestframework
+nodejs-legacy
+npm
+git
+bower
+angular-rangeslider
