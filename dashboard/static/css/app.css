@@ -81,6 +81,15 @@ table thead a {
   color: black;
 }
 
+table ul {
+  padding-left: 0;
+}
+
+table td {
+  width: 180px !important;
+  padding-left: 15px !important;
+}
+
 .bold {
   font-weight: bold;
 }
@@ -95,11 +104,46 @@ table thead a {
   color: #666;
 }
 
+.side-title li {
+  font-size: 0.8em;
+  color: black;
+  padding-top: 15px;
+}
+
+.side-title p {
+  font-size: 0.8em;
+  color: black;
+  margin: 20px auto;
+}
+
+.side-title ul {
+  margin-bottom: 8px;
+}
+
+.side-title a {
+  color: black;
+  text-decoration: none;
+}
+
+.range-slider {
+  width: 95%;
+}
+
 .filter-table table td {
   background-color: #E6E6E6 !important;
   border: 0px !important;
+  width: 198px !important;
+}
+
+.filter-table thead a:hover {
+  color: black;
+  text-decoration: none;
 }
 
 .filter-table tbody tr {
   border-bottom: 2px solid #CCC;
+}
+
+.unselected {
+  color: #CCC !important;
 }

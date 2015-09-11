@@ -38,16 +38,34 @@
           </thead>
           <tbody>
             <tr>
-              <td class="side-title">Status</td>
+              <td class="side-title">
+                Status
+                <ul style="list-style-type:none">
+                  <li>Engage</li>
+                  <li>Explore</li>
+                  <li>Encourage</li>
+                </ul>
+              </td>
             </tr>
             <tr>
               <td class="side-title">Cohorts</td>
             </tr>
             <tr>
-              <td class="side-title">Class Standing</td>
+              <td class="side-title">
+                Class Standing
+                <ul style="list-style-type:none">
+                  <li><a href="" ng-click="ctrl.classStanding.Freshman = !ctrl.classStanding.Freshman" ng-class="{'unselected': !ctrl.classStanding.Freshman}">Freshman</a></li>
+                  <li><a href="" ng-click="ctrl.classStanding.Sophomore = !ctrl.classStanding.Sophomore" ng-class="{'unselected': !ctrl.classStanding.Sophomore}">Sophomore</a></li>
+                  <li><a href="" ng-click="ctrl.classStanding.Junior = !ctrl.classStanding.Junior" ng-class="{'unselected': !ctrl.classStanding.Junior}">Junior</a></li>
+                  <li><a href="" ng-click="ctrl.classStanding.Senior = !ctrl.classStanding.Senior" ng-class="{'unselected': !ctrl.classStanding.Senior}">Senior</a></li>
+                </ul>
+              </td>
             </tr>
             <tr>
-              <td class="side-title">GPA Range</td>
+              <td class="side-title">GPA Range
+                <p><span>{{ctrl.gpaSlider.min}}</span> to <span>{{ctrl.gpaSlider.max}}</span></p>
+                <div class="range-slider" range-slider min="0" max="4" model-min="ctrl.gpaSlider.min" model-max="ctrl.gpaSlider.max" step="0.5" decimal-places="1" disabled="false"></div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -101,11 +119,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="student in ctrl.students | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchStudent">
+            <tr ng-repeat="student in ctrl.students | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchStudent" ng-if="ctrl.checkGPA(student.GPA) &amp;&amp; ctrl.checkYear(student.year)">
               <td class="bold">{{ student.name }}</td>
               <td>{{ student.student_ID }}</td>
-              <td>{{ student.status }}</td>
-              <td>{{ student.cohorts }}</td>
+              <td>
+                <ul style="list-style-type:none">
+                  <li>{{ student.status[0].engage }} course<span ng-if="student.status[0].engage > 1">s</span></li>
+                  <li>{{ student.status[0].explore }} course<span ng-if="student.status[0].explore > 1">s</span></li>
+                  <li>{{ student.status[0].encourage }} course<span ng-if="student.status[0].encourage > 1">s</span></li>
+                </ul>
+              </td>
+              <td>
+                <ul style="list-style-type:none">
+                  <li ng-repeat="cohort in student.cohorts">{{ cohort.cohorts_name }}</li>
+                </ul></td>
               <td>{{ student.GPA }}</td>
               <td>{{ student.year }}</td>
             </tr>
