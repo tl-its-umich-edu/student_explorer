@@ -6,6 +6,7 @@ class Student(models.Model):
     univ_id = models.CharField(max_length=10)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
 
     def __unicode__(self):
         return self.username
@@ -16,6 +17,7 @@ class Advisor(models.Model):
     univ_id = models.CharField(max_length=10)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    advisees = models.ManyToManyField('Student', through='StudentAdvisorRole')
 
     def __unicode__(self):
         return self.username
@@ -36,3 +38,6 @@ class StudentAdvisorRole(models.Model):
 
     def __unicode__(self):
         return '%s advises %s as %s' % (self.advisor, self.student, self.role)
+
+    class Meta:
+        unique_together = ('student', 'advisor', 'role')
