@@ -26,11 +26,13 @@ class StudentSerializer(serializers.ModelSerializer):
 class AdviseeRoleSerializer(serializers.ModelSerializer):
     first_name = serializers.ReadOnlyField(source='student.first_name')
     last_name = serializers.ReadOnlyField(source='student.last_name')
+    username = serializers.ReadOnlyField(source='student.username')
+    univ_id = serializers.ReadOnlyField(source='student.univ_id')
     role = serializers.ReadOnlyField(source='role.description')
 
     class Meta:
         model = StudentAdvisorRole
-        fields = ('first_name', 'last_name', 'role',)
+        fields = ('username', 'univ_id', 'first_name', 'last_name', 'role',)
 
 
 class AdvisorSerializer(serializers.ModelSerializer):
