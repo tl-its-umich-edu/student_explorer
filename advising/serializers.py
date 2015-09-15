@@ -2,16 +2,17 @@ from advising.models import Student, Advisor, StudentAdvisorRole
 from rest_framework import serializers
 
 
-class AdvisorRoleSerializer(serializers.ModelSerializer):
-    first_name = serializers.ReadOnlyField(source='advisor.first_name')
-    last_name = serializers.ReadOnlyField(source='advisor.last_name')
-    username = serializers.ReadOnlyField(source='advisor.username')
-    univ_id = serializers.ReadOnlyField(source='advisor.univ_id')
-    role = serializers.ReadOnlyField(source='role.description')
+# Simplified representations of the Advisor and Student models. These are
+# suitable for listing all advisors / students, and for nesting an advisor's
+# students in the AdvisorFullSerializer class (and vise versa).
+
+class AdvisorSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='advisor-detail',
+                                               lookup_field='username')
 
     class Meta:
-        model = StudentAdvisorRole
-        fields = ('username', 'univ_id', 'first_name', 'last_name', 'role',)
+        model = Advisor
+        fields = ('username', 'first_name', 'last_name', 'url')
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -23,17 +24,18 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = ('username', 'first_name', 'last_name', 'url')
 
 
-class StudentCompleteSerializer(StudentSerializer):
-    advisors = AdvisorRoleSerializer(source='studentadvisorrole_set',
-                                     many=True)
+# Serializations of the relationships between advisors and students.
+
+class StudentAdvisorsSerializer(serializers.ModelSerializer):
+    advisor = AdvisorSerializer(read_only=True)
+    role = serializers.ReadOnlyField(source='role.description')
 
     class Meta:
-        model = Student
-        fields = ('username', 'univ_id', 'first_name', 'last_name',
-                  'advisors')
+        model = StudentAdvisorRole
+        fields = ('role', 'advisor',)
 
 
-class AdviseeRoleSerializer(serializers.ModelSerializer):
+class AdvisorStudentsSerializer(serializers.ModelSerializer):
     student = StudentSerializer(read_only=True)
     role = serializers.ReadOnlyField(source='role.description')
 
@@ -42,20 +44,24 @@ class AdviseeRoleSerializer(serializers.ModelSerializer):
         fields = ('role', 'student',)
 
 
-class AdvisorSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='advisor-detail',
-                                               lookup_field='username')
+# Full serializations of the Advisor and Student models, including nested
+# lists of their relationships.
+
+class StudentFullSerializer(StudentSerializer):
+    advisors = StudentAdvisorsSerializer(source='studentadvisorrole_set',
+                                         many=True)
 
     class Meta:
-        model = Advisor
-        fields = ('username', 'first_name', 'last_name', 'url')
+        model = Student
+        fields = ('username', 'univ_id', 'first_name', 'last_name',
+                  'advisors')
 
 
-class AdvisorCompleteSerializer(AdvisorSerializer):
-    advisees = AdviseeRoleSerializer(source='studentadvisorrole_set',
-                                     many=True)
+class AdvisorFullSerializer(AdvisorSerializer):
+    students = AdvisorStudentsSerializer(source='studentadvisorrole_set',
+                                         many=True)
 
     class Meta:
         model = Advisor
         fields = ('username', 'univ_id', 'first_name', 'last_name',
-                  'advisees')
+                  'students')

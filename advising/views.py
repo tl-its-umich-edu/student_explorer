@@ -1,7 +1,7 @@
 from advising.models import Advisor, Student
 from advising.serializers import (AdvisorSerializer, StudentSerializer,
-                                  AdvisorCompleteSerializer,
-                                  StudentCompleteSerializer)
+                                  AdvisorFullSerializer,
+                                  StudentFullSerializer)
 from rest_framework import generics
 
 from rest_framework.decorators import api_view
@@ -13,6 +13,7 @@ from rest_framework.reverse import reverse
 def api_root(request, format=None):
     return Response({
         'advisors': reverse('advisor-list', request=request, format=format),
+        'students': reverse('student-list', request=request, format=format),
     })
 
 
@@ -30,7 +31,7 @@ class AdvisorDetail(generics.RetrieveAPIView):
     API endpoint that allows advisors to be viewed.
     '''
     queryset = Advisor.objects.all()
-    serializer_class = AdvisorCompleteSerializer
+    serializer_class = AdvisorFullSerializer
     lookup_field = 'username'
 
 
@@ -48,5 +49,5 @@ class StudentDetail(generics.RetrieveAPIView):
     API endpoint that allows advisors to be viewed.
     '''
     queryset = Student.objects.all()
-    serializer_class = StudentCompleteSerializer
+    serializer_class = StudentFullSerializer
     lookup_field = 'username'
