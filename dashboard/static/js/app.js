@@ -1,5 +1,5 @@
 angular
-  .module('studentexplorerApp', ['ngMaterial', 'students'])
+  .module('studentexplorerApp', ['ngMaterial', 'students', 'ui-rangeSlider'])
   .config(function($mdThemingProvider){
     $mdThemingProvider.theme('default')
       .primaryPalette('indigo')

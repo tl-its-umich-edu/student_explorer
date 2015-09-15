@@ -4,7 +4,10 @@
 1. Install Vagrant (https://www.vagrantup.com/)
 2. `cd student_explorer`
 3. `vagrant up`
-4. `vagrant ssh -c 'python /vagrant/manage.py migrate'`
-5. `vagrant ssh -c 'python /vagrant/manage.py loaddata advising/fixtures/*.json'`
-6. `vagrant ssh -c 'python /vagrant/manage.py runserver'`
+4. `vagrant ssh`
+    - `cd /vagrant/`
+    - `python manage.py migrate`
+    - `python manage.py createsuperuser` ("admin" is fine for both username and password, email can be empty)
+    - `python manage.py loaddata advising/fixtures/*.json`
+    - `python manage.py runserver`
 7. Browse to [http://localhost:2080/](http://localhost:2080/)
