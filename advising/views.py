@@ -19,7 +19,7 @@ def api_root(request, format=None):
 
 class AdvisorList(generics.ListAPIView):
     '''
-    API endpoint that allows advisors to be viewed.
+    API endpoint that lists advisors.
     '''
     queryset = Advisor.objects.all()
     serializer_class = AdvisorSerializer
@@ -28,7 +28,7 @@ class AdvisorList(generics.ListAPIView):
 
 class AdvisorDetail(generics.RetrieveAPIView):
     '''
-    API endpoint that allows advisors to be viewed.
+    API endpoint that shows advisor details.
     '''
     queryset = Advisor.objects.all()
     serializer_class = AdvisorFullSerializer
@@ -37,7 +37,7 @@ class AdvisorDetail(generics.RetrieveAPIView):
 
 class StudentList(generics.ListAPIView):
     '''
-    API endpoint that allows advisors to be viewed.
+    API endpoint that lists students.
     '''
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
@@ -46,7 +46,7 @@ class StudentList(generics.ListAPIView):
 
 class StudentDetail(generics.RetrieveAPIView):
     '''
-    API endpoint that allows advisors to be viewed.
+    API endpoint that shows student details.
     '''
     queryset = Student.objects.all()
     serializer_class = StudentFullSerializer

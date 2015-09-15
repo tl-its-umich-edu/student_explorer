@@ -8,6 +8,7 @@ class Student(models.Model):
     first_name = models.CharField(max_length=500,
                                   db_column='STDNT_PREF_FIRST_NM')
     last_name = models.CharField(max_length=500, db_column='STDNT_PREF_SURNM')
+    advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
 
     def __unicode__(self):
         return self.username
@@ -23,6 +24,7 @@ class Advisor(models.Model):
     first_name = models.CharField(max_length=500,
                                   db_column='ADVSR_PREF_FIRST_NM')
     last_name = models.CharField(max_length=500, db_column='ADVSR_PREF_SURNM')
+    students = models.ManyToManyField('Student', through='StudentAdvisorRole')
 
     def __unicode__(self):
         return self.username
@@ -56,4 +58,3 @@ class StudentAdvisorRole(models.Model):
 
     class Meta:
         db_table = '"CNLYR002"."BG_STDNT_ADVSR_ROLE"'
-        unique_together = (('student', 'advisor', 'role'),)

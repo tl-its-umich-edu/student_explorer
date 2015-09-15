@@ -1,4 +1,10 @@
 from django.db import models
+from django.conf import settings
+import importlib
+
+# Note that these model definitions are overriden below if
+# settings.ADVISING_PACKAGE is set. This allows for customized models to
+# accommodate external databases and their schema differences.
 
 
 class Student(models.Model):
@@ -41,3 +47,14 @@ class StudentAdvisorRole(models.Model):
 
     class Meta:
         unique_together = ('student', 'advisor', 'role')
+
+
+if hasattr(settings, 'ADVISING_PACKAGE'):
+    # Override the definitions above if an alternate package has been specified.
+    advising_models_module = settings.ADVISING_PACKAGE + '.models'
+    advising_models = importlib.import_module(advising_models_module)
+
+    Student = advising_models.Student
+    Advisor = advising_models.Advisor
+    AdvisorRole = advising_models.AdvisorRole
+    StudentAdvisorRole = advising_models.StudentAdvisorRole

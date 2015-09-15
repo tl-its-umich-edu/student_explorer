@@ -5,9 +5,9 @@ from advising import views
 urlpatterns = [
     url(r'^$', views.api_root),
     url(r'^advisors/$', views.AdvisorList.as_view(), name='advisor-list'),
-    url(r'^advisors/(?P<username>[a-z]+)/$', views.AdvisorDetail.as_view(), name='advisor-detail'),
+    url(r'^advisors/(?P<username>.*)/$', views.AdvisorDetail.as_view(), name='advisor-detail'),
     url(r'^students/$', views.StudentList.as_view(), name='student-list'),
-    url(r'^students/(?P<username>[a-z]+)/$', views.StudentDetail.as_view(), name='student-detail'),
+    url(r'^students/(?P<username>.*)/$', views.StudentDetail.as_view(), name='student-detail'),
 ]
 
 urlpatterns += [
