@@ -1,15 +1,18 @@
 from django.conf.urls import url, include
-from rest_framework import routers
+from rest_framework.urlpatterns import format_suffix_patterns
 from advising import views
 
-router = routers.DefaultRouter()
-router.register(r'advisors', views.AdvisorViewSet)
-router.register(r'students', views.StudentViewSet)
-
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    url(r'^', include(router.urls)),
-    url(r'^advisors/', include('rest_framework.urls',
-        namespace='rest_framework'))
+    url(r'^$', views.api_root),
+    url(r'^advisors/$', views.AdvisorList.as_view(), name='advisor-list'),
+    url(r'^advisors/(?P<username>[a-z]+)/$', views.AdvisorDetail.as_view(), name='advisor-detail'),
+    url(r'^students/$', views.StudentList.as_view(), name='student-list'),
+    url(r'^students/(?P<username>[a-z]+)/$', views.StudentDetail.as_view(), name='student-detail'),
 ]
+
+urlpatterns += [
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
+]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
