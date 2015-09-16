@@ -1,5 +1,7 @@
 from advising.models import Advisor, Student
-from advising.serializers import AdvisorSerializer, StudentSerializer
+from advising.serializers import (AdvisorSerializer, StudentSerializer,
+                                  StudentAdvisorsSerializer,
+                                  AdvisorStudentsSerializer)
 from rest_framework import generics
 
 from rest_framework.decorators import api_view
@@ -44,14 +46,14 @@ class AdvisorStudentsList(generics.ListAPIView):
     API endpoint that lists an advisor's students.
     '''
     queryset = Advisor.objects.all()
-    serializer_class = StudentSerializer
+    serializer_class = AdvisorStudentsSerializer
     lookup_field = 'username'
 
     def get(self, request, *args, **kwargs):
         self.queryset = (
             Advisor.objects
             .get(username=kwargs['username'])
-            .students.all()
+            .studentadvisorrole_set.all()
         )
         return self.list(request, *args, **kwargs)
 
@@ -85,13 +87,13 @@ class StudentAdvisorsList(generics.ListAPIView):
     API endpoint that lists a student's advisors.
     '''
     queryset = Student.objects.all()
-    serializer_class = AdvisorSerializer
+    serializer_class = StudentAdvisorsSerializer
     lookup_field = 'username'
 
     def get(self, request, *args, **kwargs):
         self.queryset = (
             Student.objects
             .get(username=kwargs['username'])
-            .advisors.all()
+            .studentadvisorrole_set.all()
         )
         return self.list(request, *args, **kwargs)
