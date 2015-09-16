@@ -1,7 +1,5 @@
 from advising.models import Advisor, Student
-from advising.serializers import (AdvisorSerializer, StudentSerializer,
-                                  AdvisorFullSerializer,
-                                  StudentFullSerializer)
+from advising.serializers import AdvisorSerializer, StudentSerializer
 from rest_framework import generics
 
 from rest_framework.decorators import api_view
@@ -31,8 +29,31 @@ class AdvisorDetail(generics.RetrieveAPIView):
     API endpoint that shows advisor details.
     '''
     queryset = Advisor.objects.all()
-    serializer_class = AdvisorFullSerializer
+    serializer_class = AdvisorSerializer
     lookup_field = 'username'
+
+    def get(self, request, *args, **kwargs):
+        resp = self.retrieve(request, *args, **kwargs)
+        resp.data['students_url'] = reverse('advisor-students-list',
+                                            request=request, kwargs=kwargs)
+        return resp
+
+
+class AdvisorStudentsList(generics.ListAPIView):
+    '''
+    API endpoint that lists an advisor's students.
+    '''
+    queryset = Advisor.objects.all()
+    serializer_class = StudentSerializer
+    lookup_field = 'username'
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = (
+            Advisor.objects
+            .get(username=kwargs['username'])
+            .students.all()
+        )
+        return self.list(request, *args, **kwargs)
 
 
 class StudentList(generics.ListAPIView):
@@ -49,5 +70,28 @@ class StudentDetail(generics.RetrieveAPIView):
     API endpoint that shows student details.
     '''
     queryset = Student.objects.all()
-    serializer_class = StudentFullSerializer
+    serializer_class = StudentSerializer
     lookup_field = 'username'
+
+    def get(self, request, *args, **kwargs):
+        resp = self.retrieve(request, *args, **kwargs)
+        resp.data['advisors_url'] = reverse('student-advisors-list',
+                                            request=request, kwargs=kwargs)
+        return resp
+
+
+class StudentAdvisorsList(generics.ListAPIView):
+    '''
+    API endpoint that lists a student's advisors.
+    '''
+    queryset = Student.objects.all()
+    serializer_class = AdvisorSerializer
+    lookup_field = 'username'
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = (
+            Student.objects
+            .get(username=kwargs['username'])
+            .advisors.all()
+        )
+        return self.list(request, *args, **kwargs)

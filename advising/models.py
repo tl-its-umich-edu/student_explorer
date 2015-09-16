@@ -50,7 +50,9 @@ class StudentAdvisorRole(models.Model):
 
 
 if hasattr(settings, 'ADVISING_PACKAGE'):
-    # Override the definitions above if an alternate package has been specified.
+    # Override the definitions above if an alternate package has been
+    # specified.
+
     advising_models_module = settings.ADVISING_PACKAGE + '.models'
     advising_models = importlib.import_module(advising_models_module)
 
