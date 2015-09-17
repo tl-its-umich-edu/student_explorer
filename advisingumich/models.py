@@ -9,6 +9,7 @@ class Student(models.Model):
                                   db_column='STDNT_PREF_FIRST_NM')
     last_name = models.CharField(max_length=500, db_column='STDNT_PREF_SURNM')
     advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
+    cohorts = models.ManyToManyField('Cohort', through='StudentCohort')
 
     def __unicode__(self):
         return self.username
@@ -58,3 +59,29 @@ class StudentAdvisorRole(models.Model):
 
     class Meta:
         db_table = '"CNLYR002"."BG_STDNT_ADVSR_ROLE"'
+
+
+class Cohort(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='CHRT_KEY')
+    code = models.CharField(max_length=20, db_column='CHRT_CD')
+    description = models.CharField(max_length=50, db_column='CHRT_DES')
+    group = models.CharField(max_length=100, db_column='CHRT_GRP_NM')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        db_table = '"CNLYR002"."DM_CHRT"'
+
+
+class StudentCohort(models.Model):
+    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+                                primary_key=True)
+    cohort = models.ForeignKey(Cohort, db_column='CHRT_KEY')
+
+    def __unicode__(self):
+        return '%s is in the %s cohort' % (self.student, self.cohort)
+
+    class Meta:
+        db_table = '"CNLYR002"."BG_STDNT_CHRT_MNTR"'
+        unique_together = ('student', 'cohort')
