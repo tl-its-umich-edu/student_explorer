@@ -32,10 +32,10 @@ md-content p {
   margin-left: 12px;
 }
 
-md-content img {
+/*md-content img {
   width: 250px !important;
   margin: 30px 25px;
-}
+}*/
 
 md-content ul {
   margin-bottom: 25px;
@@ -88,6 +88,11 @@ table ul {
 table td {
   width: 180px !important;
   padding-left: 15px !important;
+}
+
+table img {
+  width: 20%;
+  margin-right: 10px;
 }
 
 .bold {
