@@ -41,7 +41,7 @@
               <td class="side-title">
                 Status
                 <ul style="list-style-type:none">
-                  <li ng-repeat="icon in ctrl.icons"><a>{% endverbatim %}<img ng-src="{% static '{{icon.url}}' %}" alt="{{icon.name}}"/>{% verbatim %}{{icon.name}}</a></li>
+                  <li ng-repeat="icon in ctrl.icons"><a href="" ng-click="ctrl.statusType[icon.name] = !ctrl.statusType[icon.name]" ng-class="{'unselected': !ctrl.statusType[icon.name]}"><img ng-src="{{icon.url}}" alt="{{icon.name}}"/>{{icon.name}}</a></li>
                 </ul>
               </td>
             </tr>
@@ -117,14 +117,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="student in ctrl.students | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchStudent">
+            <tr ng-repeat="student in ctrl.students | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchStudent" ng-if="ctrl.checkGPA(student.GPA) &amp;&amp; ctrl.checkYear(student.year)">
               <td class="bold">{{ student.last_name }}, {{ student.first_name }}</td>
               <td>{{ student.univ_id }}</td>
               <td>
                 <ul style="list-style-type:none">
-                  <li ng-if="student.status[0].engage > 0">{% endverbatim %}<img ng-repeat="icon in ctrl.icons" ng-if="icon.name == 'Engage'" ng-src="{% static '{{icon.url}}' %}" alt="{{icon.name}}" />{% verbatim %}{{ student.status[0].engage }} course<span ng-if="student.status[0].engage > 1">s</span></li>
-                  <li ng-if="student.status[0].explore > 0">{% endverbatim %}<img ng-repeat="icon in ctrl.icons" ng-if="icon.name == 'Explore'" ng-src="{% static '{{icon.url}}' %}" alt="{{icon.name}}" />{% verbatim %}{{ student.status[0].explore }} course<span ng-if="student.status[0].explore > 1">s</span></li>
-                  <li ng-if="student.status[0].encourage > 0">{% endverbatim %}<img ng-repeat="icon in ctrl.icons" ng-if="icon.name == 'Encourage'" ng-src="{% static '{{icon.url}}' %}" alt="{{icon.name}}" />{% verbatim %}{{ student.status[0].encourage }} course<span ng-if="student.status[0].encourage > 1">s</span></li>
+                  <li ng-if="student.status[0].engage > 0 &amp;&amp; ctrl.checkStatus('Engage')"><img ng-repeat="icon in ctrl.icons" ng-if="icon.name == 'Engage'" ng-src="{{icon.url}}" alt="{{icon.name}}" />{{ student.status[0].engage }} course<span ng-if="student.status[0].engage > 1">s</span></li>
+                  <li ng-if="student.status[0].explore > 0 &amp;&amp; ctrl.checkStatus('Explore')"><img ng-repeat="icon in ctrl.icons" ng-if="icon.name == 'Explore'" ng-src="{{icon.url}}" alt="{{icon.name}}" />{{ student.status[0].explore }} course<span ng-if="student.status[0].explore > 1">s</span></li>
+                  <li ng-if="student.status[0].encourage > 0 &amp;&amp; ctrl.checkStatus('Encourage')"><img ng-repeat="icon in ctrl.icons" ng-if="icon.name == 'Encourage'" ng-src="{{icon.url}}" alt="{{icon.name}}" />{{ student.status[0].encourage }} course<span ng-if="student.status[0].encourage > 1">s</span></li>
                 </ul>
               </td>
               <td>

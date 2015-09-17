@@ -28,6 +28,7 @@
     self.sortType             = 'name';
     self.sortReverse          = false;
     self.searchStudent        = '';
+    self.checkStatus          = checkStatus;
     self.checkGPA             = checkGPA;
     self.checkYear            = checkYear;
     self.icons                = [];
@@ -43,10 +44,14 @@
           });
 
     self.icons = [
-      {name:"Engage", url:'images/Status_Icons_Engage.png'},
-      {name:"Explore", url:'images/Status_Icons_Explore.png'},
-      {name:"Encourage", url:'images/Status_Icons_Encourage.png'}
+      {name:"Engage", url:static_url+'images/Status_Icons_Engage.png'},
+      {name:"Explore", url:static_url+'images/Status_Icons_Explore.png'},
+      {name:"Encourage", url:static_url+'images/Status_Icons_Encourage.png'}
     ]
+
+    function checkStatus(stat) {
+      return self.statusType[stat];
+    }
 
     function checkGPA(GPA) {
       if (GPA >= self.gpaSlider.min && GPA <= self.gpaSlider.max) {
