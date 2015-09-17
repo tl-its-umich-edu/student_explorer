@@ -11,7 +11,22 @@ DATABASES = {
         'HOST': '',
         'PORT': '',
     },
+    # 'lt_dataset': {
+    #     'ENGINE': 'django.db.backends.oracle',
+    #     'NAME': 'pa07',
+    #     'USER': 'steinhof',
+    #     'PASSWORD': 'KS25974',
+    #     'HOST': 'crow.dsc.umich.edu',
+    #     'PORT': '1521',
+    # },
 }
+
+# ADVISING_DATABASE = 'lt_dataset'
+# INSTALLED_APPS += (
+#     'advisingumich',
+# )
+# ADVISING_PACKAGE = 'advisingumich'
+# DATABASE_ROUTERS = ['advisingumich.routers.DataWarehouseRouter']
 
 
 REMOTE_USER_HEADER = None

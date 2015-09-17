@@ -1,0 +1,474 @@
+[
+{
+    "fields": {
+        "username": "graciela",
+        "first_name": "Graciela",
+        "last_name": "Devilbiss",
+        "univ_id": "00000001"
+    },
+    "model": "advising.student",
+    "pk": 1
+},
+{
+    "fields": {
+        "username": "sandra",
+        "first_name": "Sandra",
+        "last_name": "Hollis",
+        "univ_id": "00000002"
+    },
+    "model": "advising.student",
+    "pk": 2
+},
+{
+    "fields": {
+        "username": "shannon",
+        "first_name": "Shannon",
+        "last_name": "Pedersen",
+        "univ_id": "00000003"
+    },
+    "model": "advising.student",
+    "pk": 3
+},
+{
+    "fields": {
+        "username": "may",
+        "first_name": "May",
+        "last_name": "Mejorado",
+        "univ_id": "00000004"
+    },
+    "model": "advising.student",
+    "pk": 4
+},
+{
+    "fields": {
+        "username": "gianna",
+        "first_name": "Gianna",
+        "last_name": "Fekete",
+        "univ_id": "00000005"
+    },
+    "model": "advising.student",
+    "pk": 5
+},
+{
+    "fields": {
+        "username": "caroyln",
+        "first_name": "Caroyln",
+        "last_name": "Grayer",
+        "univ_id": "00000006"
+    },
+    "model": "advising.student",
+    "pk": 6
+},
+{
+    "fields": {
+        "username": "clelia",
+        "first_name": "Clelia",
+        "last_name": "Glessner",
+        "univ_id": "00000007"
+    },
+    "model": "advising.student",
+    "pk": 7
+},
+{
+    "fields": {
+        "username": "theo",
+        "first_name": "Theo",
+        "last_name": "Callan",
+        "univ_id": "00000008"
+    },
+    "model": "advising.student",
+    "pk": 8
+},
+{
+    "fields": {
+        "username": "janell",
+        "first_name": "Janell",
+        "last_name": "Deckard",
+        "univ_id": "00000009"
+    },
+    "model": "advising.student",
+    "pk": 9
+},
+{
+    "fields": {
+        "username": "deirdre",
+        "first_name": "Deirdre",
+        "last_name": "Haupt",
+        "univ_id": "000000010"
+    },
+    "model": "advising.student",
+    "pk": 10
+},
+{
+    "fields": {
+        "username": "lesha",
+        "first_name": "Lesha",
+        "last_name": "Paulino",
+        "univ_id": "00000011"
+    },
+    "model": "advising.student",
+    "pk": 11
+},
+{
+    "fields": {
+        "username": "valentin",
+        "first_name": "Valentin",
+        "last_name": "Aziz",
+        "univ_id": "00000012"
+    },
+    "model": "advising.student",
+    "pk": 12
+},
+{
+    "fields": {
+        "username": "evangelina",
+        "first_name": "Evangelina",
+        "last_name": "Manchester",
+        "univ_id": "000000013"
+    },
+    "model": "advising.student",
+    "pk": 13
+},
+{
+    "fields": {
+        "username": "jeana",
+        "first_name": "Jeana",
+        "last_name": "Caver",
+        "univ_id": "00000014"
+    },
+    "model": "advising.student",
+    "pk": 14
+},
+{
+    "fields": {
+        "username": "wendi",
+        "first_name": "Wendi",
+        "last_name": "Minyard",
+        "univ_id": "00000015"
+    },
+    "model": "advising.student",
+    "pk": 15
+},
+{
+    "fields": {
+        "username": "gabriela",
+        "first_name": "Gabriela",
+        "last_name": "Rea",
+        "univ_id": "00000016"
+    },
+    "model": "advising.student",
+    "pk": 16
+},
+{
+    "fields": {
+        "username": "deeanna",
+        "first_name": "Deeanna",
+        "last_name": "Buss",
+        "univ_id": "00000017"
+    },
+    "model": "advising.student",
+    "pk": 17
+},
+{
+    "fields": {
+        "username": "gennie",
+        "first_name": "Gennie",
+        "last_name": "Ditmore",
+        "univ_id": "00000018"
+    },
+    "model": "advising.student",
+    "pk": 18
+},
+{
+    "fields": {
+        "username": "geneva",
+        "first_name": "Geneva",
+        "last_name": "Michie",
+        "univ_id": "00000019"
+    },
+    "model": "advising.student",
+    "pk": 19
+},
+{
+    "fields": {
+        "username": "desmond",
+        "first_name": "Desmond",
+        "last_name": "Foxx",
+        "univ_id": "00000020"
+    },
+    "model": "advising.student",
+    "pk": 20
+},
+{
+    "fields": {
+        "username": "zander",
+        "first_name": "Zander",
+        "last_name": "Agrippa",
+        "univ_id": "00000101"
+    },
+    "model": "advising.advisor",
+    "pk": 1
+},
+{
+    "fields": {
+        "username": "burl",
+        "first_name": "Burl",
+        "last_name": "Chandler",
+        "univ_id": "0000102"
+    },
+    "model": "advising.advisor",
+    "pk": 2
+},
+{
+    "fields": {
+        "username": "lavera",
+        "first_name": "Lavera",
+        "last_name": "Rumore",
+        "univ_id": "00000103"
+    },
+    "model": "advising.advisor",
+    "pk": 3
+},
+{
+    "fields": {
+        "username": "mollie",
+        "first_name": "Mollie",
+        "last_name": "Whistler",
+        "univ_id": "00000104"
+    },
+    "model": "advising.advisor",
+    "pk": 4
+},
+{
+    "fields": {
+        "username": "carla",
+        "first_name": "Carla",
+        "last_name": "Beumer",
+        "univ_id": "00000105"
+    },
+    "model": "advising.advisor",
+    "pk": 5
+},
+{
+    "fields": {
+        "code": "DEPT",
+        "description": "Department Advisor"
+    },
+    "model": "advising.advisorrole",
+    "pk": 1
+},
+{
+    "fields": {
+        "code": "ATHL",
+        "description": "Athletics Advisor"
+    },
+    "model": "advising.advisorrole",
+    "pk": 2
+},
+{
+    "fields": {
+        "code": "HNRS",
+        "description": "Honors Advisor"
+    },
+    "model": "advising.advisorrole",
+    "pk": 3
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 1,
+        "advisor": 2
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 1
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 2,
+        "advisor": 5
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 2
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 3,
+        "advisor": 4
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 3
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 4,
+        "advisor": 2
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 4
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 5,
+        "advisor": 1
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 5
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 5,
+        "advisor": 5
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 6
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 6,
+        "advisor": 2
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 7
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 7,
+        "advisor": 4
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 8
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 8,
+        "advisor": 4
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 9
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 9,
+        "advisor": 2
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 10
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 10,
+        "advisor": 1
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 11
+},
+{
+    "fields": {
+        "role": 2,
+        "student": 10,
+        "advisor": 2
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 12
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 11,
+        "advisor": 5
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 13
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 12,
+        "advisor": 2
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 14
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 13,
+        "advisor": 5
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 15
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 14,
+        "advisor": 3
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 16
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 15,
+        "advisor": 5
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 17
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 16,
+        "advisor": 3
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 18
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 17,
+        "advisor": 5
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 19
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 18,
+        "advisor": 5
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 20
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 19,
+        "advisor": 2
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 21
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 20,
+        "advisor": 4
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 22
+}
+]
