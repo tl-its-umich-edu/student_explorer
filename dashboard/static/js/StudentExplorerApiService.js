@@ -20,6 +20,12 @@
                         return data;
                     });
                     return promise;
+	        	},
+	        	student: function(student) {
+	        		var data = $http.get('api/students/'+student+'/')
+	        						.then(function(response) {
+	        							return data;
+	        						})
 	        	}
             };
           	return seapiService;
