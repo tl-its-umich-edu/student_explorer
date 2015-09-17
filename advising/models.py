@@ -13,6 +13,7 @@ class Student(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
+    cohorts = models.ManyToManyField('Cohort', through='StudentCohort')
 
     def __unicode__(self):
         return self.username
@@ -49,6 +50,23 @@ class StudentAdvisorRole(models.Model):
         unique_together = ('student', 'advisor', 'role')
 
 
+class Cohort(models.Model):
+    code = models.CharField(max_length=20)
+    description = models.CharField(max_length=50)
+    group = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return self.description
+
+
+class StudentCohort(models.Model):
+    student = models.ForeignKey(Student)
+    cohort = models.ForeignKey(Cohort)
+
+    def __unicode__(self):
+        return '%s is in the %s cohort' % (self.student, self.cohort)
+
+
 if hasattr(settings, 'ADVISING_PACKAGE'):
     # Override the definitions above if an alternate package has been
     # specified.
@@ -60,3 +78,5 @@ if hasattr(settings, 'ADVISING_PACKAGE'):
     Advisor = advising_models.Advisor
     AdvisorRole = advising_models.AdvisorRole
     StudentAdvisorRole = advising_models.StudentAdvisorRole
+    Cohort = advising_models.Cohort
+    StudentCohort = advising_models.StudentCohort

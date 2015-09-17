@@ -470,5 +470,79 @@
     },
     "model": "advising.studentadvisorrole",
     "pk": 22
+},
+{
+    "fields": {
+        "code": "SPPRO-F14",
+        "group": "CSP",
+        "description": "Special Probation F14"
+    },
+    "model": "advising.cohort",
+    "pk": 1
+},
+{
+    "fields": {
+        "code": "SPPRO-W15",
+        "group": "CSP",
+        "description": "Special Probation W15"
+    },
+    "model": "advising.cohort",
+    "pk": 2
+},
+{
+    "fields": {
+        "cohort": 1,
+        "student": 1
+    },
+    "model": "advising.studentcohort",
+    "pk": 1
+},
+{
+    "fields": {
+        "cohort": 1,
+        "student": 2
+    },
+    "model": "advising.studentcohort",
+    "pk": 2
+},
+{
+    "fields": {
+        "cohort": 1,
+        "student": 3
+    },
+    "model": "advising.studentcohort",
+    "pk": 3
+},
+{
+    "fields": {
+        "cohort": 1,
+        "student": 4
+    },
+    "model": "advising.studentcohort",
+    "pk": 4
+},
+{
+    "fields": {
+        "cohort": 1,
+        "student": 5
+    },
+    "model": "advising.studentcohort",
+    "pk": 5
+},
+{
+    "fields": {
+        "cohort": 1,
+        "student": 6
+    },
+    "model": "advising.studentcohort",
+    "pk": 6
+},
+{
+    "fields": {
+        "cohort": 2,
+        "student": 6
+    },
+    "model": "advising.studentcohort",
+    "pk": 7
 }
 ]
