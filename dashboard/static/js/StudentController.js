@@ -33,7 +33,8 @@
     self.icons                = [];
 
     self.gpaSlider            = { min:0, max:4};
-    self.classStanding        = { Freshman: true, Sophomore: true, Junior: true, Senior: true};
+    self.classStanding        = { Freshman: true, Sophomore: true, Junior: true, Senior: true };
+    self.statusType           = { Engage: true, Explore: true, Encourage: true };
 
     StudentExplorerApiService
           .students()
@@ -42,9 +43,9 @@
           });
 
     self.icons = [
-      {name:"Engage", url:'{{STATIC_URL}}images/Status_Icons_Engage.png'},
-      {name:"Explore", url:'{{STATIC_URL}}images/Status_Icons_Explore.png'},
-      {name:"Encourage", url:'{{STATIC_URL}}images/Status_Icons_Encourage.png'}
+      {name:"Engage", url:'images/Status_Icons_Engage.png'},
+      {name:"Explore", url:'images/Status_Icons_Explore.png'},
+      {name:"Encourage", url:'images/Status_Icons_Encourage.png'}
     ]
 
     function checkGPA(GPA) {
