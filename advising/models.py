@@ -14,6 +14,8 @@ class Student(models.Model):
     last_name = models.CharField(max_length=100)
     advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
     cohorts = models.ManyToManyField('Cohort', through='StudentCohort')
+    class_sites = models.ManyToManyField('ClassSite',
+                                         through='StudentClassSiteStatus')
 
     def __unicode__(self):
         return self.username
@@ -67,6 +69,35 @@ class StudentCohort(models.Model):
         return '%s is in the %s cohort' % (self.student, self.cohort)
 
 
+class ClassSite(models.Model):
+    code = models.CharField(max_length=20)
+    description = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.description
+
+
+class Status(models.Model):
+    code = models.CharField(max_length=20)
+    description = models.CharField(max_length=50)
+    order = models.IntegerField()
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        ordering = ('order',)
+
+
+class StudentClassSiteStatus(models.Model):
+    student = models.ForeignKey(Student)
+    class_site = models.ForeignKey(ClassSite)
+    status = models.ForeignKey(Status)
+
+    def __unicode__(self):
+        return '%s has status %s in %s' % (self.student, self.status,
+                                           self.class_site)
+
 if hasattr(settings, 'ADVISING_PACKAGE'):
     # Override the definitions above if an alternate package has been
     # specified.
@@ -80,3 +111,6 @@ if hasattr(settings, 'ADVISING_PACKAGE'):
     StudentAdvisorRole = advising_models.StudentAdvisorRole
     Cohort = advising_models.Cohort
     StudentCohort = advising_models.StudentCohort
+    ClassSite = advising_models.ClassSite
+    Status = advising_models.Status
+    StudentClassSiteStatus = advising_models.StudentClassSiteStatus

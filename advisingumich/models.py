@@ -10,6 +10,8 @@ class Student(models.Model):
     last_name = models.CharField(max_length=500, db_column='STDNT_PREF_SURNM')
     advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
     cohorts = models.ManyToManyField('Cohort', through='StudentCohort')
+    class_sites = models.ManyToManyField('ClassSite',
+                                         through='StudentClassSiteStatus')
 
     def __unicode__(self):
         return self.username
@@ -85,3 +87,44 @@ class StudentCohort(models.Model):
     class Meta:
         db_table = '"CNLYR002"."BG_STDNT_CHRT_MNTR"'
         unique_together = ('student', 'cohort')
+
+
+class ClassSite(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='CLASS_SITE_KEY')
+    code = models.CharField(max_length=20, db_column='CLASS_SITE_CD')
+    description = models.CharField(max_length=50, db_column='CLASS_SITE_DES')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        db_table = '"CNLYR002"."DM_CLASS_SITE"'
+
+
+class Status(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='ACAD_PERF_KEY')
+    code = models.CharField(max_length=20, db_column='ACAD_PERF_VAL')
+    description = models.CharField(max_length=50, db_column='ACAD_PERF_TXT')
+    order = models.IntegerField(db_column='ACAD_PERF_ORDNL_NBR')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        ordering = ('order',)
+        db_table = '"CNLYR002"."DM_ACAD_PERF"'
+
+
+class StudentClassSiteStatus(models.Model):
+    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+                                primary_key=True)
+    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
+    status = models.ForeignKey(Status, db_column='ACAD_PERF_KEY')
+
+    def __unicode__(self):
+        return '%s has status %s in %s' % (self.student, self.status,
+                                           self.class_site)
+
+    class Meta:
+        db_table = '"CNLYR002"."FC_STDNT_CLASS_ACAD_PERF"'
+        unique_together = ('student', 'class_site', 'status')
