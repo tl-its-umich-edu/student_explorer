@@ -12,6 +12,8 @@ class Student(models.Model):
     cohorts = models.ManyToManyField('Cohort', through='StudentCohort')
     class_sites = models.ManyToManyField('ClassSite',
                                          through='StudentClassSiteStatus')
+    statuses = models.ManyToManyField('Status',
+                                      through='StudentClassSiteStatus')
 
     def __unicode__(self):
         return self.username
