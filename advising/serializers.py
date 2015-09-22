@@ -30,9 +30,7 @@ class StudentSummarySerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='student-detail',
                                                lookup_field='username')
     cohorts = serializers.StringRelatedField(many=True)
-    # class_sites = StudentClassSiteStatusSummarySerializer(source='studentclasssitestatus_set', many=True, read_only=True)
     statuses = serializers.StringRelatedField(many=True)
-
     advisors = serializers.StringRelatedField(many=True)
 
     class Meta:

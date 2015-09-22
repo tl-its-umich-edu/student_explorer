@@ -50,13 +50,12 @@ class AdvisorStudentsList(generics.ListAPIView):
     serializer_class = StudentSummarySerializer
     # lookup_field = 'username'
 
-    def get(self, request, *args, **kwargs):
-        self.queryset = (
+    def get_queryset(self):
+        return (
             Advisor.objects
-            .get(username=kwargs['username'])
-            .studentadvisorrole_set.all()
+            .get(username=self.kwargs['username'])
+            .students.all()
         )
-        return self.list(request, *args, **kwargs)
 
 
 class StudentList(generics.ListAPIView):
