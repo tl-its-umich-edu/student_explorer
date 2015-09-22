@@ -21,7 +21,20 @@
                         return data;
                     });
                     return promise;
-	        	}
+	        	},
+	        	student: function(student) {
+	        		var promise = $http.get('http://localhost:2080/api/students/'+student)
+	        						.then(function(response) {
+	        							return response.data;
+	        						});
+                    return promise;
+	        	},
+                advisor: function(advisor_url) {
+                    var promise = $http.get(advisor_url).then(function(response) {
+                        return response.data;
+                    });
+                    return promise;
+                }
             };
           	return seapiService;
          });

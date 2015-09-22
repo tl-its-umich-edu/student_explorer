@@ -3,35 +3,33 @@
   angular
       .module('students')
       .controller('StudentController', [
-           'StudentExplorerApiService', '$log', '$q', '$scope', '$mdUtil',
+           'StudentExplorerApiService', '$log', '$q', '$scope', '$http',
           StudentController
       ])
   ;
 
   /**
-   * Main Controller for the SE App
-   * @param SEApiService
-   * @param $mdSidenav
-   * @param $mdBottomSheet
+   * Main Controller for the Student Explorer App
+   * @param StudentExplorerApiService
    * @param $log
    * @param $q
    * @param $scope
-   * @param $mdUtil
-   * @param $timeout
    * @constructor
    */
-  function StudentController( StudentExplorerApiService, $log, $q, $scope, $mdUtil ) {
+  function StudentController( StudentExplorerApiService, $log, $q, $scope, $http ) {
     var self = this;
 
     self.selected             = null;
+    self.advisor              = null;
     self.students             = [ ];
-    self.sortType             = 'name';
+    self.selectedStudent      = '';
+    self.sortType             = 'last_name';
     self.sortReverse          = false;
     self.searchStudent        = '';
     self.checkStatus          = checkStatus;
     self.checkGPA             = checkGPA;
     self.checkYear            = checkYear;
-    self.icons                = [];
+    self.icons                = [ ];
 
     self.gpaSlider            = { min:0, max:4};
     self.classStanding        = { Freshman: true, Sophomore: true, Junior: true, Senior: true };
@@ -39,15 +37,38 @@
 
     StudentExplorerApiService
           .students()
-          .then( function( student ) {
-          self.students = [].concat(student);
+          .then(function(student) {
+            self.students = [].concat(student);
           });
+
+    StudentExplorerApiService
+          // .student(self.selectedStudent)
+          .student('graciela')
+          .then(function(d) {
+            promise = [].concat(d);
+            self.selected = promise[0];
+            getAdvisor();
+          });
+
+    function getAdvisor() {
+      StudentExplorerApiService
+            .advisor(self.selected.advisors_url)
+            .then(function(d) {
+              promise = [].concat(d);
+              self.advisor = promise[0].results[0].advisor;
+            });
+    }
 
     self.icons = [
       {name:"Engage", url:static_url+'images/Status_Icons_Engage.png'},
       {name:"Explore", url:static_url+'images/Status_Icons_Explore.png'},
       {name:"Encourage", url:static_url+'images/Status_Icons_Encourage.png'}
-    ]
+    ];
+
+    self.additionalIcons = [
+      {name:"Student Grade", url:static_url+'images/Status_Icons_Student.png'},
+      {name:"Class Average", url:static_url+'images/Status_Icons_ClassAverage.png'}
+    ];
 
     function checkStatus(stat) {
       return self.statusType[stat];

@@ -10,3 +10,12 @@ class Dashboard(TemplateView):
         return context
 
 dashboard = Dashboard.as_view()
+
+class StudentPage(TemplateView):
+    template_name = "dashboard/studentPage.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(StudentPage, self).get_context_data(**kwargs)
+        return context
+
+studentPage = StudentPage.as_view()

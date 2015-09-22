@@ -1,5 +1,5 @@
 {% extends 'dashboard/base.html' %}
-{% load static %}
+
 {% block page-title %}SE{% endblock %}
 
 {% block main %}
@@ -12,8 +12,7 @@
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
     <md-toolbar >
       <div class="md-toolbar-tools" >
-        <h1><span ng-if="ctrl.selected == null">All Students</span></h1>
-        <h1><span ng-if="ctrl.selected != null">{{ctrl.selected.name}}</span></h1>
+        <h1><span>All Students</span></h1>
         <span flex></span>
         <form class="search-bar">
           <div class="form-group">
@@ -28,7 +27,7 @@
   </div>
 
   <div layout="row" layout-sm="column">
-    <md-content id="content" ng-if="ctrl.selected == null">
+    <md-content id="content">
       <div class="tb filter-table">
         <table class="table table-bordered table-striped">
           <thead>
@@ -45,9 +44,9 @@
                 </ul>
               </td>
             </tr>
-            <tr>
+<!--             <tr>
               <td class="side-title">Cohorts</td>
-            </tr>
+            </tr> -->
             <tr>
               <td class="side-title">
                 Class Standing
@@ -87,10 +86,8 @@
                 </a>
               </td>
               <td>
-                <a href="" ng-click="ctrl.sortType = 'status'; ctrl.sortReverse = !ctrl.sortReverse">
+                <a class="not-sortable">
                   Status
-                  <span ng-show="ctrl.sortType == 'status' &amp;&amp; !ctrl.sortReverse" class="fa fa-caret-down"></span>
-                  <span ng-show="ctrl.sortType == 'status' &amp;&amp; ctrl.sortReverse" class="fa fa-caret-up"></span>
                 </a>
               </td>
               <td>
