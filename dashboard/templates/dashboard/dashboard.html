@@ -115,7 +115,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="student in ctrl.students | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchStudent" ng-if="ctrl.checkGPA(student.GPA) &amp;&amp; ctrl.checkYear(student.year)">
-              <td class="bold">{{ student.last_name }}, {{ student.first_name }}</td>
+              <td class="bold"><a href="http://localhost:2080/student/{{student.username}}/">{{ student.last_name }}, {{ student.first_name }}</a></td>
               <td>{{ student.univ_id }}</td>
               <td ng-if="ctrl.hasStatusData">
                 <ul style="list-style-type:none">

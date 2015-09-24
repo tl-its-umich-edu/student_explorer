@@ -21,7 +21,7 @@
 
     self.selected             = null;
     self.students             = [ ];
-    self.selectedStudent      = '';
+    self.selectedStudent      = window.location.pathname.replace(/\//g,"").replace("student","");
     self.sortType             = 'last_name';
     self.sortReverse          = false;
     self.searchStudent        = '';
@@ -76,8 +76,7 @@
           });
 
     StudentExplorerApiService
-          // .student(self.selectedStudent)
-          .student('graciela')
+          .student(self.selectedStudent)
           .then(function(d) {
             promise = [].concat(d);
             self.selected = promise[0];
