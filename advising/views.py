@@ -1,5 +1,6 @@
 from advising.models import Advisor, Student
-from advising.serializers import (AdvisorSerializer, StudentSerializer,
+from advising.serializers import (AdvisorSerializer, StudentSummarySerializer,
+                                  StudentFullSerializer,
                                   StudentAdvisorsSerializer,
                                   AdvisorStudentsSerializer)
 from rest_framework import generics
@@ -46,16 +47,15 @@ class AdvisorStudentsList(generics.ListAPIView):
     API endpoint that lists an advisor's students.
     '''
     queryset = Advisor.objects.all()
-    serializer_class = AdvisorStudentsSerializer
-    lookup_field = 'username'
+    serializer_class = StudentSummarySerializer
+    # lookup_field = 'username'
 
-    def get(self, request, *args, **kwargs):
-        self.queryset = (
+    def get_queryset(self):
+        return (
             Advisor.objects
-            .get(username=kwargs['username'])
-            .studentadvisorrole_set.all()
+            .get(username=self.kwargs['username'])
+            .students.all()
         )
-        return self.list(request, *args, **kwargs)
 
 
 class StudentList(generics.ListAPIView):
@@ -63,7 +63,7 @@ class StudentList(generics.ListAPIView):
     API endpoint that lists students.
     '''
     queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+    serializer_class = StudentSummarySerializer
     lookup_field = 'username'
 
 
@@ -72,14 +72,25 @@ class StudentDetail(generics.RetrieveAPIView):
     API endpoint that shows student details.
     '''
     queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+    serializer_class = StudentSummarySerializer
     lookup_field = 'username'
 
     def get(self, request, *args, **kwargs):
         resp = self.retrieve(request, *args, **kwargs)
         resp.data['advisors_url'] = reverse('student-advisors-list',
                                             request=request, kwargs=kwargs)
+        resp.data['student_full_url'] = reverse('student-full-detail',
+                                            request=request, kwargs=kwargs)
         return resp
+
+
+class StudentFullDetail(generics.RetrieveAPIView):
+    '''
+    API endpoint that shows student details.
+    '''
+    queryset = Student.objects.all()
+    serializer_class = StudentFullSerializer
+    lookup_field = 'username'
 
 
 class StudentAdvisorsList(generics.ListAPIView):
