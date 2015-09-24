@@ -41,22 +41,40 @@
    --><div class="tb student-table">
         <table class="table table-bordered table-striped">
           <thead>
-            <tr>
+            <tr class="center">
               <td>
                 <a>Course</a>
               </td>
-              <td>
+              <td ng-if="ctrl.hasStudentStanding">
                 <a>Student Standing</a>
               </td>
-              <td>
+              <td ng-if="ctrl.hasStudentGrade">
                 <a>Student Grade</a>
               </td>
-              <td>
+              <td ng-if="ctrl.hasClassAverage">
                 <a>Class Average</a>
               </td>
             </tr>
           </thead>
           <tbody>
+            <tr ng-repeat="class in ctrl.selected.class_sites">
+              <td>
+                <img ng-repeat="icon in ctrl.icons" ng-if="class.status == icon.color" ng-src="{{icon.url}}" alt="{{icon.name}}" />
+                {{class.class_site}}
+              </td>
+              <td ng-if="ctrl.hasStudentStanding">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{class.student_grade}}"><b style="left:{{class.class_average}}"></b></div>
+                  <!-- <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:70%"><b style="left:85%"></b></div> -->
+                </div>
+              </td>
+              <td  ng-if="ctrl.hasStudentGrade" class="center">
+                {{class.student_grade}}
+              </td>
+              <td  ng-if="ctrl.hasClassAverage" class="center">
+                {{class.class_average}}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div><!-- comment used for removing the gap
@@ -73,7 +91,7 @@
             </tr>
             <tr>
               <td class="short-td"><p class="bold">Advisor</p></td>
-              <td><p>{{ctrl.advisor.last_name}}, {{ctrl.advisor.first_name}}</p></td>
+              <td><p>{{ctrl.selected.advisors[0].advisor.last_name}}, {{ctrl.selected.advisors[0].advisor.first_name}}</p></td>
             </tr>
             <tr>
               <td class="short-td"><p class="bold">Year</p></td>

@@ -78,6 +78,10 @@ table {
   border: 0px !important;
 }
 
+.student-table p {
+  margin-left: 0px;
+}
+
 .info-table table td {
   background-color: white !important;
   border: 0px !important;
@@ -174,6 +178,30 @@ table img {
   color: #CCC !important;
 }
 
+.center {
+  text-align: center;
+}
+
 .short-td {
   width: 140px !important;
+}
+
+.progress {
+  height: 25px;
+  background-color: white;
+  position: relative;
+  border: 2px solid #4D4D4D;
+  border-radius: 5px;
+  margin-top: 3px;
+}
+
+.progress-bar {
+  background-color: #4D4D4D;
+}
+
+.progress-bar b {
+  height: 25px;
+  width: 3px;
+  position: absolute;
+  background-color: #999;
 }

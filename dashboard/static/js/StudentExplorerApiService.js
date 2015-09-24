@@ -7,7 +7,7 @@
          .factory('StudentExplorerApiService', function($http,$q) {
          	var seapiService = {
 	            students: function(student) { 
-                    var promise = $http.get('api/students/')
+                    var promise = $http.get('http://localhost:2080/api/students/')
                                     .then(function(response) {
                         var data = []
                         response.data.results.forEach(function(entry) {
@@ -23,18 +23,12 @@
                     return promise;
 	        	},
 	        	student: function(student) {
-	        		var promise = $http.get('http://localhost:2080/api/students/'+student)
+	        		var promise = $http.get('http://localhost:2080/api/students/'+student+'/full/')
 	        						.then(function(response) {
 	        							return response.data;
 	        						});
                     return promise;
-	        	},
-                advisor: function(advisor_url) {
-                    var promise = $http.get(advisor_url).then(function(response) {
-                        return response.data;
-                    });
-                    return promise;
-                }
+	        	}
             };
           	return seapiService;
          });
