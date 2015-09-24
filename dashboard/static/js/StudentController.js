@@ -43,7 +43,7 @@
           .then(function(student) {
             self.students = [].concat(student);
             for (var i=0;i<student.length;i++) {
-              if (student[i].status != null) {
+              if (student[i].statuses != null) {
                 self.hasStatusData = true;
               }
               if (student[i].GPA != null) {
@@ -51,6 +51,9 @@
               }
               if (student[i].year != null) {
                 self.hasYearData = true;
+              }
+              if (self.hasStatusData == true && self.hasGPAData == true && self.hasYearData == true) {
+                break;
               }
             }
           });
