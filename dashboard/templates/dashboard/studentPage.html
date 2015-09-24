@@ -41,7 +41,7 @@
    --><div class="tb student-table">
         <table class="table table-bordered table-striped">
           <thead>
-            <tr>
+            <tr class="center">
               <td>
                 <a>Course</a>
               </td>
@@ -57,6 +57,26 @@
             </tr>
           </thead>
           <tbody>
+            <tr ng-repeat="class in ctrl.selected.class_sites">
+              <td>
+                <img ng-if="class.status == 'Red'" ng-src="{{ctrl.icons[0].url}}" alt="{{ctrl.icons[0].name}}" />
+                <img ng-if="class.status == 'Yellow'" ng-src="{{ctrl.icons[1].url}}" alt="{{ctrl.icons[1].name}}" />
+                <img ng-if="class.status == 'Green'" ng-src="{{ctrl.icons[2].url}}" alt="{{ctrl.icons[2].name}}" />
+                {{class.class_site}}
+              </td>
+              <td>
+                <div class="progress">
+                  <!-- <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{class.grade}}"><b style="left:{{class.class_ave}}"></b></div> -->
+                  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:70%"><b style="left:85%"></b></div>
+                </div>
+              </td>
+              <td class="center">
+                {{class.grade}}70%
+              </td>
+              <td class="center">
+                {{class.class_ave}}85%
+              </td>
+            </tr>
           </tbody>
         </table>
       </div><!-- comment used for removing the gap
@@ -73,7 +93,7 @@
             </tr>
             <tr>
               <td class="short-td"><p class="bold">Advisor</p></td>
-              <td><p>{{ctrl.advisor.last_name}}, {{ctrl.advisor.first_name}}</p></td>
+              <td><p>{{ctrl.selected.advisors[0].advisor.last_name}}, {{ctrl.selected.advisors[0].advisor.first_name}}</p></td>
             </tr>
             <tr>
               <td class="short-td"><p class="bold">Year</p></td>

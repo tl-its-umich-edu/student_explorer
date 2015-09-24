@@ -20,7 +20,6 @@
     var self = this;
 
     self.selected             = null;
-    self.advisor              = null;
     self.students             = [ ];
     self.selectedStudent      = '';
     self.sortType             = 'last_name';
@@ -64,17 +63,7 @@
           .then(function(d) {
             promise = [].concat(d);
             self.selected = promise[0];
-            getAdvisor();
           });
-
-    function getAdvisor() {
-      StudentExplorerApiService
-            .advisor(self.selected.advisors_url)
-            .then(function(d) {
-              promise = [].concat(d);
-              self.advisor = promise[0].results[0].advisor;
-            });
-    }
 
     self.icons = [
       {name:"Engage", url:static_url+'images/Status_Icons_Engage.png'},
