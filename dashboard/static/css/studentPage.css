@@ -6,6 +6,12 @@ html, body {
   padding: 0px;
 }
 
+/* required code for ng-cloak */
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 /* toolbar */
 
 md-toolbar {
