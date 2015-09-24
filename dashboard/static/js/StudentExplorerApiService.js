@@ -13,8 +13,8 @@
                         response.data.results.forEach(function(entry) {
                             console.log(entry)
                             // entry.status = [{engage: Math.floor(Math.random()*5), explore: Math.floor(Math.random()*5), encourage: Math.floor(Math.random()*5)}]
-                            entry.GPA = (Math.random()*4).toFixed(1)
-                            entry.year = selectYear()
+                            // entry.GPA = (Math.random()*4).toFixed(1)
+                            // entry.year = selectYear()
                             data.push(entry)
                         });
                         console.log(data);
