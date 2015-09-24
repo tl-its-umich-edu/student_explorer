@@ -25,13 +25,30 @@
     self.sortType             = 'last_name';
     self.sortReverse          = false;
     self.searchStudent        = '';
+
+    self.icons = [
+      {name:"Engage", url:static_url+'images/Status_Icons_Engage.png', color:"Red"},
+      {name:"Explore", url:static_url+'images/Status_Icons_Explore.png', color:"Yellow"},
+      {name:"Encourage", url:static_url+'images/Status_Icons_Encourage.png', color:"Green"}
+    ];
+
+    self.additionalIcons = [
+      {name:"Student Grade", url:static_url+'images/Status_Icons_Student.png'},
+      {name:"Class Average", url:static_url+'images/Status_Icons_ClassAverage.png'}
+    ];
+
+    //Filter variables
     self.checkStatus          = checkStatus;
     self.checkGPA             = checkGPA;
     self.checkYear            = checkYear;
-    self.icons                = [ ];
+
     self.hasStatusData        = false;
     self.hasGPAData           = false;
     self.hasYearData          = false;
+
+    self.hasStudentStanding   = false;
+    self.hasStudentGrade      = false;
+    self.hasClassAverage      = false;
 
     self.gpaSlider            = { min:0, max:4};
     self.classStanding        = { Freshman: true, Sophomore: true, Junior: true, Senior: true };
@@ -41,6 +58,7 @@
           .students()
           .then(function(student) {
             self.students = [].concat(student);
+            //Filters
             for (var i=0;i<student.length;i++) {
               if (student[i].statuses != null) {
                 self.hasStatusData = true;
@@ -63,19 +81,22 @@
           .then(function(d) {
             promise = [].concat(d);
             self.selected = promise[0];
+            //Filters
+            for (var i=0;i<self.selected.class_sites.length;i++) {
+              if (self.selected.class_sites[i].student_grade != null) {
+                self.hasStudentGrade = true;
+              }
+              if (self.selected.class_sites[i].class_average != null) {
+                self.hasClassAverage = true;
+              }
+              if (self.hasStudentGrade == true && self.hasClassAverage == true) {
+                self.hasStudentStanding = true;
+                break;
+              }
+            }
           });
 
-    self.icons = [
-      {name:"Engage", url:static_url+'images/Status_Icons_Engage.png'},
-      {name:"Explore", url:static_url+'images/Status_Icons_Explore.png'},
-      {name:"Encourage", url:static_url+'images/Status_Icons_Encourage.png'}
-    ];
-
-    self.additionalIcons = [
-      {name:"Student Grade", url:static_url+'images/Status_Icons_Student.png'},
-      {name:"Class Average", url:static_url+'images/Status_Icons_ClassAverage.png'}
-    ];
-
+    // Filters
     function checkStatus(stat) {
       if (stat == null) {
         return true;

@@ -45,13 +45,13 @@
               <td>
                 <a>Course</a>
               </td>
-              <td>
+              <td ng-if="ctrl.hasStudentStanding">
                 <a>Student Standing</a>
               </td>
-              <td>
+              <td ng-if="ctrl.hasStudentGrade">
                 <a>Student Grade</a>
               </td>
-              <td>
+              <td ng-if="ctrl.hasClassAverage">
                 <a>Class Average</a>
               </td>
             </tr>
@@ -59,22 +59,20 @@
           <tbody>
             <tr ng-repeat="class in ctrl.selected.class_sites">
               <td>
-                <img ng-if="class.status == 'Red'" ng-src="{{ctrl.icons[0].url}}" alt="{{ctrl.icons[0].name}}" />
-                <img ng-if="class.status == 'Yellow'" ng-src="{{ctrl.icons[1].url}}" alt="{{ctrl.icons[1].name}}" />
-                <img ng-if="class.status == 'Green'" ng-src="{{ctrl.icons[2].url}}" alt="{{ctrl.icons[2].name}}" />
+                <img ng-repeat="icon in ctrl.icons" ng-if="class.status == icon.color" ng-src="{{icon.url}}" alt="{{icon.name}}" />
                 {{class.class_site}}
               </td>
-              <td>
+              <td ng-if="ctrl.hasStudentStanding">
                 <div class="progress">
-                  <!-- <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{class.grade}}"><b style="left:{{class.class_ave}}"></b></div> -->
-                  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:70%"><b style="left:85%"></b></div>
+                  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{class.student_grade}}"><b style="left:{{class.class_average}}"></b></div>
+                  <!-- <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:70%"><b style="left:85%"></b></div> -->
                 </div>
               </td>
-              <td class="center">
-                {{class.grade}}70%
+              <td  ng-if="ctrl.hasStudentGrade" class="center">
+                {{class.student_grade}}
               </td>
-              <td class="center">
-                {{class.class_ave}}85%
+              <td  ng-if="ctrl.hasClassAverage" class="center">
+                {{class.class_average}}
               </td>
             </tr>
           </tbody>
