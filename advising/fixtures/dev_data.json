@@ -544,5 +544,163 @@
     },
     "model": "advising.studentcohort",
     "pk": 7
+},
+{
+    "fields": {
+        "code": "1",
+        "description": "Physics 130"
+    },
+    "model": "advising.classsite",
+    "pk": 1
+},
+{
+    "fields": {
+        "code": "2",
+        "description": "Physics 140"
+    },
+    "model": "advising.classsite",
+    "pk": 2
+},
+{
+    "fields": {
+        "code": "3",
+        "description": "Math 115"
+    },
+    "model": "advising.classsite",
+    "pk": 3
+},
+{
+    "fields": {
+        "code": "4",
+        "description": "Stats 250"
+    },
+    "model": "advising.classsite",
+    "pk": 4
+},
+{
+    "fields": {
+        "code": "G",
+        "description": "Green",
+        "order": 1
+    },
+    "model": "advising.status",
+    "pk": 1
+},
+{
+    "fields": {
+        "code": "Y",
+        "description": "Yellow",
+        "order": 2
+    },
+    "model": "advising.status",
+    "pk": 2
+},
+{
+    "fields": {
+        "code": "R",
+        "description": "Red",
+        "order": 3
+    },
+    "model": "advising.status",
+    "pk": 3
+},
+{
+    "fields": {
+        "class_site": 1,
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 1
+},
+{
+    "fields": {
+        "class_site": 4,
+        "status": 2,
+        "student": 1
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 2
+},
+{
+    "fields": {
+        "class_site": 1,
+        "status": 1,
+        "student": 2
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 3
+},
+{
+    "fields": {
+        "class_site": 2,
+        "status": 3,
+        "student": 3
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 4
+},
+{
+    "fields": {
+        "class_site": 3,
+        "status": 3,
+        "student": 5
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 5
+},
+{
+    "fields": {
+        "class_site": 2,
+        "status": 2,
+        "student": 6
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 6
+},
+{
+    "fields": {
+        "class_site": 1,
+        "status": 1,
+        "student": 7
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 7
+},
+{
+    "fields": {
+        "class_site": 4,
+        "status": 3,
+        "student": 9
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 8
+},
+{
+    "fields": {
+        "class_site": 2,
+        "status": 2,
+        "student": 11
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 9
+},
+{
+    "fields": {
+        "class_site": 3,
+        "status": 3,
+        "student": 11
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 10
+},
+{
+    "fields": {
+        "class_site": 4,
+        "status": 3,
+        "student": 11
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 11
 }
 ]
