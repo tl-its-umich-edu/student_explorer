@@ -12,9 +12,9 @@
                         var data = []
                         response.data.results.forEach(function(entry) {
                             console.log(entry.student)
-                            entry.student.status = [{engage: Math.floor(Math.random()*5), explore: Math.floor(Math.random()*5), encourage: Math.floor(Math.random()*5)}]
-                            entry.student.GPA = (Math.random()*2+2).toFixed(1)
-                            entry.student.year = selectYear()
+                            // entry.student.status = [{engage: Math.floor(Math.random()*5), explore: Math.floor(Math.random()*5), encourage: Math.floor(Math.random()*5)}]
+                            // entry.student.GPA = (Math.random()*2+2).toFixed(1)
+                            // entry.student.year = selectYear()
                             data.push(entry.student)
                         });
                         return data;

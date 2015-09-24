@@ -30,6 +30,9 @@
     self.checkGPA             = checkGPA;
     self.checkYear            = checkYear;
     self.icons                = [ ];
+    self.hasStatusData        = false;
+    self.hasGPAData           = false;
+    self.hasYearData          = false;
 
     self.gpaSlider            = { min:0, max:4};
     self.classStanding        = { Freshman: true, Sophomore: true, Junior: true, Senior: true };
@@ -39,6 +42,17 @@
           .students()
           .then(function(student) {
             self.students = [].concat(student);
+            for (var i=0;i<student.length;i++) {
+              if (student[i].status != null) {
+                self.hasStatusData = true;
+              }
+              if (student[i].GPA != null) {
+                self.hasGPAData = true;
+              }
+              if (student[i].year != null) {
+                self.hasYearData = true;
+              }
+            }
           });
 
     StudentExplorerApiService
@@ -71,10 +85,16 @@
     ];
 
     function checkStatus(stat) {
+      if (stat == null) {
+        return true;
+      }
       return self.statusType[stat];
     }
 
     function checkGPA(GPA) {
+      if (GPA == null) {
+        return true;
+      }
       if (GPA >= self.gpaSlider.min && GPA <= self.gpaSlider.max) {
         return true;
       }
@@ -82,6 +102,9 @@
     }
 
     function checkYear(year) {
+      if (year == null) {
+        return true;
+      }
       return self.classStanding[year];
     }
   }
