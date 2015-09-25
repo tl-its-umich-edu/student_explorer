@@ -12,6 +12,9 @@
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
     <md-toolbar >
       <div class="md-toolbar-tools" >
+        <md-button class="md-icon-button back-button" aria-label="Settings" ng-click="ctrl.goToDashboard()">
+          <md-icon md-font-library="material-icons">arrow_back</md-icon>
+        </md-button>
         <h1><span>{{ctrl.selected.last_name}}, {{ctrl.selected.first_name}}</span></h1>
       </div>
     </md-toolbar>
@@ -68,10 +71,10 @@
                   <!-- <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:70%"><b style="left:85%"></b></div> -->
                 </div>
               </td>
-              <td  ng-if="ctrl.hasStudentGrade" class="center">
+              <td ng-if="ctrl.hasStudentGrade" class="center">
                 {{class.student_grade}}
               </td>
-              <td  ng-if="ctrl.hasClassAverage" class="center">
+              <td ng-if="ctrl.hasClassAverage" class="center">
                 {{class.class_average}}
               </td>
             </tr>
@@ -95,11 +98,11 @@
             </tr>
             <tr>
               <td class="short-td"><p class="bold">Year</p></td>
-              <td><p></p></td>
+              <td><p>{{ ctrl.selected.year }}</p></td>
             </tr>
             <tr>
               <td class="short-td"><p class="bold">GPA</p></td>
-              <td><p></p></td>
+              <td><p>{{ ctrl.selected.GPA }}</p></td>
             </tr>
             <tr>
               <td class="short-td"><p class="bold">Program</p></td>

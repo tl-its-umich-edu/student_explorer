@@ -83,6 +83,9 @@ table thead {
 
 table thead a {
   font-size: 1.3em;
+}
+
+table a {
   color: black;
 }
 

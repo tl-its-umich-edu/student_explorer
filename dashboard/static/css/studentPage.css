@@ -205,3 +205,9 @@ table img {
   position: absolute;
   background-color: #999;
 }
+
+.back-button md-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 50px;
+}

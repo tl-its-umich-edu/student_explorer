@@ -21,10 +21,11 @@
 
     self.selected             = null;
     self.students             = [ ];
-    self.selectedStudent      = '';
+    self.selectedStudent      = window.location.pathname.replace(/\//g,"").replace("student","");
     self.sortType             = 'last_name';
     self.sortReverse          = false;
     self.searchStudent        = '';
+    self.goToDashboard        = goToDashboard;
 
     self.icons = [
       {name:"Engage", url:static_url+'images/Status_Icons_Engage.png', color:"Red"},
@@ -54,6 +55,7 @@
     self.classStanding        = { Freshman: true, Sophomore: true, Junior: true, Senior: true };
     self.statusType           = { Engage: true, Explore: true, Encourage: true };
 
+    //Get data for students' list
     StudentExplorerApiService
           .students()
           .then(function(student) {
@@ -75,9 +77,9 @@
             }
           });
 
+    //Get data for selected student
     StudentExplorerApiService
-          // .student(self.selectedStudent)
-          .student('graciela')
+          .student(self.selectedStudent)
           .then(function(d) {
             promise = [].concat(d);
             self.selected = promise[0];
@@ -119,6 +121,10 @@
         return true;
       }
       return self.classStanding[year];
+    }
+
+    function goToDashboard() {
+      window.location.href = "http://localhost:2080/";
     }
   }
 
