@@ -9,7 +9,7 @@
   ;
 
   /**
-   * Main Controller for the Student Explorer App
+   * Student Controller for the Student Explorer App
    * @param StudentExplorerApiService
    * @param $log
    * @param $q
