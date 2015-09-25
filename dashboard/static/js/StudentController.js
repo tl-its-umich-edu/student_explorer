@@ -21,7 +21,7 @@
 
     self.selected             = null;
     self.students             = [ ];
-    self.selectedStudent      = window.location.pathname.replace(/\//g,"").replace("student","");
+    self.selectedStudent      = window.location.pathname.replace(/\//g,"").replace("students","");
     self.selectedAdvisorName  = window.location.pathname.replace(/\//g,"").replace("advisors","").replace("students","");
     self.selectedAdvisor      = [ ];
     self.sortType             = 'last_name';
