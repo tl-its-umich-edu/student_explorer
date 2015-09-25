@@ -93,8 +93,8 @@
               <td><p ng-repeat="cohort in ctrl.selected.cohorts">{{cohort.description}}</p></td>
             </tr>
             <tr>
-              <td class="short-td"><p class="bold">Advisor</p></td>
-              <td><p>{{ctrl.selected.advisors[0].advisor.last_name}}, {{ctrl.selected.advisors[0].advisor.first_name}}</p></td>
+              <td class="short-td"><p class="bold">Advisors</p></td>
+              <td><p ng-repeat="advisor in ctrl.selected.advisors">{{advisor.advisor.last_name}}, {{advisor.advisor.first_name}} ({{advisor.role}})</p></td>
             </tr>
             <tr>
               <td class="short-td"><p class="bold">Year</p></td>
