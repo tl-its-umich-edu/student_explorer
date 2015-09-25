@@ -12,7 +12,10 @@
   <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
     <md-toolbar >
       <div class="md-toolbar-tools" >
-        <h1><span>All Students</span></h1>
+        <md-button class="md-icon-button back-button" aria-label="Settings" ng-click="ctrl.goToAdvisorDashboard()">
+          <md-icon md-font-library="material-icons">arrow_back</md-icon>
+        </md-button>
+        <h1><span>{{ctrl.selectedAdvisor.last_name}}, {{ctrl.selectedAdvisor.first_name}}'s Students</span></h1>
         <span flex></span>
         <form class="search-bar">
           <div class="form-group">
@@ -114,7 +117,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="student in ctrl.students | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchStudent" ng-if="ctrl.checkGPA(student.GPA) &amp;&amp; ctrl.checkYear(student.year)">
+            <tr ng-repeat="student in ctrl.students | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchStudent" ng-if="ctrl.checkAdvisor(student.advisors[0]) &amp;&amp; ctrl.checkGPA(student.GPA) &amp;&amp; ctrl.checkYear(student.year)">
               <td class="bold"><a href="http://localhost:2080/student/{{student.username}}/">{{ student.last_name }}, {{ student.first_name }}</a></td>
               <td>{{ student.univ_id }}</td>
               <td ng-if="ctrl.hasStatusData">

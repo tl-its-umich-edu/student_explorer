@@ -61,7 +61,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="advisor in ctrl.advisors | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchAdvisor">
-              <td class="bold">{{ advisor.last_name }}, {{ advisor.first_name }}</td>
+              <td class="bold"><a href="http://localhost:2080/advisors/{{advisor.username}}/students/">{{ advisor.last_name }}, {{ advisor.first_name }}</a></td>
               <td>{{ advisor.univ_id }}</td>
             </tr>
           </tbody>

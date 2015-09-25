@@ -41,6 +41,13 @@
                         return data;
                     });
                     return promise;
+                },
+                advisor: function(advisor) { 
+                    var promise = $http.get('http://localhost:2080/api/advisors/'+advisor+'/')
+                                    .then(function(response) {
+                                        return response.data;
+                                    });
+                    return promise;
                 }
             };
           	return seapiService;
