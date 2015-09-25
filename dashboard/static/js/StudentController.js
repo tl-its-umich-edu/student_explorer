@@ -25,6 +25,7 @@
     self.sortType             = 'last_name';
     self.sortReverse          = false;
     self.searchStudent        = '';
+    self.goToDashboard        = goToDashboard;
 
     self.icons = [
       {name:"Engage", url:static_url+'images/Status_Icons_Engage.png', color:"Red"},
@@ -54,6 +55,7 @@
     self.classStanding        = { Freshman: true, Sophomore: true, Junior: true, Senior: true };
     self.statusType           = { Engage: true, Explore: true, Encourage: true };
 
+    //Get data for students' list
     StudentExplorerApiService
           .students()
           .then(function(student) {
@@ -75,6 +77,7 @@
             }
           });
 
+    //Get data for selected student
     StudentExplorerApiService
           .student(self.selectedStudent)
           .then(function(d) {
@@ -118,6 +121,10 @@
         return true;
       }
       return self.classStanding[year];
+    }
+
+    function goToDashboard() {
+      window.location.href = "http://localhost:2080/";
     }
   }
 
