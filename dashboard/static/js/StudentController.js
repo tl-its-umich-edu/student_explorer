@@ -9,7 +9,7 @@
   ;
 
   /**
-   * Main Controller for the Student Explorer App
+   * Student Controller for the Student Explorer App
    * @param StudentExplorerApiService
    * @param $log
    * @param $q
@@ -22,10 +22,13 @@
     self.selected             = null;
     self.students             = [ ];
     self.selectedStudent      = window.location.pathname.replace(/\//g,"").replace("student","");
+    self.selectedAdvisorName  = window.location.pathname.replace(/\//g,"").replace("advisors","").replace("students","");
+    self.selectedAdvisor      = [ ];
     self.sortType             = 'last_name';
     self.sortReverse          = false;
     self.searchStudent        = '';
     self.goToDashboard        = goToDashboard;
+    self.goToAdvisorDashboard = goToAdvisorDashboard;
 
     self.icons = [
       {name:"Engage", url:static_url+'images/Status_Icons_Engage.png', color:"Red"},
@@ -39,6 +42,7 @@
     ];
 
     //Filter variables
+    self.checkAdvisor         = checkAdvisor;
     self.checkStatus          = checkStatus;
     self.checkGPA             = checkGPA;
     self.checkYear            = checkYear;
@@ -79,26 +83,41 @@
 
     //Get data for selected student
     StudentExplorerApiService
-          .student(self.selectedStudent)
-          .then(function(d) {
-            promise = [].concat(d);
-            self.selected = promise[0];
-            //Filters
-            for (var i=0;i<self.selected.class_sites.length;i++) {
-              if (self.selected.class_sites[i].student_grade != null) {
-                self.hasStudentGrade = true;
+            .student(self.selectedStudent)
+            .then(function(d) {
+              promise = [].concat(d);
+              self.selected = promise[0];
+              //Filters
+              for (var i=0;i<self.selected.class_sites.length;i++) {
+                if (self.selected.class_sites[i].student_grade != null) {
+                  self.hasStudentGrade = true;
+                }
+                if (self.selected.class_sites[i].class_average != null) {
+                  self.hasClassAverage = true;
+                }
+                if (self.hasStudentGrade == true && self.hasClassAverage == true) {
+                  self.hasStudentStanding = true;
+                  break;
+                }
               }
-              if (self.selected.class_sites[i].class_average != null) {
-                self.hasClassAverage = true;
-              }
-              if (self.hasStudentGrade == true && self.hasClassAverage == true) {
-                self.hasStudentStanding = true;
-                break;
-              }
-            }
+            });
+
+    //Get data for advisor
+    StudentExplorerApiService
+          .advisor(self.selectedAdvisorName)
+          .then(function(advisor) {
+            promise = [].concat(advisor);
+            self.selectedAdvisor = promise[0];
           });
 
     // Filters
+    function checkAdvisor(advisor) {
+      if (self.selectedAdvisorName != null && advisor == self.selectedAdvisorName) {
+        return true;
+      }
+      return false;
+    }
+
     function checkStatus(stat) {
       if (stat == null) {
         return true;
@@ -123,8 +142,12 @@
       return self.classStanding[year];
     }
 
-    function goToDashboard() {
-      window.location.href = "http://localhost:2080/";
+    function goToDashboard(advisor_username) {
+      window.location.href = "http://localhost:2080/advisors/"+advisor_username+"/students/";
+    }
+
+    function goToAdvisorDashboard(advisor_username) {
+      window.location.href = "http://localhost:2080/advisors/";
     }
   }
 
