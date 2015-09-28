@@ -51,7 +51,8 @@ class AdvisorDetail(generics.RetrieveAPIView):
     lookup_field = 'username'
 
     def get(self, request, *args, **kwargs):
-        if 'username' in self.kwargs.keys() and self.kwargs['username'] == 'me':
+        if ('username' in self.kwargs.keys()
+                and self.kwargs['username'] == 'me'):
             self.kwargs['username'] = request.user.username
             kwargs['username'] = request.user.username
         resp = self.retrieve(request, *args, **kwargs)
