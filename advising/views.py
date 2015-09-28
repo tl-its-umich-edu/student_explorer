@@ -36,6 +36,9 @@ class AdvisorDetail(generics.RetrieveAPIView):
     lookup_field = 'username'
 
     def get(self, request, *args, **kwargs):
+        if 'username' in self.kwargs.keys() and self.kwargs['username'] == 'me':
+            self.kwargs['username'] = request.user.username
+            kwargs['username'] = request.user.username
         resp = self.retrieve(request, *args, **kwargs)
         resp.data['students_url'] = reverse('advisor-students-list',
                                             request=request, kwargs=kwargs)
