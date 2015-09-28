@@ -1,8 +1,7 @@
 from advising.models import Advisor, Student
 from advising.serializers import (AdvisorSerializer, StudentSummarySerializer,
                                   StudentFullSerializer,
-                                  StudentAdvisorsSerializer,
-                                  AdvisorStudentsSerializer)
+                                  StudentAdvisorsSerializer)
 from rest_framework import generics
 
 from rest_framework.decorators import api_view
