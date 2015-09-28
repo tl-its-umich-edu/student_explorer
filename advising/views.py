@@ -9,13 +9,28 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
+from django.conf import settings
+
 
 @api_view(('GET',))
 def api_root(request, format=None):
     return Response({
         'advisors': reverse('advisor-list', request=request, format=format),
         'students': reverse('student-list', request=request, format=format),
+        'config': reverse('config', request=request, format=format),
     })
+
+
+@api_view(('GET',))
+def config(request, format=None):
+    '''
+    Config values for the client-side application.
+    '''
+    return Response({
+        'static_url': request.build_absolute_uri(settings.STATIC_URL),
+        'api_url': reverse('api_url', request=request),
+        'username': request.user.username,
+        })
 
 
 class AdvisorList(generics.ListAPIView):
