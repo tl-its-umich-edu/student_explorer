@@ -98,7 +98,7 @@ class StudentDetail(generics.RetrieveAPIView):
         resp.data['advisors_url'] = reverse('student-advisors-list',
                                             request=request, kwargs=kwargs)
         resp.data['student_full_url'] = reverse('student-full-detail',
-                                            request=request, kwargs=kwargs)
+                                                request=request, kwargs=kwargs)
         return resp
 
 
