@@ -29,6 +29,7 @@ def config(request, format=None):
         'static_url': request.build_absolute_uri(settings.STATIC_URL),
         'api_url': reverse('api_url', request=request),
         'username': request.user.username,
+        'debug': settings.DEBUG,
         })
 
 
