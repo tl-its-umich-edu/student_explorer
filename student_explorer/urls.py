@@ -21,8 +21,14 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^', include('dashboard.urls')),
     url(r'^api/', include('advising.urls')),
-    url(r'^(?P<path>.*)$', serve, {
-        'document_root': 'sespa',
+    url(r'^$', serve, {
+        'document_root': 'sespa/app',
         'path': 'index.html'
+    }),
+    url(r'^bower_components/(?P<path>.*)$', serve, {
+        'document_root': 'sespa/bower_components',
+    }),
+    url(r'^(?P<path>.*)$', serve, {
+        'document_root': 'sespa/app',
     }),
 ]
