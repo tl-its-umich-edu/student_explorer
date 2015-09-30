@@ -12,16 +12,15 @@ Install dependencies.
     sudo apt-get install --yes nodejs
     sudo npm install --global npm@latest
     sudo npm install --global bower
+    sudo npm install --global grunt-cli
 
 Install components and modules
 
     cd sespa
     bower install
-    
-Add components
-
-    sudo npm install --global grunt-cli
     npm install
+
+Add components
 
     bower install --save bower-package
     grunt wiredep
