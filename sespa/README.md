@@ -38,13 +38,13 @@ The interface should be working after this step.
 
     grunt build
 
-### Install Yeoman and the Angular generator
+Install Yeoman and the Angular generator
 
     sudo npm install --global yo
     sudo npm install --global generator-karma
     sudo npm install --global generator-angular
 
-### Add Angular components
+Add Angular components
 
     yo angular:service
 
