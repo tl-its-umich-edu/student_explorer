@@ -15,9 +15,20 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.views.static import serve
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('dashboard.urls')),
+    # url(r'^', include('dashboard.urls')),
     url(r'^api/', include('advising.urls')),
+    url(r'^$', serve, {
+        'document_root': 'sespa/app',
+        'path': 'index.html'
+    }),
+    url(r'^bower_components/(?P<path>.*)$', serve, {
+        'document_root': 'sespa/bower_components',
+    }),
+    url(r'^(?P<path>.*)$', serve, {
+        'document_root': 'sespa/app',
+    }),
 ]
