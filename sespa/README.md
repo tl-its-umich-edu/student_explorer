@@ -5,29 +5,48 @@ version 0.11.1.
 
 ## Setup
 
-Install dependencies.
+### Install dependencies
 
     sudo apt-get install --yes git
     curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
     sudo apt-get install --yes nodejs
     sudo npm install --global npm@latest
-    sudo npm install --global bower
-    sudo npm install --global grunt-cli
 
-Install components and modules
+### Install Bower
+
+    sudo npm install --global bower
+
+### Install Bower components
 
     cd sespa
     bower install
+
+The interface should be working after this step.
+
+### Install Grunt
+
+    sudo npm install --global grunt-cli
+    cd sespa
     npm install
 
-Add components
+### Add components
 
     bower install --save bower-package
     grunt wiredep
     
-Create production build
+### Create production build
 
     grunt build
+
+### Install Yeoman and the Angular generator
+
+    sudo npm install --global yo
+    sudo npm install --global generator-karma
+    sudo npm install --global generator-angular
+
+### Add Angular components
+
+    yo angular:service
 
 ## Build & development
 
