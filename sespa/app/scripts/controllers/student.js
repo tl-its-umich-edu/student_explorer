@@ -28,6 +28,7 @@ function StudentcontrollerCtrl( StudentService, $log, $q, $scope, $http, $routeP
   self.searchStudent        = '';
   self.goToDashboard        = goToDashboard;
   self.goToAdvisorDashboard = goToAdvisorDashboard;
+  self.scroll               = scroll;
 
   self.icons = [
     {name:"Engage", url:'images/Status_Icons_Engage.png', color:"Red"},
@@ -119,8 +120,8 @@ function StudentcontrollerCtrl( StudentService, $log, $q, $scope, $http, $routeP
 	    if (self.selectedAdvisorName != null && advisor[i] == self.selectedAdvisorName) {
 	      return true;
 	    }
-	    return false;
 	}
+	return false;
   }
 
   function checkStatus(stat) {
@@ -147,11 +148,18 @@ function StudentcontrollerCtrl( StudentService, $log, $q, $scope, $http, $routeP
     return self.classStanding[year];
   }
 
+  function scroll() {
+    window.scrollTo(0,0);
+  }
+
   function goToDashboard(advisor_username) {
+  	console.log(advisor_username);
+  	window.scrollTo(0, 0);
     window.location.href = "http://localhost:2080/#/"+advisor_username+"/studentList/";
   }
 
   function goToAdvisorDashboard(advisor_username) {
+  	window.scrollTo(0, 0);
     window.location.href = "http://localhost:2080/#/advisorList";
   }
 }

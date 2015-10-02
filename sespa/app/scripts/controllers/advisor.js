@@ -23,6 +23,7 @@ function AdvisorcontrollerCtrl( StudentService, $log, $q, $scope, $http ) {
   self.sortType             = 'last_name';
   self.sortReverse          = false;
   self.searchAdvisor        = '';
+  self.scroll               = scroll;
 
   //Get data for advisors' list
   StudentService
@@ -30,4 +31,8 @@ function AdvisorcontrollerCtrl( StudentService, $log, $q, $scope, $http ) {
         .then(function(advisor) {
           self.advisors = [].concat(advisor);
         });
+
+  function scroll() {
+    window.scrollTo(0,0);
+  }
 }
