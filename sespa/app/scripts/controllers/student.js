@@ -10,18 +10,18 @@
 angular
     .module('sespaApp')
     .controller('StudentcontrollerCtrl', [
-         'StudentService', '$log', '$q', '$scope', '$http',
+         'StudentService', '$log', '$q', '$scope', '$http', '$routeParams',
         StudentcontrollerCtrl
     ])
 ;
 
-function StudentcontrollerCtrl( StudentService, $log, $q, $scope, $http ) {
+function StudentcontrollerCtrl( StudentService, $log, $q, $scope, $http, $routeParams ) {
   var self = this;
 
   self.selected             = null;
   self.students             = [ ];
-  self.selectedStudent      = window.location.pathname.replace(/\//g,"").replace("students","");
-  self.selectedAdvisorName  = window.location.pathname.replace(/\//g,"").replace("advisors","").replace("students","");
+  self.selectedStudent      = $routeParams.student;
+  self.selectedAdvisorName  = $routeParams.advisor;
   self.selectedAdvisor      = [ ];
   self.sortType             = 'last_name';
   self.sortReverse          = false;
@@ -30,14 +30,14 @@ function StudentcontrollerCtrl( StudentService, $log, $q, $scope, $http ) {
   self.goToAdvisorDashboard = goToAdvisorDashboard;
 
   self.icons = [
-    {name:"Engage", url:static_url+'images/Status_Icons_Engage.png', color:"Red"},
-    {name:"Explore", url:static_url+'images/Status_Icons_Explore.png', color:"Yellow"},
-    {name:"Encourage", url:static_url+'images/Status_Icons_Encourage.png', color:"Green"}
+    {name:"Engage", url:'images/Status_Icons_Engage.png', color:"Red"},
+    {name:"Explore", url:'images/Status_Icons_Explore.png', color:"Yellow"},
+    {name:"Encourage", url:'images/Status_Icons_Encourage.png', color:"Green"}
   ];
 
   self.additionalIcons = [
-    {name:"Student Grade", url:static_url+'images/Status_Icons_Student.png'},
-    {name:"Class Average", url:static_url+'images/Status_Icons_ClassAverage.png'}
+    {name:"Student Grade", url:'images/Status_Icons_Student.png'},
+    {name:"Class Average", url:'images/Status_Icons_ClassAverage.png'}
   ];
 
   //Filter variables
@@ -81,40 +81,46 @@ function StudentcontrollerCtrl( StudentService, $log, $q, $scope, $http ) {
         });
 
   //Get data for selected student
-  StudentService
-          .student(self.selectedStudent)
-          .then(function(d) {
-            promise = [].concat(d);
-            self.selected = promise[0];
-            //Filters
-            for (var i=0;i<self.selected.class_sites.length;i++) {
-              if (self.selected.class_sites[i].student_grade != null) {
-                self.hasStudentGrade = true;
-              }
-              if (self.selected.class_sites[i].class_average != null) {
-                self.hasClassAverage = true;
-              }
-              if (self.hasStudentGrade == true && self.hasClassAverage == true) {
-                self.hasStudentStanding = true;
-                break;
-              }
-            }
-          });
+  if (self.selectedStudent != null) {
+	  StudentService
+	          .student(self.selectedStudent)
+	          .then(function(d) {
+	            var promise = [].concat(d);
+	            self.selected = promise[0];
+	            //Filters
+	            for (var i=0;i<self.selected.class_sites.length;i++) {
+	              if (self.selected.class_sites[i].student_grade != null) {
+	                self.hasStudentGrade = true;
+	              }
+	              if (self.selected.class_sites[i].class_average != null) {
+	                self.hasClassAverage = true;
+	              }
+	              if (self.hasStudentGrade == true && self.hasClassAverage == true) {
+	                self.hasStudentStanding = true;
+	                break;
+	              }
+	            }
+	          });
+  }
 
   //Get data for advisor
-  StudentService
-        .advisor(self.selectedAdvisorName)
-        .then(function(advisor) {
-          promise = [].concat(advisor);
-          self.selectedAdvisor = promise[0];
-        });
+  if (self.selectedAdvisorName != null) {
+	  StudentService
+	        .advisor(self.selectedAdvisorName)
+	        .then(function(advisor) {
+	          var promise = [].concat(advisor);
+	          self.selectedAdvisor = promise[0];
+	        });
+  }
 
   // Filters
   function checkAdvisor(advisor) {
-    if (self.selectedAdvisorName != null && advisor == self.selectedAdvisorName) {
-      return true;
-    }
-    return false;
+  	for (var i=0;i<advisor.length;i++) {
+	    if (self.selectedAdvisorName != null && advisor[i] == self.selectedAdvisorName) {
+	      return true;
+	    }
+	    return false;
+	}
   }
 
   function checkStatus(stat) {
@@ -142,10 +148,10 @@ function StudentcontrollerCtrl( StudentService, $log, $q, $scope, $http ) {
   }
 
   function goToDashboard(advisor_username) {
-    window.location.href = "http://localhost:2080/advisors/"+advisor_username+"/students/";
+    window.location.href = "http://localhost:2080/#/"+advisor_username+"/studentList/";
   }
 
   function goToAdvisorDashboard(advisor_username) {
-    window.location.href = "http://localhost:2080/advisors/";
+    window.location.href = "http://localhost:2080/#/advisorList";
   }
 }

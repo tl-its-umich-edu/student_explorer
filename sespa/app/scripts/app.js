@@ -31,15 +31,15 @@ angular
       })
       .when('/advisorList', {
         templateUrl: 'views/advisorList.html',
-        controller: 'AboutCtrl'
+        controller: 'AdvisorcontrollerCtrl'
       })
-      .when('/studentList', {
+      .when('/:advisor/studentList/', {
         templateUrl: 'views/studentList.html',
-        controller: 'AboutCtrl'
+        controller: 'StudentcontrollerCtrl'
       })
-      .when('/studentPage', {
-        templateUrl: 'views/studentPage.html',
-        controller: 'AboutCtrl'
+      .when('/:advisor/studentDetail/:student/', {
+        templateUrl: 'views/studentDetail.html',
+        controller: 'StudentcontrollerCtrl'
       })
       .otherwise({
         redirectTo: '/'
