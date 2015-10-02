@@ -2,15 +2,14 @@
 
 /**
  * @ngdoc service
- * @name sespaApp.StudentExplorerApiService
+ * @name sespaApp.StudentService
  * @description
- * # StudentExplorerApiService
+ * # StudentService
  * Factory in the sespaApp.
  */
-'use strict';
 
 angular.module('sespaApp')
-       .factory('StudentExplorerApiService', function($http,$q) {
+       .factory('StudentService', function($http,$q) {
           var seapiService = {
             students: function(student) {
               var promise = $http.get('http://localhost:2080/api/students/')
