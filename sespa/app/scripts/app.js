@@ -15,7 +15,9 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngMaterial',
+    'ui-rangeSlider'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -26,6 +28,18 @@ angular
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
+      })
+      .when('/advisorList', {
+        templateUrl: 'views/advisorList.html',
+        controller: 'AdvisorcontrollerCtrl'
+      })
+      .when('/:advisor/studentList/', {
+        templateUrl: 'views/studentList.html',
+        controller: 'StudentcontrollerCtrl'
+      })
+      .when('/:advisor/studentDetail/:student/', {
+        templateUrl: 'views/studentDetail.html',
+        controller: 'StudentcontrollerCtrl'
       })
       .otherwise({
         redirectTo: '/'
