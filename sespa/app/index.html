@@ -2,13 +2,12 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Student Explorer</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <link rel="stylesheet" href="bower_components/nvd3/build/nv.d3.css" />
     <link rel="stylesheet" href="bower_components/angular-rangeslider/angular.rangeSlider.css" />
@@ -47,10 +46,8 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li><a href="#/">Home</a></li>
-              <li><a ng-href="#/advisorList">advisorList</a></li>
-              <li><a ng-href="#/studentList">studentList</a></li>
-              <li><a ng-href="#/studentDetail">studentDetail</a></li>
+              <li><a ng-href="#/advisors">Advisors</a></li>
+              <li><a ng-href="#/students">Students</a></li>
             </ul>
           </div>
         </div>
@@ -101,10 +98,7 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.1/angular-material.min.js"></script>
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/advisor.js"></script>
         <script src="scripts/controllers/student.js"></script>
         <script src="scripts/services/student.js"></script>

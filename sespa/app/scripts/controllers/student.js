@@ -2,20 +2,20 @@
 
 /**
  * @ngdoc function
- * @name sespaApp.controller:StudentcontrollerCtrl
+ * @name sespaApp.controller:StudentCtrl
  * @description
- * # StudentcontrollerCtrl
+ * # StudentCtrl
  * Controller of the sespaApp
  */
 angular
     .module('sespaApp')
-    .controller('StudentcontrollerCtrl', [
+    .controller('StudentCtrl', [
          'StudentService', '$log', '$q', '$scope', '$http', '$routeParams',
-        StudentcontrollerCtrl
+        StudentCtrl
     ])
 ;
 
-function StudentcontrollerCtrl( StudentService, $log, $q, $scope, $http, $routeParams ) {
+function StudentCtrl( StudentService, $log, $q, $scope, $http, $routeParams ) {
   var self = this;
 
   self.selected             = null;

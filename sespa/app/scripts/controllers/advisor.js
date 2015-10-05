@@ -2,20 +2,20 @@
 
 /**
  * @ngdoc function
- * @name sespaApp.controller:AdvisorcontrollerCtrl
+ * @name sespaApp.controller:AdvisorCtrl
  * @description
- * # AdvisorcontrollerCtrl
+ * # AdvisorCtrl
  * Controller of the sespaApp
  */
 angular
       .module('sespaApp')
-      .controller('AdvisorcontrollerCtrl', [
+      .controller('AdvisorCtrl', [
            'StudentService', '$log', '$q', '$scope', '$http',
-          AdvisorcontrollerCtrl
+          AdvisorCtrl
       ])
   ;
 
-function AdvisorcontrollerCtrl( StudentService, $log, $q, $scope, $http ) {
+function AdvisorCtrl( StudentService, $log, $q, $scope, $http ) {
   var self = this;
 
   self.selected             = null;
