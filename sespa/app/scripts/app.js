@@ -19,15 +19,11 @@ angular
     'ngMaterial',
     'ui-rangeSlider'
   ])
-  .config(function ($routeProvider) {
+  .config(function($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
       })
       .when('/advisorList', {
         templateUrl: 'views/advisorList.html',
