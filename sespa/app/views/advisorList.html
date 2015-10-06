@@ -1,5 +1,6 @@
-<div ng-controller="AdvisorCtrl as ctrl" ng-cloak>
-	<div flex layout="row">
+<!-- <div ng-controller="AdvisorCtrl as ctrl" ng-cloak> -->
+<div>
+		<div flex layout="row">
 
 	<md-content>
 	  <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
@@ -21,18 +22,7 @@
 
 	  <div layout="row" layout-sm="column">
 	    <md-content id="content">
-	      <div class="tb filter-table">
-	        <table class="table table-bordered table-striped">
-	          <thead>
-	            <tr>
-	              <td><a>Filters<a></td>
-	            </tr>
-	          </thead>
-	          <tbody>
-	          </tbody>
-	        </table>
-	      </div><!-- comment used for removing the gap
-	   --><div class="tb advisor-table">
+		  <div class="tb advisor-table">
 	        <table class="table table-bordered table-striped">
 	          <thead>
 	            <tr>
@@ -53,8 +43,8 @@
 	            </tr>
 	          </thead>
 	          <tbody>
-	            <tr ng-repeat="advisor in ctrl.advisors | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchAdvisor">
-	              <td class="bold"><a ng-click="ctrl.scroll()" href="http://localhost:2080/#/{{advisor.username}}/studentList/">{{ advisor.last_name }}, {{ advisor.first_name }}</a></td>
+            <tr ng-repeat="advisor in advisors | orderBy:ctrl.sortType:ctrl.sortReverse | filter:ctrl.searchAdvisor">
+	              <td class="bold"><a ng-click="ctrl.scroll()" href="http://localhost:2080/#/advisors/{{advisor.username}}">{{ advisor.last_name }}, {{ advisor.first_name }}</a></td>
 	              <td>{{ advisor.univ_id }}</td>
 	            </tr>
 	          </tbody>

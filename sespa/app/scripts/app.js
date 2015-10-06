@@ -25,11 +25,11 @@ angular
         templateUrl: 'views/advisorList.html',
         controller: 'AdvisorCtrl'
       })
-      .when('/:advisor/studentList/', {
+      .when('/advisors/:advisor', {
         templateUrl: 'views/studentList.html',
         controller: 'StudentCtrl'
       })
-      .when('/:advisor/studentDetail/:student/', {
+      .when('/advisors/:advisor/students/:student', {
         templateUrl: 'views/studentDetail.html',
         controller: 'StudentCtrl'
       })
