@@ -23,7 +23,8 @@ angular
     $routeProvider
       .when('/advisors', {
         templateUrl: 'views/advisorList.html',
-        controller: 'AdvisorCtrl'
+        controller: 'AdvisorCtrl',
+        controllerAs: 'ctrl',
       })
       .when('/advisors/:advisor', {
         templateUrl: 'views/studentList.html',

@@ -10,13 +10,13 @@
 
 angular
   .module('sespaApp')
-  .controller('AdvisorCtrl', function(studentExplorer, $scope) {
+  .controller('AdvisorCtrl', function(studentExplorer) {
     this.selected = null;
     this.sortType = 'last_name';
     this.sortReverse = false;
     this.searchAdvisor = '';
     this.scroll = scroll;
 
-    $scope.advisors = [];
-    studentExplorer.addAllAdvisors($scope.advisors);
+    this.advisors = [];
+    studentExplorer.addAllAdvisors(this.advisors);
   });
