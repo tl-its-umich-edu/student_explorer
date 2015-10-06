@@ -16,7 +16,8 @@ def api_root(request, format=None):
     return Response({
         'advisors': reverse('advisor-list', request=request, format=format),
         'students': reverse('student-list', request=request, format=format),
-        'config': reverse('config', request=request, format=format),
+        'username': request.user.username,
+        'debug': settings.DEBUG,
     })
 
 
