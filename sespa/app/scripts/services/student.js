@@ -17,7 +17,7 @@ function getData(url, data, $http) {
       getData(response.data.next, data, $http);
     }
   });
-  console.log(data);
+  // console.log(data);
   return data;
 }
 
