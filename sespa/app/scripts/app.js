@@ -22,8 +22,8 @@ angular
   .config(function($routeProvider) {
     $routeProvider
       .when('/advisors', {
-        templateUrl: 'views/advisorList.html',
-        controller: 'AdvisorCtrl',
+        templateUrl: 'views/advisor_list.html',
+        controller: 'AdvisorListCtrl',
         controllerAs: 'ctrl',
       })
       .when('/advisors/:advisor', {
