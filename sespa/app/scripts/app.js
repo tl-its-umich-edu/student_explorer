@@ -26,13 +26,9 @@ angular
         controller: 'AdvisorListCtrl',
         controllerAs: 'ctrl',
       })
-      .when('/advisors/:advisor', {
-        templateUrl: 'views/studentList.html',
-        controller: 'StudentCtrl'
-      })
-      .when('/advisors/:advisor/students/:student', {
-        templateUrl: 'views/studentDetail.html',
-        controller: 'StudentCtrl'
+      .when('/students', {
+        templateUrl: 'views/student_list.html',
+        controller: 'StudentListCtrl'
       })
       .otherwise({
         redirectTo: '/'

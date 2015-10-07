@@ -33,6 +33,10 @@ angular.module('sespaApp')
     return {
       addAllAdvisors: function(obj) {
         pushPaginatedData(obj, config.advisors);
+      },
+      addAllStudents: function(obj) {
+        pushPaginatedData(obj, config.students);
       }
+
     };
   });
