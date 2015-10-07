@@ -5,10 +5,13 @@
 	  <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
 	    <md-toolbar >
 	      <div class="md-toolbar-tools" >
-	        <md-button class="md-icon-button back-button" aria-label="Settings" ng-click="goToAdvisorDashboard()">
+	        <!-- <md-button class="md-icon-button back-button" aria-label="Settings" ng-click="goToAdvisorDashboard()">
 	          <md-icon md-font-library="material-icons">arrow_back</md-icon>
-	        </md-button>
-	        <h1><span>{{selectedAdvisor.last_name}}, {{selectedAdvisor.first_name}}'s Students</span></h1>
+	        </md-button> -->
+	        <h1><span>
+				<span ng-if="advisor">{{advisor.last_name}}, {{advisor.first_name}}'s</span>
+				Students
+				</span></h1>
 	        <span flex></span>
 	        <form class="search-bar">
 	          <div class="form-group">
@@ -115,16 +118,8 @@
 	              <td class="bold"><a ng-click="scroll()" href="http://localhost:2080/#/{{selectedAdvisorName}}/studentDetail/{{student.username}}/">{{ student.last_name }}, {{ student.first_name }}</a></td>
 	              <td>{{ student.univ_id }}</td>
 	              <td ng-if="hasStatusData">
-	                <ul style="list-style-type:none">
-	                  <li ng-repeat="status in student.statuses">
-	                    <img ng-if="checkStatus('Engage') &amp;&amp; status == 'Red'" ng-src="{{icons[0].url}}" alt="{{icons[0].name}}" />
-	                  </li>
-	                  <li ng-repeat="status in student.statuses">
-	                    <img ng-if="checkStatus('Explore') &amp;&amp; status == 'Yellow'" ng-src="{{icons[1].url}}" alt="{{icons[1].name}}" />
-	                  </li>
-	                  <li ng-repeat="status in student.statuses">
-	                    <img ng-if="checkStatus('Encourage') &amp;&amp; status == 'Green'" ng-src="{{icons[2].url}}" alt="{{icons[2].name}}" />
-	                  </li>
+	                <ul style="list-style-type:none" ng-repeat="status in student.statuses track by $index">
+	                  <li class="e3-status {{ status | lowercase }}">{{status}}</li>
 	                </ul>
 	              </td>
 	              <td>
