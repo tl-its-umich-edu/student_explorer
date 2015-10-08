@@ -15,6 +15,8 @@ angular.module('sespaApp')
     $scope.searchAdvisor = '';
     $scope.scroll = scroll;
 
-    $scope.advisors = [];
-    studentExplorer.addAllAdvisors($scope.advisors);
+    // $scope.advisors = [];
+    studentExplorer.addAllAdvisors().then(function(advisors) {
+      $scope.advisors = advisors;
+    });
   });

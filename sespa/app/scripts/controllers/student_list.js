@@ -18,5 +18,7 @@ angular.module('sespaApp')
     $scope.hasStatusData = true;
 
     $scope.students = [];
-    studentExplorer.addAllStudents($scope.students);
+    studentExplorer.addAllStudents().then(function(students) {
+      $scope.students = students;
+    });
   });

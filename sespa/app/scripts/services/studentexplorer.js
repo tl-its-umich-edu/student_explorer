@@ -31,11 +31,20 @@ angular.module('sespaApp')
 
     // Public API here
     return {
-      addAllAdvisors: function(obj) {
-        pushPaginatedData(obj, config.advisors);
+      addAllAdvisors: function() {
+        var promise = $http.get(config.advisors)
+          .then(function(response) {
+            return response.data;
+          });
+        return promise;
       },
-      addAllStudents: function(obj) {
-        pushPaginatedData(obj, config.students);
+
+      addAllStudents: function() {
+        var promise = $http.get(config.students)
+          .then(function(response) {
+            return response.data;
+          });
+        return promise;
       }
 
     };
