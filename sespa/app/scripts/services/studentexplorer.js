@@ -31,7 +31,7 @@ angular.module('sespaApp')
 
     // Public API here
     return {
-      addAllAdvisors: function() {
+      allAdvisors: function() {
         var promise = $http.get(config.advisors)
           .then(function(response) {
             return response.data;
@@ -39,7 +39,7 @@ angular.module('sespaApp')
         return promise;
       },
 
-      addAllStudents: function() {
+      allStudents: function() {
         var promise = $http.get(config.students)
           .then(function(response) {
             return response.data;
