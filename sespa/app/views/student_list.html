@@ -118,9 +118,9 @@
 	              <td class="bold"><a ng-click="scroll()" href="http://localhost:2080/#/{{selectedAdvisorName}}/studentDetail/{{student.username}}/">{{ student.last_name }}, {{ student.first_name }}</a></td>
 	              <td>{{ student.univ_id }}</td>
 	              <td ng-if="hasStatusData">
-	                <ul style="list-style-type:none" ng-repeat="status in student.statuses track by $index">
-	                  <li class="e3-status {{ status | lowercase }}">{{status}}</li>
-	                </ul>
+	                <div style="list-style-type:none" ng-repeat="status in student.statuses track by $index">
+	                  <img class="course-status {{ status | lowercase }}" ng-src="images/Status_Icons_{{status}}.png" alt="{{status}}" />
+				  	</div>
 	              </td>
 	              <td>
 	                <ul style="list-style-type:none">

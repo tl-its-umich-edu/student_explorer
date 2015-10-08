@@ -81,3 +81,7 @@ body {
     border-bottom: 0;
   }
 }
+
+.course-status {
+    height: 20pt;
+}
