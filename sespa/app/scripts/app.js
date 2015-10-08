@@ -26,6 +26,11 @@ angular
         controller: 'AdvisorListCtrl',
         controllerAs: 'ctrl',
       })
+      .when('/advisors/:advisor', {
+        templateUrl: 'views/advisor_detail.html',
+        controller: 'AdvisorDetailCtrl',
+        controllerAs: 'ctrl',
+      })
       .when('/students', {
         templateUrl: 'views/student_list.html',
         controller: 'StudentListCtrl'
