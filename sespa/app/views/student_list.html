@@ -115,7 +115,7 @@
 	          <tbody>
 	            <!-- <tr ng-repeat="student in students | orderBy:sortType:sortReverse | filter:searchStudent" ng-if="checkAdvisor(student.advisors) &amp;&amp; checkGPA(student.GPA) &amp;&amp; checkYear(student.year)"> -->
 	            <tr ng-repeat="student in students | orderBy:sortType:sortReverse | filter:searchStudent">
-	              <td class="bold"><a ng-click="scroll()" href="http://localhost:2080/#/{{selectedAdvisorName}}/studentDetail/{{student.username}}/">{{ student.last_name }}, {{ student.first_name }}</a></td>
+	              <td class="bold"><a ng-click="scroll()" href="/#/students/{{student.username}}/">{{ student.last_name }}, {{ student.first_name }}</a></td>
 	              <td>{{ student.univ_id }}</td>
 	              <td ng-if="hasStatusData">
 	                <div style="list-style-type:none" ng-repeat="status in student.statuses track by $index">
