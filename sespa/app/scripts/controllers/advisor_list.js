@@ -13,7 +13,7 @@ angular.module('sespaApp')
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;
     $scope.searchAdvisor = '';
-    $scope.scroll = scroll;
+    // $scope.scroll = scroll;
 
     advisingData.allAdvisors().then(function(advisors) {
       $scope.advisors = advisors;

@@ -12,8 +12,8 @@ angular.module('sespaApp')
     $scope.selected = null;
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;
-    $scope.searchAdvisor = '';
-    $scope.scroll = scroll;
+    $scope.searchStudent = '';
+    // $scope.scroll = scroll;
 
     $scope.hasStatusData = false;
     $scope.hasGpaData = false;
@@ -34,6 +34,6 @@ angular.module('sespaApp')
           $scope.hasYearData = true;
         }
         return $scope.hasStatusData == true && $scope.hasGPAData == true && $scope.hasYearData == true;
-      })
+      });
     });
   });

@@ -40,6 +40,24 @@ angular.module('sespaApp')
         });
       },
 
+      advisorDetails: function(advisorName) {
+        return config().then(function(config) {
+          return $http.get(config.advisors+advisorName+'/', {'cache': true})
+            .then(function(response) {
+              return response.data;
+            });
+        });
+      },
+      
+      advisorsStudents: function(advisorName) {
+        return config().then(function(config) {
+          return $http.get(config.advisors+advisorName+'/students/', {'cache': true})
+            .then(function(response) {
+              return response.data;
+            });
+        });
+      },
+
       allStudents: function() {
         return config().then(function(config) {
           return $http.get(config.students, {'cache': true})

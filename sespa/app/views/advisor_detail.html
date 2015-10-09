@@ -1,1 +1,105 @@
-<p>This is the advisor_detail view.</p>
+<div>
+	<div flex layout="row">
+
+	<md-content>
+	  <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+	    <md-toolbar >
+	      <div class="md-toolbar-tools" >
+	      	<md-button class="md-icon-button back-button" aria-label="Settings" ng-click="toAdvisorList()">
+	          <md-icon md-font-library="material-icons">arrow_back</md-icon>
+	        </md-button>
+	        <h1><span>{{advisor.last_name}}, {{advisor.first_name}}</span></h1>
+	        <span flex></span>
+	        <!-- <form class="search-bar">
+	          <div class="form-group">
+	            <div class="input-group">
+	              <div class="input-group-addon"><i class="fa fa-search"></i></div>
+	              <input type="text" class="form-control" placeholder="Search advisor" ng-model="searchAdvisor">
+	            </div>      
+	          </div>
+	        </form> -->
+	      </div>
+	    </md-toolbar>
+	  </div>
+
+	  <div layout="row" layout-sm="column">
+	    <md-content id="content">
+	      <div class="advisor-info">
+	      	<p>Advisor Name:&nbsp;&nbsp; {{advisor.last_name}}, {{advisor.first_name}}</p>
+	      	<p>Advisor ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{advisor.univ_id}}</p>
+	      </div>
+		  <div class="tb advisor-student-table">
+		  	<p>Advisor's Students:</p>
+	        <table class="table table-bordered table-striped">
+	          <thead>
+	            <tr>
+	              <td>
+	                <a href="" ng-click="sortType = 'last_name'; sortReverse = !sortReverse">
+	                  Name
+	                  <span ng-show="sortType == 'last_name' &amp;&amp; !sortReverse" class="fa fa-caret-down"></span>
+	                  <span ng-show="sortType == 'last_name' &amp;&amp; sortReverse" class="fa fa-caret-up"></span>
+	                </a>
+	              </td>
+	              <td>
+	                <a href="" ng-click="sortType = 'univ_id'; sortReverse = !sortReverse">
+	                  Student ID
+	                  <span ng-show="sortType == 'univ_id' &amp;&amp; !sortReverse" class="fa fa-caret-down"></span>
+	                  <span ng-show="sortType == 'univ_id' &amp;&amp; sortReverse" class="fa fa-caret-up"></span>
+	                </a>
+	              </td>
+	              <td ng-if="hasStatusData">
+	                <a class="not-sortable">
+	                  Status
+	                </a>
+	              </td>
+	              <td>
+	                <a href="" ng-click="sortType = 'cohorts'; sortReverse = !sortReverse">
+	                  Cohorts
+	                  <span ng-show="sortType == 'cohorts' &amp;&amp; !sortReverse" class="fa fa-caret-down"></span>
+	                  <span ng-show="sortType == 'cohorts' &amp;&amp; sortReverse" class="fa fa-caret-up"></span>
+	                </a>
+	              </td>
+	              <td ng-if="hasGPAData">
+	                <a href="" ng-click="sortType = 'GPA'; sortReverse = !sortReverse">
+	                  GPA
+	                  <span ng-show="sortType == 'GPA' &amp;&amp; !sortReverse" class="fa fa-caret-down"></span>
+	                  <span ng-show="sortType == 'GPA' &amp;&amp; sortReverse" class="fa fa-caret-up"></span>
+	                </a>
+	              </td>
+	              <td ng-if="hasYearData">
+	                <a href="" ng-click="sortType = 'year'; sortReverse = !sortReverse">
+	                  Year
+	                  <span ng-show="sortType == 'year' &amp;&amp; !sortReverse" class="fa fa-caret-down"></span>
+	                  <span ng-show="sortType == 'year' &amp;&amp; sortReverse" class="fa fa-caret-up"></span>
+	                </a>
+	              </td>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <tr ng-repeat="student in students | orderBy:sortType:sortReverse">
+<!-- 	              <td class="bold"><a ng-click="scroll()" href="#/students/{{student.username}}/">{{ student.last_name }}, {{ student.first_name }}</a></td> -->
+				  <td class="bold">{{ student.last_name }}, {{ student.first_name }}</a></td>
+	              <td>{{ student.univ_id }}</td>
+	              <td ng-if="hasStatusData">
+					  <img ng-repeat="status in student.statuses track by $index"
+					  	   class="course-status {{ status | lowercase }}"
+						   ng-src="images/Status_Icons_{{status}}.png"
+						   alt="{{status}}" />
+	              </td>
+	              <td>
+	                <ul style="list-style-type:none">
+	                  <li ng-repeat="cohort in student.cohorts">{{ cohort }}</li>
+	                </ul></td>
+	              <td ng-if="hasGPAData">{{ student.GPA }}</td>
+	              <td ng-if="hasYearData">{{ student.year }}</td>
+	            </tr>
+	          </tbody>
+	        </table>
+	      </div>
+	    </md-content>
+	  </div>
+	</md-content>
+
+	</div>
+</div>
+<hr/>
