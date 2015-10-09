@@ -15,10 +15,25 @@ angular.module('sespaApp')
     $scope.searchAdvisor = '';
     $scope.scroll = scroll;
 
-    $scope.hasStatusData = true;
+    $scope.hasStatusData = false;
+    $scope.hasGpaData = false;
+    $scope.hasYearData = false;
 
     $scope.students = [];
     studentExplorer.addAllStudents().then(function(students) {
       $scope.students = students;
+      
+      $scope.students.some(function(student) {
+        if (student.statuses.length > 0) {
+          $scope.hasStatusData = true;
+        }
+        if (student.gpa != null) {
+          $scope.hasGpaData = true;
+        }
+        if (student.year != null) {
+          $scope.hasYearData = true;
+        }
+        return $scope.hasStatusData == true && $scope.hasGPAData == true && $scope.hasYearData == true;
+      })
     });
   });
