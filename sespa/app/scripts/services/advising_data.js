@@ -10,10 +10,16 @@
 angular.module('sespaApp')
   .factory('advisingData', function($http) {
     var config = {
-      'students': 'http://localhost:2080/api/students/',
-      'username': '',
-      'advisors': 'http://localhost:2080/api/advisors/',
-      'debug': true
+      _conf: {
+        'students': 'http://localhost:2080/api/students/',
+        'username': '',
+        'advisors': 'http://localhost:2080/api/advisors/',
+        'debug': true
+      },
+      get: function(item) {
+        return this._conf[item];
+      },
+
     };
 
     var pushPaginatedData = function(obj, url) {
@@ -32,7 +38,7 @@ angular.module('sespaApp')
     // Public API here
     return {
       allAdvisors: function() {
-        var promise = $http.get(config.advisors)
+        var promise = $http.get(config.get('advisors'))
           .then(function(response) {
             return response.data;
           });
@@ -40,7 +46,7 @@ angular.module('sespaApp')
       },
 
       allStudents: function() {
-        var promise = $http.get(config.students)
+        var promise = $http.get(config.get('students'))
           .then(function(response) {
             return response.data;
           });
