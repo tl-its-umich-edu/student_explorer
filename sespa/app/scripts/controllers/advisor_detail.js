@@ -8,9 +8,9 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('AdvisorDetailCtrl', function(advisingData, $scope, $routeParams) {
+  .controller('AdvisorDetailCtrl', function(advisingData, $scope, $routeParams, $location) {
     $scope.advisor = null;
-    $scope.advisorsStudents = null;
+    $scope.students = null;
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;
     // $scope.searchAdvisor = '';
@@ -26,8 +26,8 @@ angular.module('sespaApp')
     });
 
     advisingData.advisorsStudents($routeParams.advisor).then(function(students) {
-      $scope.advisorsStudent = students;
-      $scope.advisorsStudent.some(function(student) {
+      $scope.students = students;
+      $scope.students.some(function(student) {
         if (student.statuses.length > 0) {
           $scope.hasStatusData = true;
         }
@@ -42,6 +42,6 @@ angular.module('sespaApp')
     })
 
     function toAdvisorList() {
-      window.location.href = '#/advisors';
+      $location.path('/advisors/').replace();
     }
   });

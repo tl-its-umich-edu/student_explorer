@@ -76,7 +76,7 @@
 	            </tr>
 	          </thead>
 	          <tbody>
-	            <tr ng-repeat="student in advisorsStudent | orderBy:sortType:sortReverse">
+	            <tr ng-repeat="student in students | orderBy:sortType:sortReverse">
 <!-- 	              <td class="bold"><a ng-click="scroll()" href="#/students/{{student.username}}/">{{ student.last_name }}, {{ student.first_name }}</a></td> -->
 				  <td class="bold">{{ student.last_name }}, {{ student.first_name }}</a></td>
 	              <td>{{ student.univ_id }}</td>
