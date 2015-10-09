@@ -9,17 +9,12 @@
  */
 angular.module('sespaApp')
   .factory('advisingData', function($http) {
-    var config = {
-      _conf: {
-        'students': 'http://localhost:2080/api/students/',
-        'username': '',
-        'advisors': 'http://localhost:2080/api/advisors/',
-        'debug': true
-      },
-      get: function(item) {
-        return this._conf[item];
-      },
-
+    var config = function() {
+      return $http.get('api/')
+        .then(function(response) {
+          // console.log(response.data);
+          return response.data;
+        });
     };
 
     var pushPaginatedData = function(obj, url) {
@@ -27,7 +22,6 @@ angular.module('sespaApp')
         response.data.results.forEach(function(entry) {
           obj.push(entry);
         });
-        console.log(obj, response.data.next, response);
 
         if (response.data.next !== null) {
           pushPaginatedData(obj, response.data.next);
@@ -38,17 +32,21 @@ angular.module('sespaApp')
     // Public API here
     return {
       allAdvisors: function() {
-        return $http.get(config.get('advisors'))
-          .then(function(response) {
-            return response.data;
-          });
+        return config().then(function(config) {
+          return $http.get(config.advisors)
+            .then(function(response) {
+              return response.data
+            });
+        });
       },
 
       allStudents: function() {
-        return $http.get(config.get('students'))
-          .then(function(response) {
-            return response.data;
-          });
+        return config().then(function(config) {
+          return $http.get(config.students)
+            .then(function(response) {
+              return response.data
+            });
+        });
       }
 
     };
