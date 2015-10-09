@@ -38,19 +38,17 @@ angular.module('sespaApp')
     // Public API here
     return {
       allAdvisors: function() {
-        var promise = $http.get(config.get('advisors'))
+        return $http.get(config.get('advisors'))
           .then(function(response) {
             return response.data;
           });
-        return promise;
       },
 
       allStudents: function() {
-        var promise = $http.get(config.get('students'))
+        return $http.get(config.get('students'))
           .then(function(response) {
             return response.data;
           });
-        return promise;
       }
 
     };
