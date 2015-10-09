@@ -10,7 +10,7 @@
 angular.module('sespaApp')
   .factory('advisingData', function($http) {
     var config = function() {
-      return $http.get('api/')
+      return $http.get('api/', {'cache': true})
         .then(function(response) {
           // console.log(response.data);
           return response.data;
@@ -33,7 +33,7 @@ angular.module('sespaApp')
     return {
       allAdvisors: function() {
         return config().then(function(config) {
-          return $http.get(config.advisors)
+          return $http.get(config.advisors, {'cache': true})
             .then(function(response) {
               return response.data
             });
@@ -42,7 +42,7 @@ angular.module('sespaApp')
 
       allStudents: function() {
         return config().then(function(config) {
-          return $http.get(config.students)
+          return $http.get(config.students, {'cache': true})
             .then(function(response) {
               return response.data
             });
