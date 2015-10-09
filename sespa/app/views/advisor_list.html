@@ -43,8 +43,8 @@
 	            </tr>
 	          </thead>
 	          <tbody>
-            <tr ng-repeat="advisor in advisors | orderBy:sortType:sortReverse | filter:searchAdvisor">
-	              <td class="bold"><a href="#/advisors/{{advisor.username}}">{{ advisor.last_name }}, {{ advisor.first_name }}</a></td>
+            	<tr ng-repeat="advisor in advisors | orderBy:sortType:sortReverse | filter:searchAdvisor">
+	              <td class="bold"><a href="#/advisors/{{advisor.username}}">{{ advisor.first_name }} {{ advisor.last_name }}</a></td>
 	              <td>{{ advisor.univ_id }}</td>
 	            </tr>
 	          </tbody>
