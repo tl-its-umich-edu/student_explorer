@@ -34,6 +34,6 @@ angular.module('sespaApp')
           $scope.hasYearData = true;
         }
         return $scope.hasStatusData == true && $scope.hasGPAData == true && $scope.hasYearData == true;
-      })
+      });
     });
   });
