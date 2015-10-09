@@ -41,19 +41,21 @@ angular.module('sespaApp')
       },
 
       advisorDetails: function(advisorName) {
-        var promise = $http.get(config.advisors+advisorName+'/')
-          .then(function(response) {
-            return response.data;
-          });
-        return promise;
+        return config().then(function(config) {
+          return $http.get(config.advisors+advisorName+'/', {'cache': true})
+            .then(function(response) {
+              return response.data;
+            });
+        });
       },
       
       advisorsStudents: function(advisorName) {
-        var promise = $http.get(config.advisors+advisorName+'/students/')
-          .then(function(response) {
-            return response.data;
-          });
-        return promise;
+        return config().then(function(config) {
+          return $http.get(config.advisors+advisorName+'/students/', {'cache': true})
+            .then(function(response) {
+              return response.data;
+            });
+        });
       },
 
       allStudents: function() {
