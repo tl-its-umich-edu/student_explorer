@@ -8,7 +8,7 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('StudentListCtrl', function(studentExplorer, $scope) {
+  .controller('StudentListCtrl', function(advisingData, $scope) {
     $scope.selected = null;
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;
@@ -20,7 +20,7 @@ angular.module('sespaApp')
     $scope.hasYearData = false;
 
     $scope.students = [];
-    studentExplorer.allStudents().then(function(students) {
+    advisingData.allStudents().then(function(students) {
       $scope.students = students;
       
       $scope.students.some(function(student) {

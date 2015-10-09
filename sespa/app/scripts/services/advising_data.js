@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc service
- * @name sespaApp.studentExplorer
+ * @name sespaApp.advisingService
  * @description
- * # studentExplorer
+ * # advisingService
  * Factory in the sespaApp.
  */
 angular.module('sespaApp')
-  .factory('studentExplorer', function($http) {
+  .factory('advisingData', function($http) {
     var config = {
       'students': 'http://localhost:2080/api/students/',
       'username': '',
