@@ -39,6 +39,22 @@ angular.module('sespaApp')
         return promise;
       },
 
+      advisorDetails: function(advisorName) {
+        var promise = $http.get(config.advisors+advisorName+'/')
+          .then(function(response) {
+            return response.data;
+          });
+        return promise;
+      },
+      
+      advisorsStudents: function(advisorName) {
+        var promise = $http.get(config.advisors+advisorName+'/students/')
+          .then(function(response) {
+            return response.data;
+          });
+        return promise;
+      },
+
       allStudents: function() {
         var promise = $http.get(config.students)
           .then(function(response) {
