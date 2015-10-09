@@ -8,7 +8,7 @@
 	      	<md-button class="md-icon-button back-button" aria-label="Settings" ng-click="toAdvisorList()">
 	          <md-icon md-font-library="material-icons">arrow_back</md-icon>
 	        </md-button>
-	        <h1><span>{{selected.last_name}}, {{selected.first_name}}</span></h1>
+	        <h1><span>{{advisor.last_name}}, {{advisor.first_name}}</span></h1>
 	        <span flex></span>
 	        <!-- <form class="search-bar">
 	          <div class="form-group">
@@ -25,8 +25,8 @@
 	  <div layout="row" layout-sm="column">
 	    <md-content id="content">
 	      <div class="advisor-info">
-	      	<p>Advisor Name:&nbsp;&nbsp; {{selected.last_name}}, {{selected.first_name}}</p>
-	      	<p>Advisor ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{selected.univ_id}}</p>
+	      	<p>Advisor Name:&nbsp;&nbsp; {{advisor.last_name}}, {{advisor.first_name}}</p>
+	      	<p>Advisor ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{advisor.univ_id}}</p>
 	      </div>
 		  <div class="tb advisor-student-table">
 		  	<p>Advisor's Students:</p>
@@ -76,7 +76,7 @@
 	            </tr>
 	          </thead>
 	          <tbody>
-	            <tr ng-repeat="student in selectedAdStudent | orderBy:sortType:sortReverse">
+	            <tr ng-repeat="student in advisorsStudent | orderBy:sortType:sortReverse">
 <!-- 	              <td class="bold"><a ng-click="scroll()" href="/#/students/{{student.username}}/">{{ student.last_name }}, {{ student.first_name }}</a></td> -->
 				  <td class="bold">{{ student.last_name }}, {{ student.first_name }}</a></td>
 	              <td>{{ student.univ_id }}</td>

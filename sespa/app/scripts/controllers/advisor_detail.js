@@ -8,10 +8,10 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('AdvisorDetailCtrl', function(advisingData, $scope) {
-    $scope.selected = null;
-    $scope.selectedName = window.location.href.split('/').slice(-1)[0];
-    $scope.selectedAdStudent = null;
+  .controller('AdvisorDetailCtrl', function(advisingData, $scope, $routeParams) {
+    $scope.advisor = null;
+    $scope.advisorName = $routeParams.advisor;
+    $scope.advisorsStudents = null;
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;
     // $scope.searchAdvisor = '';
@@ -22,13 +22,13 @@ angular.module('sespaApp')
     $scope.hasYearData = false;
     $scope.toAdvisorList = toAdvisorList;
 
-    advisingData.advisorDetails($scope.selectedName).then(function(advisor) {
-      $scope.selected = advisor;
+    advisingData.advisorDetails($scope.advisorName).then(function(advisor) {
+      $scope.advisor = advisor;
     });
 
-    advisingData.advisorsStudents($scope.selectedName).then(function(students) {
-      $scope.selectedAdStudent = students;
-      $scope.selectedAdStudent.some(function(student) {
+    advisingData.advisorsStudents($scope.advisorName).then(function(students) {
+      $scope.advisorsStudent = students;
+      $scope.advisorsStudent.some(function(student) {
         if (student.statuses.length > 0) {
           $scope.hasStatusData = true;
         }
@@ -43,6 +43,6 @@ angular.module('sespaApp')
     })
 
     function toAdvisorList() {
-      window.location.href = 'http://localhost:2080/#/advisors';
+      window.location.href = '#/advisors';
     }
   });
