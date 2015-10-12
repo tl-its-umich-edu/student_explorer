@@ -94,7 +94,7 @@
         "username": "deirdre",
         "first_name": "Deirdre",
         "last_name": "Haupt",
-        "univ_id": "000000010"
+        "univ_id": "00000010"
     },
     "model": "advising.student",
     "pk": 10
@@ -124,7 +124,7 @@
         "username": "evangelina",
         "first_name": "Evangelina",
         "last_name": "Manchester",
-        "univ_id": "000000013"
+        "univ_id": "00000013"
     },
     "model": "advising.student",
     "pk": 13
@@ -234,7 +234,7 @@
         "username": "burl",
         "first_name": "Burl",
         "last_name": "Chandler",
-        "univ_id": "0000102"
+        "univ_id": "00000102"
     },
     "model": "advising.advisor",
     "pk": 2
