@@ -9,6 +9,7 @@
  */
 angular.module('sespaApp')
   .controller('AdvisorListCtrl', function(advisingData, $scope) {
+    $scope.advisorListHeader = 'All Advisors';
     $scope.selected = null;
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;

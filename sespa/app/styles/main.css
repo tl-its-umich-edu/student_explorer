@@ -6,8 +6,19 @@
 }
 
 body {
-  padding: 0;
+  padding-top: 50px;
 }
+
+.sub-header {
+  padding-bottom: 10px;
+  padding-left: 5px;
+  /*border-bottom: 1px solid #eee;*/
+}
+
+.navbar-fixed-top {
+  border: 0;
+}
+
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
