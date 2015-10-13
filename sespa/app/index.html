@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="sespaApp" ng-controller="SespaAppCtrl as sespaApp">
   <head>
     <meta charset="utf-8">
     <title>Student Explorer</title>
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="sespaApp">
+  <body>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -36,19 +36,34 @@
           <a class="navbar-brand" href="#/">Student Explorer</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav">
             <li><a href="#/advisors">Advisors</a></li>
             <li><a href="#/students">Students</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
           </form>
+            <ul class="nav navbar-nav navbar-right">
+              <li ng-if="!config.username">
+                <a ng-href="{{config.login}}?next=/" aria-haspopup="true" aria-expanded="false">Login</a>
+              </li>
+              <li ng-if="config.username" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{config.username}} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a ng-href="{{config.logout}}?next=/">Logout</a></li>
+                  <li role="separator" class="divider"></li>
+                  <!-- <li class="dropdown-header">Nav header</li> -->
+                  <li><a>Policy <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
+                </ul>
+              </li>
+            </ul>
+
         </div>
       </div>
     </nav>
 
     <div class="container-fuild">
-        <div ng-view=""></div>
+        <div ng-if="config.username" ng-view=""></div>
     </div>
 
     <div class="footer">
@@ -90,6 +105,7 @@
         <script src="scripts/controllers/student_list.js"></script>
         <script src="scripts/controllers/advisor_detail.js"></script>
         <script src="scripts/services/advising_data.js"></script>
+        <script src="scripts/controllers/sespa_app.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -15,6 +15,10 @@ body {
   /*border-bottom: 1px solid #eee;*/
 }
 
+.navbar {
+    vertical-align: middle;
+}
+
 .navbar-fixed-top {
   border: 0;
 }
