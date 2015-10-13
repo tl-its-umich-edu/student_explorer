@@ -33,7 +33,9 @@ angular.module('sespaApp')
     return {
       allAdvisors: function() {
         return config().then(function(config) {
-          return $http.get(config.advisors, {'cache': true})
+          return $http.get(config.advisors, {
+              'cache': true
+            })
             .then(function(response) {
               return response.data
             });
@@ -42,16 +44,26 @@ angular.module('sespaApp')
 
       advisorDetails: function(advisorName) {
         return config().then(function(config) {
-          return $http.get(config.advisors+advisorName+'/', {'cache': true})
+          if (typeof advisorName === 'undefined') {
+            advisorName = config.username;
+          }
+          return $http.get(config.advisors + advisorName + '/', {
+              'cache': true
+            })
             .then(function(response) {
               return response.data;
             });
         });
       },
-      
+
       advisorsStudents: function(advisorName) {
         return config().then(function(config) {
-          return $http.get(config.advisors+advisorName+'/students/', {'cache': true})
+          if (typeof advisorName === 'undefined') {
+            advisorName = config.username;
+          }
+          return $http.get(config.advisors + advisorName + '/students/', {
+              'cache': true
+            })
             .then(function(response) {
               return response.data;
             });
@@ -60,7 +72,9 @@ angular.module('sespaApp')
 
       allStudents: function() {
         return config().then(function(config) {
-          return $http.get(config.students, {'cache': true})
+          return $http.get(config.students, {
+              'cache': true
+            })
             .then(function(response) {
               return response.data
             });
