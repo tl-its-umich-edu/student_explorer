@@ -89,7 +89,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="advisor in advisors | orderBy:sortType:sortReverse | filter:searchAdvisor">
-        <td class="bold">{{ advisor.advisor.last_name }} {{ advisor.advisor.first_name }}</td>
+        <td class="bold">{{ advisor.advisor.first_name }} {{ advisor.advisor.last_name }}</td>
         <td>{{ advisor.advisor.univ_id }}</td>
         <td>{{ advisor.role }}</td>
       </tr>
