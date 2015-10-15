@@ -357,8 +357,8 @@
 },
 {
     "fields": {
-        "username": "nocourse",
-        "first_name": "Nocourse",
+        "username": "nocourses",
+        "first_name": "Nocourses",
         "last_name": "Guy",
         "univ_id": "00000023"
     },
