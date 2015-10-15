@@ -88,6 +88,17 @@ angular.module('sespaApp')
               return response.data
             });
         });
+      },
+
+      studentDetails: function(studentName) {
+        return config().then(function(config) {
+          return $http.get(config.students + studentName + '/full/', {
+              'cache': true
+            })
+            .then(function(response) {
+              return response.data;
+            });
+        });
       }
 
     };
