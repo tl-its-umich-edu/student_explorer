@@ -1,1 +1,98 @@
-<p>This is the student_detail view.</p>
+<h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
+<h3>Basic Information</h3>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>
+          <a>
+            Student ID
+          </a>
+        </td>
+        <td>
+          <a>
+            Cohorts
+          </a>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ student.univ_id }}</td>
+        <td>
+          <p ng-repeat="cohort in student.cohorts">{{ cohort.description }}</p>
+      	</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Courses</h3>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>
+          <a href="" ng-click="sortType = 'class_site'; sortReverse = !sortReverse">
+            Course Title
+            <span class="fa fa-caret-down" ng-show="sortType == 'class_site' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortType == 'class_site' &amp;&amp; sortReverse"></span>
+          </a>
+        </td>
+        <td>
+          <a href="" ng-click="sortType = 'status'; sortReverse = !sortReverse">
+            Status
+            <span class="fa fa-caret-down" ng-show="sortType == 'status' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortType == 'status' &amp;&amp; sortReverse"></span>
+          </a>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="course in student.class_sites | orderBy:sortType:sortReverse | filter:searchAdvisor">
+        <td class="bold">{{ course.class_site }}</td>
+        <td>
+          <img alt="{{course.status}}" class="course-status {{ course.status | lowercase }}" ng-src="images/Status_Icons_{{course.status}}.png"/>
+      	</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Advisors</h3>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>
+          <a href="" ng-click="sortType = 'last_name'; sortReverse = !sortReverse">
+            Advisor Name
+            <span class="fa fa-caret-down" ng-show="sortType == 'last_name' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortType == 'last_name' &amp;&amp; sortReverse"></span>
+          </a>
+        </td>
+        <td>
+          <a href="" ng-click="sortType = 'univ_id'; sortReverse = !sortReverse">
+            Advisor ID
+            <span class="fa fa-caret-down" ng-show="sortType == 'univ_id' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortType == 'univ_id' &amp;&amp; sortReverse"></span>
+          </a>
+        </td>
+        <td>
+          <a href="" ng-click="sortType = 'role'; sortReverse = !sortReverse">
+            Advisor Role
+            <span class="fa fa-caret-down" ng-show="sortType == 'role' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortType == 'role' &amp;&amp; sortReverse"></span>
+          </a>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="advisor in advisors | orderBy:sortType:sortReverse | filter:searchAdvisor">
+        <td class="bold">{{ advisor.advisor.last_name }} {{ advisor.advisor.first_name }}</td>
+        <td>{{ advisor.advisor.univ_id }}</td>
+        <td>{{ advisor.role }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
