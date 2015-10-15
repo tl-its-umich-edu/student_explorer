@@ -1,10 +1,146 @@
 [
 {
     "fields": {
+        "model": "logentry",
+        "app_label": "admin"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 1
+},
+{
+    "fields": {
+        "model": "permission",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 2
+},
+{
+    "fields": {
+        "model": "group",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 3
+},
+{
+    "fields": {
+        "model": "user",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 4
+},
+{
+    "fields": {
+        "model": "contenttype",
+        "app_label": "contenttypes"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 5
+},
+{
+    "fields": {
+        "model": "session",
+        "app_label": "sessions"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 6
+},
+{
+    "fields": {
+        "model": "profile",
+        "app_label": "dashboard"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 7
+},
+{
+    "fields": {
+        "model": "student",
+        "app_label": "advising"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 8
+},
+{
+    "fields": {
+        "model": "advisor",
+        "app_label": "advising"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 9
+},
+{
+    "fields": {
+        "model": "advisorrole",
+        "app_label": "advising"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 10
+},
+{
+    "fields": {
+        "model": "studentadvisorrole",
+        "app_label": "advising"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 11
+},
+{
+    "fields": {
+        "model": "cohort",
+        "app_label": "advising"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 12
+},
+{
+    "fields": {
+        "model": "studentcohort",
+        "app_label": "advising"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 13
+},
+{
+    "fields": {
+        "model": "classsite",
+        "app_label": "advising"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 14
+},
+{
+    "fields": {
+        "model": "status",
+        "app_label": "advising"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 15
+},
+{
+    "fields": {
+        "model": "studentclasssitestatus",
+        "app_label": "advising"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 16
+},
+{
+    "fields": {
+        "expire_date": "2015-10-29T19:32:09Z",
+        "session_data": "N2Y0ZDBiZmMwNzIyNmY2MjJmM2M0YmQwODYwYzNhNzBhNDExZDUzMzp7Il9hdXRoX3VzZXJfaGFzaCI6IjA4NDg2ZjY4ZDhlYzA5ZTgyZjE0ZjcwNjVjNDYzNWM0NzM1NzI4ODAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiI2In0="
+    },
+    "model": "sessions.session",
+    "pk": "yrqyms97z01cxunv7cp7unpas4gj93ie"
+},
+{
+    "fields": {
         "username": "graciela",
         "first_name": "Graciela",
         "last_name": "Devilbiss",
-        "univ_id": "10000001"
+        "univ_id": "00000001"
     },
     "model": "advising.student",
     "pk": 1
@@ -14,7 +150,7 @@
         "username": "sandra",
         "first_name": "Sandra",
         "last_name": "Hollis",
-        "univ_id": "10000002"
+        "univ_id": "00000002"
     },
     "model": "advising.student",
     "pk": 2
@@ -24,7 +160,7 @@
         "username": "shannon",
         "first_name": "Shannon",
         "last_name": "Pedersen",
-        "univ_id": "10000003"
+        "univ_id": "00000003"
     },
     "model": "advising.student",
     "pk": 3
@@ -34,7 +170,7 @@
         "username": "may",
         "first_name": "May",
         "last_name": "Mejorado",
-        "univ_id": "10000004"
+        "univ_id": "00000004"
     },
     "model": "advising.student",
     "pk": 4
@@ -44,7 +180,7 @@
         "username": "gianna",
         "first_name": "Gianna",
         "last_name": "Fekete",
-        "univ_id": "10000005"
+        "univ_id": "00000005"
     },
     "model": "advising.student",
     "pk": 5
@@ -54,7 +190,7 @@
         "username": "caroyln",
         "first_name": "Caroyln",
         "last_name": "Grayer",
-        "univ_id": "10000006"
+        "univ_id": "00000006"
     },
     "model": "advising.student",
     "pk": 6
@@ -64,7 +200,7 @@
         "username": "clelia",
         "first_name": "Clelia",
         "last_name": "Glessner",
-        "univ_id": "10000007"
+        "univ_id": "00000007"
     },
     "model": "advising.student",
     "pk": 7
@@ -74,7 +210,7 @@
         "username": "theo",
         "first_name": "Theo",
         "last_name": "Callan",
-        "univ_id": "10000008"
+        "univ_id": "00000008"
     },
     "model": "advising.student",
     "pk": 8
@@ -84,7 +220,7 @@
         "username": "janell",
         "first_name": "Janell",
         "last_name": "Deckard",
-        "univ_id": "10000009"
+        "univ_id": "00000009"
     },
     "model": "advising.student",
     "pk": 9
@@ -94,7 +230,7 @@
         "username": "deirdre",
         "first_name": "Deirdre",
         "last_name": "Haupt",
-        "univ_id": "10000010"
+        "univ_id": "000000010"
     },
     "model": "advising.student",
     "pk": 10
@@ -104,7 +240,7 @@
         "username": "lesha",
         "first_name": "Lesha",
         "last_name": "Paulino",
-        "univ_id": "10000011"
+        "univ_id": "00000011"
     },
     "model": "advising.student",
     "pk": 11
@@ -114,7 +250,7 @@
         "username": "valentin",
         "first_name": "Valentin",
         "last_name": "Aziz",
-        "univ_id": "10000012"
+        "univ_id": "00000012"
     },
     "model": "advising.student",
     "pk": 12
@@ -124,7 +260,7 @@
         "username": "evangelina",
         "first_name": "Evangelina",
         "last_name": "Manchester",
-        "univ_id": "10000013"
+        "univ_id": "000000013"
     },
     "model": "advising.student",
     "pk": 13
@@ -134,7 +270,7 @@
         "username": "jeana",
         "first_name": "Jeana",
         "last_name": "Caver",
-        "univ_id": "10000014"
+        "univ_id": "00000014"
     },
     "model": "advising.student",
     "pk": 14
@@ -144,7 +280,7 @@
         "username": "wendi",
         "first_name": "Wendi",
         "last_name": "Minyard",
-        "univ_id": "10000015"
+        "univ_id": "00000015"
     },
     "model": "advising.student",
     "pk": 15
@@ -154,7 +290,7 @@
         "username": "gabriela",
         "first_name": "Gabriela",
         "last_name": "Rea",
-        "univ_id": "10000016"
+        "univ_id": "00000016"
     },
     "model": "advising.student",
     "pk": 16
@@ -164,7 +300,7 @@
         "username": "deeanna",
         "first_name": "Deeanna",
         "last_name": "Buss",
-        "univ_id": "10000017"
+        "univ_id": "00000017"
     },
     "model": "advising.student",
     "pk": 17
@@ -174,7 +310,7 @@
         "username": "gennie",
         "first_name": "Gennie",
         "last_name": "Ditmore",
-        "univ_id": "10000018"
+        "univ_id": "00000018"
     },
     "model": "advising.student",
     "pk": 18
@@ -184,7 +320,7 @@
         "username": "geneva",
         "first_name": "Geneva",
         "last_name": "Michie",
-        "univ_id": "10000019"
+        "univ_id": "00000019"
     },
     "model": "advising.student",
     "pk": 19
@@ -194,7 +330,7 @@
         "username": "desmond",
         "first_name": "Desmond",
         "last_name": "Foxx",
-        "univ_id": "10000020"
+        "univ_id": "00000020"
     },
     "model": "advising.student",
     "pk": 20
@@ -204,7 +340,7 @@
         "username": "james",
         "first_name": "James",
         "last_name": "Bond",
-        "univ_id": "10000021"
+        "univ_id": "00000021"
     },
     "model": "advising.student",
     "pk": 21
@@ -214,17 +350,27 @@
         "username": "mike",
         "first_name": "Mike",
         "last_name": "Brown",
-        "univ_id": "10000022"
+        "univ_id": "00000022"
     },
     "model": "advising.student",
     "pk": 22
 },
 {
     "fields": {
+        "username": "nocourse",
+        "first_name": "Nocourse",
+        "last_name": "Guy",
+        "univ_id": "00000023"
+    },
+    "model": "advising.student",
+    "pk": 23
+},
+{
+    "fields": {
         "username": "zander",
         "first_name": "Zander",
         "last_name": "Agrippa",
-        "univ_id": "20000001"
+        "univ_id": "00000101"
     },
     "model": "advising.advisor",
     "pk": 1
@@ -234,7 +380,7 @@
         "username": "burl",
         "first_name": "Burl",
         "last_name": "Chandler",
-        "univ_id": "20000002"
+        "univ_id": "0000102"
     },
     "model": "advising.advisor",
     "pk": 2
@@ -244,7 +390,7 @@
         "username": "lavera",
         "first_name": "Lavera",
         "last_name": "Rumore",
-        "univ_id": "20000003"
+        "univ_id": "00000103"
     },
     "model": "advising.advisor",
     "pk": 3
@@ -254,7 +400,7 @@
         "username": "mollie",
         "first_name": "Mollie",
         "last_name": "Whistler",
-        "univ_id": "20000004"
+        "univ_id": "00000104"
     },
     "model": "advising.advisor",
     "pk": 4
@@ -264,7 +410,7 @@
         "username": "carla",
         "first_name": "Carla",
         "last_name": "Beumer",
-        "univ_id": "20000005"
+        "univ_id": "00000105"
     },
     "model": "advising.advisor",
     "pk": 5
@@ -274,7 +420,7 @@
         "username": "will",
         "first_name": "Will",
         "last_name": "Smith",
-        "univ_id": "20000006"
+        "univ_id": "00000106"
     },
     "model": "advising.advisor",
     "pk": 6
@@ -593,6 +739,24 @@
 },
 {
     "fields": {
+        "role": 2,
+        "student": 23,
+        "advisor": 3
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 33
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 23,
+        "advisor": 1
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 34
+},
+{
+    "fields": {
         "code": "SPPRO-F14",
         "group": "CSP",
         "description": "Special Probation F14"
@@ -833,6 +997,14 @@
     },
     "model": "advising.studentcohort",
     "pk": 27
+},
+{
+    "fields": {
+        "cohort": 3,
+        "student": 23
+    },
+    "model": "advising.studentcohort",
+    "pk": 28
 },
 {
     "fields": {
@@ -1259,5 +1431,812 @@
     },
     "model": "advising.studentclasssitestatus",
     "pk": 39
+},
+{
+    "fields": {
+        "codename": "add_logentry",
+        "name": "Can add log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 1
+},
+{
+    "fields": {
+        "codename": "change_logentry",
+        "name": "Can change log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 2
+},
+{
+    "fields": {
+        "codename": "delete_logentry",
+        "name": "Can delete log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 3
+},
+{
+    "fields": {
+        "codename": "add_permission",
+        "name": "Can add permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 4
+},
+{
+    "fields": {
+        "codename": "change_permission",
+        "name": "Can change permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 5
+},
+{
+    "fields": {
+        "codename": "delete_permission",
+        "name": "Can delete permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 6
+},
+{
+    "fields": {
+        "codename": "add_group",
+        "name": "Can add group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 7
+},
+{
+    "fields": {
+        "codename": "change_group",
+        "name": "Can change group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 8
+},
+{
+    "fields": {
+        "codename": "delete_group",
+        "name": "Can delete group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 9
+},
+{
+    "fields": {
+        "codename": "add_user",
+        "name": "Can add user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 10
+},
+{
+    "fields": {
+        "codename": "change_user",
+        "name": "Can change user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 11
+},
+{
+    "fields": {
+        "codename": "delete_user",
+        "name": "Can delete user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 12
+},
+{
+    "fields": {
+        "codename": "add_contenttype",
+        "name": "Can add content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 13
+},
+{
+    "fields": {
+        "codename": "change_contenttype",
+        "name": "Can change content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 14
+},
+{
+    "fields": {
+        "codename": "delete_contenttype",
+        "name": "Can delete content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 15
+},
+{
+    "fields": {
+        "codename": "add_session",
+        "name": "Can add session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 16
+},
+{
+    "fields": {
+        "codename": "change_session",
+        "name": "Can change session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 17
+},
+{
+    "fields": {
+        "codename": "delete_session",
+        "name": "Can delete session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 18
+},
+{
+    "fields": {
+        "codename": "add_profile",
+        "name": "Can add profile",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 19
+},
+{
+    "fields": {
+        "codename": "change_profile",
+        "name": "Can change profile",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 20
+},
+{
+    "fields": {
+        "codename": "delete_profile",
+        "name": "Can delete profile",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 21
+},
+{
+    "fields": {
+        "codename": "add_student",
+        "name": "Can add student",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 22
+},
+{
+    "fields": {
+        "codename": "change_student",
+        "name": "Can change student",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 23
+},
+{
+    "fields": {
+        "codename": "delete_student",
+        "name": "Can delete student",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 24
+},
+{
+    "fields": {
+        "codename": "add_advisor",
+        "name": "Can add advisor",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 25
+},
+{
+    "fields": {
+        "codename": "change_advisor",
+        "name": "Can change advisor",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 26
+},
+{
+    "fields": {
+        "codename": "delete_advisor",
+        "name": "Can delete advisor",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 27
+},
+{
+    "fields": {
+        "codename": "add_advisorrole",
+        "name": "Can add advisor role",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 28
+},
+{
+    "fields": {
+        "codename": "change_advisorrole",
+        "name": "Can change advisor role",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 29
+},
+{
+    "fields": {
+        "codename": "delete_advisorrole",
+        "name": "Can delete advisor role",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 30
+},
+{
+    "fields": {
+        "codename": "add_studentadvisorrole",
+        "name": "Can add student advisor role",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 31
+},
+{
+    "fields": {
+        "codename": "change_studentadvisorrole",
+        "name": "Can change student advisor role",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 32
+},
+{
+    "fields": {
+        "codename": "delete_studentadvisorrole",
+        "name": "Can delete student advisor role",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 33
+},
+{
+    "fields": {
+        "codename": "add_cohort",
+        "name": "Can add cohort",
+        "content_type": 12
+    },
+    "model": "auth.permission",
+    "pk": 34
+},
+{
+    "fields": {
+        "codename": "change_cohort",
+        "name": "Can change cohort",
+        "content_type": 12
+    },
+    "model": "auth.permission",
+    "pk": 35
+},
+{
+    "fields": {
+        "codename": "delete_cohort",
+        "name": "Can delete cohort",
+        "content_type": 12
+    },
+    "model": "auth.permission",
+    "pk": 36
+},
+{
+    "fields": {
+        "codename": "add_studentcohort",
+        "name": "Can add student cohort",
+        "content_type": 13
+    },
+    "model": "auth.permission",
+    "pk": 37
+},
+{
+    "fields": {
+        "codename": "change_studentcohort",
+        "name": "Can change student cohort",
+        "content_type": 13
+    },
+    "model": "auth.permission",
+    "pk": 38
+},
+{
+    "fields": {
+        "codename": "delete_studentcohort",
+        "name": "Can delete student cohort",
+        "content_type": 13
+    },
+    "model": "auth.permission",
+    "pk": 39
+},
+{
+    "fields": {
+        "codename": "add_classsite",
+        "name": "Can add class site",
+        "content_type": 14
+    },
+    "model": "auth.permission",
+    "pk": 40
+},
+{
+    "fields": {
+        "codename": "change_classsite",
+        "name": "Can change class site",
+        "content_type": 14
+    },
+    "model": "auth.permission",
+    "pk": 41
+},
+{
+    "fields": {
+        "codename": "delete_classsite",
+        "name": "Can delete class site",
+        "content_type": 14
+    },
+    "model": "auth.permission",
+    "pk": 42
+},
+{
+    "fields": {
+        "codename": "add_status",
+        "name": "Can add status",
+        "content_type": 15
+    },
+    "model": "auth.permission",
+    "pk": 43
+},
+{
+    "fields": {
+        "codename": "change_status",
+        "name": "Can change status",
+        "content_type": 15
+    },
+    "model": "auth.permission",
+    "pk": 44
+},
+{
+    "fields": {
+        "codename": "delete_status",
+        "name": "Can delete status",
+        "content_type": 15
+    },
+    "model": "auth.permission",
+    "pk": 45
+},
+{
+    "fields": {
+        "codename": "add_studentclasssitestatus",
+        "name": "Can add student class site status",
+        "content_type": 16
+    },
+    "model": "auth.permission",
+    "pk": 46
+},
+{
+    "fields": {
+        "codename": "change_studentclasssitestatus",
+        "name": "Can change student class site status",
+        "content_type": 16
+    },
+    "model": "auth.permission",
+    "pk": 47
+},
+{
+    "fields": {
+        "codename": "delete_studentclasssitestatus",
+        "name": "Can delete student class site status",
+        "content_type": 16
+    },
+    "model": "auth.permission",
+    "pk": 48
+},
+{
+    "fields": {
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2015-10-15T13:50:50Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$ht9UebIr86Ro$MSZWRZ8PZg7uzVtP6J5L6EL5wckcwzgrhHlXrDC50vs=",
+        "email": "",
+        "date_joined": "2015-10-15T13:13:28Z"
+    },
+    "model": "auth.user",
+    "pk": 1
+},
+{
+    "fields": {
+        "username": "zander",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-10-15T19:32:09Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$gI3Uo8BIwQ5r$MCMJO5VqFvjpD+J0mBGEe6/2jqr3gzhgMTIPdT+Nzso=",
+        "email": "",
+        "date_joined": "2015-10-15T13:56:14Z"
+    },
+    "model": "auth.user",
+    "pk": 6
+},
+{
+    "fields": {
+        "username": "carla",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-10-15T14:44:40Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$a8hLjNk8D3o3$g+PQIHHOu8jJFPjqsITqYhOTqCugZaX/bwK80ycpYLU=",
+        "email": "",
+        "date_joined": "2015-10-15T13:56:33Z"
+    },
+    "model": "auth.user",
+    "pk": 7
+},
+{
+    "fields": {
+        "username": "burl",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-10-15T17:36:23Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$93rkHn7zyOIm$q02j77FK+u012Tp4afivmt7vcpJ+3f+e6as7xX9gCPY=",
+        "email": "",
+        "date_joined": "2015-10-15T13:56:47Z"
+    },
+    "model": "auth.user",
+    "pk": 8
+},
+{
+    "fields": {
+        "username": "lavera",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-10-15T16:50:56Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$sPYRQ4g8vha4$xKXwFWayBg0MewmGcJC4ZhRojlXTsrHC97/F7k1FJ7c=",
+        "email": "",
+        "date_joined": "2015-10-15T13:57:33Z"
+    },
+    "model": "auth.user",
+    "pk": 9
+},
+{
+    "fields": {
+        "username": "will",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$C4Mqxf0vCc5l$cK0XXzK588MRH0cks/oDdABJyfH+qqhV4gW2ZRvPJFY=",
+        "email": "",
+        "date_joined": "2015-10-15T13:57:45Z"
+    },
+    "model": "auth.user",
+    "pk": 10
+},
+{
+    "fields": {
+        "username": "mollie",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$S7SlqqqQWj89$Z0xmB1WjDMhw1vdS6ub+p9JNR77O/TjvRG5tAd5AHXs=",
+        "email": "",
+        "date_joined": "2015-10-15T13:57:59Z"
+    },
+    "model": "auth.user",
+    "pk": 11
+},
+{
+    "fields": {
+        "is_policy_accepted": true,
+        "user": 6,
+        "policy_accepted_date": "2015-10-15"
+    },
+    "model": "dashboard.profile",
+    "pk": 4
+},
+{
+    "fields": {
+        "is_policy_accepted": true,
+        "user": 7,
+        "policy_accepted_date": "2015-10-15"
+    },
+    "model": "dashboard.profile",
+    "pk": 5
+},
+{
+    "fields": {
+        "is_policy_accepted": true,
+        "user": 8,
+        "policy_accepted_date": "2015-10-15"
+    },
+    "model": "dashboard.profile",
+    "pk": 6
+},
+{
+    "fields": {
+        "is_policy_accepted": true,
+        "user": 9,
+        "policy_accepted_date": "2015-10-15"
+    },
+    "model": "dashboard.profile",
+    "pk": 7
+},
+{
+    "fields": {
+        "is_policy_accepted": true,
+        "user": 10,
+        "policy_accepted_date": "2015-10-15"
+    },
+    "model": "dashboard.profile",
+    "pk": 8
+},
+{
+    "fields": {
+        "is_policy_accepted": true,
+        "user": 11,
+        "policy_accepted_date": "2015-10-15"
+    },
+    "model": "dashboard.profile",
+    "pk": 9
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2015-10-15T13:49:29Z",
+        "object_repr": "weikai",
+        "object_id": "2",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 1
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2015-10-15T13:49:55Z",
+        "object_repr": "john",
+        "object_id": "3",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 2
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2015-10-15T13:54:24Z",
+        "object_repr": "brent",
+        "object_id": "4",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 3
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2015-10-15T13:54:40Z",
+        "object_repr": "kris",
+        "object_id": "5",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 4
+},
+{
+    "fields": {
+        "action_flag": 3,
+        "action_time": "2015-10-15T13:55:14Z",
+        "object_repr": "weikai",
+        "object_id": "2",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 5
+},
+{
+    "fields": {
+        "action_flag": 3,
+        "action_time": "2015-10-15T13:55:19Z",
+        "object_repr": "kris",
+        "object_id": "5",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 6
+},
+{
+    "fields": {
+        "action_flag": 3,
+        "action_time": "2015-10-15T13:55:23Z",
+        "object_repr": "brent",
+        "object_id": "4",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 7
+},
+{
+    "fields": {
+        "action_flag": 3,
+        "action_time": "2015-10-15T13:55:39Z",
+        "object_repr": "john",
+        "object_id": "3",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 8
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2015-10-15T13:56:14Z",
+        "object_repr": "zander",
+        "object_id": "6",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 9
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2015-10-15T13:56:33Z",
+        "object_repr": "carla",
+        "object_id": "7",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 10
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2015-10-15T13:56:47Z",
+        "object_repr": "burl",
+        "object_id": "8",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 11
+},
+{
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2015-10-15T13:57:13Z",
+        "object_repr": "burl",
+        "object_id": "8",
+        "change_message": "No fields changed.",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 12
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2015-10-15T13:57:34Z",
+        "object_repr": "lavera",
+        "object_id": "9",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 13
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2015-10-15T13:57:46Z",
+        "object_repr": "will",
+        "object_id": "10",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 14
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2015-10-15T13:57:59Z",
+        "object_repr": "mollie",
+        "object_id": "11",
+        "change_message": "",
+        "user": 1,
+        "content_type": 4
+    },
+    "model": "admin.logentry",
+    "pk": 15
 }
 ]
