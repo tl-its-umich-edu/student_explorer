@@ -23,7 +23,7 @@ urlpatterns = [
     # url(r'^', include('dashboard.urls')),
     url(r'^api/', include('advising.urls')),
     # url(r'^$', hashredirect.views.login, name='login-redirect'),
-    url(r'^$', hashredirect.views.redirect_or_serve, {
+    url(r'^$', hashredirect.views.login_or_serve, {
         'document_root': 'sespa/app',
         'path': 'index.html'
     }, name='index'),

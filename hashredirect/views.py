@@ -9,9 +9,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def redirect_or_serve(request, path, document_root):
-    if not hasattr(settings, 'REDIRECT_LOGIN_URL'):
-        raise ImproperlyConfigured('REDIRECT_LOGIN_URL is missing.')
+def login_or_serve(request, path, document_root):
+    if not hasattr(settings, 'HASHREDIRECT_LOGIN_URL'):
+        raise ImproperlyConfigured('HASHREDIRECT_LOGIN_URL is missing.')
 
     current_url = resolve(request.path_info).url_name
 
@@ -29,8 +29,8 @@ def redirect_or_serve(request, path, document_root):
             logger.debug('URL does not have hash_frament parameter')
             return serve(request, path=path, document_root=document_root)
     context = {
-        'login_url': settings.REDIRECT_LOGIN_URL + base_url,
+        'login_url': settings.HASHREDIRECT_LOGIN_URL + base_url,
     }
 
     logger.debug('User is not authenticated')
-    return render(request, 'hashredirect/login.html', context)
+    return render(request, 'hashredirect/login_redirect.html', context)
