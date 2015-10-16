@@ -28,7 +28,10 @@
 </div>
 
 <h3>Courses</h3>
-<div class="table-responsive">
+<div ng-if="hasNoCourse">
+  <p>There is no course data for this student.</p>
+</div>
+<div ng-if="!hasNoCourse" class="table-responsive">
   <table class="table table-striped">
     <thead>
       <tr>
