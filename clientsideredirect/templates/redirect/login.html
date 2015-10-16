@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<script>
+  var config = {{ config | safe }};
+
+  // adapted from http://www.quirksmode.org/js/cookies.html
+  var cookies = {
+    create: function(name, value, seconds) {
+      if (seconds) {
+        var date = new Date();
+        date.setTime(date.getTime() + (seconds * 1000));
+        var expires = "; expires=" + date.toGMTString();
+      } else var expires = "";
+      document.cookie = name + "=" + value + expires + "; path=/";
+    },
+
+    read: function(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) {
+          return c.substring(nameEQ.length, c.length);
+        }
+      }
+      return null;
+    },
+
+    erase: function(name) {
+      this.create(name, "", -1);
+    },
+  };
+
+  if (config.redirect) {
+    cookies.create('redirect_destination', window.location.href, 600);
+    console.log('stashed destination ' + window.location.href);
+    console.log('redictecting to ' + config.loginUrl);
+    window.location.href = config.loginUrl;
+  } else {
+    destination = cookies.read('redirect_destination');
+    console.log('retrieved ' + destination);
+    cookies.erase('redirect_destination');
+    console.log('erased ' + destination);
+    console.log('redictecting to ' + destination);
+    window.location.href = destination;
+  }
+</script>
+
+</html>
