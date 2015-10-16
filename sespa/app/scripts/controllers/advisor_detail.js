@@ -2,28 +2,31 @@
 
 /**
  * @ngdoc function
- * @name sespaApp.controller:StudentListCtrl
+ * @name sespaApp.controller:AdvisorDetailCtrl
  * @description
- * # StudentListCtrl
+ * # AdvisorDetailCtrl
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('StudentListCtrl', function(advisingData, $scope) {
-    $scope.studentListHeader = 'All Students';
-    $scope.selected = null;
+  .controller('AdvisorDetailCtrl', function(advisingData, $scope, $routeParams, $location) {
+    $scope.advisor = null;
+    $scope.students = null;
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;
-    $scope.searchStudent = '';
+    // $scope.searchAdvisor = '';
     // $scope.scroll = scroll;
 
     $scope.hasStatusData = false;
     $scope.hasGpaData = false;
     $scope.hasYearData = false;
+    $scope.toAdvisorList = toAdvisorList;
 
-    $scope.students = [];
-    advisingData.allStudents().then(function(students) {
+    advisingData.advisorDetails($routeParams.advisor).then(function(advisor) {
+      $scope.advisor = advisor;
+    });
+
+    advisingData.advisorsStudents($routeParams.advisor).then(function(students) {
       $scope.students = students;
-      
       $scope.students.some(function(student) {
         if (student.statuses.length > 0) {
           $scope.hasStatusData = true;
@@ -36,5 +39,9 @@ angular.module('sespaApp')
         }
         return $scope.hasStatusData == true && $scope.hasGPAData == true && $scope.hasYearData == true;
       });
-    });
+    })
+
+    function toAdvisorList() {
+      $location.path('/advisors/').replace();
+    }
   });

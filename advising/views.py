@@ -13,11 +13,25 @@ from django.conf import settings
 
 @api_view(('GET',))
 def api_root(request, format=None):
+    if hasattr(settings, 'CUSTOM_LOGIN_URL'):
+        login_url = settings.CUSTOM_LOGIN_URL
+    else:
+        login_url = reverse('rest_framework:login',
+                            request=request, format=format)
+
+    if hasattr(settings, 'CUSTOM_LOGOUT_URL'):
+        logout_url = settings.CUSTOM_LOGOUT_URL
+    else:
+        logout_url = reverse('rest_framework:logout',
+                             request=request, format=format)
+
     return Response({
         'advisors': reverse('advisor-list', request=request, format=format),
         'students': reverse('student-list', request=request, format=format),
         'username': request.user.username,
         'debug': settings.DEBUG,
+        'login': login_url,
+        'logout': logout_url,
     })
 
 

@@ -8,13 +8,15 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('AdvisorListCtrl', function(studentExplorer, $scope) {
+  .controller('AdvisorListCtrl', function(advisingData, $scope) {
+    $scope.advisorListHeader = 'All Advisors';
     $scope.selected = null;
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;
     $scope.searchAdvisor = '';
-    $scope.scroll = scroll;
+    // $scope.scroll = scroll;
 
-    $scope.advisors = [];
-    studentExplorer.addAllAdvisors($scope.advisors);
+    advisingData.allAdvisors().then(function(advisors) {
+      $scope.advisors = advisors;
+    });
   });

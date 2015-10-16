@@ -16,7 +16,6 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngMaterial',
     'ui-rangeSlider'
   ])
   .config(function($routeProvider) {
@@ -26,9 +25,24 @@ angular
         controller: 'AdvisorListCtrl',
         controllerAs: 'ctrl',
       })
+      .when('/advisors/:advisor', {
+        templateUrl: 'views/advisor_detail.html',
+        controller: 'AdvisorDetailCtrl',
+        controllerAs: 'ctrl',
+      })
+      .when('/', {
+        templateUrl: 'views/advisor_detail.html',
+        controller: 'AdvisorDetailCtrl',
+        controllerAs: 'ctrl',
+      })
       .when('/students', {
         templateUrl: 'views/student_list.html',
         controller: 'StudentListCtrl'
+      })
+      .when('/students/:student', {
+        templateUrl: 'views/student_Detail.html',
+        controller: 'StudentDetailCtrl',
+        controllerAs: 'ctrl',
       })
       .otherwise({
         redirectTo: '/'
