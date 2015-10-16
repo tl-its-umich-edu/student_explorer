@@ -30,4 +30,4 @@ def redirect_or_serve(request, path, document_root):
         'login_url': settings.REDIRECT_LOGIN_URL + base_url,
     }
 
-    return render(request, 'redirect/login.html', context)
+    return render(request, 'hashredirect/login.html', context)

@@ -16,14 +16,14 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.static import serve
-import clientsideredirect.views
+import hashredirect.views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^', include('dashboard.urls')),
     url(r'^api/', include('advising.urls')),
-    # url(r'^$', clientsideredirect.views.login, name='login-redirect'),
-    url(r'^$', clientsideredirect.views.redirect_or_serve, {
+    # url(r'^$', hashredirect.views.login, name='login-redirect'),
+    url(r'^$', hashredirect.views.redirect_or_serve, {
         'document_root': 'sespa/app',
         'path': 'index.html'
     }, name='index'),
