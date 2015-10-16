@@ -1,11 +1,6 @@
 <!doctype html>
 <html>
 <script>
-  var loginUrl = '{{ login_url }}';
-  // console.log(loginUrl + '?hash_fragment=' + encodeURIComponent(window.location.hash))
-  redirect_to = loginUrl + '?hash_fragment=' + encodeURIComponent(window.location.hash.substring(1));
-  console.log(redirect_to);
-  window.location.href = redirect_to;
+  window.location.href = '{{ login_url }}?hash_fragment=' + encodeURIComponent(window.location.hash.substring(1));
 </script>
-
 </html>

@@ -22,8 +22,11 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^', include('dashboard.urls')),
     url(r'^api/', include('advising.urls')),
-    url(r'^login/', clientsideredirect.views.login, name='login-redirect'),
-    url(r'^$', clientsideredirect.views.login, name='login-redirect'),
+    # url(r'^$', clientsideredirect.views.login, name='login-redirect'),
+    url(r'^$', clientsideredirect.views.redirect_or_serve, {
+        'document_root': 'sespa/app',
+        'path': 'index.html'
+    }, name='index'),
     # url(r'^$', serve, {
     #     'document_root': 'sespa/app',
     #     'path': 'index.html'
