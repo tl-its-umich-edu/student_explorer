@@ -23,10 +23,11 @@ urlpatterns = [
     # url(r'^', include('dashboard.urls')),
     url(r'^api/', include('advising.urls')),
     url(r'^login/', clientsideredirect.views.login, name='login-redirect'),
-    url(r'^$', serve, {
-        'document_root': 'sespa/app',
-        'path': 'index.html'
-    }),
+    url(r'^$', clientsideredirect.views.login, name='login-redirect'),
+    # url(r'^$', serve, {
+    #     'document_root': 'sespa/app',
+    #     'path': 'index.html'
+    # }),
     url(r'^bower_components/(?P<path>.*)$', serve, {
         'document_root': 'sespa/bower_components',
     }),
