@@ -16,7 +16,8 @@ def redirect_or_serve(request, path, document_root):
     current_url = resolve(request.path_info).url_name
 
     base_url = request.build_absolute_uri(reverse(current_url))
-    print base_url
+    logger.debug('base_url = %s' % base_url)
+
     if request.user.is_authenticated():
         logger.debug('User is authenticated')
         hash_fragment = request.GET.get('hash_fragment', False)
@@ -30,4 +31,5 @@ def redirect_or_serve(request, path, document_root):
         'login_url': settings.REDIRECT_LOGIN_URL + base_url,
     }
 
+    logger.debug('User is not authenticated')
     return render(request, 'hashredirect/login.html', context)
