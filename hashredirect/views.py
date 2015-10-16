@@ -20,10 +20,9 @@ def login_or_serve(request, path, document_root):
 
     if request.user.is_authenticated():
         logger.debug('User is authenticated')
-        if 'hash_frament' in request.GET:
+        hash_fragment = request.GET.get('hash_fragment', False)
+        if hash_fragment:
             logger.debug('URL has hash_frament parameter')
-            hash_fragment = request.GET.get('hash_fragment')
-
             return redirect('%s#%s' % (base_url, hash_fragment))
         else:
             logger.debug('URL does not have hash_frament parameter')
