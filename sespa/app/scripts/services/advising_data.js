@@ -40,7 +40,7 @@ angular.module('sespaApp')
               'cache': true
             })
             .then(function(response) {
-              return response.data
+              return response.data;
             });
         });
       },
@@ -79,7 +79,7 @@ angular.module('sespaApp')
               'cache': true
             })
             .then(function(response) {
-              return response.data
+              return response.data;
             });
         });
       },
