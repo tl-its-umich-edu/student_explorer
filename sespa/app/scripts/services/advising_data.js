@@ -8,16 +8,10 @@
  * Factory in the sespaApp.
  */
 angular.module('sespaApp')
-  .factory('advisingData', function($http, $window) {
+  .factory('advisingData', function($http) {
     var config = function() {
-      return $http.get('api/', {
-          'cache': true
-        })
+      return $http.get('api/', {'cache': true})
         .then(function(response) {
-          if (response.data.username === '') {
-            var current = $window.location.href;
-            $window.location.href = response.data.login + '?next=' + current;
-          }
           return response.data;
         });
     };
