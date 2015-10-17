@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import resolve
 from django.views.static import serve
@@ -11,7 +10,9 @@ logger = logging.getLogger(__name__)
 
 def login_or_serve(request, path, document_root):
     if not hasattr(settings, 'HASHREDIRECT_LOGIN_URL'):
-        raise ImproperlyConfigured('HASHREDIRECT_LOGIN_URL is missing.')
+        logger.info(('HASHREDIRECT_LOGIN_URL is missing. Serving content '
+                     'without redirecting for login.'))
+        return serve(request, path=path, document_root=document_root)
 
     current_url = resolve(request.path_info).url_name
 
