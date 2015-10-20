@@ -6,7 +6,7 @@ import json
 
 
 class AdvisingTestCase(TestCase):
-    fixtures = ['dev_data.json']
+    fixtures = ['dev_data.json', 'dev_users.json']
     client = None
 
     def setUp(self):
@@ -32,6 +32,18 @@ class AdvisingTestCase(TestCase):
         data = json.loads(response.content)
 
         self.assertIsNone(data['username'], 'username should be None')
+
+    def test_api_config_username_authenticated(self):
+        username = 'burl'
+
+        user = get_user_model().objects.get(username=username)
+        self.client.force_authenticate(user=user)
+
+        response = self.client.get(reverse('advising-api-root'))
+        data = json.loads(response.content)
+
+        self.assertEqual(data['username'], username,
+                         'username should be "%s"' % username)
 
     def test_advisors(self):
         response = self.client.get(reverse('advisor-list'))
