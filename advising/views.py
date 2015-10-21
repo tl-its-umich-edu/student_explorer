@@ -99,6 +99,7 @@ class StudentList(generics.ListAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSummarySerializer
     lookup_field = 'username'
+    search_fields = ('username', 'univ_id', 'first_name', 'last_name')
 
 
 class StudentDetail(generics.RetrieveAPIView):

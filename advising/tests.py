@@ -45,6 +45,40 @@ class AdvisingTestCase(TestCase):
         self.assertEqual(data['username'], username,
                          'username should be "%s"' % username)
 
+    def test_students(self):
+        response = self.client.get(reverse('student-list'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotEqual(response.status_code, 404)
+        self.assertNotEqual(response.status_code, 500)
+
+    def test_students_search_with_results(self):
+        response = self.client.get(reverse('student-list'), {'search': 'gra'})
+
+        data = json.loads(response.content)
+
+        self.assertEqual(2, len(data),
+                         'expected 2 entries in search for "gra"')
+
+    def test_students_search_with_no_results(self):
+        response = self.client.get(reverse('student-list'), {'search': 'asdf'})
+
+        data = json.loads(response.content)
+
+        self.assertEqual(0, len(data),
+                         'expected 2 entries in search for "asdf"')
+
+    def test_students_search_check_data(self):
+        response = self.client.get(reverse('student-list'),
+                                   {'search': 'james'})
+
+        data = json.loads(response.content)
+
+        self.assertEqual(1, len(data),
+                         'expected 1 entries in search for "james"')
+        self.assertEqual('james', data[0]['username'],
+                         'expected username "james"')
+
     def test_advisors(self):
         response = self.client.get(reverse('advisor-list'))
 
