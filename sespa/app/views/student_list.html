@@ -10,7 +10,7 @@
           <span class="fa fa-caret-up" ng-show="sortType == 'last_name' &amp;&amp; sortReverse"></span>
         </a>
       </td>
-      <td>
+      <td class="hide-small">
         <a href="" ng-click="sortType = 'univ_id'; sortReverse = !sortReverse">
           Student ID
           <span class="fa fa-caret-down" ng-show="sortType == 'univ_id' &amp;&amp; !sortReverse"></span>
@@ -22,7 +22,7 @@
           Status
         </a>
       </td>
-      <td>
+      <td class="hide-small">
         <a href="" ng-click="sortType = 'cohorts'; sortReverse = !sortReverse">
           Cohorts
           <span class="fa fa-caret-down" ng-show="sortType == 'cohorts' &amp;&amp; !sortReverse"></span>
@@ -52,11 +52,11 @@
         <a href="#/students/{{student.username}}/">{{ student.first_name }}
           {{ student.last_name }}</a>
       </td>
-      <td>{{ student.univ_id }}</td>
+      <td class="hide-small">{{ student.univ_id }}</td>
       <td ng-if="hasStatusData">
         <img alt="{{status}}" class="course-status {{ status | lowercase }}" ng-repeat="status in student.statuses track by $index" ng-src="images/Status_Icons_{{status}}.png"/>
       </td>
-      <td>
+      <td class="hide-small">
           <div ng-repeat="cohort in student.cohorts">{{ cohort }}</div>
       </td>
       <td ng-if="hasGpaData">{{ student.gpa }}</td>
