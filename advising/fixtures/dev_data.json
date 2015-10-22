@@ -4,7 +4,7 @@
         "username": "graciela",
         "first_name": "Graciela",
         "last_name": "Devilbiss",
-        "univ_id": "00000001"
+        "univ_id": "10000001"
     },
     "model": "advising.student",
     "pk": 1
@@ -14,7 +14,7 @@
         "username": "sandra",
         "first_name": "Sandra",
         "last_name": "Hollis",
-        "univ_id": "00000002"
+        "univ_id": "10000002"
     },
     "model": "advising.student",
     "pk": 2
@@ -24,7 +24,7 @@
         "username": "shannon",
         "first_name": "Shannon",
         "last_name": "Pedersen",
-        "univ_id": "00000003"
+        "univ_id": "10000003"
     },
     "model": "advising.student",
     "pk": 3
@@ -34,7 +34,7 @@
         "username": "may",
         "first_name": "May",
         "last_name": "Mejorado",
-        "univ_id": "00000004"
+        "univ_id": "10000004"
     },
     "model": "advising.student",
     "pk": 4
@@ -44,7 +44,7 @@
         "username": "gianna",
         "first_name": "Gianna",
         "last_name": "Fekete",
-        "univ_id": "00000005"
+        "univ_id": "10000005"
     },
     "model": "advising.student",
     "pk": 5
@@ -54,7 +54,7 @@
         "username": "caroyln",
         "first_name": "Caroyln",
         "last_name": "Grayer",
-        "univ_id": "00000006"
+        "univ_id": "10000006"
     },
     "model": "advising.student",
     "pk": 6
@@ -64,7 +64,7 @@
         "username": "clelia",
         "first_name": "Clelia",
         "last_name": "Glessner",
-        "univ_id": "00000007"
+        "univ_id": "10000007"
     },
     "model": "advising.student",
     "pk": 7
@@ -74,7 +74,7 @@
         "username": "theo",
         "first_name": "Theo",
         "last_name": "Callan",
-        "univ_id": "00000008"
+        "univ_id": "10000008"
     },
     "model": "advising.student",
     "pk": 8
@@ -84,7 +84,7 @@
         "username": "janell",
         "first_name": "Janell",
         "last_name": "Deckard",
-        "univ_id": "00000009"
+        "univ_id": "10000009"
     },
     "model": "advising.student",
     "pk": 9
@@ -94,7 +94,7 @@
         "username": "deirdre",
         "first_name": "Deirdre",
         "last_name": "Haupt",
-        "univ_id": "000000010"
+        "univ_id": "10000010"
     },
     "model": "advising.student",
     "pk": 10
@@ -104,7 +104,7 @@
         "username": "lesha",
         "first_name": "Lesha",
         "last_name": "Paulino",
-        "univ_id": "00000011"
+        "univ_id": "10000011"
     },
     "model": "advising.student",
     "pk": 11
@@ -114,7 +114,7 @@
         "username": "valentin",
         "first_name": "Valentin",
         "last_name": "Aziz",
-        "univ_id": "00000012"
+        "univ_id": "10000012"
     },
     "model": "advising.student",
     "pk": 12
@@ -124,7 +124,7 @@
         "username": "evangelina",
         "first_name": "Evangelina",
         "last_name": "Manchester",
-        "univ_id": "000000013"
+        "univ_id": "10000013"
     },
     "model": "advising.student",
     "pk": 13
@@ -134,7 +134,7 @@
         "username": "jeana",
         "first_name": "Jeana",
         "last_name": "Caver",
-        "univ_id": "00000014"
+        "univ_id": "10000014"
     },
     "model": "advising.student",
     "pk": 14
@@ -144,7 +144,7 @@
         "username": "wendi",
         "first_name": "Wendi",
         "last_name": "Minyard",
-        "univ_id": "00000015"
+        "univ_id": "10000015"
     },
     "model": "advising.student",
     "pk": 15
@@ -154,7 +154,7 @@
         "username": "gabriela",
         "first_name": "Gabriela",
         "last_name": "Rea",
-        "univ_id": "00000016"
+        "univ_id": "10000016"
     },
     "model": "advising.student",
     "pk": 16
@@ -164,7 +164,7 @@
         "username": "deeanna",
         "first_name": "Deeanna",
         "last_name": "Buss",
-        "univ_id": "00000017"
+        "univ_id": "10000017"
     },
     "model": "advising.student",
     "pk": 17
@@ -174,7 +174,7 @@
         "username": "gennie",
         "first_name": "Gennie",
         "last_name": "Ditmore",
-        "univ_id": "00000018"
+        "univ_id": "10000018"
     },
     "model": "advising.student",
     "pk": 18
@@ -184,7 +184,7 @@
         "username": "geneva",
         "first_name": "Geneva",
         "last_name": "Michie",
-        "univ_id": "00000019"
+        "univ_id": "10000019"
     },
     "model": "advising.student",
     "pk": 19
@@ -194,7 +194,7 @@
         "username": "desmond",
         "first_name": "Desmond",
         "last_name": "Foxx",
-        "univ_id": "00000020"
+        "univ_id": "10000020"
     },
     "model": "advising.student",
     "pk": 20
@@ -204,7 +204,7 @@
         "username": "james",
         "first_name": "James",
         "last_name": "Bond",
-        "univ_id": "00000021"
+        "univ_id": "10000021"
     },
     "model": "advising.student",
     "pk": 21
@@ -214,7 +214,7 @@
         "username": "mike",
         "first_name": "Mike",
         "last_name": "Brown",
-        "univ_id": "00000022"
+        "univ_id": "10000022"
     },
     "model": "advising.student",
     "pk": 22
@@ -224,7 +224,7 @@
         "username": "nocourses",
         "first_name": "Nocourses",
         "last_name": "Guy",
-        "univ_id": "00000023"
+        "univ_id": "10000023"
     },
     "model": "advising.student",
     "pk": 23
@@ -234,7 +234,7 @@
         "username": "zander",
         "first_name": "Zander",
         "last_name": "Agrippa",
-        "univ_id": "00000101"
+        "univ_id": "20000001"
     },
     "model": "advising.advisor",
     "pk": 1
@@ -244,7 +244,7 @@
         "username": "burl",
         "first_name": "Burl",
         "last_name": "Chandler",
-        "univ_id": "0000102"
+        "univ_id": "20000002"
     },
     "model": "advising.advisor",
     "pk": 2
@@ -254,7 +254,7 @@
         "username": "lavera",
         "first_name": "Lavera",
         "last_name": "Rumore",
-        "univ_id": "00000103"
+        "univ_id": "20000003"
     },
     "model": "advising.advisor",
     "pk": 3
@@ -264,7 +264,7 @@
         "username": "mollie",
         "first_name": "Mollie",
         "last_name": "Whistler",
-        "univ_id": "00000104"
+        "univ_id": "20000004"
     },
     "model": "advising.advisor",
     "pk": 4
@@ -274,7 +274,7 @@
         "username": "carla",
         "first_name": "Carla",
         "last_name": "Beumer",
-        "univ_id": "00000105"
+        "univ_id": "20000005"
     },
     "model": "advising.advisor",
     "pk": 5
@@ -284,7 +284,7 @@
         "username": "will",
         "first_name": "Will",
         "last_name": "Smith",
-        "univ_id": "00000106"
+        "univ_id": "20000006"
     },
     "model": "advising.advisor",
     "pk": 6
