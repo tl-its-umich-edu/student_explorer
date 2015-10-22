@@ -1,7 +1,7 @@
 *.pyc
 
-/settings/local.py
-/settings/extras/
-!/settings/extras/README
+/student_explorer/settings/local.py
+/student_explorer/extras/
+!/student_explorer/extras/README
 
 /.vagrant

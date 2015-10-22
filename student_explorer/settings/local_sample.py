@@ -15,7 +15,7 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.oracle',
     #     'NAME': 'pa07',
     #     'USER': 'steinhof',
-    #     'PASSWORD': 'KS25974',
+    #     'PASSWORD': '',
     #     'HOST': 'crow.dsc.umich.edu',
     #     'PORT': '1521',
     # },

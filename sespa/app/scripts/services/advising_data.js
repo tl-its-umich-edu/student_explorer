@@ -8,16 +8,10 @@
  * Factory in the sespaApp.
  */
 angular.module('sespaApp')
-  .factory('advisingData', function($http, $window) {
+  .factory('advisingData', function($http) {
     var config = function() {
-      return $http.get('api/', {
-          'cache': true
-        })
+      return $http.get('api/', {'cache': true})
         .then(function(response) {
-          if (response.data.username === '') {
-            var current = $window.location.href;
-            $window.location.href = response.data.login + '?next=' + current;
-          }
           return response.data;
         });
     };
@@ -46,7 +40,7 @@ angular.module('sespaApp')
               'cache': true
             })
             .then(function(response) {
-              return response.data
+              return response.data;
             });
         });
       },
@@ -79,13 +73,14 @@ angular.module('sespaApp')
         });
       },
 
-      allStudents: function() {
+      searchStudents: function(search) {
         return config().then(function(config) {
           return $http.get(config.students, {
+              'params': {'search': search},
               'cache': true
             })
             .then(function(response) {
-              return response.data
+              return response.data;
             });
         });
       },

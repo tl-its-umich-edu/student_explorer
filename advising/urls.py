@@ -3,7 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from advising import views
 
 urlpatterns = [
-    url(r'^$', views.api_root, name='api_url'),
+    url(r'^$', views.api_root, name='advising-api-root'),
     url(r'^config/$', views.config, name='config'),
 
     url(r'^advisors/$',
