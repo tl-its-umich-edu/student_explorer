@@ -98,6 +98,12 @@ body {
 }
 
 .course-status {
-    height: 20pt;
-    margin-right: 5px;
+  height: 20pt;
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 480px) {
+  .hide-small {
+    display: none;
+  }
 }
