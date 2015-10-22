@@ -221,6 +221,16 @@
 },
 {
     "fields": {
+        "username": "nocourses",
+        "first_name": "Nocourses",
+        "last_name": "Guy",
+        "univ_id": "10000023"
+    },
+    "model": "advising.student",
+    "pk": 23
+},
+{
+    "fields": {
         "username": "zander",
         "first_name": "Zander",
         "last_name": "Agrippa",
@@ -593,6 +603,24 @@
 },
 {
     "fields": {
+        "role": 2,
+        "student": 23,
+        "advisor": 3
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 33
+},
+{
+    "fields": {
+        "role": 1,
+        "student": 23,
+        "advisor": 1
+    },
+    "model": "advising.studentadvisorrole",
+    "pk": 34
+},
+{
+    "fields": {
         "code": "SPPRO-F14",
         "group": "CSP",
         "description": "Special Probation F14"
@@ -833,6 +861,14 @@
     },
     "model": "advising.studentcohort",
     "pk": 27
+},
+{
+    "fields": {
+        "cohort": 3,
+        "student": 23
+    },
+    "model": "advising.studentcohort",
+    "pk": 28
 },
 {
     "fields": {
