@@ -1,30 +1,32 @@
 <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
-<h3>Basic Information</h3>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <td>
-          <a>
-            Student ID
-          </a>
-        </td>
-        <td>
-          <a>
-            Cohorts
-          </a>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ student.univ_id }}</td>
-        <td>
-          <p ng-repeat="cohort in student.cohorts">{{ cohort.description }}</p>
-      	</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="basic-info">
+  <h3>Basic Information</h3>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td>
+            <a>
+              Student ID
+            </a>
+          </td>
+          <td>
+            <a>
+              Cohorts
+            </a>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ student.univ_id }}</td>
+          <td>
+            <p ng-repeat="cohort in student.cohorts">{{ cohort.description }}</p>
+        	</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <h3>Courses</h3>
