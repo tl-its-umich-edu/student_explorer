@@ -60,11 +60,11 @@ EOM
 
         pip install -r requirements.txt
 
-        if [ ! -e settings/local.py ]; then
-            cp settings/local_sample.py settings/local.py
+        if [ ! -e student_explorer/settings/local.py ]; then
+            cp student_explorer/settings/local_sample.py student_explorer/settings/local.py
         fi
 
-        cd settings/extras
+        cd student_explorer/extras
         ls *.deb; if [ $? -eq 0 ]; then
             apt-get --no-install-recommends install --yes libaio1 libaio-dev
             dpkg -i *.deb

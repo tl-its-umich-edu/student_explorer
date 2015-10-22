@@ -16,15 +16,21 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.static import serve
+import hashredirect.views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^', include('dashboard.urls')),
     url(r'^api/', include('advising.urls')),
-    url(r'^$', serve, {
+    # url(r'^$', hashredirect.views.login, name='login-redirect'),
+    url(r'^$', hashredirect.views.login_or_serve, {
         'document_root': 'sespa/app',
         'path': 'index.html'
-    }),
+    }, name='index'),
+    # url(r'^$', serve, {
+    #     'document_root': 'sespa/app',
+    #     'path': 'index.html'
+    # }),
     url(r'^bower_components/(?P<path>.*)$', serve, {
         'document_root': 'sespa/bower_components',
     }),

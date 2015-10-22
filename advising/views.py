@@ -66,8 +66,8 @@ class AdvisorDetail(generics.RetrieveAPIView):
     lookup_field = 'username'
 
     def get(self, request, *args, **kwargs):
-        if ('username' in self.kwargs.keys()
-                and self.kwargs['username'] == 'me'):
+        if (('username' in self.kwargs.keys() and
+             self.kwargs['username'] == 'me')):
             self.kwargs['username'] = request.user.username
             kwargs['username'] = request.user.username
         resp = self.retrieve(request, *args, **kwargs)
@@ -99,6 +99,7 @@ class StudentList(generics.ListAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSummarySerializer
     lookup_field = 'username'
+    search_fields = ('username', 'univ_id', 'first_name', 'last_name')
 
 
 class StudentDetail(generics.RetrieveAPIView):
