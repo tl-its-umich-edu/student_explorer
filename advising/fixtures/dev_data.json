@@ -224,7 +224,7 @@
         "username": "nocourses",
         "first_name": "Nocourses",
         "last_name": "Guy",
-        "univ_id": "00000023"
+        "univ_id": "10000023"
     },
     "model": "advising.student",
     "pk": 23
