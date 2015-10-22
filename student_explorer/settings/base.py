@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'student_explorer',
     'advising',
+    'hashredirect',
 )
 
 MIDDLEWARE_CLASSES = (
