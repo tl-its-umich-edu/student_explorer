@@ -29,10 +29,15 @@ def api_root(request, format=None):
         logout_url = reverse('rest_framework:logout',
                              request=request, format=format)
 
+    if request.user.is_authenticated():
+        username = request.user.username
+    else:
+        username = None
+
     return Response({
         'advisors': reverse('advisor-list', request=request, format=format),
         'students': reverse('student-list', request=request, format=format),
-        'username': request.user.username,
+        'username': username,
         'debug': settings.DEBUG,
         'login': login_url,
         'logout': logout_url,
