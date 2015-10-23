@@ -4,8 +4,10 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 import json
 
+import advising.models
 
-class AdvisingTestCase(TestCase):
+
+class AdvisingApiTestCase(TestCase):
     fixtures = ['dev_data.json', 'dev_users.json']
     client = None
 
@@ -85,3 +87,7 @@ class AdvisingTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotEqual(response.status_code, 404)
         self.assertNotEqual(response.status_code, 500)
+
+
+class AdvisingSerializersTestCase(TestCase):
+    fixtures = ['dev_data.json', 'dev_users.json']
