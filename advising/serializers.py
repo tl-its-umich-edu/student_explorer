@@ -45,7 +45,7 @@ class StudentSummarySerializer(serializers.ModelSerializer):
                 weight += 0
             elif status.description == 'Yellow':
                 weight += 2
-            else:
+            elif status.description == 'Red':
                 weight += 4
         return weight
 
