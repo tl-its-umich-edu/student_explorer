@@ -17,9 +17,11 @@
           <span class="fa fa-caret-up" ng-show="sortType == 'univ_id' &amp;&amp; sortReverse"></span>
         </a>
       </td>
-      <td ng-if="hasStatusData">
-        <a class="not-sortable">
+      <td>
+        <a href="" ng-click="sortType = 'status_weight'; sortReverse = !sortReverse">
           Status
+          <span class="fa fa-caret-down" ng-show="sortType == 'status_weight' &amp;&amp; !sortReverse"></span>
+          <span class="fa fa-caret-up" ng-show="sortType == 'status_weight' &amp;&amp; sortReverse"></span>
         </a>
       </td>
       <td class="hide-small">
@@ -29,38 +31,21 @@
           <span class="fa fa-caret-up" ng-show="sortType == 'cohorts' &amp;&amp; sortReverse"></span>
         </a>
       </td>
-      <td ng-if="hasGpaData">
-        <a href="" ng-click="sortType = 'gpa'; sortReverse = !sortReverse">
-          GPA
-          <span class="fa fa-caret-down" ng-show="sortType == 'gpa' &amp;&amp; !sortReverse"></span>
-          <span class="fa fa-caret-up" ng-show="sortType == 'gpa' &amp;&amp; sortReverse"></span>
-        </a>
-      </td>
-      <td ng-if="hasYearData">
-        <a href="" ng-click="sortType = 'year'; sortReverse = !sortReverse">
-          Year
-          <span class="fa fa-caret-down" ng-show="sortType == 'year' &amp;&amp; !sortReverse"></span>
-          <span class="fa fa-caret-up" ng-show="sortType == 'year' &amp;&amp; sortReverse"></span>
-        </a>
-      </td>
     </tr>
   </thead>
   <tbody>
-    <!-- <tr ng-repeat="student in students | orderBy:sortType:sortReverse | filter:searchStudent" ng-if="checkAdvisor(student.advisors) &amp;&amp; checkGPA(student.GPA) &amp;&amp; checkYear(student.year)"> -->
     <tr ng-repeat="student in students | orderBy:sortType:sortReverse | filter:searchStudent">
       <td class="bold">
         <a href="#/students/{{student.username}}/">{{ student.first_name }}
           {{ student.last_name }}</a>
       </td>
       <td class="hide-small">{{ student.univ_id }}</td>
-      <td ng-if="hasStatusData">
+      <td>
         <img alt="{{status}}" class="course-status {{ status | lowercase }}" ng-repeat="status in student.statuses track by $index" ng-src="images/Status_Icons_{{status}}.png"/>
       </td>
       <td class="hide-small">
           <div ng-repeat="cohort in student.cohorts">{{ cohort }}</div>
       </td>
-      <td ng-if="hasGpaData">{{ student.gpa }}</td>
-      <td ng-if="hasYearData">{{ student.year }}</td>
     </tr>
   </tbody>
 </table>

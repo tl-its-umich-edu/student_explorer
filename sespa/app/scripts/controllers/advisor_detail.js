@@ -16,9 +16,6 @@ angular.module('sespaApp')
     // $scope.searchAdvisor = '';
     // $scope.scroll = scroll;
 
-    $scope.hasStatusData = false;
-    $scope.hasGpaData = false;
-    $scope.hasYearData = false;
     $scope.toAdvisorList = toAdvisorList;
 
     advisingData.advisorDetails($routeParams.advisor).then(function(advisor) {
@@ -27,18 +24,6 @@ angular.module('sespaApp')
 
     advisingData.advisorsStudents($routeParams.advisor).then(function(students) {
       $scope.students = students;
-      $scope.students.some(function(student) {
-        if (student.statuses.length > 0) {
-          $scope.hasStatusData = true;
-        }
-        if (student.gpa != null) {
-          $scope.hasGpaData = true;
-        }
-        if (student.year != null) {
-          $scope.hasYearData = true;
-        }
-        return $scope.hasStatusData == true && $scope.hasGPAData == true && $scope.hasYearData == true;
-      });
     })
 
     function toAdvisorList() {
