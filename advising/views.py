@@ -10,6 +10,10 @@ from rest_framework.reverse import reverse
 
 from django.conf import settings
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 @api_view(('GET',))
 def api_root(request, format=None):
