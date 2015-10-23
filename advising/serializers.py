@@ -32,10 +32,22 @@ class StudentSummarySerializer(serializers.ModelSerializer):
     cohorts = serializers.StringRelatedField(many=True)
     statuses = serializers.StringRelatedField(many=True)
     advisors = serializers.StringRelatedField(many=True)
+    status_weight = serializers.SerializerMethodField()
 
     class Meta:
         model = Student
-        fields = ('url', 'username', 'univ_id', 'first_name', 'last_name', 'advisors', 'cohorts', 'statuses')
+        fields = ('url', 'username', 'univ_id', 'first_name', 'last_name', 'advisors', 'cohorts', 'statuses', 'status_weight')
+
+    def get_status_weight(self, obj):
+        weight = 0;
+        for status in obj.statuses.all():
+            if status.description == 'Green':
+                weight += 0
+            elif status.description == 'Yellow':
+                weight += 2
+            elif status.description == 'Red':
+                weight += 4
+        return weight
 
 
 # Serializations of the relationships between advisors and students.
