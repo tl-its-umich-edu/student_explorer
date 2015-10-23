@@ -1,4 +1,5 @@
-from advising.models import Student, Advisor, Cohort, ClassSite, StudentAdvisorRole, StudentClassSiteStatus
+from advising.models import (Student, Advisor, Cohort, StudentAdvisorRole,
+                             StudentClassSiteStatus)
 from rest_framework import serializers
 
 
@@ -36,10 +37,11 @@ class StudentSummarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Student
-        fields = ('url', 'username', 'univ_id', 'first_name', 'last_name', 'advisors', 'cohorts', 'statuses', 'status_weight')
+        fields = ('url', 'username', 'univ_id', 'first_name', 'last_name',
+                  'advisors', 'cohorts', 'statuses', 'status_weight')
 
     def get_status_weight(self, obj):
-        weight = 0;
+        weight = 0
         for status in obj.statuses.all():
             if status.description == 'Green':
                 weight += 0
@@ -82,16 +84,20 @@ class AdvisorStudentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentAdvisorRole
         # fields = ('role', 'student',)
-        fields = ('advisor_role', 'first_name', 'last_name', 'username', 'univ_id', )
+        fields = ('advisor_role', 'first_name', 'last_name', 'username',
+                  'univ_id',)
 
 
 class StudentFullSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='student-detail',
                                                lookup_field='username')
-    advisors = StudentAdvisorsSerializer(source='studentadvisorrole_set', many=True, read_only=True)
+    advisors = StudentAdvisorsSerializer(source='studentadvisorrole_set',
+                                         many=True, read_only=True)
     cohorts = CohortSerializer(many=True, read_only=True)
-    class_sites = StudentClassSitesSerializer(source='studentclasssitestatus_set', many=True, read_only=True)
+    class_sites = StudentClassSitesSerializer(
+        source='studentclasssitestatus_set', many=True, read_only=True)
 
     class Meta:
         model = Student
-        fields = ('username', 'univ_id', 'first_name', 'last_name', 'advisors', 'cohorts', 'class_sites', 'url')
+        fields = ('username', 'univ_id', 'first_name', 'last_name', 'advisors',
+                  'cohorts', 'class_sites', 'url')
