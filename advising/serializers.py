@@ -6,10 +6,13 @@ from rest_framework import serializers
 class AdvisorSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='advisor-detail',
                                                lookup_field='username')
+    students_url = serializers.HyperlinkedIdentityField(
+        view_name='advisor-students-list', lookup_field='username')
 
     class Meta:
         model = Advisor
-        fields = ('username', 'univ_id', 'first_name', 'last_name', 'url')
+        fields = ('username', 'univ_id', 'first_name', 'last_name', 'url',
+                  'students_url')
 
 
 class CohortSerializer(serializers.ModelSerializer):

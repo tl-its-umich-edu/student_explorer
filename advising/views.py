@@ -80,8 +80,6 @@ class AdvisorDetail(generics.RetrieveAPIView):
             self.kwargs['username'] = request.user.username
             kwargs['username'] = request.user.username
         resp = self.retrieve(request, *args, **kwargs)
-        resp.data['students_url'] = reverse('advisor-students-list',
-                                            request=request, kwargs=kwargs)
         return resp
 
 
