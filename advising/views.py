@@ -1,6 +1,7 @@
 from advising.models import Advisor, Student
 from advising.serializers import (AdvisorSerializer, StudentSummarySerializer,
                                   StudentFullSerializer,
+                                  StudentClassSitesSerializer,
                                   StudentAdvisorsSerializer)
 from rest_framework import generics
 
@@ -150,3 +151,17 @@ class StudentAdvisorsList(generics.ListAPIView):
             .studentadvisorrole_set.all()
         )
         return self.list(request, *args, **kwargs)
+
+
+class StudentClassSitesList(generics.ListAPIView):
+    '''
+    API endpoint that lists a student's class sites.
+    '''
+    serializer_class = StudentClassSitesSerializer
+    lookup_field = 'username'
+
+    def get_queryset(self):
+        return (Student.objects
+                .get(username=self.kwargs['username'])
+                .studentclasssitestatus_set.all()
+                )

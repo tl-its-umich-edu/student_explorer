@@ -33,6 +33,8 @@ class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
 class StudentSummarySerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='student-detail',
                                                lookup_field='username')
+    class_sites_url = serializers.HyperlinkedIdentityField(
+        view_name='studend-classsites-list', lookup_field='username')
     cohorts = serializers.StringRelatedField(many=True)
     statuses = serializers.StringRelatedField(many=True)
     advisors = serializers.StringRelatedField(many=True)
@@ -41,7 +43,7 @@ class StudentSummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ('url', 'username', 'univ_id', 'first_name', 'last_name',
-                  'advisors', 'cohorts', 'statuses', 'status_weight')
+                  'advisors', 'cohorts', 'statuses', 'status_weight', 'class_sites_url')
 
     def get_status_weight(self, obj):
         weight = 0
@@ -67,13 +69,12 @@ class StudentAdvisorsSerializer(serializers.ModelSerializer):
 
 
 class StudentClassSitesSerializer(serializers.ModelSerializer):
-    status = serializers.ReadOnlyField(source='status.description')
     description = serializers.ReadOnlyField(source='class_site.description')
     code = serializers.ReadOnlyField(source='class_site.code')
 
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('description', 'status', 'code',)
+        fields = ('description', 'code',)
 
 
 class AdvisorStudentsSerializer(serializers.ModelSerializer):
