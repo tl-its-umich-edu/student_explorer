@@ -144,7 +144,7 @@ class Assignment(models.Model):
         db_table = '"CNLYR002"."DM_ASSGN"'
 
 
-class StudentClassAssignment(models.Model):
+class StudentClassSiteAssignment(models.Model):
     student = models.ForeignKey(Student, db_column='STDNT_KEY',
                                 primary_key=True)
     class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')

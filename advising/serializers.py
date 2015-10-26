@@ -1,5 +1,7 @@
 from advising.models import (Student, Advisor, Cohort, StudentAdvisorRole,
-                             StudentClassSiteStatus, ClassSite)
+                             StudentClassSiteStatus,
+                             StudentClassSiteAssignment,
+                             ClassSite)
 from rest_framework import serializers
 
 
@@ -122,3 +124,11 @@ class StudentFullSerializer(serializers.ModelSerializer):
         model = Student
         fields = ('username', 'univ_id', 'first_name', 'last_name', 'advisors',
                   'cohorts', 'class_sites', 'url')
+
+
+class StudentClassSiteAssignmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = StudentClassSiteAssignment
+        fields = ('points_earned', 'points_possible', 'included_in_grade',
+                  'grader_comment', 'weight')

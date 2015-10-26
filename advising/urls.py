@@ -35,7 +35,7 @@ urlpatterns = [
         views.StudentClassSiteDetail.as_view(),
         name='student-classsite-detail'),
     url(r'^students/(?P<username>[a-zA-Z ]*)/class_sites/(?P<code>[a-zA-Z0-9\- ]*)/assignments/$',
-        views.StudentClassSiteDetail.as_view(),
+        views.StudentClassSiteAssignmentList.as_view(),
         name='student-classsite-assignment-list'),
 ]
 
