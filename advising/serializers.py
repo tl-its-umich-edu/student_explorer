@@ -4,6 +4,10 @@ from advising.models import (Student, Advisor, Cohort, Assignment,
                              StudentClassSiteAssignment,
                              ClassSite)
 from rest_framework import serializers
+from rest_framework.reverse import reverse
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class AdvisorSerializer(serializers.ModelSerializer):
@@ -78,14 +82,35 @@ class StudentAdvisorsSerializer(serializers.ModelSerializer):
         fields = ('role', 'advisor',)
 
 
+class StudentClassSiteHyperlink(serializers.HyperlinkedIdentityField):
+
+    def get_queryset(self):
+        return (Student.objects
+                .get(username=self.kwargs['username'])
+                .studentclasssitestatus_set.all()
+                )
+
+    def get_url(self, obj, view_name, request, format):
+        url_kwargs = {
+            'code': obj.class_site.code,
+            'username': obj.student.username
+        }
+        logger.debug(url_kwargs)
+        logger.debug(reverse(view_name, kwargs=url_kwargs, request=request, format=format))
+
+        return reverse(view_name, kwargs=url_kwargs, request=request, format=format)
+
+
 class StudentClassSitesSerializer(serializers.ModelSerializer):
     description = serializers.ReadOnlyField(source='class_site.description')
     code = serializers.ReadOnlyField(source='class_site.code')
     status = serializers.ReadOnlyField(source='status.description')
+    url = StudentClassSiteHyperlink(read_only=True,
+        view_name='student-classsite-detail')
 
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('description', 'code', 'status')
+        fields = ('description', 'code', 'status', 'url')
 
 
 class StudentClassSiteDetailSerializer(serializers.ModelSerializer):
