@@ -43,7 +43,8 @@ class StudentSummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ('url', 'username', 'univ_id', 'first_name', 'last_name',
-                  'advisors', 'cohorts', 'statuses', 'status_weight', 'class_sites_url')
+                  'advisors', 'cohorts', 'statuses', 'status_weight',
+                  'class_sites_url')
 
     def get_status_weight(self, obj):
         weight = 0
