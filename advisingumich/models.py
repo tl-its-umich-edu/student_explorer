@@ -130,3 +130,41 @@ class StudentClassSiteStatus(models.Model):
     class Meta:
         db_table = '"CNLYR002"."FC_STDNT_CLASS_ACAD_PERF"'
         unique_together = ('student', 'class_site', 'status')
+
+
+class Assignment(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='ASSGN_KEY')
+    code = models.CharField(max_length=20, db_column='ASSGN_CD')
+    description = models.CharField(max_length=50, db_column='ASSGN_DES')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        db_table = '"CNLYR002"."DM_ASSGN"'
+
+
+class StudentClassAssignment(models.Model):
+    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+                                primary_key=True)
+    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
+    assignment = models.ForeignKey(Assignment, db_column='ASSGN_KEY')
+    points_possible = models.FloatField(max_length=10,
+                                        db_column='STDNT_ASSGN_PNTS_PSBL_NBR')
+    points_earned = models.FloatField(max_length=10,
+                                      db_column='STDNT_ASSGN_PNTS_ERND_NBR')
+    included_in_grade = models.CharField(max_length=1,
+                                         db_column='INCL_IN_CLASS_GRD_IND')
+    grader_comment = models.CharField(max_length=4000, null=True,
+                                      db_column='STDNT_ASSGN_GRDR_CMNT_TXT')
+    weight = models.FloatField(max_length=126,
+                               db_column='ASSGN_WT_NBR')
+
+    def __unicode__(self):
+        return '%s has assignemnt %s in %s' % (self.student, self.assignment,
+                                               self.class_site)
+
+    class Meta:
+        # db_table = '"CNLYR002"."FC_STDNT_CLASS_ASSGN"'
+        db_table = '"CNLYR002"."FC_STDNT_CLASS_WKLY_ASSGN"'
+        unique_together = ('student', 'class_site', 'assignment')
