@@ -1,5 +1,5 @@
 from advising.models import (Student, Advisor, Cohort, StudentAdvisorRole,
-                             StudentClassSiteStatus)
+                             StudentClassSiteStatus, ClassSite)
 from rest_framework import serializers
 
 
@@ -19,6 +19,12 @@ class CohortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cohort
         fields = ('code', 'description', 'group')
+
+
+class ClassSiteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClassSite
+        fields = ('code', 'description')
 
 
 class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
@@ -75,6 +81,15 @@ class StudentClassSitesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentClassSiteStatus
+        fields = ('description', 'code',)
+
+
+class StudentClassSiteDetailSerializer(serializers.ModelSerializer):
+    description = serializers.ReadOnlyField(source='class_site.description')
+    code = serializers.ReadOnlyField(source='class_site.code')
+
+    class Meta:
+        model = ClassSite
         fields = ('description', 'code',)
 
 
