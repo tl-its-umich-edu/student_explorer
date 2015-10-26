@@ -159,12 +159,13 @@ class StudentClassSiteAssignment(models.Model):
                                       db_column='STDNT_ASSGN_GRDR_CMNT_TXT')
     weight = models.FloatField(max_length=126,
                                db_column='ASSGN_WT_NBR')
+    due_date = models.IntegerField(db_column='ASSGN_DUE_SBMT_DT_KEY')
 
     def __unicode__(self):
         return '%s has assignemnt %s in %s' % (self.student, self.assignment,
                                                self.class_site)
 
     class Meta:
-        # db_table = '"CNLYR002"."FC_STDNT_CLASS_ASSGN"'
-        db_table = '"CNLYR002"."FC_STDNT_CLASS_WKLY_ASSGN"'
+        ordering = ('due_date',)
+        db_table = '"CNLYR002"."FC_STDNT_CLASS_ASSGN"'
         unique_together = ('student', 'class_site', 'assignment')

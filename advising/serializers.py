@@ -1,4 +1,5 @@
-from advising.models import (Student, Advisor, Cohort, StudentAdvisorRole,
+from advising.models import (Student, Advisor, Cohort, Assignment,
+                             StudentAdvisorRole,
                              StudentClassSiteStatus,
                              StudentClassSiteAssignment,
                              ClassSite)
@@ -126,9 +127,17 @@ class StudentFullSerializer(serializers.ModelSerializer):
                   'cohorts', 'class_sites', 'url')
 
 
+class AssignmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Assignment
+        fields = ('description', 'code')
+
+
 class StudentClassSiteAssignmentSerializer(serializers.ModelSerializer):
+    assignment = AssignmentSerializer(read_only=True)
 
     class Meta:
         model = StudentClassSiteAssignment
-        fields = ('points_earned', 'points_possible', 'included_in_grade',
-                  'grader_comment', 'weight')
+        fields = ('assignment', 'points_earned', 'points_possible',
+                  'included_in_grade', 'grader_comment', 'weight', 'due_date')

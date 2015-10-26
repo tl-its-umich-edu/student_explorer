@@ -116,4 +116,5 @@ if hasattr(settings, 'ADVISING_PACKAGE'):
     ClassSite = advising_models.ClassSite
     Status = advising_models.Status
     StudentClassSiteStatus = advising_models.StudentClassSiteStatus
+    Assignment = advising_models.Assignment
     StudentClassSiteAssignment = advising_models.StudentClassSiteAssignment
