@@ -78,10 +78,11 @@ class StudentAdvisorsSerializer(serializers.ModelSerializer):
 class StudentClassSitesSerializer(serializers.ModelSerializer):
     description = serializers.ReadOnlyField(source='class_site.description')
     code = serializers.ReadOnlyField(source='class_site.code')
+    status = serializers.ReadOnlyField(source='status.description')
 
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('description', 'code',)
+        fields = ('description', 'code', 'status')
 
 
 class StudentClassSiteDetailSerializer(serializers.ModelSerializer):
