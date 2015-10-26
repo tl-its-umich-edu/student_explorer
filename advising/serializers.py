@@ -95,10 +95,9 @@ class StudentClassSiteHyperlink(serializers.HyperlinkedIdentityField):
             'code': obj.class_site.code,
             'username': obj.student.username
         }
-        logger.debug(url_kwargs)
-        logger.debug(reverse(view_name, kwargs=url_kwargs, request=request, format=format))
 
-        return reverse(view_name, kwargs=url_kwargs, request=request, format=format)
+        return reverse(view_name, kwargs=url_kwargs, request=request,
+                       format=format)
 
 
 class StudentClassSitesSerializer(serializers.ModelSerializer):
