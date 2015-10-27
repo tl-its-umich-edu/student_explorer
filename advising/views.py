@@ -1,4 +1,5 @@
 from advising.models import (Advisor, Student, ClassSite,
+                             StudentClassSiteStatus,
                              StudentClassSiteAssignment)
 from advising.serializers import (AdvisorSerializer, StudentSummarySerializer,
                                   StudentFullSerializer,
@@ -6,8 +7,8 @@ from advising.serializers import (AdvisorSerializer, StudentSummarySerializer,
                                   StudentClassSiteDetailSerializer,
                                   StudentClassSiteAssignmentSerializer,
                                   StudentAdvisorsSerializer)
+from advising.mixins import MultipleFieldLookupMixin
 from rest_framework import generics
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -156,44 +157,36 @@ class StudentAdvisorsList(generics.ListAPIView):
         return self.list(request, *args, **kwargs)
 
 
-class StudentClassSitesList(generics.ListAPIView):
+class StudentClassSitesList(MultipleFieldLookupMixin, generics.ListAPIView):
     '''
     API endpoint that lists a student's class sites.
     '''
     serializer_class = StudentClassSiteSummarySerializer
-    lookup_field = 'username'
-
-    def get_queryset(self):
-        return (Student.objects
-                .get(username=self.kwargs['username'])
-                .studentclasssitestatus_set.all()
-                )
+    queryset = StudentClassSiteStatus.objects.all()
+    lookup_params = {
+        'student__username': 'username',
+    }
 
 
-class StudentClassSiteDetail(generics.RetrieveAPIView):
+class StudentClassSiteDetail(MultipleFieldLookupMixin, generics.RetrieveAPIView):
     '''
     API endpoint that lists a student's class site detail.
     '''
     serializer_class = StudentClassSiteDetailSerializer
-    lookup_field = 'class_site__code'
-    lookup_url_kwarg = 'code'
-
-    def get_queryset(self):
-        return (Student.objects
-                .get(username=self.kwargs['username'])
-                .studentclasssitestatus_set.all()
-                )
+    queryset = StudentClassSiteStatus.objects.all()
+    lookup_params = {
+        'student__username': 'username',
+        'class_site__code': 'code',
+    }
 
 
-class StudentClassSiteAssignmentList(generics.ListAPIView):
+class StudentClassSiteAssignmentList(MultipleFieldLookupMixin, generics.ListAPIView):
     '''
     API endpoint that lists a student's class sites.
     '''
     serializer_class = StudentClassSiteAssignmentSerializer
-    lookup_field = 'username'
-
-    def get_queryset(self):
-        student = Student.objects.get(username=self.kwargs['username'])
-        class_site = ClassSite.objects.get(code=self.kwargs['code'])
-        return StudentClassSiteAssignment.objects.filter(
-            student=student, class_site=class_site)
+    queryset = StudentClassSiteAssignment.objects.all()
+    lookup_params = {
+        'student__username': 'username',
+        'class_site__code': 'code',
+    }
