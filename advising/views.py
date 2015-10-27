@@ -3,8 +3,7 @@ from advising.models import (Advisor, Student, ClassSite,
                              StudentClassSiteAssignment)
 from advising.serializers import (AdvisorSerializer, StudentSummarySerializer,
                                   StudentFullSerializer,
-                                  StudentClassSiteSummarySerializer,
-                                  StudentClassSiteDetailSerializer,
+                                  StudentClassSiteSerializer,
                                   StudentClassSiteAssignmentSerializer,
                                   StudentAdvisorsSerializer)
 from advising.mixins import MultipleFieldLookupMixin
@@ -161,18 +160,19 @@ class StudentClassSitesList(MultipleFieldLookupMixin, generics.ListAPIView):
     '''
     API endpoint that lists a student's class sites.
     '''
-    serializer_class = StudentClassSiteSummarySerializer
+    serializer_class = StudentClassSiteSerializer
     queryset = StudentClassSiteStatus.objects.all()
     lookup_params = {
         'student__username': 'username',
     }
 
 
-class StudentClassSiteDetail(MultipleFieldLookupMixin, generics.RetrieveAPIView):
+class StudentClassSiteDetail(MultipleFieldLookupMixin,
+                             generics.RetrieveAPIView):
     '''
     API endpoint that lists a student's class site detail.
     '''
-    serializer_class = StudentClassSiteDetailSerializer
+    serializer_class = StudentClassSiteSerializer
     queryset = StudentClassSiteStatus.objects.all()
     lookup_params = {
         'student__username': 'username',
@@ -180,7 +180,8 @@ class StudentClassSiteDetail(MultipleFieldLookupMixin, generics.RetrieveAPIView)
     }
 
 
-class StudentClassSiteAssignmentList(MultipleFieldLookupMixin, generics.ListAPIView):
+class StudentClassSiteAssignmentList(MultipleFieldLookupMixin,
+                                     generics.ListAPIView):
     '''
     API endpoint that lists a student's class sites.
     '''
