@@ -1,9 +1,10 @@
-from advising.models import Advisor, Student, ClassSite, StudentClassSiteAssignment
+from advising.models import (Advisor, Student, ClassSite,
+                             StudentClassSiteAssignment)
 from advising.serializers import (AdvisorSerializer, StudentSummarySerializer,
                                   StudentFullSerializer,
-                                  StudentClassSitesSerializer,
+                                  StudentClassSiteSummarySerializer,
+                                  StudentClassSiteDetailSerializer,
                                   StudentClassSiteAssignmentSerializer,
-                                  ClassSiteSerializer,
                                   StudentAdvisorsSerializer)
 from rest_framework import generics
 
@@ -159,7 +160,7 @@ class StudentClassSitesList(generics.ListAPIView):
     '''
     API endpoint that lists a student's class sites.
     '''
-    serializer_class = StudentClassSitesSerializer
+    serializer_class = StudentClassSiteSummarySerializer
     lookup_field = 'username'
 
     def get_queryset(self):
@@ -173,15 +174,15 @@ class StudentClassSiteDetail(generics.RetrieveAPIView):
     '''
     API endpoint that lists a student's class site detail.
     '''
-    queryset = ClassSite.objects.all()
-    serializer_class = ClassSiteSerializer
-    lookup_field = 'code'
+    serializer_class = StudentClassSiteDetailSerializer
+    lookup_field = 'class_site__code'
+    lookup_url_kwarg = 'code'
 
-    def get(self, request, *args, **kwargs):
-        resp = self.retrieve(request, *args, **kwargs)
-        resp.data['assignments_url'] = reverse('student-classsite-assignment-list',
-                                               request=request, kwargs=kwargs)
-        return resp
+    def get_queryset(self):
+        return (Student.objects
+                .get(username=self.kwargs['username'])
+                .studentclasssitestatus_set.all()
+                )
 
 
 class StudentClassSiteAssignmentList(generics.ListAPIView):

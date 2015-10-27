@@ -100,7 +100,7 @@ class StudentClassSiteHyperlink(serializers.HyperlinkedIdentityField):
                        format=format)
 
 
-class StudentClassSitesSerializer(serializers.ModelSerializer):
+class StudentClassSiteSummarySerializer(serializers.ModelSerializer):
     description = serializers.ReadOnlyField(source='class_site.description')
     code = serializers.ReadOnlyField(source='class_site.code')
     status = serializers.ReadOnlyField(source='status.description')
@@ -115,10 +115,13 @@ class StudentClassSitesSerializer(serializers.ModelSerializer):
 class StudentClassSiteDetailSerializer(serializers.ModelSerializer):
     description = serializers.ReadOnlyField(source='class_site.description')
     code = serializers.ReadOnlyField(source='class_site.code')
+    status = serializers.ReadOnlyField(source='status.description')
+    assignments_url = StudentClassSiteHyperlink(read_only=True,
+        view_name='student-classsite-assignment-list')
 
     class Meta:
-        model = ClassSite
-        fields = ('description', 'code',)
+        model = StudentClassSiteStatus
+        fields = ('description', 'code', 'status', 'assignments_url')
 
 
 class AdvisorStudentsSerializer(serializers.ModelSerializer):
@@ -142,7 +145,7 @@ class StudentFullSerializer(serializers.ModelSerializer):
     advisors = StudentAdvisorsSerializer(source='studentadvisorrole_set',
                                          many=True, read_only=True)
     cohorts = CohortSerializer(many=True, read_only=True)
-    class_sites = StudentClassSitesSerializer(
+    class_sites = StudentClassSiteSummarySerializer(
         source='studentclasssitestatus_set', many=True, read_only=True)
 
     class Meta:
