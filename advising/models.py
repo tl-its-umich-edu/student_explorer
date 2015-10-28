@@ -100,6 +100,33 @@ class StudentClassSiteStatus(models.Model):
         return '%s has status %s in %s' % (self.student, self.status,
                                            self.class_site)
 
+
+class Assignment(models.Model):
+    code = models.CharField(max_length=20)
+    description = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.description
+
+
+class StudentClassSiteAssignment(models.Model):
+    student = models.ForeignKey(Student)
+    class_site = models.ForeignKey(ClassSite)
+    assignment = models.ForeignKey(Assignment)
+    points_possible = models.FloatField(max_length=10)
+    points_earned = models.FloatField(max_length=10)
+    included_in_grade = models.CharField(max_length=1)
+    grader_comment = models.CharField(max_length=4000, null=True)
+    weight = models.FloatField(max_length=126)
+    due_date = models.IntegerField()
+
+    def __unicode__(self):
+        return '%s has assignemnt %s in %s' % (self.student, self.assignment,
+                                               self.class_site)
+
+    class Meta:
+        ordering = ('due_date',)
+
 if hasattr(settings, 'ADVISING_PACKAGE'):
     # Override the definitions above if an alternate package has been
     # specified.

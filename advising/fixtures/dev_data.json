@@ -1295,5 +1295,36 @@
     },
     "model": "advising.studentclasssitestatus",
     "pk": 39
+},
+{
+    "fields": {
+        "code": "152493021B5C",
+        "description": "Quiz 1"
+    },
+    "model": "advising.assignment",
+    "pk": 1
+},
+{
+    "fields": {
+        "code": "2C186C7667FD",
+        "description": "Quiz 2"
+    },
+    "model": "advising.assignment",
+    "pk": 2
+},
+{
+    "fields": {
+        "due_date": 1,
+        "weight": 1.0,
+        "assignment": 1,
+        "points_possible": 20.0,
+        "points_earned": 19.0,
+        "class_site": 2,
+        "included_in_grade": "Y",
+        "student": 1,
+        "grader_comment": null
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 1
 }
 ]
