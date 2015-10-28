@@ -1,4 +1,4 @@
-from art.settings.base import *
+from student_explorer.settings.base import *
 from os import getenv
 
 
