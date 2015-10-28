@@ -66,7 +66,7 @@ if REMOTE_USER_HEADER:
 
 # STATIC_ROOT = '/var/www/student_explorer/static'
 USE_X_FORWARDED_HOST = bool(getenv('DJANGO_USE_X_FORWARDED_HOST', False))
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 LOGGING = {
     'version': 1,
