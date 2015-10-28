@@ -40,7 +40,7 @@ angular
         controller: 'StudentListCtrl'
       })
       .when('/students/:student', {
-        templateUrl: 'views/student_Detail.html',
+        templateUrl: 'views/student_detail.html',
         controller: 'StudentDetailCtrl',
         controllerAs: 'ctrl',
       })
