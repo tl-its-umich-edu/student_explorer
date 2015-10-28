@@ -16,7 +16,7 @@ RUN dpkg -i *.deb
 ENV ORACLE_HOME /usr/lib/oracle/12.1/client64
 ENV LD_LIBRARY_PATH /usr/lib/oracle/12.1/client64/lib
 
-RUN pip install gunicorn
+RUN pip install gunicorn cx_Oracle
 COPY requirements.txt /tmp/
 RUN pip install -r requirements.txt
 
