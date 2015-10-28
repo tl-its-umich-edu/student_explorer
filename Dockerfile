@@ -21,7 +21,6 @@ COPY requirements.txt /tmp/
 RUN pip install -r requirements.txt
 
 RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
 
 COPY . /usr/src/app
 
