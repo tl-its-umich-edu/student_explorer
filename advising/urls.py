@@ -29,7 +29,7 @@ urlpatterns = [
         views.StudentAdvisorsList.as_view(),
         name='student-advisors-list'),
     url(r'^students/(?P<username>[a-zA-Z ]*)/class_sites/$',
-        views.StudentClassSitesList.as_view(),
+        views.StudentClassSiteList.as_view(),
         name='student-classsite-list'),
     url(r'^students/(?P<username>[a-zA-Z ]*)/class_sites/(?P<code>[a-zA-Z0-9\- ]*)/$',
         views.StudentClassSiteDetail.as_view(),

@@ -156,7 +156,7 @@ class StudentAdvisorsList(generics.ListAPIView):
         return self.list(request, *args, **kwargs)
 
 
-class StudentClassSitesList(MultipleFieldLookupMixin, generics.ListAPIView):
+class StudentClassSiteList(MultipleFieldLookupMixin, generics.ListAPIView):
     '''
     API endpoint that lists a student's class sites.
     '''
