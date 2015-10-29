@@ -28,6 +28,15 @@ urlpatterns = [
     url(r'^students/(?P<username>[a-zA-Z ]*)/advisors/$',
         views.StudentAdvisorsList.as_view(),
         name='student-advisors-list'),
+    url(r'^students/(?P<username>[a-zA-Z ]*)/class_sites/$',
+        views.StudentClassSiteList.as_view(),
+        name='student-classsite-list'),
+    url(r'^students/(?P<username>[a-zA-Z ]*)/class_sites/(?P<code>[a-zA-Z0-9\- ]*)/$',
+        views.StudentClassSiteDetail.as_view(),
+        name='student-classsite-detail'),
+    url(r'^students/(?P<username>[a-zA-Z ]*)/class_sites/(?P<code>[a-zA-Z0-9\- ]*)/assignments/$',
+        views.StudentClassSiteAssignmentList.as_view(),
+        name='student-classsite-assignment-list'),
 ]
 
 urlpatterns += [

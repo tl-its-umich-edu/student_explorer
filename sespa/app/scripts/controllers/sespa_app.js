@@ -9,8 +9,11 @@
  */
 
 angular.module('sespaApp')
-  .controller('SespaAppCtrl', function(advisingData, $scope) {
+  .controller('SespaAppCtrl', function(advisingData, $scope, $location) {
     advisingData.config().then(function(config) {
       $scope.config = config;
+      $scope.studentSearch = function() {
+        $location.path('/students').search({search: $scope.search});
+      };
     });
   });

@@ -28,29 +28,28 @@
 </div>
 
 <h3>Courses</h3>
-<div class="table-responsive">
+<div ng-if="student.class_sites.length == 0">
+  <p>There is no course data for this student.</p>
+</div>
+<div ng-if="student.class_sites.length > 0" class="table-responsive">
   <table class="table table-striped">
     <thead>
       <tr>
         <td>
-          <a href="" ng-click="sortType = 'class_site'; sortReverse = !sortReverse">
+          <a href="" ng-click="sortType = 'description'; sortReverse = !sortReverse">
             Course Title
-            <span class="fa fa-caret-down" ng-show="sortType == 'class_site' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortType == 'class_site' &amp;&amp; sortReverse"></span>
+            <span class="fa fa-caret-down" ng-show="sortType == 'description' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortType == 'description' &amp;&amp; sortReverse"></span>
           </a>
         </td>
         <td>
-          <a href="" ng-click="sortType = 'status'; sortReverse = !sortReverse">
-            Status
-            <span class="fa fa-caret-down" ng-show="sortType == 'status' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortType == 'status' &amp;&amp; sortReverse"></span>
-          </a>
+          <a>Status</a>
         </td>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="course in student.class_sites | orderBy:sortType:sortReverse | filter:searchAdvisor">
-        <td class="bold">{{ course.class_site }}</td>
+        <td class="bold">{{ course.description }}</td>
         <td>
           <img alt="{{course.status}}" class="course-status {{ course.status | lowercase }}" ng-src="images/Status_Icons_{{course.status}}.png"/>
       	</td>

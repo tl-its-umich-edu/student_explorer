@@ -20,6 +20,11 @@ angular
   ])
   .config(function($routeProvider) {
     $routeProvider
+      .when('/', {
+        templateUrl: 'views/advisor_detail.html',
+        controller: 'AdvisorDetailCtrl',
+        controllerAs: 'ctrl',
+      })
       .when('/advisors', {
         templateUrl: 'views/advisor_list.html',
         controller: 'AdvisorListCtrl',
@@ -30,17 +35,8 @@ angular
         controller: 'AdvisorDetailCtrl',
         controllerAs: 'ctrl',
       })
-      .when('/', {
-        templateUrl: 'views/advisor_detail.html',
-        controller: 'AdvisorDetailCtrl',
-        controllerAs: 'ctrl',
-      })
-      .when('/students', {
-        templateUrl: 'views/student_list.html',
-        controller: 'StudentListCtrl'
-      })
       .when('/students/:student', {
-        templateUrl: 'views/student_Detail.html',
+        templateUrl: 'views/student_detail.html',
         controller: 'StudentDetailCtrl',
         controllerAs: 'ctrl',
       })

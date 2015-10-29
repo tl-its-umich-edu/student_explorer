@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'student_explorer',
     'advising',
+    'hashredirect',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -107,5 +108,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
-    'PAGE_SIZE': None
+    'PAGE_SIZE': None,
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.SearchFilter',),
+
 }

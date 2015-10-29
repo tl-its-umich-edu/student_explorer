@@ -73,9 +73,10 @@ angular.module('sespaApp')
         });
       },
 
-      allStudents: function() {
+      searchStudents: function(search) {
         return config().then(function(config) {
           return $http.get(config.students, {
+              'params': {'search': search},
               'cache': true
             })
             .then(function(response) {

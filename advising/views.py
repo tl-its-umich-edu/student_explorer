@@ -1,14 +1,22 @@
-from advising.models import Advisor, Student
+from advising.models import (Advisor, Student, ClassSite,
+                             StudentClassSiteStatus,
+                             StudentClassSiteAssignment)
 from advising.serializers import (AdvisorSerializer, StudentSummarySerializer,
                                   StudentFullSerializer,
+                                  StudentClassSiteSerializer,
+                                  StudentClassSiteAssignmentSerializer,
                                   StudentAdvisorsSerializer)
+from advising.mixins import MultipleFieldLookupMixin
 from rest_framework import generics
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
 from django.conf import settings
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @api_view(('GET',))
@@ -25,10 +33,15 @@ def api_root(request, format=None):
         logout_url = reverse('rest_framework:logout',
                              request=request, format=format)
 
+    if request.user.is_authenticated():
+        username = request.user.username
+    else:
+        username = None
+
     return Response({
         'advisors': reverse('advisor-list', request=request, format=format),
         'students': reverse('student-list', request=request, format=format),
-        'username': request.user.username,
+        'username': username,
         'debug': settings.DEBUG,
         'login': login_url,
         'logout': logout_url,
@@ -71,8 +84,6 @@ class AdvisorDetail(generics.RetrieveAPIView):
             self.kwargs['username'] = request.user.username
             kwargs['username'] = request.user.username
         resp = self.retrieve(request, *args, **kwargs)
-        resp.data['students_url'] = reverse('advisor-students-list',
-                                            request=request, kwargs=kwargs)
         return resp
 
 
@@ -99,6 +110,7 @@ class StudentList(generics.ListAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSummarySerializer
     lookup_field = 'username'
+    search_fields = ('username', 'univ_id', 'first_name', 'last_name')
 
 
 class StudentDetail(generics.RetrieveAPIView):
@@ -142,3 +154,40 @@ class StudentAdvisorsList(generics.ListAPIView):
             .studentadvisorrole_set.all()
         )
         return self.list(request, *args, **kwargs)
+
+
+class StudentClassSiteList(MultipleFieldLookupMixin, generics.ListAPIView):
+    '''
+    API endpoint that lists a student's class sites.
+    '''
+    serializer_class = StudentClassSiteSerializer
+    queryset = StudentClassSiteStatus.objects.all()
+    lookup_params = {
+        'student__username': 'username',
+    }
+
+
+class StudentClassSiteDetail(MultipleFieldLookupMixin,
+                             generics.RetrieveAPIView):
+    '''
+    API endpoint that lists a student's class site detail.
+    '''
+    serializer_class = StudentClassSiteSerializer
+    queryset = StudentClassSiteStatus.objects.all()
+    lookup_params = {
+        'student__username': 'username',
+        'class_site__code': 'code',
+    }
+
+
+class StudentClassSiteAssignmentList(MultipleFieldLookupMixin,
+                                     generics.ListAPIView):
+    '''
+    API endpoint that lists a student's class sites.
+    '''
+    serializer_class = StudentClassSiteAssignmentSerializer
+    queryset = StudentClassSiteAssignment.objects.all()
+    lookup_params = {
+        'student__username': 'username',
+        'class_site__code': 'code',
+    }

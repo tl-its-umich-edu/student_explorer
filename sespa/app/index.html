@@ -38,10 +38,9 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="#/advisors">Advisors</a></li>
-            <li><a href="#/students">Students</a></li>
           </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
+          <form ng-submit="studentSearch()" class="navbar-form navbar-right">
+            <input ng-model="search" type="text" class="form-control" placeholder="Search Students...">
           </form>
             <ul class="nav navbar-nav navbar-right">
               <li ng-if="!config.username">
@@ -63,7 +62,7 @@
     </nav>
 
     <div class="container-fuild">
-        <div ng-if="config.username" ng-view=""></div>
+        <div ng-view></div>
     </div>
 
     <div class="footer">
