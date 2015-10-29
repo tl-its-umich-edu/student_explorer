@@ -1423,7 +1423,7 @@
         "assignment": 1,
         "points_possible": 20.0,
         "points_earned": 19.0,
-        "class_site": 2,
+        "class_site": 1,
         "included_in_grade": "Y",
         "student": 1,
         "grader_comment": null
@@ -1438,7 +1438,7 @@
         "assignment": 4,
         "points_possible": 5.0,
         "points_earned": 5.0,
-        "class_site": 1,
+        "class_site": 5,
         "included_in_grade": "Y",
         "student": 4,
         "grader_comment": "Good job!"
@@ -1453,7 +1453,7 @@
         "assignment": 6,
         "points_possible": 10.0,
         "points_earned": 8.0,
-        "class_site": 4,
+        "class_site": 3,
         "included_in_grade": "Y",
         "student": 15,
         "grader_comment": "Good"
@@ -1468,7 +1468,7 @@
         "assignment": 3,
         "points_possible": 15.0,
         "points_earned": 11.0,
-        "class_site": 2,
+        "class_site": 1,
         "included_in_grade": "Y",
         "student": 7,
         "grader_comment": null
@@ -1483,7 +1483,7 @@
         "assignment": 10,
         "points_possible": 10.0,
         "points_earned": 6.0,
-        "class_site": 3,
+        "class_site": 2,
         "included_in_grade": "Y",
         "student": 6,
         "grader_comment": "Fine"
@@ -1498,7 +1498,7 @@
         "assignment": 13,
         "points_possible": 20.0,
         "points_earned": 19.5,
-        "class_site": 5,
+        "class_site": 4,
         "included_in_grade": "N",
         "student": 9,
         "grader_comment": "Excellent"
@@ -1513,7 +1513,7 @@
         "assignment": 13,
         "points_possible": 20.0,
         "points_earned": 17.0,
-        "class_site": 5,
+        "class_site": 2,
         "included_in_grade": "N",
         "student": 10,
         "grader_comment": null
@@ -1528,7 +1528,7 @@
         "assignment": 11,
         "points_possible": 0.0,
         "points_earned": 0.0,
-        "class_site": 6,
+        "class_site": 5,
         "included_in_grade": "N",
         "student": 13,
         "grader_comment": "Pass"
@@ -1543,7 +1543,7 @@
         "assignment": 15,
         "points_possible": 100.0,
         "points_earned": 95.0,
-        "class_site": 3,
+        "class_site": 6,
         "included_in_grade": "Y",
         "student": 8,
         "grader_comment": "Awesome!"
@@ -1573,7 +1573,7 @@
         "assignment": 2,
         "points_possible": 40.0,
         "points_earned": 34.0,
-        "class_site": 4,
+        "class_site": 3,
         "included_in_grade": "Y",
         "student": 12,
         "grader_comment": null
@@ -1588,7 +1588,7 @@
         "assignment": 8,
         "points_possible": 10.0,
         "points_earned": 9.0,
-        "class_site": 5,
+        "class_site": 2,
         "included_in_grade": "Y",
         "student": 18,
         "grader_comment": "Excellent"
@@ -1603,7 +1603,7 @@
         "assignment": 9,
         "points_possible": 15.0,
         "points_earned": 13.0,
-        "class_site": 6,
+        "class_site": 1,
         "included_in_grade": "Y",
         "student": 20,
         "grader_comment": null
@@ -1618,7 +1618,7 @@
         "assignment": 8,
         "points_possible": 10.0,
         "points_earned": 8.0,
-        "class_site": 5,
+        "class_site": 4,
         "included_in_grade": "Y",
         "student": 14,
         "grader_comment": null
@@ -1633,7 +1633,7 @@
         "assignment": 12,
         "points_possible": 30.0,
         "points_earned": 5.0,
-        "class_site": 2,
+        "class_site": 4,
         "included_in_grade": "Y",
         "student": 19,
         "grader_comment": "What's wrong?"
@@ -1663,7 +1663,7 @@
         "assignment": 5,
         "points_possible": 40.0,
         "points_earned": 35.0,
-        "class_site": 5,
+        "class_site": 6,
         "included_in_grade": "Y",
         "student": 14,
         "grader_comment": null
@@ -1708,7 +1708,7 @@
         "assignment": 4,
         "points_possible": 5.0,
         "points_earned": 4.0,
-        "class_site": 1,
+        "class_site": 2,
         "included_in_grade": "Y",
         "student": 3,
         "grader_comment": null
@@ -1723,7 +1723,7 @@
         "assignment": 4,
         "points_possible": 5.0,
         "points_earned": 2.0,
-        "class_site": 1,
+        "class_site": 3,
         "included_in_grade": "Y",
         "student": 5,
         "grader_comment": "Late"
@@ -1738,7 +1738,7 @@
         "assignment": 15,
         "points_possible": 100.0,
         "points_earned": 83.0,
-        "class_site": 3,
+        "class_site": 4,
         "included_in_grade": "Y",
         "student": 16,
         "grader_comment": null
@@ -1753,7 +1753,7 @@
         "assignment": 15,
         "points_possible": 100.0,
         "points_earned": 83.0,
-        "class_site": 3,
+        "class_site": 6,
         "included_in_grade": "Y",
         "student": 17,
         "grader_comment": null
@@ -1768,7 +1768,7 @@
         "assignment": 2,
         "points_possible": 40.0,
         "points_earned": 38.0,
-        "class_site": 4,
+        "class_site": 2,
         "included_in_grade": "Y",
         "student": 3,
         "grader_comment": null
@@ -1783,7 +1783,7 @@
         "assignment": 2,
         "points_possible": 40.0,
         "points_earned": 40.0,
-        "class_site": 4,
+        "class_site": 2,
         "included_in_grade": "Y",
         "student": 10,
         "grader_comment": "Resubmitted"
