@@ -23,22 +23,26 @@ angular
       .when('/', {
         templateUrl: 'views/advisor_detail.html',
         controller: 'AdvisorDetailCtrl',
-        controllerAs: 'ctrl',
       })
       .when('/advisors', {
         templateUrl: 'views/advisor_list.html',
         controller: 'AdvisorListCtrl',
-        controllerAs: 'ctrl',
       })
       .when('/advisors/:advisor', {
         templateUrl: 'views/advisor_detail.html',
         controller: 'AdvisorDetailCtrl',
-        controllerAs: 'ctrl',
       })
       .when('/students/:student', {
         templateUrl: 'views/student_detail.html',
         controller: 'StudentDetailCtrl',
-        controllerAs: 'ctrl',
+      })
+      .when('/students/:student/course', {
+        templateUrl: 'views/course_list.html',
+        controller: 'CourseListCtrl',
+      })
+      .when('/students/:student/course/:courseCode', {
+        templateUrl: 'views/course_detail.html',
+        controller: 'CourseDetailCtrl',
       })
       .otherwise({
         redirectTo: '/'

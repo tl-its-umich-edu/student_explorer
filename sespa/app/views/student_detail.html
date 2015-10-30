@@ -27,37 +27,6 @@
   </table>
 </div>
 
-<h3>Courses</h3>
-<div ng-if="student.class_sites.length == 0">
-  <p>There is no course data for this student.</p>
-</div>
-<div ng-if="student.class_sites.length > 0" class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <td>
-          <a href="" ng-click="sortType = 'description'; sortReverse = !sortReverse">
-            Course Title
-            <span class="fa fa-caret-down" ng-show="sortType == 'description' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortType == 'description' &amp;&amp; sortReverse"></span>
-          </a>
-        </td>
-        <td>
-          <a>Status</a>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="course in student.class_sites | orderBy:sortType:sortReverse | filter:searchAdvisor">
-        <td class="bold">{{ course.description }}</td>
-        <td>
-          <img alt="{{course.status}}" class="course-status {{ course.status | lowercase }}" ng-src="images/Status_Icons_{{course.status}}.png"/>
-      	</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
 <h3>Advisors</h3>
 <div class="table-responsive">
   <table class="table table-striped">
@@ -95,3 +64,5 @@
     </tbody>
   </table>
 </div>
+
+<div ng-include="'views/course_list.html'" ></div>

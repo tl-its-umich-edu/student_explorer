@@ -8,10 +8,24 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('CourseListCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('CourseListCtrl', function(advisingData, $scope, $routeParams) {
+    $scope.courseListHeader = null;
+    $scope.student = null;
+    $scope.sortType = 'last_name';
+    $scope.sortReverse = false;
+    $scope.searchStudent = '';
+    // $scope.scroll = scroll;
+
+    $scope.courses = [];
+
+    advisingData.studentCourses($routeParams.student).then(function(course) {
+      console.log(course);
+      $scope.courses = course;
+    });
+    
+    advisingData.studentDetails($routeParams.student).then(function(student) {
+      $scope.courseListHeader = student.first_name + ' ' + student.last_name;
+      $scope.student = student;
+    });
+    
   });

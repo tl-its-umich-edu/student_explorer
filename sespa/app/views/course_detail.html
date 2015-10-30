@@ -1,1 +1,49 @@
-<p>This is the course_detail view.</p>
+<h2 ng-if="courseDetailHeader" class="sub-header">{{courseDetailHeader}}</h2>
+<h3>{{courseDescription}}</h3>
+<div ng-if="assignments.length == 0">
+  <p>There is no assignment data for this student.</p>
+</div>
+<div ng-if="assignments.length > 0" class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>
+          <a href="" ng-click="sortType = 'description'; sortReverse = !sortReverse">
+            Assignment
+            <span class="fa fa-caret-down" ng-show="sortType == 'description' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortType == 'description' &amp;&amp; sortReverse"></span>
+          </a>
+        </td>
+        <td>
+          <a>Included in Grade</a>
+        </td>
+        <td>
+          <a>Points Earned</a>
+        </td>
+        <td>
+          <a>Points Possible</a>
+        </td>
+        <td>
+          <a>Weight</a>
+        </td>
+        <td>
+          <a>Due Date</a>
+        </td>
+        <td>
+          <a>Grader's Comment</a>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="assignment in assignments | orderBy:sortType:sortReverse | filter:searchAdvisor">
+        <td>{{assignment.assignment.description }}</td>
+        <td>{{assignment.included_in_grade}}</td>
+        <td>{{assignment.points_earned}}</td>
+        <td>{{assignment.points_possible}}</td>
+        <td>{{assignment.weight}}</td>
+        <td>{{assignment.due_date}}</td>
+        <td>{{assignment.grader_comment}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
