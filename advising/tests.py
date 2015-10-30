@@ -2,9 +2,12 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
+from rest_framework import serializers
+from advising.serializers import StudentSummarySerializer
 import json
 
 import advising.models
+from advising.models import Student
 
 
 class AdvisingApiTestCase(TestCase):
