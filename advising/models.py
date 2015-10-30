@@ -13,7 +13,7 @@ class Student(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
-    cohorts = models.ManyToManyField('Cohort', through='StudentCohort')
+    cohorts = models.ManyToManyField('Cohort', through='StudentCohortMentor')
     class_sites = models.ManyToManyField('ClassSite',
                                          through='StudentClassSiteStatus')
     statuses = models.ManyToManyField('Status',
@@ -63,8 +63,20 @@ class Cohort(models.Model):
         return self.description
 
 
-class StudentCohort(models.Model):
+class Mentor(models.Model):
+    id = models.IntegerField(primary_key=True)
+    username = models.CharField(max_length=16)
+    univ_id = models.CharField(max_length=11)
+    first_name = models.CharField(max_length=500)
+    last_name = models.CharField(max_length=500)
+
+    def __unicode__(self):
+        return self.username
+
+
+class StudentCohortMentor(models.Model):
     student = models.ForeignKey(Student)
+    mentor = models.ForeignKey(Mentor)
     cohort = models.ForeignKey(Cohort)
 
     def __unicode__(self):
@@ -139,7 +151,7 @@ if hasattr(settings, 'ADVISING_PACKAGE'):
     AdvisorRole = advising_models.AdvisorRole
     StudentAdvisorRole = advising_models.StudentAdvisorRole
     Cohort = advising_models.Cohort
-    StudentCohort = advising_models.StudentCohort
+    StudentCohortMentor = advising_models.StudentCohortMentor
     ClassSite = advising_models.ClassSite
     Status = advising_models.Status
     StudentClassSiteStatus = advising_models.StudentClassSiteStatus
