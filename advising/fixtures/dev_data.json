@@ -1314,17 +1314,481 @@
 },
 {
     "fields": {
+        "code": "78FDSAF7DS89",
+        "description": "Reflection Papar 1"
+    },
+    "model": "advising.assignment",
+    "pk": 3
+},
+{
+    "fields": {
+        "code": "45O4O43634NN",
+        "description": "Reflection Paper 2"
+    },
+    "model": "advising.assignment",
+    "pk": 4
+},
+{
+    "fields": {
+        "code": "34NRANLRNL2N",
+        "description": "Exam 1"
+    },
+    "model": "advising.assignment",
+    "pk": 5
+},
+{
+    "fields": {
+        "code": "78FDASFJD0SF9",
+        "description": "Exam 2"
+    },
+    "model": "advising.assignment",
+    "pk": 6
+},
+{
+    "fields": {
+        "code": "34GSAGDG4434",
+        "description": "Homework 1"
+    },
+    "model": "advising.assignment",
+    "pk": 7
+},
+{
+    "fields": {
+        "code": "432ARAERARERW",
+        "description": "Homework 2"
+    },
+    "model": "advising.assignment",
+    "pk": 8
+},
+{
+    "fields": {
+        "code": "79AFSDFDBWEUU",
+        "description": "Homework 3"
+    },
+    "model": "advising.assignment",
+    "pk": 9
+},
+{
+    "fields": {
+        "code": "890FSFADFHDKS",
+        "description": "In-class Exercise 1"
+    },
+    "model": "advising.assignment",
+    "pk": 10
+},
+{
+    "fields": {
+        "code": "324NARNFALFAS",
+        "description": "In-class Exercise 2"
+    },
+    "model": "advising.assignment",
+    "pk": 11
+},
+{
+    "fields": {
+        "code": "324NLNADFAFSD",
+        "description": "Group Project 1"
+    },
+    "model": "advising.assignment",
+    "pk": 12
+},
+{
+    "fields": {
+        "code": "324DFDSANONVO",
+        "description": "Group Project 2"
+    },
+    "model": "advising.assignment",
+    "pk": 13
+},
+{
+    "fields": {
+        "code": "J0SHGBG9H2BG",
+        "description": "Presentation 1"
+    },
+    "model": "advising.assignment",
+    "pk": 14
+},
+{
+    "fields": {
+        "code": "08GV9H3BGJSG",
+        "description": "Presentation 2"
+    },
+    "model": "advising.assignment",
+    "pk": 15
+},
+{
+    "fields": {
         "due_date": 1,
         "weight": 1.0,
         "assignment": 1,
         "points_possible": 20.0,
         "points_earned": 19.0,
-        "class_site": 2,
+        "class_site": 1,
         "included_in_grade": "Y",
         "student": 1,
         "grader_comment": null
     },
     "model": "advising.studentclasssiteassignment",
     "pk": 1
+},
+{
+    "fields": {
+        "due_date": 2,
+        "weight": 0.5,
+        "assignment": 4,
+        "points_possible": 5.0,
+        "points_earned": 5.0,
+        "class_site": 5,
+        "included_in_grade": "Y",
+        "student": 4,
+        "grader_comment": "Good job!"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 2
+},
+{
+    "fields": {
+        "due_date": 3,
+        "weight": 2.0,
+        "assignment": 6,
+        "points_possible": 10.0,
+        "points_earned": 8.0,
+        "class_site": 3,
+        "included_in_grade": "Y",
+        "student": 15,
+        "grader_comment": "Good"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 3
+},
+{
+    "fields": {
+        "due_date": 2,
+        "weight": 2.5,
+        "assignment": 3,
+        "points_possible": 15.0,
+        "points_earned": 11.0,
+        "class_site": 1,
+        "included_in_grade": "Y",
+        "student": 7,
+        "grader_comment": null
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 4
+},
+{
+    "fields": {
+        "due_date": 2,
+        "weight": 5.0,
+        "assignment": 10,
+        "points_possible": 10.0,
+        "points_earned": 6.0,
+        "class_site": 2,
+        "included_in_grade": "Y",
+        "student": 6,
+        "grader_comment": "Fine"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 5
+},
+{
+    "fields": {
+        "due_date": 5,
+        "weight": 0.0,
+        "assignment": 13,
+        "points_possible": 20.0,
+        "points_earned": 19.5,
+        "class_site": 4,
+        "included_in_grade": "N",
+        "student": 9,
+        "grader_comment": "Excellent"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 6
+},
+{
+    "fields": {
+        "due_date": 5,
+        "weight": 0.0,
+        "assignment": 13,
+        "points_possible": 20.0,
+        "points_earned": 17.0,
+        "class_site": 2,
+        "included_in_grade": "N",
+        "student": 10,
+        "grader_comment": null
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 7
+},
+{
+    "fields": {
+        "due_date": 7,
+        "weight": 0.0,
+        "assignment": 11,
+        "points_possible": 0.0,
+        "points_earned": 0.0,
+        "class_site": 5,
+        "included_in_grade": "N",
+        "student": 13,
+        "grader_comment": "Pass"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 8
+},
+{
+    "fields": {
+        "due_date": 3,
+        "weight": 20.0,
+        "assignment": 15,
+        "points_possible": 100.0,
+        "points_earned": 95.0,
+        "class_site": 6,
+        "included_in_grade": "Y",
+        "student": 8,
+        "grader_comment": "Awesome!"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 9
+},
+{
+    "fields": {
+        "due_date": 3,
+        "weight": 50.0,
+        "assignment": 7,
+        "points_possible": 50.0,
+        "points_earned": 50.0,
+        "class_site": 2,
+        "included_in_grade": "Y",
+        "student": 11,
+        "grader_comment": "Perfect"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 10
+},
+{
+    "fields": {
+        "due_date": 6,
+        "weight": 25.0,
+        "assignment": 2,
+        "points_possible": 40.0,
+        "points_earned": 34.0,
+        "class_site": 3,
+        "included_in_grade": "Y",
+        "student": 12,
+        "grader_comment": null
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 11
+},
+{
+    "fields": {
+        "due_date": 1,
+        "weight": 5.0,
+        "assignment": 8,
+        "points_possible": 10.0,
+        "points_earned": 9.0,
+        "class_site": 2,
+        "included_in_grade": "Y",
+        "student": 18,
+        "grader_comment": "Excellent"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 12
+},
+{
+    "fields": {
+        "due_date": 4,
+        "weight": 1.5,
+        "assignment": 9,
+        "points_possible": 15.0,
+        "points_earned": 13.0,
+        "class_site": 1,
+        "included_in_grade": "Y",
+        "student": 20,
+        "grader_comment": null
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 13
+},
+{
+    "fields": {
+        "due_date": 1,
+        "weight": 5.0,
+        "assignment": 8,
+        "points_possible": 10.0,
+        "points_earned": 8.0,
+        "class_site": 4,
+        "included_in_grade": "Y",
+        "student": 14,
+        "grader_comment": null
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 14
+},
+{
+    "fields": {
+        "due_date": 3,
+        "weight": 15.0,
+        "assignment": 12,
+        "points_possible": 30.0,
+        "points_earned": 5.0,
+        "class_site": 4,
+        "included_in_grade": "Y",
+        "student": 19,
+        "grader_comment": "What's wrong?"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 15
+},
+{
+    "fields": {
+        "due_date": 8,
+        "weight": 10.0,
+        "assignment": 14,
+        "points_possible": 16.0,
+        "points_earned": 0.0,
+        "class_site": 1,
+        "included_in_grade": "Y",
+        "student": 22,
+        "grader_comment": "Didn't submit"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 16
+},
+{
+    "fields": {
+        "due_date": 2,
+        "weight": 10.0,
+        "assignment": 5,
+        "points_possible": 40.0,
+        "points_earned": 35.0,
+        "class_site": 6,
+        "included_in_grade": "Y",
+        "student": 14,
+        "grader_comment": null
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 17
+},
+{
+    "fields": {
+        "due_date": 1,
+        "weight": 1.0,
+        "assignment": 1,
+        "points_possible": 20.0,
+        "points_earned": 17.0,
+        "class_site": 2,
+        "included_in_grade": "Y",
+        "student": 21,
+        "grader_comment": "Nice"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 18
+},
+{
+    "fields": {
+        "due_date": 2,
+        "weight": 0.5,
+        "assignment": 4,
+        "points_possible": 5.0,
+        "points_earned": 4.0,
+        "class_site": 1,
+        "included_in_grade": "Y",
+        "student": 2,
+        "grader_comment": null
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 19
+},
+{
+    "fields": {
+        "due_date": 2,
+        "weight": 0.5,
+        "assignment": 4,
+        "points_possible": 5.0,
+        "points_earned": 4.0,
+        "class_site": 2,
+        "included_in_grade": "Y",
+        "student": 3,
+        "grader_comment": null
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 20
+},
+{
+    "fields": {
+        "due_date": 2,
+        "weight": 0.5,
+        "assignment": 4,
+        "points_possible": 5.0,
+        "points_earned": 2.0,
+        "class_site": 3,
+        "included_in_grade": "Y",
+        "student": 5,
+        "grader_comment": "Late"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 21
+},
+{
+    "fields": {
+        "due_date": 3,
+        "weight": 20.0,
+        "assignment": 15,
+        "points_possible": 100.0,
+        "points_earned": 83.0,
+        "class_site": 4,
+        "included_in_grade": "Y",
+        "student": 16,
+        "grader_comment": null
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 22
+},
+{
+    "fields": {
+        "due_date": 3,
+        "weight": 20.0,
+        "assignment": 15,
+        "points_possible": 100.0,
+        "points_earned": 83.0,
+        "class_site": 6,
+        "included_in_grade": "Y",
+        "student": 17,
+        "grader_comment": null
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 23
+},
+{
+    "fields": {
+        "due_date": 6,
+        "weight": 25.0,
+        "assignment": 2,
+        "points_possible": 40.0,
+        "points_earned": 38.0,
+        "class_site": 2,
+        "included_in_grade": "Y",
+        "student": 3,
+        "grader_comment": null
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 24
+},
+{
+    "fields": {
+        "due_date": 6,
+        "weight": 25.0,
+        "assignment": 2,
+        "points_possible": 40.0,
+        "points_earned": 40.0,
+        "class_site": 2,
+        "included_in_grade": "Y",
+        "student": 10,
+        "grader_comment": "Resubmitted"
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 25
 }
 ]

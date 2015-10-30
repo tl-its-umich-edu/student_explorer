@@ -9,6 +9,7 @@ import json
 import advising.models
 from advising.models import Student
 
+
 class AdvisingApiTestCase(TestCase):
     fixtures = ['dev_data.json', 'dev_users.json']
     client = None
