@@ -2,12 +2,10 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
-from rest_framework import serializers
-from advising.serializers import StudentSummarySerializer
 import json
 
 import advising.models
-from advising.models import Student
+
 
 class AdvisingApiTestCase(TestCase):
     fixtures = ['dev_data.json', 'dev_users.json']
@@ -89,36 +87,3 @@ class AdvisingApiTestCase(TestCase):
 
 class AdvisingSerializersTestCase(TestCase):
     fixtures = ['dev_data.json', 'dev_users.json']
-    client = None
-
-    def test_StudentSummarySerializer(self):
-        response = self.client.get(reverse('student-list'),
-                                   {'search': 'james'})
-        data = json.loads(response.content)
-
-        serialized_weight = data[0]['status_weight']
-        statuses = data[0]['statuses']
-
-        expected_weight = 0
-
-        for status in statuses:
-            if status == 'Green':
-                expected_weight += 0
-            elif status == 'Yellow':
-                expected_weight += 2
-            elif status == 'Red':
-                expected_weight += 4
-
-        self.assertEqual(serialized_weight, expected_weight)
-
-    def test_get_status_weight_function(self):
-        test_student = Student.objects.get(username="james")
-        calculated_weight = StudentSummarySerializer().get_status_weight(test_student)
-
-        response = self.client.get(reverse('student-list'),
-                                   {'search': 'james'})
-        data = json.loads(response.content)
-
-        serialized_weight = data[0]['status_weight']
-
-        self.assertEqual(serialized_weight, calculated_weight)
