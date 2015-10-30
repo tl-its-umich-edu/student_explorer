@@ -23,12 +23,14 @@ class AdvisorSerializer(serializers.ModelSerializer):
 
 
 class CohortSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Cohort
         fields = ('code', 'description', 'group')
 
 
 class ClassSiteSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = ClassSite
         fields = ('code', 'description')
@@ -104,10 +106,12 @@ class StudentClassSiteSerializer(serializers.ModelSerializer):
     description = serializers.ReadOnlyField(source='class_site.description')
     code = serializers.ReadOnlyField(source='class_site.code')
     status = serializers.ReadOnlyField(source='status.description')
-    url = StudentClassSiteHyperlink(read_only=True,
-                                view_name='student-classsite-detail')
-    assignments_url = StudentClassSiteHyperlink(read_only=True,
-                                view_name='student-classsite-assignment-list')
+    url = StudentClassSiteHyperlink(
+        read_only=True,
+        view_name='student-classsite-detail')
+    assignments_url = StudentClassSiteHyperlink(
+        read_only=True,
+        view_name='student-classsite-assignment-list')
 
     class Meta:
         model = StudentClassSiteStatus

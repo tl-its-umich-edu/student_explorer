@@ -32,6 +32,10 @@ angular
         templateUrl: 'views/advisor_detail.html',
         controller: 'AdvisorDetailCtrl',
       })
+      .when('/students', {
+        templateUrl: 'views/student_list.html',
+        controller: 'StudentSearchCtrl',
+      })
       .when('/students/:student', {
         templateUrl: 'views/student_detail.html',
         controller: 'StudentDetailCtrl',

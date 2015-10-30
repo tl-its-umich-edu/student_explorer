@@ -9,7 +9,7 @@ class Student(models.Model):
                                   db_column='STDNT_PREF_FIRST_NM')
     last_name = models.CharField(max_length=500, db_column='STDNT_PREF_SURNM')
     advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
-    cohorts = models.ManyToManyField('Cohort', through='StudentCohort')
+    cohorts = models.ManyToManyField('Cohort', through='StudentCohortMentor')
     class_sites = models.ManyToManyField('ClassSite',
                                          through='StudentClassSiteStatus')
     statuses = models.ManyToManyField('Status',
@@ -78,9 +78,25 @@ class Cohort(models.Model):
         db_table = '"CNLYR002"."DM_CHRT"'
 
 
-class StudentCohort(models.Model):
+class Mentor(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='MNTR_KEY')
+    username = models.CharField(max_length=16, db_column='MNTR_UM_UNQNM')
+    univ_id = models.CharField(max_length=11, db_column='MNTR_UM_ID')
+    first_name = models.CharField(max_length=500,
+                                  db_column='MNTR_PREF_FIRST_NM')
+    last_name = models.CharField(max_length=500, db_column='MNTR_PREF_SURNM')
+
+    def __unicode__(self):
+        return self.username
+
+    class Meta:
+        db_table = '"CNLYR002"."DM_MNTR"'
+
+
+class StudentCohortMentor(models.Model):
     student = models.ForeignKey(Student, db_column='STDNT_KEY',
                                 primary_key=True)
+    mentor = models.ForeignKey(Mentor, db_column='MNTR_KEY')
     cohort = models.ForeignKey(Cohort, db_column='CHRT_KEY')
 
     def __unicode__(self):

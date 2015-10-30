@@ -648,226 +648,284 @@
 },
 {
     "fields": {
-        "cohort": 1,
-        "student": 1
+        "username": "zander",
+        "first_name": "Zander",
+        "last_name": "Agrippa",
+        "univ_id": "20000001"
     },
-    "model": "advising.studentcohort",
+    "model": "advising.mentor",
     "pk": 1
 },
 {
     "fields": {
-        "cohort": 1,
-        "student": 2
+        "username": "burl",
+        "first_name": "Burl",
+        "last_name": "Chandler",
+        "univ_id": "20000002"
     },
-    "model": "advising.studentcohort",
+    "model": "advising.mentor",
     "pk": 2
 },
 {
     "fields": {
-        "cohort": 1,
-        "student": 3
+        "username": "lavera",
+        "first_name": "Lavera",
+        "last_name": "Rumore",
+        "univ_id": "20000003"
     },
-    "model": "advising.studentcohort",
+    "model": "advising.mentor",
     "pk": 3
 },
 {
     "fields": {
         "cohort": 1,
+        "mentor": 2,
+        "student": 1
+    },
+    "model": "advising.studentcohortmentor",
+    "pk": 1
+},
+{
+    "fields": {
+        "cohort": 1,
+        "mentor": 1,
+        "student": 2
+    },
+    "model": "advising.studentcohortmentor",
+    "pk": 2
+},
+{
+    "fields": {
+        "cohort": 1,
+        "mentor": 2,
+        "student": 3
+    },
+    "model": "advising.studentcohortmentor",
+    "pk": 3
+},
+{
+    "fields": {
+        "cohort": 1,
+        "mentor": 1,
         "student": 4
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 4
 },
 {
     "fields": {
         "cohort": 1,
+        "mentor": 3,
         "student": 5
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 5
 },
 {
     "fields": {
         "cohort": 1,
+        "mentor": 2,
         "student": 6
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 6
 },
 {
     "fields": {
         "cohort": 2,
+        "mentor": 1,
         "student": 6
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 7
 },
 {
     "fields": {
         "cohort": 1,
+        "mentor": 2,
         "student": 21
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 8
 },
 {
     "fields": {
         "cohort": 2,
+        "mentor": 3,
         "student": 21
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 9
 },
 {
     "fields": {
         "cohort": 3,
+        "mentor": 1,
         "student": 21
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 10
 },
 {
     "fields": {
         "cohort": 2,
+        "mentor": 1,
         "student": 22
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 11
 },
 {
     "fields": {
         "cohort": 1,
+        "mentor": 1,
         "student": 22
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 12
 },
 {
     "fields": {
         "cohort": 3,
+        "mentor": 1,
         "student": 7
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 13
 },
 {
     "fields": {
         "cohort": 2,
+        "mentor": 2,
         "student": 8
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 14
 },
 {
     "fields": {
         "cohort": 2,
+        "mentor": 1,
         "student": 9
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 15
 },
 {
     "fields": {
         "cohort": 1,
+        "mentor": 3,
         "student": 10
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 16
 },
 {
     "fields": {
         "cohort": 3,
+        "mentor": 1,
         "student": 11
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 17
 },
 {
     "fields": {
         "cohort": 3,
+        "mentor": 1,
         "student": 12
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 18
 },
 {
     "fields": {
         "cohort": 1,
+        "mentor": 1,
         "student": 13
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 19
 },
 {
     "fields": {
         "cohort": 3,
+        "mentor": 1,
         "student": 14
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 20
 },
 {
     "fields": {
         "cohort": 2,
+        "mentor": 2,
         "student": 15
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 21
 },
 {
     "fields": {
         "cohort": 1,
+        "mentor": 1,
         "student": 16
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 22
 },
 {
     "fields": {
         "cohort": 2,
+        "mentor": 3,
         "student": 16
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 23
 },
 {
     "fields": {
         "cohort": 3,
+        "mentor": 1,
         "student": 17
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 24
 },
 {
     "fields": {
         "cohort": 1,
+        "mentor": 1,
         "student": 18
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 25
 },
 {
     "fields": {
         "cohort": 2,
+        "mentor": 1,
         "student": 19
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 26
 },
 {
     "fields": {
         "cohort": 3,
+        "mentor": 1,
         "student": 20
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 27
 },
 {
     "fields": {
         "cohort": 3,
+        "mentor": 2,
         "student": 23
     },
-    "model": "advising.studentcohort",
+    "model": "advising.studentcohortmentor",
     "pk": 28
 },
 {
