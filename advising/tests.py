@@ -87,3 +87,25 @@ class AdvisingApiTestCase(TestCase):
 
 class AdvisingSerializersTestCase(TestCase):
     fixtures = ['dev_data.json', 'dev_users.json']
+    client = None
+
+    def test_status_weight_via_api(self):
+        response = self.client.get(reverse('student-list'),
+                                   {'search': 'james'})
+        data = json.loads(response.content)
+
+        serialized_weight = data[0]['status_weight']
+
+        self.assertEqual(serialized_weight, 10)
+
+    def  test_get_status_weight(self):
+        test_student = Student.objects.get(username="james")
+        calculated_weight = StudentSummarySerializer().get_status_weight(test_student)
+
+        response = self.client.get(reverse('student-list'),
+                                   {'search': 'james'})
+        data = json.loads(response.content)
+
+        serialized_weight = data[0]['status_weight']
+
+        self.assertEqual(serialized_weight, calculated_weight)
