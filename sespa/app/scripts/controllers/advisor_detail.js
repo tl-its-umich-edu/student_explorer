@@ -8,7 +8,7 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('AdvisorDetailCtrl', function(advisingData, $scope, $routeParams, $location) {
+  .controller('AdvisorDetailCtrl', function(advisingData, $scope, $routeParams) {
     $scope.advisor = null;
     $scope.students = null;
     $scope.sortType = 'last_name';
