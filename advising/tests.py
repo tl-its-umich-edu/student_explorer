@@ -91,27 +91,16 @@ class AdvisingSerializersTestCase(TestCase):
     fixtures = ['dev_data.json', 'dev_users.json']
     client = None
 
-    def test_StudentSummarySerializer(self):
+    def test_status_weight_via_api(self):
         response = self.client.get(reverse('student-list'),
                                    {'search': 'james'})
         data = json.loads(response.content)
 
         serialized_weight = data[0]['status_weight']
-        statuses = data[0]['statuses']
 
-        expected_weight = 0
+        self.assertEqual(serialized_weight, 10)
 
-        for status in statuses:
-            if status == 'Green':
-                expected_weight += 0
-            elif status == 'Yellow':
-                expected_weight += 2
-            elif status == 'Red':
-                expected_weight += 4
-
-        self.assertEqual(serialized_weight, expected_weight)
-
-    def test_get_status_weight_function(self):
+    def  test_get_status_weight(self):
         test_student = Student.objects.get(username="james")
         calculated_weight = StudentSummarySerializer().get_status_weight(test_student)
 
