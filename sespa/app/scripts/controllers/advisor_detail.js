@@ -16,17 +16,12 @@ angular.module('sespaApp')
     // $scope.searchAdvisor = '';
     // $scope.scroll = scroll;
 
-    $scope.toAdvisorList = toAdvisorList;
-
     advisingData.advisorDetails($routeParams.advisor).then(function(advisor) {
       $scope.advisor = advisor;
     });
 
     advisingData.advisorsStudents($routeParams.advisor).then(function(students) {
       $scope.students = students;
-    })
+    });
 
-    function toAdvisorList() {
-      $location.path('/advisors/').replace();
-    }
   });
