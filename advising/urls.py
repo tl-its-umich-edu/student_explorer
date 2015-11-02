@@ -4,7 +4,6 @@ from advising import views
 
 urlpatterns = [
     url(r'^$', views.api_root, name='advising-api-root'),
-    url(r'^config/$', views.config, name='config'),
 
     url(r'^advisors/$',
         views.AdvisorList.as_view(),
