@@ -130,7 +130,7 @@ class StudentClassSiteAssignment(models.Model):
     included_in_grade = models.CharField(max_length=1)
     grader_comment = models.CharField(max_length=4000, null=True)
     weight = models.FloatField(max_length=126)
-    due_date = models.IntegerField()
+    due_date = models.DateField()
 
     def __unicode__(self):
         return '%s has assignemnt %s in %s' % (self.student, self.assignment,

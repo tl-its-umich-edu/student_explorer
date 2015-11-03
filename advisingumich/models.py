@@ -38,6 +38,17 @@ class Advisor(models.Model):
         db_table = '"CNLYR002"."DM_ADVSR"'
 
 
+class Date(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='DT_KEY')
+    date = models.DateField(db_column='CAL_DT')
+
+    def __unicode__(self):
+        return self.date
+
+    class Meta:
+        db_table = '"CNLYR001"."DM_DT"'
+
+
 class AdvisorRole(models.Model):
     id = models.IntegerField(primary_key=True, db_column='ADVSR_ROLE_KEY')
     code = models.CharField(max_length=4, db_column='ADVSR_ROLE_CD')
@@ -175,13 +186,18 @@ class StudentClassSiteAssignment(models.Model):
                                       db_column='STDNT_ASSGN_GRDR_CMNT_TXT')
     weight = models.FloatField(max_length=126,
                                db_column='ASSGN_WT_NBR')
-    due_date = models.IntegerField(db_column='ASSGN_DUE_SBMT_DT_KEY')
+    _due_date = models.ForeignKey(Date, db_column='ASSGN_DUE_SBMT_DT_KEY')
 
     def __unicode__(self):
         return '%s has assignemnt %s in %s' % (self.student, self.assignment,
                                                self.class_site)
 
+    @property
+    def due_date(self):
+        # return 'foo'
+        return self._due_date.date
+
     class Meta:
-        ordering = ('due_date',)
+        ordering = ('_due_date',)
         db_table = '"CNLYR002"."FC_STDNT_CLASS_ASSGN"'
         unique_together = ('student', 'class_site', 'assignment')
