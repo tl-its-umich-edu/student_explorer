@@ -202,7 +202,6 @@ class StudentClassSiteAssignment(models.Model):
 
     @property
     def due_date(self):
-        # return 'foo'
         return self._due_date.date
 
     @property
