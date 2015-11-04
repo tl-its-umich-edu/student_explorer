@@ -178,7 +178,7 @@ class StudentClassSiteAssignment(models.Model):
         if y == 0:
             return None
 
-        return x / y * 100
+        return float(x) / float(y) * 100
 
     class Meta:
         ordering = ('due_date',)
