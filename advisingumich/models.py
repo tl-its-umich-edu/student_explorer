@@ -206,11 +206,23 @@ class StudentClassSiteAssignment(models.Model):
 
     @property
     def percentage(self):
-        return self.points_earned / self.points_possible * 100
+        return self._percentage(self.points_earned,
+                                self.points_possible)
 
     @property
     def class_percentage(self):
-        return self.class_points_earned / self.class_points_possible * 100
+        return self._percentage(self.class_points_earned,
+                                self.class_points_possible)
+
+    def _percentage(self, x, y):
+        if x is None:
+            return None
+        if y is None:
+            return None
+        if y == 0:
+            return None
+
+        return x / y * 100
 
     class Meta:
         ordering = ('_due_date',)
