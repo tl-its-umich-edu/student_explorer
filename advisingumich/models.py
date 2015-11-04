@@ -50,6 +50,20 @@ class Date(models.Model):
         db_table = '"CNLYR001"."DM_DT"'
 
 
+class Term(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='TERM_KEY')
+    code = models.CharField(max_length=6, db_column='TERM_CD')
+    description = models.CharField(max_length=30, db_column='TERM_DES')
+    begin_date = models.DateField(db_column='TERM_BEGIN_DT')
+    end_date = models.DateField(db_column='ACAD_TERM_END_DT')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        db_table = '"CNLYR001"."DM_TERM"'
+
+
 class AdvisorRole(models.Model):
     id = models.IntegerField(primary_key=True, db_column='ADVSR_ROLE_KEY')
     code = models.CharField(max_length=4, db_column='ADVSR_ROLE_CD')
@@ -124,12 +138,25 @@ class ClassSite(models.Model):
     id = models.IntegerField(primary_key=True, db_column='CLASS_SITE_KEY')
     code = models.CharField(max_length=20, db_column='CLASS_SITE_CD')
     description = models.CharField(max_length=50, db_column='CLASS_SITE_DES')
+    terms = models.ManyToManyField('Term', through='ClassSiteTerm')
 
     def __unicode__(self):
         return self.description
 
     class Meta:
         db_table = '"CNLYR002"."DM_CLASS_SITE"'
+
+
+class ClassSiteTerm(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='CLASS_SITE_TERM_KEY')
+    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
+    term = models.ForeignKey(Term, db_column='TERM_KEY')
+
+    def __unicode__(self):
+        return '%s was held in %s' % (self.class_site, self.term)
+
+    class Meta:
+        db_table = '"CNLYR002"."BG_CLASS_SITE_TERM"'
 
 
 class Status(models.Model):

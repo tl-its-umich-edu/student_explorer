@@ -1,4 +1,4 @@
-from advising.models import (Advisor, Student, Mentor, ClassSite,
+from advising.models import (Advisor, Student, Mentor,
                              StudentClassSiteStatus,
                              StudentClassSiteAssignment)
 from advising.serializers import (AdvisorSerializer,

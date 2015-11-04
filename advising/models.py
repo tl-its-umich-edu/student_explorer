@@ -35,6 +35,17 @@ class Advisor(models.Model):
         return self.username
 
 
+class Term(models.Model):
+    id = models.IntegerField(primary_key=True)
+    code = models.CharField(max_length=6)
+    description = models.CharField(max_length=30)
+    begin_date = models.DateField()
+    end_date = models.DateField()
+
+    def __unicode__(self):
+        return self.description
+
+
 class AdvisorRole(models.Model):
     code = models.CharField(max_length=4)
     description = models.CharField(max_length=30)
@@ -88,10 +99,19 @@ class StudentCohortMentor(models.Model):
 class ClassSite(models.Model):
     code = models.CharField(max_length=20)
     description = models.CharField(max_length=50)
+    terms = models.ManyToManyField('Term', through='ClassSiteTerm')
 
     def __unicode__(self):
         return self.description
 
+
+class ClassSiteTerm(models.Model):
+    id = models.IntegerField(primary_key=True)
+    class_site = models.ForeignKey(ClassSite)
+    term = models.ForeignKey(Term)
+
+    def __unicode__(self):
+        return '%s was held in %s' % (self.class_site, self.term)
 
 class Status(models.Model):
     code = models.CharField(max_length=20)
@@ -173,11 +193,13 @@ if hasattr(settings, 'ADVISING_PACKAGE'):
     Student = advising_models.Student
     Advisor = advising_models.Advisor
     Mentor = advising_models.Mentor
+    Term = advising_models.Term
     AdvisorRole = advising_models.AdvisorRole
     StudentAdvisorRole = advising_models.StudentAdvisorRole
     Cohort = advising_models.Cohort
     StudentCohortMentor = advising_models.StudentCohortMentor
     ClassSite = advising_models.ClassSite
+    ClassSiteTerm = advising_models.ClassSiteTerm
     Status = advising_models.Status
     StudentClassSiteStatus = advising_models.StudentClassSiteStatus
     Assignment = advising_models.Assignment

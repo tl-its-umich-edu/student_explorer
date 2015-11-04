@@ -42,10 +42,11 @@ class CohortSerializer(serializers.ModelSerializer):
 
 
 class ClassSiteSerializer(serializers.ModelSerializer):
+    terms = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = ClassSite
-        fields = ('code', 'description')
+        fields = ('code', 'description', 'terms')
 
 
 class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
@@ -116,9 +117,11 @@ class StudentClassSiteHyperlink(serializers.HyperlinkedIdentityField):
 
 
 class StudentClassSiteSerializer(serializers.ModelSerializer):
-    description = serializers.ReadOnlyField(source='class_site.description')
-    code = serializers.ReadOnlyField(source='class_site.code')
+    # description = serializers.ReadOnlyField(source='class_site.description')
+    # code = serializers.ReadOnlyField(source='class_site.code')
     status = serializers.ReadOnlyField(source='status.description')
+    class_site = ClassSiteSerializer()
+
     url = StudentClassSiteHyperlink(
         read_only=True,
         view_name='student-classsite-detail')
@@ -128,7 +131,8 @@ class StudentClassSiteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('description', 'code', 'status', 'url', 'assignments_url')
+        fields = ('class_site', 'status', 'url', 'assignments_url')
+        # fields = ('description', 'code', 'status', 'url', 'assignments_url')
 
 
 class AdvisorStudentsSerializer(serializers.ModelSerializer):
