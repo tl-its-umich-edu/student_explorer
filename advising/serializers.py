@@ -174,5 +174,8 @@ class StudentClassSiteAssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentClassSiteAssignment
-        fields = ('assignment', 'points_earned', 'points_possible',
-                  'included_in_grade', 'grader_comment', 'weight', 'due_date')
+        fields = ('assignment',
+                  'points_earned', 'points_possible', 'percentage', 'weight',
+                  'class_points_earned', 'class_points_possible',
+                  'class_percentage',
+                  'included_in_grade', 'grader_comment', 'due_date')

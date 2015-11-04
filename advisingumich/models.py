@@ -182,6 +182,12 @@ class StudentClassSiteAssignment(models.Model):
                                         db_column='STDNT_ASSGN_PNTS_PSBL_NBR')
     points_earned = models.FloatField(max_length=10,
                                       db_column='STDNT_ASSGN_PNTS_ERND_NBR')
+    class_points_possible = models.FloatField(
+        max_length=10,
+        db_column='CLASS_ASSGN_PNTS_PSBL_NBR')
+    class_points_earned = models.FloatField(
+        max_length=10,
+        db_column='CLASS_ASSGN_PNTS_ERND_NBR')
     included_in_grade = models.CharField(max_length=1,
                                          db_column='INCL_IN_CLASS_GRD_IND')
     grader_comment = models.CharField(max_length=4000, null=True,
@@ -198,6 +204,14 @@ class StudentClassSiteAssignment(models.Model):
     def due_date(self):
         # return 'foo'
         return self._due_date.date
+
+    @property
+    def percentage(self):
+        return self.points_earned / self.points_possible * 100
+
+    @property
+    def class_percentage(self):
+        return self.class_points_earned / self.class_points_possible * 100
 
     class Meta:
         ordering = ('_due_date',)

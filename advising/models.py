@@ -129,6 +129,8 @@ class StudentClassSiteAssignment(models.Model):
     assignment = models.ForeignKey(Assignment)
     points_possible = models.FloatField(max_length=10)
     points_earned = models.FloatField(max_length=10)
+    class_points_possible = models.FloatField(max_length=10, default=0)
+    class_points_earned = models.FloatField(max_length=10, default=0)
     included_in_grade = models.CharField(max_length=1)
     grader_comment = models.CharField(max_length=4000, null=True)
     weight = models.FloatField(max_length=126)
@@ -137,6 +139,18 @@ class StudentClassSiteAssignment(models.Model):
     def __unicode__(self):
         return '%s has assignemnt %s in %s' % (self.student, self.assignment,
                                                self.class_site)
+
+    @property
+    def percentage(self):
+        if self.points_possible == 0:
+            return 0.0
+        return self.points_earned / self.points_possible * 100
+
+    @property
+    def class_percentage(self):
+        if self.class_points_possible == 0:
+            return 0.0
+        return self.class_points_earned / self.class_points_possible * 100
 
     class Meta:
         ordering = ('due_date',)
