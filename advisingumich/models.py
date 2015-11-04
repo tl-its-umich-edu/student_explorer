@@ -221,7 +221,8 @@ class StudentClassSiteAssignment(models.Model):
                                       db_column='STDNT_ASSGN_GRDR_CMNT_TXT')
     weight = models.FloatField(max_length=126,
                                db_column='ASSGN_WT_NBR')
-    _due_date = models.ForeignKey(Date, db_column='ASSGN_DUE_SBMT_DT_KEY')
+    _due_date = models.ForeignKey(Date, db_column='ASSGN_DUE_SBMT_DT_KEY',
+                                  null=True)
 
     def __unicode__(self):
         return '%s has assignemnt %s in %s' % (self.student, self.assignment,
