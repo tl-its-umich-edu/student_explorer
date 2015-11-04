@@ -143,13 +143,13 @@ class StudentClassSiteAssignment(models.Model):
     @property
     def percentage(self):
         if self.points_possible == 0:
-            return 0.0
+            return None
         return self.points_earned / self.points_possible * 100
 
     @property
     def class_percentage(self):
         if self.class_points_possible == 0:
-            return 0.0
+            return None
         return self.class_points_earned / self.class_points_possible * 100
 
     class Meta:
