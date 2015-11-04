@@ -15,6 +15,16 @@ urlpatterns = [
         views.AdvisorStudentsList.as_view(),
         name='advisor-students-list'),
 
+    url(r'^mentors/$',
+        views.MentorList.as_view(),
+        name='mentor-list'),
+    url(r'^mentors/(?P<username>[a-zA-Z ]*)/$',
+        views.MentorDetail.as_view(),
+        name='mentor-detail'),
+    url(r'^mentors/(?P<username>[a-zA-Z ]*)/students/$',
+        views.MentorStudentsList.as_view(),
+        name='mentor-students-list'),
+
     url(r'^students/$',
         views.StudentList.as_view(),
         name='student-list'),

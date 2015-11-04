@@ -1,7 +1,9 @@
-from advising.models import (Advisor, Student, ClassSite,
+from advising.models import (Advisor, Student, Mentor, ClassSite,
                              StudentClassSiteStatus,
                              StudentClassSiteAssignment)
-from advising.serializers import (AdvisorSerializer, StudentSummarySerializer,
+from advising.serializers import (AdvisorSerializer,
+                                  MentorSerializer,
+                                  StudentSummarySerializer,
                                   StudentFullSerializer,
                                   StudentClassSiteSerializer,
                                   StudentClassSiteAssignmentSerializer,
@@ -40,6 +42,7 @@ def api_root(request, format=None):
 
     return Response({
         'advisors': reverse('advisor-list', request=request, format=format),
+        'mentors': reverse('mentor-list', request=request, format=format),
         'students': reverse('student-list', request=request, format=format),
         'username': username,
         'debug': settings.DEBUG,
@@ -85,6 +88,40 @@ class AdvisorStudentsList(generics.ListAPIView):
     def get_queryset(self):
         return (
             Advisor.objects
+            .get(username=self.kwargs['username'])
+            .students.all()
+        )
+
+
+class MentorList(generics.ListAPIView):
+    '''
+    API endpoint that lists Mentors.
+    '''
+    queryset = Mentor.objects.all()
+    serializer_class = MentorSerializer
+    lookup_field = 'username'
+
+
+class MentorDetail(generics.RetrieveAPIView):
+    '''
+    API endpoint that shows advisor details.
+    '''
+    queryset = Mentor.objects.all()
+    serializer_class = MentorSerializer
+    lookup_field = 'username'
+
+
+class MentorStudentsList(generics.ListAPIView):
+    '''
+    API endpoint that lists an advisor's students.
+    '''
+    queryset = Mentor.objects.all()
+    serializer_class = StudentSummarySerializer
+    # lookup_field = 'username'
+
+    def get_queryset(self):
+        return (
+            Mentor.objects
             .get(username=self.kwargs['username'])
             .students.all()
         )

@@ -13,6 +13,7 @@ class Student(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
+    mentors = models.ManyToManyField('Mentor', through='StudentCohortMentor')
     cohorts = models.ManyToManyField('Cohort', through='StudentCohortMentor')
     class_sites = models.ManyToManyField('ClassSite',
                                          through='StudentClassSiteStatus')
@@ -69,6 +70,7 @@ class Mentor(models.Model):
     univ_id = models.CharField(max_length=11)
     first_name = models.CharField(max_length=500)
     last_name = models.CharField(max_length=500)
+    students = models.ManyToManyField('Student', through='StudentCohortMentor')
 
     def __unicode__(self):
         return self.username
@@ -148,6 +150,7 @@ if hasattr(settings, 'ADVISING_PACKAGE'):
 
     Student = advising_models.Student
     Advisor = advising_models.Advisor
+    Mentor = advising_models.Mentor
     AdvisorRole = advising_models.AdvisorRole
     StudentAdvisorRole = advising_models.StudentAdvisorRole
     Cohort = advising_models.Cohort

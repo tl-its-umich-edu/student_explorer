@@ -9,6 +9,7 @@ class Student(models.Model):
                                   db_column='STDNT_PREF_FIRST_NM')
     last_name = models.CharField(max_length=500, db_column='STDNT_PREF_SURNM')
     advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
+    mentors = models.ManyToManyField('Mentor', through='StudentCohortMentor')
     cohorts = models.ManyToManyField('Cohort', through='StudentCohortMentor')
     class_sites = models.ManyToManyField('ClassSite',
                                          through='StudentClassSiteStatus')
@@ -96,6 +97,7 @@ class Mentor(models.Model):
     first_name = models.CharField(max_length=500,
                                   db_column='MNTR_PREF_FIRST_NM')
     last_name = models.CharField(max_length=500, db_column='MNTR_PREF_SURNM')
+    students = models.ManyToManyField('Student', through='StudentCohortMentor')
 
     def __unicode__(self):
         return self.username
