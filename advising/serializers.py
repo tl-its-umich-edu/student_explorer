@@ -1,4 +1,4 @@
-from advising.models import (Student, Advisor, Cohort, Assignment,
+from advising.models import (Student, Advisor, Mentor, Cohort, Assignment,
                              StudentAdvisorRole,
                              StudentClassSiteStatus,
                              StudentClassSiteAssignment,
@@ -18,6 +18,18 @@ class AdvisorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Advisor
+        fields = ('username', 'univ_id', 'first_name', 'last_name', 'url',
+                  'students_url')
+
+
+class MentorSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='mentor-detail',
+                                               lookup_field='username')
+    students_url = serializers.HyperlinkedIdentityField(
+        view_name='mentor-students-list', lookup_field='username')
+
+    class Meta:
+        model = Mentor
         fields = ('username', 'univ_id', 'first_name', 'last_name', 'url',
                   'students_url')
 
@@ -53,13 +65,14 @@ class StudentSummarySerializer(serializers.ModelSerializer):
     cohorts = serializers.StringRelatedField(many=True)
     statuses = serializers.StringRelatedField(many=True)
     advisors = serializers.StringRelatedField(many=True)
+    mentors = serializers.StringRelatedField(many=True)
     status_weight = serializers.SerializerMethodField()
 
     class Meta:
         model = Student
         fields = ('url', 'username', 'univ_id', 'first_name', 'last_name',
-                  'advisors', 'cohorts', 'statuses', 'status_weight',
-                  'class_sites_url')
+                  'advisors', 'mentors', 'cohorts', 'statuses',
+                  'status_weight', 'class_sites_url')
 
     def get_status_weight(self, obj):
         weight = 0
@@ -139,13 +152,14 @@ class StudentFullSerializer(serializers.ModelSerializer):
     advisors = StudentAdvisorsSerializer(source='studentadvisorrole_set',
                                          many=True, read_only=True)
     cohorts = CohortSerializer(many=True, read_only=True)
+    mentors = MentorSerializer(many=True, read_only=True)
     class_sites = StudentClassSiteSerializer(
         source='studentclasssitestatus_set', many=True, read_only=True)
 
     class Meta:
         model = Student
         fields = ('username', 'univ_id', 'first_name', 'last_name', 'advisors',
-                  'cohorts', 'class_sites', 'url')
+                  'mentors', 'cohorts', 'class_sites', 'url')
 
 
 class AssignmentSerializer(serializers.ModelSerializer):
