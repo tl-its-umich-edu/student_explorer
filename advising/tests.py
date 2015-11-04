@@ -10,6 +10,21 @@ import advising.models
 from advising.models import Student
 
 
+class AdvisingModelStudentClassSiteAssignmentTestCase(TestCase):
+    fixtures = ['dev_data.json', 'dev_users.json']
+
+    def test__percentage(self):
+        obj = advising.models.StudentClassSiteAssignment()
+
+        self.assertEqual(75.0, obj._percentage(3.0, 4.0), 'one float, one int for input, should return a float')
+        self.assertEqual(0.0, obj._percentage(0, 4.0), 'one float, one int for input, should return a float')
+        self.assertEqual(None, obj._percentage(10.0, 0), 'zero denominator should return None')
+        self.assertEqual(75.0, obj._percentage(3, 4), 'two integers for input, should return a float')
+        self.assertEqual(None, obj._percentage(10, None), 'any None input should return None')
+        self.assertEqual(None, obj._percentage(None, 10), 'any None input should return None')
+        self.assertEqual(None, obj._percentage(None, None), 'any None input should return None')
+
+
 class AdvisingApiTestCase(TestCase):
     fixtures = ['dev_data.json', 'dev_users.json']
     client = None
@@ -101,7 +116,7 @@ class AdvisingSerializersTestCase(TestCase):
 
         self.assertEqual(serialized_weight, 10)
 
-    def  test_get_status_weight(self):
+    def test_get_status_weight(self):
         test_student = Student.objects.get(username="james")
         calculated_weight = StudentSummarySerializer().get_status_weight(test_student)
 
