@@ -40,6 +40,14 @@ angular
         templateUrl: 'views/student_detail.html',
         controller: 'StudentDetailCtrl',
       })
+      .when('/students/:student/course', {
+        templateUrl: 'views/course_list.html',
+        controller: 'CourseListCtrl',
+      })
+      .when('/students/:student/course/:courseCode', {
+        templateUrl: 'views/course_detail.html',
+        controller: 'CourseDetailCtrl',
+      })
       .otherwise({
         redirectTo: '/'
       });

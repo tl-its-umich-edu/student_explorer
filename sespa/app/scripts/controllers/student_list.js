@@ -10,7 +10,6 @@
 angular.module('sespaApp')
   .controller('StudentListCtrl', function(advisingData, $scope, $routeParams) {
     $scope.studentListHeader = 'All Students';
-    $scope.selected = null;
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;
     $scope.searchStudent = '';

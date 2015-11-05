@@ -94,7 +94,29 @@ angular.module('sespaApp')
               return response.data;
             });
         });
-      }
+      },
+      
+      studentCourses: function(studentName) {
+        return config().then(function(config) {
+          return $http.get(config.students + studentName + '/class_sites/', {
+            'cache': true
+          })
+          .then(function(response) {
+            return response.data;
+          });
+        });
+      },
+      
+      studentCourseAssignments: function(studentName, courseCode) {
+        return config().then(function(config) {
+          return $http.get(config.students + studentName + '/class_sites/' + courseCode + '/assignments/', {
+            'cache': true
+          })
+          .then(function(response) {
+            return response.data;
+          });
+        });
+      },
 
     };
   });
