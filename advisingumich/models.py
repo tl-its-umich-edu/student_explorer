@@ -21,6 +21,7 @@ class Student(models.Model):
 
     class Meta:
         db_table = '"CNLYR002"."DM_STDNT"'
+        managed = False
 
 
 class Advisor(models.Model):
@@ -37,6 +38,7 @@ class Advisor(models.Model):
 
     class Meta:
         db_table = '"CNLYR002"."DM_ADVSR"'
+        managed = False
 
 
 class Date(models.Model):
@@ -48,6 +50,7 @@ class Date(models.Model):
 
     class Meta:
         db_table = '"CNLYR001"."DM_DT"'
+        managed = False
 
 
 class Term(models.Model):
@@ -62,6 +65,7 @@ class Term(models.Model):
 
     class Meta:
         db_table = '"CNLYR001"."DM_TERM"'
+        managed = False
 
 
 class AdvisorRole(models.Model):
@@ -74,6 +78,7 @@ class AdvisorRole(models.Model):
 
     class Meta:
         db_table = '"CNLYR002"."DM_ADVSR_ROLE"'
+        managed = False
 
 
 class StudentAdvisorRole(models.Model):
@@ -89,6 +94,7 @@ class StudentAdvisorRole(models.Model):
 
     class Meta:
         db_table = '"CNLYR002"."BG_STDNT_ADVSR_ROLE"'
+        managed = False
 
 
 class Cohort(models.Model):
@@ -102,6 +108,7 @@ class Cohort(models.Model):
 
     class Meta:
         db_table = '"CNLYR002"."DM_CHRT"'
+        managed = False
 
 
 class Mentor(models.Model):
@@ -118,6 +125,7 @@ class Mentor(models.Model):
 
     class Meta:
         db_table = '"CNLYR002"."DM_MNTR"'
+        managed = False
 
 
 class StudentCohortMentor(models.Model):
@@ -130,8 +138,9 @@ class StudentCohortMentor(models.Model):
         return '%s is in the %s cohort' % (self.student, self.cohort)
 
     class Meta:
-        db_table = '"CNLYR002"."BG_STDNT_CHRT_MNTR"'
         unique_together = ('student', 'cohort')
+        db_table = '"CNLYR002"."BG_STDNT_CHRT_MNTR"'
+        managed = False
 
 
 class ClassSite(models.Model):
@@ -145,6 +154,7 @@ class ClassSite(models.Model):
 
     class Meta:
         db_table = '"CNLYR002"."DM_CLASS_SITE"'
+        managed = False
 
 
 class ClassSiteTerm(models.Model):
@@ -157,6 +167,7 @@ class ClassSiteTerm(models.Model):
 
     class Meta:
         db_table = '"CNLYR002"."BG_CLASS_SITE_TERM"'
+        managed = False
 
 
 class Status(models.Model):
@@ -171,6 +182,7 @@ class Status(models.Model):
     class Meta:
         ordering = ('order',)
         db_table = '"CNLYR002"."DM_ACAD_PERF"'
+        managed = False
 
 
 class StudentClassSiteStatus(models.Model):
@@ -184,8 +196,9 @@ class StudentClassSiteStatus(models.Model):
                                            self.class_site)
 
     class Meta:
-        db_table = '"CNLYR002"."FC_STDNT_CLASS_ACAD_PERF"'
         unique_together = ('student', 'class_site', 'status')
+        db_table = '"CNLYR002"."FC_STDNT_CLASS_ACAD_PERF"'
+        managed = False
 
 
 class Assignment(models.Model):
@@ -198,6 +211,7 @@ class Assignment(models.Model):
 
     class Meta:
         db_table = '"CNLYR002"."DM_ASSGN"'
+        managed = False
 
 
 class StudentClassSiteAssignment(models.Model):
@@ -254,5 +268,6 @@ class StudentClassSiteAssignment(models.Model):
 
     class Meta:
         ordering = ('_due_date',)
-        db_table = '"CNLYR002"."FC_STDNT_CLASS_ASSGN"'
         unique_together = ('student', 'class_site', 'assignment')
+        db_table = '"CNLYR002"."FC_STDNT_CLASS_ASSGN"'
+        managed = False
