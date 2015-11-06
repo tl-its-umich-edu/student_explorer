@@ -76,6 +76,20 @@ class Term(models.Model):
         managed = False
 
 
+class SourceSystem(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='SRC_SYS_KEY')
+    code = models.CharField(max_length=6, db_column='SRC_SYS_CD')
+    description = models.CharField(max_length=30, db_column='SRC_SYS_NM')
+    long_description = models.CharField(max_length=30, db_column='SRC_SYS_DES')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        db_table = '"CNLYR002"."DM_SRC_SYS"'
+        managed = False
+
+
 class AdvisorRole(models.Model):
     id = models.IntegerField(primary_key=True, db_column='ADVSR_ROLE_KEY')
     code = models.CharField(max_length=4, db_column='ADVSR_ROLE_CD')
@@ -110,6 +124,7 @@ class Cohort(models.Model):
     code = models.CharField(max_length=20, db_column='CHRT_CD')
     description = models.CharField(max_length=50, db_column='CHRT_DES')
     group = models.CharField(max_length=100, db_column='CHRT_GRP_NM')
+    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
 
     def __unicode__(self):
         return self.description
@@ -156,6 +171,7 @@ class ClassSite(models.Model):
     code = models.CharField(max_length=20, db_column='CLASS_SITE_CD')
     description = models.CharField(max_length=50, db_column='CLASS_SITE_DES')
     terms = models.ManyToManyField('Term', through='ClassSiteTerm')
+    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
 
     def __unicode__(self):
         return self.description
@@ -213,6 +229,7 @@ class Assignment(models.Model):
     id = models.IntegerField(primary_key=True, db_column='ASSGN_KEY')
     code = models.CharField(max_length=20, db_column='ASSGN_CD')
     description = models.CharField(max_length=50, db_column='ASSGN_DES')
+    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
 
     def __unicode__(self):
         return self.description

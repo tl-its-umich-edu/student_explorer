@@ -69,6 +69,11 @@ class AdvisingModelsTestCase(TestCase):
         self.assertEqual('Green', str(w[0].status))
         self.assertEqual('2015-10-01', str(w[0].week_end_date))
 
+    def test_SourceSystem(self):
+        systems = advising.models.SourceSystem.objects.all()
+
+        self.assertEqual(2, len(systems))
+
 
 class AdvisingApiTestCase(TestCase):
     fixtures = ['dev_data.json', 'dev_users.json']

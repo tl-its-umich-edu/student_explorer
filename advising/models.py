@@ -46,6 +46,15 @@ class Term(models.Model):
         return self.description
 
 
+class SourceSystem(models.Model):
+    code = models.CharField(max_length=6)
+    description = models.CharField(max_length=30)
+    long_description = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return self.description
+
+
 class AdvisorRole(models.Model):
     code = models.CharField(max_length=4)
     description = models.CharField(max_length=30)
@@ -70,6 +79,7 @@ class Cohort(models.Model):
     code = models.CharField(max_length=20)
     description = models.CharField(max_length=50)
     group = models.CharField(max_length=100)
+    source_system = models.ForeignKey(SourceSystem, null=True)
 
     def __unicode__(self):
         return self.description
@@ -100,6 +110,7 @@ class ClassSite(models.Model):
     code = models.CharField(max_length=20)
     description = models.CharField(max_length=50)
     terms = models.ManyToManyField('Term', through='ClassSiteTerm')
+    source_system = models.ForeignKey(SourceSystem, null=True)
 
     def __unicode__(self):
         return self.description
@@ -139,6 +150,7 @@ class StudentClassSiteStatus(models.Model):
 class Assignment(models.Model):
     code = models.CharField(max_length=20)
     description = models.CharField(max_length=50)
+    source_system = models.ForeignKey(SourceSystem, null=True)
 
     def __unicode__(self):
         return self.description

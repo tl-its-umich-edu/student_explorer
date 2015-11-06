@@ -301,6 +301,24 @@
 },
 {
     "fields": {
+        "code": "CTLS",
+        "description": "CTools",
+        "long_description": "CTools Application"
+    },
+    "model": "advising.sourcesystem",
+    "pk": 1
+},
+{
+    "fields": {
+        "code": "CNVS",
+        "description": "Canvas",
+        "long_description": "Canvas Application"
+    },
+    "model": "advising.sourcesystem",
+    "pk": 2
+},
+{
+    "fields": {
         "code": "DEPT",
         "description": "Department Advisor"
     },
@@ -631,6 +649,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "SPPRO-F14",
         "group": "CSP",
         "description": "Special Probation F14"
@@ -640,6 +659,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "SPPRO-W15",
         "group": "CSP",
         "description": "Special Probation W15"
@@ -649,6 +669,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "SPPRO-F15",
         "group": "CSP",
         "description": "Special Probation F15"
@@ -940,6 +961,7 @@
 },
 {
     "fields": {
+        "source_system": 1,
         "code": "1",
         "description": "Physics 130"
     },
@@ -948,6 +970,7 @@
 },
 {
     "fields": {
+        "source_system": 1,
         "code": "2",
         "description": "Physics 140"
     },
@@ -956,6 +979,7 @@
 },
 {
     "fields": {
+        "source_system": 1,
         "code": "3",
         "description": "Math 115"
     },
@@ -964,6 +988,7 @@
 },
 {
     "fields": {
+        "source_system": 2,
         "code": "4",
         "description": "Stats 250"
     },
@@ -972,6 +997,7 @@
 },
 {
     "fields": {
+        "source_system": 2,
         "code": "5",
         "description": "Physics 240"
     },
@@ -980,6 +1006,7 @@
 },
 {
     "fields": {
+        "source_system": 2,
         "code": "6",
         "description": "Chem 125"
     },
@@ -1366,6 +1393,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "152493021B5C",
         "description": "Quiz 1"
     },
@@ -1374,6 +1402,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "2C186C7667FD",
         "description": "Quiz 2"
     },
@@ -1382,6 +1411,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "78FDSAF7DS89",
         "description": "Reflection Papar 1"
     },
@@ -1390,6 +1420,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "45O4O43634NN",
         "description": "Reflection Paper 2"
     },
@@ -1398,6 +1429,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "34NRANLRNL2N",
         "description": "Exam 1"
     },
@@ -1406,6 +1438,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "78FDASFJD0SF9",
         "description": "Exam 2"
     },
@@ -1414,6 +1447,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "34GSAGDG4434",
         "description": "Homework 1"
     },
@@ -1422,6 +1456,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "432ARAERARERW",
         "description": "Homework 2"
     },
@@ -1430,6 +1465,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "79AFSDFDBWEUU",
         "description": "Homework 3"
     },
@@ -1438,6 +1474,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "890FSFADFHDKS",
         "description": "In-class Exercise 1"
     },
@@ -1446,6 +1483,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "324NARNFALFAS",
         "description": "In-class Exercise 2"
     },
@@ -1454,6 +1492,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "324NLNADFAFSD",
         "description": "Group Project 1"
     },
@@ -1462,6 +1501,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "324DFDSANONVO",
         "description": "Group Project 2"
     },
@@ -1470,6 +1510,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "J0SHGBG9H2BG",
         "description": "Presentation 1"
     },
@@ -1478,6 +1519,7 @@
 },
 {
     "fields": {
+        "source_system": null,
         "code": "08GV9H3BGJSG",
         "description": "Presentation 2"
     },
