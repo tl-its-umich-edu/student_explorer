@@ -113,6 +113,7 @@ class ClassSiteTerm(models.Model):
     def __unicode__(self):
         return '%s was held in %s' % (self.class_site, self.term)
 
+
 class Status(models.Model):
     code = models.CharField(max_length=20)
     description = models.CharField(max_length=50)
@@ -183,6 +184,45 @@ class StudentClassSiteAssignment(models.Model):
     class Meta:
         ordering = ('due_date',)
 
+
+class WeeklyStudentClassSiteStatus(models.Model):
+    student = models.ForeignKey(Student)
+    class_site = models.ForeignKey(ClassSite)
+    week_end_date = models.DateField(null=True)
+    status = models.ForeignKey(Status)
+
+    def __unicode__(self):
+        return '%s has status %s in %s on %s' % (
+            self.student, self.status, self.class_site, self.week_end_date)
+
+
+class WeeklyClassSiteScore(models.Model):
+    class_site = models.ForeignKey(ClassSite)
+    week_end_date = models.DateField(null=True)
+    score = models.IntegerField(null=True)
+
+    def __unicode__(self):
+        return 'Average score is %s in %s on %s' % (
+            self.score, self.class_site, self.week_end_date)
+
+    class Meta:
+        ordering = ('week_end_date',)
+
+
+class WeeklyStudentClassSiteScore(models.Model):
+    student = models.ForeignKey(Student)
+    class_site = models.ForeignKey(ClassSite)
+    week_end_date = models.DateField(null=True)
+    score = models.IntegerField(null=True)
+
+    def __unicode__(self):
+        return '%s has score %s in %s on %s' % (
+            self.student, self.score, self.class_site, self.week_end_date)
+
+    class Meta:
+        ordering = ('week_end_date',)
+
+
 if hasattr(settings, 'ADVISING_PACKAGE'):
     # Override the definitions above if an alternate package has been
     # specified.
@@ -204,3 +244,7 @@ if hasattr(settings, 'ADVISING_PACKAGE'):
     StudentClassSiteStatus = advising_models.StudentClassSiteStatus
     Assignment = advising_models.Assignment
     StudentClassSiteAssignment = advising_models.StudentClassSiteAssignment
+
+    WeeklyStudentClassSiteStatus = advising_models.WeeklyStudentClassSiteStatus
+    WeeklyStudentClassSiteScore = advising_models.WeeklyStudentClassSiteScore
+    WeeklyClassSiteScore = advising_models.WeeklyClassSiteScore

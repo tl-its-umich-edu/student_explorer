@@ -10,19 +10,53 @@ import advising.models
 from advising.models import Student
 
 
-class AdvisingModelStudentClassSiteAssignmentTestCase(TestCase):
+class AdvisingModelsTestCase(TestCase):
     fixtures = ['dev_data.json', 'dev_users.json']
 
-    def test__percentage(self):
+    def test_StudentClassSiteAssignment__percentage(self):
         obj = advising.models.StudentClassSiteAssignment()
 
-        self.assertEqual(75.0, obj._percentage(3.0, 4.0), 'one float, one int for input, should return a float')
+        self.assertEqual(75.0, obj._percentage(3.0, 4.0), 'foobilty one float, one int for input, should return a float')
         self.assertEqual(0.0, obj._percentage(0, 4.0), 'one float, one int for input, should return a float')
         self.assertEqual(None, obj._percentage(10.0, 0), 'zero denominator should return None')
-        self.assertEqual(75.0, obj._percentage(3, 4), 'two integers for input, should return a float')
+        self.assertEqual(75.0, obj._percentage( 3, 4), 'two integers for input, should return a float')
         self.assertEqual(None, obj._percentage(10, None), 'any None input should return None')
         self.assertEqual(None, obj._percentage(None, 10), 'any None input should return None')
         self.assertEqual(None, obj._percentage(None, None), 'any None input should return None')
+
+    def test_WeeklyStudentClassSiteScore(self):
+        s = advising.models.Student.objects.get(pk=1)
+        c = advising.models.ClassSite.objects.get(pk=1)
+
+        w = advising.models.WeeklyStudentClassSiteScore.objects.filter(
+            student=s, class_site=c)
+
+        self.assertEqual('Physics 130', str(w[0].class_site))
+        self.assertEqual('graciela', str(w[0].student))
+        self.assertEqual('78', str(w[0].score))
+        self.assertEqual('2015-10-01', str(w[0].week_end_date))
+
+    def test_WeeklyClassSiteScore(self):
+        c = advising.models.ClassSite.objects.get(pk=1)
+
+        w = advising.models.WeeklyClassSiteScore.objects.filter(
+            class_site=c)
+
+        self.assertEqual('Physics 130', str(w[0].class_site))
+        self.assertEqual('9', str(w[0].score))
+        self.assertEqual('2015-10-01', str(w[0].week_end_date))
+
+    def test_WeeklyStudentClassSiteStatus(self):
+        s = advising.models.Student.objects.get(pk=1)
+        c = advising.models.ClassSite.objects.get(pk=1)
+
+        w = advising.models.WeeklyStudentClassSiteStatus.objects.filter(
+            student=s, class_site=c)
+
+        self.assertEqual('Physics 130', str(w[0].class_site))
+        self.assertEqual('graciela', str(w[0].student))
+        self.assertEqual('Green', str(w[0].status))
+        self.assertEqual('2015-10-01', str(w[0].week_end_date))
 
 
 class AdvisingApiTestCase(TestCase):
