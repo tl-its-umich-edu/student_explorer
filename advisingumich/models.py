@@ -46,7 +46,7 @@ class Date(models.Model):
     date = models.DateField(db_column='CAL_DT')
 
     def __unicode__(self):
-        return self.date
+        return self.date.isoformat()
 
     class Meta:
         db_table = '"CNLYR001"."DM_DT"'
@@ -57,8 +57,16 @@ class Term(models.Model):
     id = models.IntegerField(primary_key=True, db_column='TERM_KEY')
     code = models.CharField(max_length=6, db_column='TERM_CD')
     description = models.CharField(max_length=30, db_column='TERM_DES')
-    begin_date = models.DateField(db_column='TERM_BEGIN_DT')
-    end_date = models.DateField(db_column='ACAD_TERM_END_DT')
+    _begin_date = models.DateField(db_column='TERM_BEGIN_DT')
+    _end_date = models.DateField(db_column='ACAD_TERM_END_DT')
+
+    @property
+    def begin_date(self):
+        return Date.objects.get(date=self._begin_date)
+
+    @property
+    def end_date(self):
+        return Date.objects.get(date=self._end_date)
 
     def __unicode__(self):
         return self.description
@@ -235,16 +243,12 @@ class StudentClassSiteAssignment(models.Model):
                                       db_column='STDNT_ASSGN_GRDR_CMNT_TXT')
     weight = models.FloatField(max_length=126,
                                db_column='ASSGN_WT_NBR')
-    _due_date = models.ForeignKey(Date, db_column='ASSGN_DUE_SBMT_DT_KEY',
-                                  null=True)
+    due_date = models.ForeignKey(Date, db_column='ASSGN_DUE_SBMT_DT_KEY',
+                                 null=True)
 
     def __unicode__(self):
         return '%s has assignemnt %s in %s' % (self.student, self.assignment,
                                                self.class_site)
-
-    @property
-    def due_date(self):
-        return self._due_date.date
 
     @property
     def percentage(self):
@@ -267,7 +271,7 @@ class StudentClassSiteAssignment(models.Model):
         return float(x) / float(y) * 100
 
     class Meta:
-        ordering = ('_due_date',)
+        ordering = ('due_date',)
         unique_together = ('student', 'class_site', 'assignment')
         db_table = '"CNLYR002"."FC_STDNT_CLASS_ASSGN"'
         managed = False
@@ -277,19 +281,15 @@ class WeeklyStudentClassSiteStatus(models.Model):
     student = models.ForeignKey(Student, db_column='STDNT_KEY',
                                 primary_key=True)
     class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
-    _week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
+    week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
     status = models.ForeignKey(Status, db_column='ACAD_PERF_KEY')
-
-    @property
-    def week_end_date(self):
-        return self._week_end_date.date
 
     def __unicode__(self):
         return '%s has status %s in %s on %s' % (
             self.student, self.status, self.class_site, self.week_end_date)
 
     class Meta:
-        unique_together = ('student', 'class_site', '_week_end_date', 'status')
+        unique_together = ('student', 'class_site', 'week_end_date', 'status')
         db_table = '"CNLYR002"."FC_STDNT_CLS_WKLY_ACAD_PRF"'
         managed = False
 
@@ -297,20 +297,16 @@ class WeeklyStudentClassSiteStatus(models.Model):
 class WeeklyClassSiteScore(models.Model):
     class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY',
                                    primary_key=True)
-    _week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
+    week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
     score = models.IntegerField(db_column='CLASS_CURR_SCR_AVG')
-
-    @property
-    def week_end_date(self):
-        return self._week_end_date.date
 
     def __unicode__(self):
         return 'Average score is %s in %s on %s' % (
             self.score, self.class_site, self.week_end_date)
 
     class Meta:
-        ordering = ('_week_end_date',)
-        unique_together = ('class_site', '_week_end_date')
+        ordering = ('week_end_date',)
+        unique_together = ('class_site', 'week_end_date')
         db_table = '"CNLYR002"."FC_CLASS_WKLY_SCR"'
         managed = False
 
@@ -319,19 +315,15 @@ class WeeklyStudentClassSiteScore(models.Model):
     student = models.ForeignKey(Student, db_column='STDNT_KEY',
                                 primary_key=True)
     class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
-    _week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
+    week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
     score = models.IntegerField(db_column='STDNT_CURR_SCR_AVG')
-
-    @property
-    def week_end_date(self):
-        return self._week_end_date.date
 
     def __unicode__(self):
         return '%s has score %s in %s on %s' % (
             self.student, self.score, self.class_site, self.week_end_date)
 
     class Meta:
-        ordering = ('_week_end_date',)
-        unique_together = ('student', 'class_site', '_week_end_date')
+        ordering = ('week_end_date',)
+        unique_together = ('student', 'class_site', 'week_end_date')
         db_table = '"CNLYR002"."FC_STDNT_CLASS_WKLY_SCR"'
         managed = False

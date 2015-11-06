@@ -46,6 +46,17 @@ class AdvisingModelsTestCase(TestCase):
         self.assertEqual('9', str(w[0].score))
         self.assertEqual('2015-10-01', str(w[0].week_end_date))
 
+    def test_WeeklyClassSiteScore_date_range(self):
+        c = advising.models.ClassSite.objects.get(pk=1)
+        t = advising.models.Term.objects.get(id=1)
+
+        w = advising.models.WeeklyClassSiteScore.objects.filter(
+            class_site=c,
+            week_end_date__gte=t.begin_date,
+            week_end_date__lte=t.end_date)
+
+        self.assertEqual(1, len(w))
+
     def test_WeeklyStudentClassSiteStatus(self):
         s = advising.models.Student.objects.get(pk=1)
         c = advising.models.ClassSite.objects.get(pk=1)
