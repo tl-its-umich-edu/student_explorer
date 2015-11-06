@@ -21,7 +21,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="course in courses | orderBy:sortType:sortReverse | filter:searchAdvisor">
-        <td class="bold"><a href="#/students/{{student.username}}/course/{{course.code}}">{{ course.description }}</a></td>
+        <td class="bold"><a href="#/students/{{student.username}}/course/{{course.class_site.code}}">{{ course.class_site.description }}</a></td>
         <td>
           <img alt="{{course.status}}" class="course-status {{ course.status | lowercase }}" ng-src="images/Status_Icons_{{course.status}}.png"/>
       	</td>
