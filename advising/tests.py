@@ -16,13 +16,13 @@ class AdvisingModelsTestCase(TestCase):
     def test_StudentClassSiteAssignment__percentage(self):
         obj = advising.models.StudentClassSiteAssignment()
 
-        self.assertEqual(75.0, obj._percentage(3.0, 4.0), 'foobilty one float, one int for input, should return a float')
-        self.assertEqual(0.0, obj._percentage(0, 4.0), 'one float, one int for input, should return a float')
-        self.assertEqual(None, obj._percentage(10.0, 0), 'zero denominator should return None')
-        self.assertEqual(75.0, obj._percentage( 3, 4), 'two integers for input, should return a float')
-        self.assertEqual(None, obj._percentage(10, None), 'any None input should return None')
-        self.assertEqual(None, obj._percentage(None, 10), 'any None input should return None')
-        self.assertEqual(None, obj._percentage(None, None), 'any None input should return None')
+        self.assertEqual(75.0, obj._percentage(3.0, 4.0))
+        self.assertEqual(0.0, obj._percentage(0, 4.0))
+        self.assertEqual(None, obj._percentage(10.0, 0))
+        self.assertEqual(75.0, obj._percentage(3, 4))
+        self.assertEqual(None, obj._percentage(10, None))
+        self.assertEqual(None, obj._percentage(None, 10))
+        self.assertEqual(None, obj._percentage(None, None))
 
     def test_WeeklyStudentClassSiteScore(self):
         s = advising.models.Student.objects.get(pk=1)
@@ -126,23 +126,21 @@ class AdvisingApiStudentTestCase(TestCase):
     def test_students(self):
         response = self.client.get(reverse('student-list'))
 
-        self.assertEqual(response.status_code, 200, 'Response should be 200')
+        self.assertEqual(response.status_code, 200)
 
     def test_students_search_with_results(self):
         response = self.client.get(reverse('student-list'), {'search': 'gra'})
 
         data = json.loads(response.content)
 
-        self.assertEqual(2, len(data),
-                         'Expected 2 entries in search for "gra"')
+        self.assertEqual(2, len(data))
 
     def test_students_search_with_no_results(self):
         response = self.client.get(reverse('student-list'), {'search': 'asdf'})
 
         data = json.loads(response.content)
 
-        self.assertEqual(0, len(data),
-                         'Expected 2 entries in search for "asdf"')
+        self.assertEqual(0, len(data))
 
     def test_students_search_check_data(self):
         response = self.client.get(reverse('student-list'),
@@ -150,10 +148,8 @@ class AdvisingApiStudentTestCase(TestCase):
 
         data = json.loads(response.content)
 
-        self.assertEqual(1, len(data),
-                         'Expected 1 entries in search for "james"')
-        self.assertEqual('james', data[0]['username'],
-                         'Expected username "james"')
+        self.assertEqual(1, len(data))
+        self.assertEqual('james', data[0]['username'])
 
 
 class AdvisingApiAdvisorTestCase(TestCase):
@@ -167,15 +163,15 @@ class AdvisingApiAdvisorTestCase(TestCase):
         response = self.client.get(reverse('advisor-list'))
         data = json.loads(response.content)
 
-        self.assertEqual(len(data), 6, 'should have 6 advisors')
-        self.assertEqual(response.status_code, 200, 'Response should be 200')
+        self.assertEqual(len(data), 6)
+        self.assertEqual(response.status_code, 200)
 
     def test_advisors_detail_exists(self):
         response = self.client.get(reverse('advisor-detail',
                                            kwargs={'username': 'zander'}))
         data = json.loads(response.content)
 
-        self.assertEqual(response.status_code, 200, 'Response should be 200')
+        self.assertEqual(response.status_code, 200)
         self.assertDictEqual(
             {
                 u'username': u'zander',
@@ -183,7 +179,8 @@ class AdvisingApiAdvisorTestCase(TestCase):
                 u'last_name': u'Agrippa',
                 u'univ_id': u'20000001',
                 u'url': u'http://testserver/api/advisors/zander/',
-                u'students_url': u'http://testserver/api/advisors/zander/students/'
+                u'students_url': (u'http://testserver/api/advisors/zander/'
+                                  'students/'),
             }, data)
 
     def test_advisors_detail_not_exists(self):
@@ -191,7 +188,7 @@ class AdvisingApiAdvisorTestCase(TestCase):
                                            kwargs={'username': 'asdfasdf'}))
         data = json.loads(response.content)
 
-        self.assertEqual(response.status_code, 404, 'Response should be 404')
+        self.assertEqual(response.status_code, 404)
         self.assertDictEqual({u'detail': u'Not found.'}, data)
 
     def test_advisors_student_list_exists(self):
@@ -199,14 +196,14 @@ class AdvisingApiAdvisorTestCase(TestCase):
                                            kwargs={'username': 'zander'}))
         data = json.loads(response.content)
 
-        self.assertEqual(response.status_code, 200, 'Response should be 200')
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(len(data), 6)
 
     def test_advisors_student_list_not_exists(self):
         response = self.client.get(reverse('advisor-students-list',
                                            kwargs={'username': 'asdfasdf'}))
 
-        self.assertEqual(response.status_code, 404, 'Response should be 404')
+        self.assertEqual(response.status_code, 404)
         # data = json.loads(response.content)
         # self.assertDictEqual({u'detail': u'Not found.'}, data)
 
@@ -223,14 +220,14 @@ class AdvisingApiMentorTestCase(TestCase):
         data = json.loads(response.content)
 
         self.assertEqual(len(data), 3)
-        self.assertEqual(response.status_code, 200, 'Response should be 200')
+        self.assertEqual(response.status_code, 200)
 
     def test_mentors_detail_exists(self):
         response = self.client.get(reverse('mentor-detail',
                                            kwargs={'username': 'zander'}))
         data = json.loads(response.content)
 
-        self.assertEqual(response.status_code, 200, 'Response should be 200')
+        self.assertEqual(response.status_code, 200)
         self.assertDictEqual(
             {
                 u'username': u'zander',
@@ -262,8 +259,6 @@ class AdvisingApiMentorTestCase(TestCase):
                                            kwargs={'username': 'asdfasdf'}))
 
         self.assertEqual(response.status_code, 404)
-        # data = json.loads(response.content)
-        # self.assertDictEqual({u'detail': u'Not found.'}, data)
 
 
 class AdvisingSerializersTestCase(TestCase):
