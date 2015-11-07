@@ -128,10 +128,14 @@ class StudentClassSiteSerializer(serializers.ModelSerializer):
     assignments_url = StudentClassSiteHyperlink(
         read_only=True,
         view_name='student-classsite-assignment-list')
+    history_url = StudentClassSiteHyperlink(
+        read_only=True,
+        view_name='student-classsite-history-list')
 
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('class_site', 'status', 'url', 'assignments_url')
+        fields = ('class_site', 'status', 'url',
+                  'assignments_url', 'history_url')
         # fields = ('description', 'code', 'status', 'url', 'assignments_url')
 
 

@@ -1,4 +1,4 @@
-from advising.models import (Advisor, Student, Mentor,
+from advising.models import (Advisor, Student, Mentor, ClassSite,
                              StudentClassSiteStatus,
                              StudentClassSiteAssignment)
 from advising.serializers import (AdvisorSerializer,
@@ -11,8 +11,10 @@ from advising.serializers import (AdvisorSerializer,
 from advising.mixins import MultipleFieldLookupMixin
 from rest_framework import generics
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from collections import OrderedDict
 
 from django.conf import settings
 
@@ -215,3 +217,49 @@ class StudentClassSiteAssignmentList(MultipleFieldLookupMixin,
         'student__username': 'username',
         'class_site__code': 'code',
     }
+
+
+class StudentClassSiteHistoryList(APIView):
+
+    def get(self, request, username, code, format=None):
+        student = Student.objects.get(username=username)
+        class_site = ClassSite.objects.get(code=code)
+        term = class_site.terms.get()  # FIXME
+
+        events = class_site.weeklystudentclasssiteevent_set.filter(
+            student=student,
+            week_end_date__gte=term.begin_date,
+            week_end_date__lte=term.end_date)
+
+        history = OrderedDict()
+        for event in events:
+            # FIXME check if the entry exists
+            history[str(event.week_end_date)] = {
+                'event_count': event.event_count,
+                'event_percentile_rank': event.percentile_rank,
+            }
+
+        student_scores = class_site.weeklystudentclasssitescore_set.filter(
+            student=student,
+            week_end_date__gte=term.begin_date,
+            week_end_date__lte=term.end_date)
+
+        for score in student_scores:
+            history[str(score.week_end_date)]['score'] = score.score
+
+        student_statuses = class_site.weeklystudentclasssitestatus_set.filter(
+            student=student,
+            week_end_date__gte=term.begin_date,
+            week_end_date__lte=term.end_date)
+
+        for status in student_statuses:
+            history[str(status.week_end_date)]['status'] = str(status.status)
+
+        class_scores = class_site.weeklyclasssitescore_set.filter(
+            week_end_date__gte=term.begin_date,
+            week_end_date__lte=term.end_date)
+
+        for score in class_scores:
+            history[str(score.week_end_date)]['class_score'] = score.score
+
+        return Response(history)
