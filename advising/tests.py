@@ -74,6 +74,25 @@ class AdvisingModelsTestCase(TestCase):
 
         self.assertEqual(2, len(systems))
 
+    def test_EventType(self):
+        events = advising.models.EventType.objects.all()
+
+        self.assertEqual(1, len(events))
+        self.assertEqual(u'session start', events[0].description)
+
+    def test_WeeklyStudentClassSiteEvent(self):
+        s = advising.models.Student.objects.get(pk=1)
+        c = advising.models.ClassSite.objects.get(pk=1)
+
+        events = advising.models.WeeklyStudentClassSiteEvent.objects.filter(
+            student=s, class_site=c)
+
+        self.assertEqual(2, len(events))
+        self.assertEqual('Physics 130', str(events[0].class_site))
+        self.assertEqual('graciela', str(events[0].student))
+        self.assertEqual(4, events[0].event_count)
+        self.assertEqual('2015-10-03', str(events[0].week_end_date))
+
 
 class AdvisingApiTestCase(TestCase):
     fixtures = ['dev_data.json', 'dev_users.json']

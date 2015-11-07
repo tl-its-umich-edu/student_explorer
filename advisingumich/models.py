@@ -344,3 +344,42 @@ class WeeklyStudentClassSiteScore(models.Model):
         unique_together = ('student', 'class_site', 'week_end_date')
         db_table = '"CNLYR002"."FC_STDNT_CLASS_WKLY_SCR"'
         managed = False
+
+
+class EventType(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='EVENT_TYP_KEY')
+    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
+    description = models.CharField(max_length=50, db_column='EVENT_TYP_NM')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        db_table = '"CNLYR002"."DM_EVENT_TYP"'
+        managed = False
+
+
+class WeeklyStudentClassSiteEvent(models.Model):
+    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+                                primary_key=True)
+    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
+    week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
+    event_type = models.ForeignKey(EventType, db_column='EVENT_TYP_KEY')
+
+    event_count = models.IntegerField(db_column='STDNT_WKLY_EVENT_CNT')
+    cumulative_event_count = models.IntegerField(
+        db_column='STDNT_CUM_EVENT_CNT')
+    percentile_rank = models.FloatField(db_column='STDNT_WKLY_PCTL_RNK')
+    cumulative_percentile_rank = models.FloatField(
+        db_column='STDNT_CUM_PCTL_RNK')
+
+    def __unicode__(self):
+        return '%s in %s on %s had %s events (%s %%ile)' % (
+            self.student, self.class_site, self.week_end_date,
+            self.event_count, self.percentile_rank)
+
+    class Meta:
+        ordering = ('week_end_date',)
+        unique_together = ('student', 'class_site', 'week_end_date')
+        db_table = '"CNLYR002"."FC_STDNT_CLASS_WKLY_EVENT"'
+        managed = False

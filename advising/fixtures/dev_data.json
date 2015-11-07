@@ -1979,5 +1979,41 @@
     },
     "model": "advising.weeklystudentclasssitescore",
     "pk": 1
+},
+{
+    "fields": {
+        "source_system": 1,
+        "description": "session start"
+    },
+    "model": "advising.eventtype",
+    "pk": 1
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.4,
+        "week_end_date": "2015-10-03",
+        "event_type": 1,
+        "cumulative_event_count": 4,
+        "event_count": 4,
+        "percentile_rank": 0.4,
+        "class_site": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 1
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.6,
+        "week_end_date": "2015-10-10",
+        "event_type": 1,
+        "cumulative_event_count": 7,
+        "event_count": 3,
+        "percentile_rank": 0.3,
+        "class_site": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 2
 }
 ]

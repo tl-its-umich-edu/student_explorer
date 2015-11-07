@@ -235,6 +235,34 @@ class WeeklyStudentClassSiteScore(models.Model):
         ordering = ('week_end_date',)
 
 
+class EventType(models.Model):
+    source_system = models.ForeignKey(SourceSystem)
+    description = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.description
+
+
+class WeeklyStudentClassSiteEvent(models.Model):
+    student = models.ForeignKey(Student)
+    class_site = models.ForeignKey(ClassSite)
+    week_end_date = models.DateField()
+    event_type = models.ForeignKey(EventType)
+
+    event_count = models.IntegerField()
+    cumulative_event_count = models.IntegerField()
+    percentile_rank = models.FloatField()
+    cumulative_percentile_rank = models.FloatField()
+
+    def __unicode__(self):
+        return '%s in %s on %s had %s events (%s %%ile)' % (
+            self.student, self.class_site, self.week_end_date,
+            self.event_count, self.percentile_rank)
+
+    class Meta:
+        ordering = ('week_end_date',)
+
+
 if hasattr(settings, 'ADVISING_PACKAGE'):
     # Override the definitions above if an alternate package has been
     # specified.
@@ -257,6 +285,9 @@ if hasattr(settings, 'ADVISING_PACKAGE'):
     Assignment = advising_models.Assignment
     StudentClassSiteAssignment = advising_models.StudentClassSiteAssignment
 
+    EventType = advising_models.EventType
+
+    WeeklyStudentClassSiteEvent = advising_models.WeeklyStudentClassSiteEvent
     WeeklyStudentClassSiteStatus = advising_models.WeeklyStudentClassSiteStatus
     WeeklyStudentClassSiteScore = advising_models.WeeklyStudentClassSiteScore
     WeeklyClassSiteScore = advising_models.WeeklyClassSiteScore
