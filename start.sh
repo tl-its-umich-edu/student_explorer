@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-if [ -z "${SETTINGS_MODULE}" ]; then
-    SETTINGS_MODULE=student_explorer.settings.env
+if [ -z "${DJANGO_SETTINGS_MODULE}" ]; then
+    DJANGO_SETTINGS_MODULE=student_explorer.settings.env
 fi
 
 if [ -z "${GUNICORN_WORKERS}" ]; then
@@ -14,11 +14,10 @@ fi
 
 set -x
 
-python manage.py migrate --settings "${SETTINGS_MODULE}"
-python manage.py collectstatic --settings "${SETTINGS_MODULE}" \
-    --noinput
+python manage.py migrate
+python manage.py collectstatic --noinput
 
-gunicorn --settings "${SETTINGS_MODULE}" \
+gunicorn \
     --workers="${GUNICORN_WORKERS}" \
     --bind=0.0.0.0:${GUNICORN_PORT} \
     student_explorer.wsgi:application
