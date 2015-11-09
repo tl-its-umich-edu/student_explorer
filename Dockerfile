@@ -30,4 +30,4 @@ RUN bower --allow-root install
 
 WORKDIR /usr/src/app
 EXPOSE 80
-CMD start.sh
+CMD ./start.sh
