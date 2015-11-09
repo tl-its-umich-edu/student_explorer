@@ -184,6 +184,7 @@ class AssignmentSerializer(serializers.ModelSerializer):
 
 class StudentClassSiteAssignmentSerializer(serializers.ModelSerializer):
     assignment = AssignmentSerializer(read_only=True)
+    due_date = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = StudentClassSiteAssignment
