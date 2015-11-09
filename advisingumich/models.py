@@ -1,5 +1,5 @@
 from django.db import models
-
+from advisingumich.mixins import AdvisingUmichDataCleanerMixin
 
 class Student(models.Model):
     id = models.IntegerField(primary_key=True, db_column='STDNT_KEY')
@@ -239,7 +239,7 @@ class Assignment(models.Model):
         managed = False
 
 
-class StudentClassSiteAssignment(models.Model):
+class StudentClassSiteAssignment(models.Model, AdvisingUmichDataCleanerMixin):
     student = models.ForeignKey(Student, db_column='STDNT_KEY',
                                 primary_key=True)
     class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
@@ -260,12 +260,16 @@ class StudentClassSiteAssignment(models.Model):
                                       db_column='STDNT_ASSGN_GRDR_CMNT_TXT')
     weight = models.FloatField(max_length=126,
                                db_column='ASSGN_WT_NBR')
-    due_date = models.ForeignKey(Date, db_column='ASSGN_DUE_SBMT_DT_KEY',
-                                 null=True)
+    _due_date = models.ForeignKey(Date, db_column='ASSGN_DUE_SBMT_DT_KEY',
+                                  null=True)
 
     def __unicode__(self):
         return '%s has assignemnt %s in %s' % (self.student, self.assignment,
                                                self.class_site)
+
+    @property
+    def due_date(self):
+        return self.valid_date_or_none(self._due_date)
 
     @property
     def percentage(self):
@@ -288,7 +292,7 @@ class StudentClassSiteAssignment(models.Model):
         return float(x) / float(y) * 100
 
     class Meta:
-        ordering = ('due_date',)
+        ordering = ('_due_date',)
         unique_together = ('student', 'class_site', 'assignment')
         db_table = '"CNLYR002"."FC_STDNT_CLASS_ASSGN"'
         managed = False
