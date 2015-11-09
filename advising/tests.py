@@ -32,7 +32,7 @@ class AdvisingModelsTestCase(TestCase):
             student=s, class_site=c)
 
         self.assertEqual('Math 101 Lab', str(w[0].class_site))
-        self.assertEqual('graciela', str(w[0].student))
+        self.assertEqual('grace', str(w[0].student))
         self.assertEqual('62.2', str(w[0].score))
         self.assertEqual('2015-09-12', str(w[0].week_end_date))
 
@@ -55,7 +55,7 @@ class AdvisingModelsTestCase(TestCase):
             week_end_date__gte=t.begin_date,
             week_end_date__lte=t.end_date)
 
-        self.assertEqual(7, len(w))
+        self.assertEqual(8, len(w))
 
     def test_WeeklyStudentClassSiteStatus(self):
         s = advising.models.Student.objects.get(pk=1)
@@ -65,7 +65,7 @@ class AdvisingModelsTestCase(TestCase):
             student=s, class_site=c)
 
         self.assertEqual('Math 101 Lab', str(w[0].class_site))
-        self.assertEqual('graciela', str(w[0].student))
+        self.assertEqual('grace', str(w[0].student))
         self.assertEqual('Green', str(w[0].status))
         self.assertEqual('2015-09-12', str(w[0].week_end_date))
 
@@ -89,7 +89,7 @@ class AdvisingModelsTestCase(TestCase):
 
         self.assertEqual(8, len(events))
         self.assertEqual('Math 101 Lab', str(events[1].class_site))
-        self.assertEqual('graciela', str(events[1].student))
+        self.assertEqual('grace', str(events[1].student))
         self.assertEqual(3, int(events[1].event_count))
         self.assertEqual('2015-09-19', str(events[1].week_end_date))
 
