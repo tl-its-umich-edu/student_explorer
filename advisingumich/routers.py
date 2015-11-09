@@ -16,6 +16,6 @@ class DataWarehouseRouter(object):
         return True
 
     def allow_migrate(self, db, app_label, model=None, **hints):
-        if app_label == settings.ADVISING_PACKAGE:
+        if db == settings.ADVISING_DATABASE:
             return None
         return True
