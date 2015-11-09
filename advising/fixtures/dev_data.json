@@ -292,9 +292,9 @@
 {
     "fields": {
         "code": "1000",
-        "begin_date": "2015-09-07",
+        "begin_date": "2015-09-08",
         "description": "Fall 2015",
-        "end_date": "2015-12-17"
+        "end_date": "2015-12-14"
     },
     "model": "advising.term",
     "pk": 1
@@ -963,7 +963,7 @@
     "fields": {
         "source_system": 1,
         "code": "1",
-        "description": "Physics 130"
+        "description": "Math 101"
     },
     "model": "advising.classsite",
     "pk": 1
@@ -972,7 +972,7 @@
     "fields": {
         "source_system": 1,
         "code": "2",
-        "description": "Physics 140"
+        "description": "Math 101 Lab"
     },
     "model": "advising.classsite",
     "pk": 2
@@ -981,16 +981,16 @@
     "fields": {
         "source_system": 1,
         "code": "3",
-        "description": "Math 115"
+        "description": "Physics 101"
     },
     "model": "advising.classsite",
     "pk": 3
 },
 {
     "fields": {
-        "source_system": 2,
+        "source_system": 1,
         "code": "4",
-        "description": "Stats 250"
+        "description": "Physics 101 Lab"
     },
     "model": "advising.classsite",
     "pk": 4
@@ -999,7 +999,7 @@
     "fields": {
         "source_system": 2,
         "code": "5",
-        "description": "Physics 240"
+        "description": "English 101"
     },
     "model": "advising.classsite",
     "pk": 5
@@ -1008,10 +1008,26 @@
     "fields": {
         "source_system": 2,
         "code": "6",
-        "description": "Chem 125"
+        "description": "History 101"
     },
     "model": "advising.classsite",
     "pk": 6
+},
+{
+    "fields": {
+        "class_site": 1,
+        "term": 1
+    },
+    "model": "advising.classsiteterm",
+    "pk": 1
+},
+{
+    "fields": {
+        "class_site": 2,
+        "term": 1
+    },
+    "model": "advising.classsiteterm",
+    "pk": 2
 },
 {
     "fields": {
@@ -1051,8 +1067,8 @@
 },
 {
     "fields": {
-        "class_site": 4,
-        "status": 2,
+        "class_site": 2,
+        "status": 1,
         "student": 1
     },
     "model": "advising.studentclasssitestatus",
@@ -1393,62 +1409,62 @@
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "152493021B5C",
-        "description": "Quiz 1"
+        "source_system": 2,
+        "code": "589",
+        "description": "Intro Quiz"
     },
     "model": "advising.assignment",
     "pk": 1
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "2C186C7667FD",
-        "description": "Quiz 2"
+        "source_system": 2,
+        "code": "590",
+        "description": "Quiz 1"
     },
     "model": "advising.assignment",
     "pk": 2
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "78FDSAF7DS89",
-        "description": "Reflection Papar 1"
+        "source_system": 2,
+        "code": "815",
+        "description": "Quiz 2"
     },
     "model": "advising.assignment",
     "pk": 3
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "45O4O43634NN",
-        "description": "Reflection Paper 2"
+        "source_system": 2,
+        "code": "817",
+        "description": "Quiz 3"
     },
     "model": "advising.assignment",
     "pk": 4
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "34NRANLRNL2N",
-        "description": "Exam 1"
+        "source_system": 2,
+        "code": "818",
+        "description": "Quiz 4"
     },
     "model": "advising.assignment",
     "pk": 5
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "78FDASFJD0SF9",
-        "description": "Exam 2"
+        "source_system": 2,
+        "code": "816",
+        "description": "Quiz 6"
     },
     "model": "advising.assignment",
     "pk": 6
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "34GSAGDG4434",
+        "source_system": 2,
+        "code": "822",
         "description": "Homework 1"
     },
     "model": "advising.assignment",
@@ -1456,72 +1472,72 @@
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "432ARAERARERW",
-        "description": "Homework 2"
+        "source_system": 2,
+        "code": "813",
+        "description": "Quiz 7"
     },
     "model": "advising.assignment",
     "pk": 8
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "79AFSDFDBWEUU",
-        "description": "Homework 3"
+        "source_system": 2,
+        "code": "820",
+        "description": "Quiz 10"
     },
     "model": "advising.assignment",
     "pk": 9
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "890FSFADFHDKS",
-        "description": "In-class Exercise 1"
+        "source_system": 2,
+        "code": "814",
+        "description": "Quiz 5"
     },
     "model": "advising.assignment",
     "pk": 10
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "324NARNFALFAS",
-        "description": "In-class Exercise 2"
+        "source_system": 2,
+        "code": "810",
+        "description": "Homework 2"
     },
     "model": "advising.assignment",
     "pk": 11
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "324NLNADFAFSD",
-        "description": "Group Project 1"
+        "source_system": 2,
+        "code": "006",
+        "description": "Homework 3"
     },
     "model": "advising.assignment",
     "pk": 12
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "324DFDSANONVO",
-        "description": "Group Project 2"
+        "source_system": 2,
+        "code": "747",
+        "description": "Quiz extra 1"
     },
     "model": "advising.assignment",
     "pk": 13
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "J0SHGBG9H2BG",
-        "description": "Presentation 1"
+        "source_system": 2,
+        "code": "819",
+        "description": "Homework 4"
     },
     "model": "advising.assignment",
     "pk": 14
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "08GV9H3BGJSG",
-        "description": "Presentation 2"
+        "source_system": 2,
+        "code": "062",
+        "description": "Quiz extra 2"
     },
     "model": "advising.assignment",
     "pk": 15
@@ -1531,430 +1547,260 @@
         "due_date": null,
         "weight": 1.0,
         "assignment": 1,
-        "points_possible": 20.0,
-        "points_earned": 19.0,
-        "class_points_possible": 0.0,
-        "class_site": 1,
+        "points_possible": 0.0,
+        "points_earned": 0.0,
+        "class_points_possible": -2.0,
+        "class_site": 2,
         "included_in_grade": "Y",
-        "grader_comment": null,
+        "grader_comment": "",
         "student": 1,
         "class_points_earned": 0.0
     },
     "model": "advising.studentclasssiteassignment",
-    "pk": 1
+    "pk": 26
 },
 {
     "fields": {
-        "due_date": null,
-        "weight": 0.5,
-        "assignment": 4,
-        "points_possible": 5.0,
+        "due_date": "2015-09-15",
+        "weight": 0.0,
+        "assignment": 2,
+        "points_possible": 10.0,
         "points_earned": 5.0,
-        "class_points_possible": 0.0,
-        "class_site": 5,
+        "class_points_possible": 210.0,
+        "class_site": 2,
         "included_in_grade": "Y",
-        "grader_comment": "Good job!",
-        "student": 4,
-        "class_points_earned": 0.0
+        "grader_comment": "",
+        "student": 1,
+        "class_points_earned": 173.0
     },
     "model": "advising.studentclasssiteassignment",
-    "pk": 2
+    "pk": 27
 },
 {
     "fields": {
-        "due_date": null,
-        "weight": 2.0,
-        "assignment": 6,
+        "due_date": "2015-09-16",
+        "weight": 0.0,
+        "assignment": 3,
+        "points_possible": 6.0,
+        "points_earned": 5.0,
+        "class_points_possible": 126.0,
+        "class_site": 2,
+        "included_in_grade": "Y",
+        "grader_comment": "",
+        "student": 1,
+        "class_points_earned": 114.0
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 28
+},
+{
+    "fields": {
+        "due_date": "2015-09-29",
+        "weight": 0.0,
+        "assignment": 4,
         "points_possible": 10.0,
         "points_earned": 8.0,
-        "class_points_possible": 0.0,
-        "class_site": 3,
+        "class_points_possible": 220.0,
+        "class_site": 2,
         "included_in_grade": "Y",
-        "grader_comment": "Good",
-        "student": 15,
-        "class_points_earned": 0.0
+        "grader_comment": "",
+        "student": 1,
+        "class_points_earned": 182.0
     },
     "model": "advising.studentclasssiteassignment",
-    "pk": 3
+    "pk": 29
 },
 {
     "fields": {
-        "due_date": null,
-        "weight": 2.5,
-        "assignment": 3,
+        "due_date": "2015-09-29",
+        "weight": 0.0,
+        "assignment": 5,
         "points_possible": 15.0,
-        "points_earned": 11.0,
-        "class_points_possible": 0.0,
-        "class_site": 1,
+        "points_earned": 14.4,
+        "class_points_possible": 315.0,
+        "class_site": 2,
         "included_in_grade": "Y",
-        "grader_comment": null,
-        "student": 7,
-        "class_points_earned": 0.0
+        "grader_comment": "Nice work!",
+        "student": 1,
+        "class_points_earned": 294.1
     },
     "model": "advising.studentclasssiteassignment",
-    "pk": 4
+    "pk": 30
 },
 {
     "fields": {
-        "due_date": null,
-        "weight": 5.0,
-        "assignment": 10,
+        "due_date": "2015-10-02",
+        "weight": 0.0,
+        "assignment": 6,
         "points_possible": 10.0,
-        "points_earned": 6.0,
-        "class_points_possible": 0.0,
+        "points_earned": 3.0,
+        "class_points_possible": 220.0,
         "class_site": 2,
         "included_in_grade": "Y",
-        "grader_comment": "Fine",
-        "student": 6,
-        "class_points_earned": 0.0
+        "grader_comment": "See me at office hours.",
+        "student": 1,
+        "class_points_earned": 154.0
     },
     "model": "advising.studentclasssiteassignment",
-    "pk": 5
+    "pk": 31
 },
 {
     "fields": {
-        "due_date": null,
+        "due_date": "2015-10-06",
         "weight": 0.0,
-        "assignment": 13,
-        "points_possible": 20.0,
-        "points_earned": 19.5,
-        "class_points_possible": 0.0,
-        "class_site": 4,
-        "included_in_grade": "N",
-        "grader_comment": "Excellent",
-        "student": 9,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 6
-},
-{
-    "fields": {
-        "due_date": null,
-        "weight": 0.0,
-        "assignment": 13,
-        "points_possible": 20.0,
-        "points_earned": 17.0,
-        "class_points_possible": 0.0,
-        "class_site": 2,
-        "included_in_grade": "N",
-        "grader_comment": null,
-        "student": 10,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 7
-},
-{
-    "fields": {
-        "due_date": null,
-        "weight": 0.0,
-        "assignment": 11,
-        "points_possible": 0.0,
-        "points_earned": 0.0,
-        "class_points_possible": 0.0,
-        "class_site": 5,
-        "included_in_grade": "N",
-        "grader_comment": "Pass",
-        "student": 13,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 8
-},
-{
-    "fields": {
-        "due_date": null,
-        "weight": 20.0,
-        "assignment": 15,
-        "points_possible": 100.0,
-        "points_earned": 95.0,
-        "class_points_possible": 0.0,
-        "class_site": 6,
-        "included_in_grade": "Y",
-        "grader_comment": "Awesome!",
-        "student": 8,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 9
-},
-{
-    "fields": {
-        "due_date": null,
-        "weight": 50.0,
         "assignment": 7,
-        "points_possible": 50.0,
-        "points_earned": 50.0,
-        "class_points_possible": 0.0,
+        "points_possible": 20.0,
+        "points_earned": 18.3,
+        "class_points_possible": 440.0,
         "class_site": 2,
         "included_in_grade": "Y",
-        "grader_comment": "Perfect",
-        "student": 11,
-        "class_points_earned": 0.0
+        "grader_comment": "",
+        "student": 1,
+        "class_points_earned": 397.7
     },
     "model": "advising.studentclasssiteassignment",
-    "pk": 10
+    "pk": 32
 },
 {
     "fields": {
-        "due_date": null,
-        "weight": 25.0,
-        "assignment": 2,
-        "points_possible": 40.0,
-        "points_earned": 34.0,
-        "class_points_possible": 0.0,
-        "class_site": 3,
-        "included_in_grade": "Y",
-        "grader_comment": null,
-        "student": 12,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 11
-},
-{
-    "fields": {
-        "due_date": null,
-        "weight": 5.0,
+        "due_date": "2015-10-07",
+        "weight": 0.0,
         "assignment": 8,
         "points_possible": 10.0,
         "points_earned": 9.0,
-        "class_points_possible": 0.0,
+        "class_points_possible": 210.0,
         "class_site": 2,
         "included_in_grade": "Y",
-        "grader_comment": "Excellent",
-        "student": 18,
-        "class_points_earned": 0.0
+        "grader_comment": "",
+        "student": 1,
+        "class_points_earned": 175.5
     },
     "model": "advising.studentclasssiteassignment",
-    "pk": 12
+    "pk": 33
 },
 {
     "fields": {
-        "due_date": null,
-        "weight": 1.5,
+        "due_date": "2015-10-13",
+        "weight": 0.0,
         "assignment": 9,
         "points_possible": 15.0,
         "points_earned": 13.0,
-        "class_points_possible": 0.0,
-        "class_site": 1,
+        "class_points_possible": 315.0,
+        "class_site": 2,
         "included_in_grade": "Y",
-        "grader_comment": null,
-        "student": 20,
-        "class_points_earned": 0.0
+        "grader_comment": "",
+        "student": 1,
+        "class_points_earned": 299.2
     },
     "model": "advising.studentclasssiteassignment",
-    "pk": 13
+    "pk": 34
 },
 {
     "fields": {
-        "due_date": null,
-        "weight": 5.0,
-        "assignment": 8,
+        "due_date": "2015-10-22",
+        "weight": 0.0,
+        "assignment": 10,
         "points_possible": 10.0,
-        "points_earned": 8.0,
-        "class_points_possible": 0.0,
-        "class_site": 4,
+        "points_earned": 9.0,
+        "class_points_possible": 210.0,
+        "class_site": 2,
         "included_in_grade": "Y",
-        "grader_comment": null,
-        "student": 14,
-        "class_points_earned": 0.0
+        "grader_comment": "",
+        "student": 1,
+        "class_points_earned": 182.0
     },
     "model": "advising.studentclasssiteassignment",
-    "pk": 14
+    "pk": 35
 },
 {
     "fields": {
-        "due_date": null,
-        "weight": 15.0,
+        "due_date": "2015-10-29",
+        "weight": 0.0,
+        "assignment": 11,
+        "points_possible": 0.0,
+        "points_earned": 3.0,
+        "class_points_possible": 0.0,
+        "class_site": 2,
+        "included_in_grade": "Y",
+        "grader_comment": "",
+        "student": 1,
+        "class_points_earned": 42.0
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 36
+},
+{
+    "fields": {
+        "due_date": "2015-10-29",
+        "weight": 0.0,
         "assignment": 12,
-        "points_possible": 30.0,
-        "points_earned": 5.0,
-        "class_points_possible": 0.0,
-        "class_site": 4,
+        "points_possible": 10.0,
+        "points_earned": 4.0,
+        "class_points_possible": 220.0,
+        "class_site": 2,
         "included_in_grade": "Y",
-        "grader_comment": "What's wrong?",
-        "student": 19,
-        "class_points_earned": 0.0
+        "grader_comment": "",
+        "student": 1,
+        "class_points_earned": 165.5
     },
     "model": "advising.studentclasssiteassignment",
-    "pk": 15
+    "pk": 37
 },
 {
     "fields": {
-        "due_date": null,
-        "weight": 10.0,
+        "due_date": "2015-11-03",
+        "weight": 0.0,
+        "assignment": 13,
+        "points_possible": 15.0,
+        "points_earned": 12.3,
+        "class_points_possible": 330.0,
+        "class_site": 2,
+        "included_in_grade": "Y",
+        "grader_comment": "",
+        "student": 1,
+        "class_points_earned": 279.7
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 38
+},
+{
+    "fields": {
+        "due_date": "2015-11-03",
+        "weight": 0.0,
         "assignment": 14,
-        "points_possible": 16.0,
-        "points_earned": 0.0,
-        "class_points_possible": 0.0,
-        "class_site": 1,
-        "included_in_grade": "Y",
-        "grader_comment": "Didn't submit",
-        "student": 22,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 16
-},
-{
-    "fields": {
-        "due_date": null,
-        "weight": 10.0,
-        "assignment": 5,
-        "points_possible": 40.0,
-        "points_earned": 35.0,
-        "class_points_possible": 0.0,
-        "class_site": 6,
-        "included_in_grade": "Y",
-        "grader_comment": null,
-        "student": 14,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 17
-},
-{
-    "fields": {
-        "due_date": null,
-        "weight": 1.0,
-        "assignment": 1,
-        "points_possible": 20.0,
-        "points_earned": 17.0,
-        "class_points_possible": 0.0,
-        "class_site": 2,
-        "included_in_grade": "Y",
-        "grader_comment": "Nice",
-        "student": 21,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 18
-},
-{
-    "fields": {
-        "due_date": null,
-        "weight": 0.5,
-        "assignment": 4,
-        "points_possible": 5.0,
-        "points_earned": 4.0,
-        "class_points_possible": 0.0,
-        "class_site": 1,
-        "included_in_grade": "Y",
-        "grader_comment": null,
-        "student": 2,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 19
-},
-{
-    "fields": {
-        "due_date": null,
-        "weight": 0.5,
-        "assignment": 4,
-        "points_possible": 5.0,
+        "points_possible": 0.0,
         "points_earned": 4.0,
         "class_points_possible": 0.0,
         "class_site": 2,
         "included_in_grade": "Y",
-        "grader_comment": null,
-        "student": 3,
-        "class_points_earned": 0.0
+        "grader_comment": "",
+        "student": 1,
+        "class_points_earned": 65.0
     },
     "model": "advising.studentclasssiteassignment",
-    "pk": 20
+    "pk": 39
 },
 {
     "fields": {
-        "due_date": null,
-        "weight": 0.5,
-        "assignment": 4,
-        "points_possible": 5.0,
-        "points_earned": 2.0,
-        "class_points_possible": 0.0,
-        "class_site": 3,
-        "included_in_grade": "Y",
-        "grader_comment": "Late",
-        "student": 5,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 21
-},
-{
-    "fields": {
-        "due_date": null,
-        "weight": 20.0,
+        "due_date": "2015-11-03",
+        "weight": 0.0,
         "assignment": 15,
-        "points_possible": 100.0,
-        "points_earned": 83.0,
-        "class_points_possible": 0.0,
-        "class_site": 4,
-        "included_in_grade": "Y",
-        "grader_comment": null,
-        "student": 16,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 22
-},
-{
-    "fields": {
-        "due_date": null,
-        "weight": 20.0,
-        "assignment": 15,
-        "points_possible": 100.0,
-        "points_earned": 83.0,
-        "class_points_possible": 0.0,
-        "class_site": 6,
-        "included_in_grade": "Y",
-        "grader_comment": null,
-        "student": 17,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 23
-},
-{
-    "fields": {
-        "due_date": null,
-        "weight": 25.0,
-        "assignment": 2,
-        "points_possible": 40.0,
-        "points_earned": 38.0,
-        "class_points_possible": 0.0,
+        "points_possible": 10.0,
+        "points_earned": 6.0,
+        "class_points_possible": 220.0,
         "class_site": 2,
         "included_in_grade": "Y",
-        "grader_comment": null,
-        "student": 3,
-        "class_points_earned": 0.0
+        "grader_comment": "",
+        "student": 1,
+        "class_points_earned": 183.0
     },
     "model": "advising.studentclasssiteassignment",
-    "pk": 24
+    "pk": 40
 },
 {
     "fields": {
-        "due_date": null,
-        "weight": 25.0,
-        "assignment": 2,
-        "points_possible": 40.0,
-        "points_earned": 40.0,
-        "class_points_possible": 0.0,
         "class_site": 2,
-        "included_in_grade": "Y",
-        "grader_comment": "Resubmitted",
-        "student": 10,
-        "class_points_earned": 0.0
-    },
-    "model": "advising.studentclasssiteassignment",
-    "pk": 25
-},
-{
-    "fields": {
-        "class_site": 1,
-        "week_end_date": "2015-10-01",
+        "week_end_date": "2015-09-12",
         "status": 1,
         "student": 1
     },
@@ -1963,22 +1809,297 @@
 },
 {
     "fields": {
-        "class_site": 1,
-        "week_end_date": "2015-10-01",
-        "score": 9
+        "class_site": 2,
+        "week_end_date": "2015-09-19",
+        "status": 1,
+        "student": 1
     },
-    "model": "advising.weeklyclasssitescore",
-    "pk": 1
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 2
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-26",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 3
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-03",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 4
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-10",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 5
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-17",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 6
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-24",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 7
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-31",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 8
 },
 {
     "fields": {
         "class_site": 1,
-        "week_end_date": "2015-10-01",
-        "score": 78,
+        "week_end_date": "2015-09-12",
+        "score": 0.0
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 17
+},
+{
+    "fields": {
+        "class_site": 3,
+        "week_end_date": "2015-09-19",
+        "score": 0.07
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 18
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-09-26",
+        "score": 0.0
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 19
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-10-03",
+        "score": 0.0
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 20
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-10-10",
+        "score": 58.34
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 21
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-10-17",
+        "score": 58.23
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 22
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-10-24",
+        "score": 57.8
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 23
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-10-31",
+        "score": 57.37
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 24
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-12",
+        "score": 81.5
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 25
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-19",
+        "score": 81.4
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 26
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-26",
+        "score": 83.33
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 27
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-03",
+        "score": 85.32
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 28
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-10",
+        "score": 86.1
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 29
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-17",
+        "score": 86.5
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 30
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-24",
+        "score": 88.1
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 31
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-31",
+        "score": 88.4
+    },
+    "model": "advising.weeklyclasssitescore",
+    "pk": 32
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-12",
+        "score": 62.2,
         "student": 1
     },
     "model": "advising.weeklystudentclasssitescore",
     "pk": 1
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-19",
+        "score": 62.2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 2
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-26",
+        "score": 69.0,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 3
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-03",
+        "score": 78.6,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 4
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-10",
+        "score": 78.4,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 5
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-17",
+        "score": 77.7,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 6
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-24",
+        "score": 79.3,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 7
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-31",
+        "score": 81.2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 8
 },
 {
     "fields": {
@@ -1990,30 +2111,114 @@
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.4,
-        "week_end_date": "2015-10-03",
+        "cumulative_percentile_rank": 0.73,
+        "week_end_date": "2015-09-12",
         "event_type": 1,
-        "cumulative_event_count": 4,
-        "event_count": 4,
-        "percentile_rank": 0.4,
-        "class_site": 1,
+        "cumulative_event_count": 1,
+        "event_count": 0,
+        "percentile_rank": 0.0,
+        "class_site": 2,
         "student": 1
     },
     "model": "advising.weeklystudentclasssiteevent",
-    "pk": 1
+    "pk": 3
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.6,
-        "week_end_date": "2015-10-10",
+        "cumulative_percentile_rank": 0.59,
+        "week_end_date": "2015-09-19",
         "event_type": 1,
-        "cumulative_event_count": 7,
+        "cumulative_event_count": 1,
         "event_count": 3,
-        "percentile_rank": 0.3,
-        "class_site": 1,
+        "percentile_rank": 3.0,
+        "class_site": 2,
         "student": 1
     },
     "model": "advising.weeklystudentclasssiteevent",
-    "pk": 2
+    "pk": 4
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.41,
+        "week_end_date": "2015-09-26",
+        "event_type": 1,
+        "cumulative_event_count": 0,
+        "event_count": 7,
+        "percentile_rank": 10.0,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 5
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.36,
+        "week_end_date": "2015-10-03",
+        "event_type": 1,
+        "cumulative_event_count": 1,
+        "event_count": 4,
+        "percentile_rank": 14.0,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 6
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.32,
+        "week_end_date": "2015-10-10",
+        "event_type": 1,
+        "cumulative_event_count": 0,
+        "event_count": 5,
+        "percentile_rank": 19.0,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 7
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.36,
+        "week_end_date": "2015-10-17",
+        "event_type": 1,
+        "cumulative_event_count": 1,
+        "event_count": 4,
+        "percentile_rank": 23.0,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 8
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.36,
+        "week_end_date": "2015-10-24",
+        "event_type": 1,
+        "cumulative_event_count": 1,
+        "event_count": 6,
+        "percentile_rank": 29.0,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 9
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.5,
+        "week_end_date": "2015-10-31",
+        "event_type": 1,
+        "cumulative_event_count": 1,
+        "event_count": 6,
+        "percentile_rank": 35.0,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 10
 }
 ]

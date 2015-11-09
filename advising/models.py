@@ -211,7 +211,7 @@ class WeeklyStudentClassSiteStatus(models.Model):
 class WeeklyClassSiteScore(models.Model):
     class_site = models.ForeignKey(ClassSite)
     week_end_date = models.DateField(null=True)
-    score = models.IntegerField(null=True)
+    score = models.FloatField(null=True)
 
     def __unicode__(self):
         return 'Average score is %s in %s on %s' % (
@@ -225,7 +225,7 @@ class WeeklyStudentClassSiteScore(models.Model):
     student = models.ForeignKey(Student)
     class_site = models.ForeignKey(ClassSite)
     week_end_date = models.DateField(null=True)
-    score = models.IntegerField(null=True)
+    score = models.FloatField(null=True)
 
     def __unicode__(self):
         return '%s has score %s in %s on %s' % (
