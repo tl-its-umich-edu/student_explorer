@@ -25,9 +25,6 @@ RUN mkdir -p /usr/src/app
 
 COPY . /usr/src/app
 
-WORKDIR /usr/src/app/sespa
-RUN bower --allow-root install
-
 WORKDIR /usr/src/app
 EXPOSE 80
 CMD ./start.sh
