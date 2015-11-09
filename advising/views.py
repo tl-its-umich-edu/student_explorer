@@ -16,6 +16,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from collections import OrderedDict
 
+from django.shortcuts import get_object_or_404
 from django.conf import settings
 
 import logging
@@ -89,8 +90,7 @@ class AdvisorStudentsList(generics.ListAPIView):
 
     def get_queryset(self):
         return (
-            Advisor.objects
-            .get(username=self.kwargs['username'])
+            get_object_or_404(Advisor, username=self.kwargs['username'])
             .students.all()
         )
 
@@ -123,8 +123,7 @@ class MentorStudentsList(generics.ListAPIView):
 
     def get_queryset(self):
         return (
-            Mentor.objects
-            .get(username=self.kwargs['username'])
+            get_object_or_404(Mentor, username=self.kwargs['username'])
             .students.all()
         )
 
