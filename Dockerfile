@@ -27,7 +27,7 @@ COPY . /usr/src/app
 
 WORKDIR /usr/src/app/sespa
 RUN bower --allow-root install
-WORKDIR /usr/src/app
 
+WORKDIR /usr/src/app
 EXPOSE 80
-CMD gunicorn --workers=2 --access-logfile=- --error-logfile=- --log-level=info --bind=0.0.0.0:80 student_explorer.wsgi:application
+CMD start.sh
