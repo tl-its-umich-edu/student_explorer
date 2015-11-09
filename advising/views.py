@@ -146,14 +146,6 @@ class StudentDetail(generics.RetrieveAPIView):
     serializer_class = StudentSummarySerializer
     lookup_field = 'username'
 
-    def get(self, request, *args, **kwargs):
-        resp = self.retrieve(request, *args, **kwargs)
-        resp.data['advisors_url'] = reverse('student-advisors-list',
-                                            request=request, kwargs=kwargs)
-        resp.data['student_full_url'] = reverse('student-full-detail',
-                                                request=request, kwargs=kwargs)
-        return resp
-
 
 class StudentFullDetail(generics.RetrieveAPIView):
     '''

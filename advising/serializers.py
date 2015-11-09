@@ -61,8 +61,12 @@ class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
 class StudentSummarySerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='student-detail',
                                                lookup_field='username')
+    full_url = serializers.HyperlinkedIdentityField(
+            view_name='student-full-detail', lookup_field='username')
     class_sites_url = serializers.HyperlinkedIdentityField(
         view_name='student-classsite-list', lookup_field='username')
+    advisors_url = serializers.HyperlinkedIdentityField(
+        view_name='student-advisors-list', lookup_field='username')
     cohorts = serializers.StringRelatedField(many=True)
     statuses = serializers.StringRelatedField(many=True)
     advisors = serializers.StringRelatedField(many=True)
@@ -71,9 +75,10 @@ class StudentSummarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Student
-        fields = ('url', 'username', 'univ_id', 'first_name', 'last_name',
+        fields = ('url', 'full_url', 'username', 'univ_id',
+                  'first_name', 'last_name',
                   'advisors', 'mentors', 'cohorts', 'statuses',
-                  'status_weight', 'class_sites_url')
+                  'status_weight', 'class_sites_url', 'advisors_url')
 
     def get_status_weight(self, obj):
         weight = 0
