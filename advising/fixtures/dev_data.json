@@ -1,8 +1,8 @@
 [
 {
     "fields": {
-        "username": "graciela",
-        "first_name": "Graciela",
+        "username": "grace",
+        "first_name": "Grace",
         "last_name": "Devilbiss",
         "univ_id": "10000001"
     },
@@ -1059,7 +1059,7 @@
 {
     "fields": {
         "class_site": 1,
-        "status": 1,
+        "status": 2,
         "student": 1
     },
     "model": "advising.studentclasssitestatus",
@@ -1544,6 +1544,24 @@
 },
 {
     "fields": {
+        "source_system": 2,
+        "code": "374",
+        "description": "Assessment"
+    },
+    "model": "advising.assignment",
+    "pk": 16
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "936",
+        "description": "Exam 1"
+    },
+    "model": "advising.assignment",
+    "pk": 17
+},
+{
+    "fields": {
         "due_date": null,
         "weight": 1.0,
         "assignment": 1,
@@ -1799,47 +1817,81 @@
 },
 {
     "fields": {
-        "class_site": 2,
+        "due_date": "2015-10-14",
+        "weight": 1.0,
+        "assignment": 17,
+        "points_possible": 100.0,
+        "points_earned": 82.0,
+        "class_points_possible": 141900.0,
+        "class_site": 1,
+        "included_in_grade": "Y",
+        "grader_comment": null,
+        "student": 1,
+        "class_points_earned": 102443.0
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 41
+},
+{
+    "fields": {
+        "due_date": "2015-09-14",
+        "weight": 1.0,
+        "assignment": 16,
+        "points_possible": 22.0,
+        "points_earned": 0.0,
+        "class_points_possible": 32736.0,
+        "class_site": 1,
+        "included_in_grade": "Y",
+        "grader_comment": null,
+        "student": 1,
+        "class_points_earned": 0.0
+    },
+    "model": "advising.studentclasssiteassignment",
+    "pk": 42
+},
+{
+    "fields": {
+        "class_site": 1,
         "week_end_date": "2015-09-12",
         "status": 1,
-        "student": 1
+        "student": 3
     },
     "model": "advising.weeklystudentclasssitestatus",
     "pk": 1
 },
 {
     "fields": {
-        "class_site": 2,
+        "class_site": 1,
         "week_end_date": "2015-09-19",
         "status": 1,
-        "student": 1
+        "student": 3
     },
     "model": "advising.weeklystudentclasssitestatus",
     "pk": 2
 },
 {
     "fields": {
-        "class_site": 2,
+        "class_site": 1,
         "week_end_date": "2015-09-26",
         "status": 1,
-        "student": 1
+        "student": 3
     },
     "model": "advising.weeklystudentclasssitestatus",
     "pk": 3
 },
 {
     "fields": {
-        "class_site": 2,
+        "class_site": 1,
         "week_end_date": "2015-10-03",
         "status": 1,
-        "student": 1
+        "student": 3
     },
     "model": "advising.weeklystudentclasssitestatus",
     "pk": 4
 },
 {
     "fields": {
-        "class_site": 2,
+        "class_site": 1,
         "week_end_date": "2015-10-10",
         "status": 1,
         "student": 1
@@ -1849,7 +1901,7 @@
 },
 {
     "fields": {
-        "class_site": 2,
+        "class_site": 1,
         "week_end_date": "2015-10-17",
         "status": 1,
         "student": 1
@@ -1859,7 +1911,7 @@
 },
 {
     "fields": {
-        "class_site": 2,
+        "class_site": 1,
         "week_end_date": "2015-10-24",
         "status": 1,
         "student": 1
@@ -1869,7 +1921,7 @@
 },
 {
     "fields": {
-        "class_site": 2,
+        "class_site": 1,
         "week_end_date": "2015-10-31",
         "status": 1,
         "student": 1
@@ -1879,21 +1931,101 @@
 },
 {
     "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-12",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 9
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-19",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 10
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-26",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 11
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-03",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 12
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-10",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 13
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-17",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 14
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-24",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 15
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-31",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 16
+},
+{
+    "fields": {
         "class_site": 1,
         "week_end_date": "2015-09-12",
         "score": 0.0
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 17
+    "pk": 1
 },
 {
     "fields": {
-        "class_site": 3,
+        "class_site": 1,
         "week_end_date": "2015-09-19",
         "score": 0.07
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 18
+    "pk": 2
 },
 {
     "fields": {
@@ -1902,7 +2034,7 @@
         "score": 0.0
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 19
+    "pk": 3
 },
 {
     "fields": {
@@ -1911,7 +2043,7 @@
         "score": 0.0
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 20
+    "pk": 4
 },
 {
     "fields": {
@@ -1920,7 +2052,7 @@
         "score": 58.34
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 21
+    "pk": 5
 },
 {
     "fields": {
@@ -1929,7 +2061,7 @@
         "score": 58.23
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 22
+    "pk": 6
 },
 {
     "fields": {
@@ -1938,7 +2070,7 @@
         "score": 57.8
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 23
+    "pk": 7
 },
 {
     "fields": {
@@ -1947,7 +2079,7 @@
         "score": 57.37
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 24
+    "pk": 8
 },
 {
     "fields": {
@@ -1956,7 +2088,7 @@
         "score": 81.5
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 25
+    "pk": 9
 },
 {
     "fields": {
@@ -1965,7 +2097,7 @@
         "score": 81.4
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 26
+    "pk": 10
 },
 {
     "fields": {
@@ -1974,7 +2106,7 @@
         "score": 83.33
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 27
+    "pk": 11
 },
 {
     "fields": {
@@ -1983,7 +2115,7 @@
         "score": 85.32
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 28
+    "pk": 12
 },
 {
     "fields": {
@@ -1992,7 +2124,7 @@
         "score": 86.1
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 29
+    "pk": 13
 },
 {
     "fields": {
@@ -2001,7 +2133,7 @@
         "score": 86.5
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 30
+    "pk": 14
 },
 {
     "fields": {
@@ -2010,7 +2142,7 @@
         "score": 88.1
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 31
+    "pk": 15
 },
 {
     "fields": {
@@ -2019,7 +2151,87 @@
         "score": 88.4
     },
     "model": "advising.weeklyclasssitescore",
-    "pk": 32
+    "pk": 16
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-09-12",
+        "score": 0.0,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 1
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-09-19",
+        "score": 0.0,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 2
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-09-26",
+        "score": 0.0,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 3
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-10-03",
+        "score": 0.0,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 4
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-10-10",
+        "score": 65.4,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 5
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-10-17",
+        "score": 67.7,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 6
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-10-24",
+        "score": 67.7,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 7
+},
+{
+    "fields": {
+        "class_site": 1,
+        "week_end_date": "2015-10-31",
+        "score": 67.7,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitescore",
+    "pk": 8
 },
 {
     "fields": {
@@ -2029,7 +2241,7 @@
         "student": 1
     },
     "model": "advising.weeklystudentclasssitescore",
-    "pk": 1
+    "pk": 9
 },
 {
     "fields": {
@@ -2039,7 +2251,7 @@
         "student": 1
     },
     "model": "advising.weeklystudentclasssitescore",
-    "pk": 2
+    "pk": 10
 },
 {
     "fields": {
@@ -2049,7 +2261,7 @@
         "student": 1
     },
     "model": "advising.weeklystudentclasssitescore",
-    "pk": 3
+    "pk": 11
 },
 {
     "fields": {
@@ -2059,7 +2271,7 @@
         "student": 1
     },
     "model": "advising.weeklystudentclasssitescore",
-    "pk": 4
+    "pk": 12
 },
 {
     "fields": {
@@ -2069,7 +2281,7 @@
         "student": 1
     },
     "model": "advising.weeklystudentclasssitescore",
-    "pk": 5
+    "pk": 13
 },
 {
     "fields": {
@@ -2079,7 +2291,7 @@
         "student": 1
     },
     "model": "advising.weeklystudentclasssitescore",
-    "pk": 6
+    "pk": 14
 },
 {
     "fields": {
@@ -2089,7 +2301,7 @@
         "student": 1
     },
     "model": "advising.weeklystudentclasssitescore",
-    "pk": 7
+    "pk": 15
 },
 {
     "fields": {
@@ -2099,7 +2311,7 @@
         "student": 1
     },
     "model": "advising.weeklystudentclasssitescore",
-    "pk": 8
+    "pk": 16
 },
 {
     "fields": {
@@ -2114,9 +2326,37 @@
         "cumulative_percentile_rank": 0.73,
         "week_end_date": "2015-09-12",
         "event_type": 1,
-        "cumulative_event_count": 1,
+        "cumulative_event_count": 0,
         "event_count": 0,
-        "percentile_rank": 0.0,
+        "percentile_rank": 0.73,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 1
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.59,
+        "week_end_date": "2015-09-19",
+        "event_type": 1,
+        "cumulative_event_count": 3,
+        "event_count": 3,
+        "percentile_rank": 0.68,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 2
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.41,
+        "week_end_date": "2015-09-26",
+        "event_type": 1,
+        "cumulative_event_count": 10,
+        "event_count": 7,
+        "percentile_rank": 0.45,
         "class_site": 2,
         "student": 1
     },
@@ -2125,12 +2365,12 @@
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.59,
-        "week_end_date": "2015-09-19",
+        "cumulative_percentile_rank": 0.36,
+        "week_end_date": "2015-10-03",
         "event_type": 1,
-        "cumulative_event_count": 1,
-        "event_count": 3,
-        "percentile_rank": 3.0,
+        "cumulative_event_count": 14,
+        "event_count": 4,
+        "percentile_rank": 0.59,
         "class_site": 2,
         "student": 1
     },
@@ -2139,12 +2379,12 @@
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.41,
-        "week_end_date": "2015-09-26",
+        "cumulative_percentile_rank": 0.32,
+        "week_end_date": "2015-10-10",
         "event_type": 1,
-        "cumulative_event_count": 0,
-        "event_count": 7,
-        "percentile_rank": 10.0,
+        "cumulative_event_count": 19,
+        "event_count": 5,
+        "percentile_rank": 0.45,
         "class_site": 2,
         "student": 1
     },
@@ -2154,11 +2394,11 @@
 {
     "fields": {
         "cumulative_percentile_rank": 0.36,
-        "week_end_date": "2015-10-03",
+        "week_end_date": "2015-10-17",
         "event_type": 1,
-        "cumulative_event_count": 1,
+        "cumulative_event_count": 23,
         "event_count": 4,
-        "percentile_rank": 14.0,
+        "percentile_rank": 0.86,
         "class_site": 2,
         "student": 1
     },
@@ -2167,12 +2407,12 @@
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.32,
-        "week_end_date": "2015-10-10",
+        "cumulative_percentile_rank": 0.36,
+        "week_end_date": "2015-10-24",
         "event_type": 1,
-        "cumulative_event_count": 0,
-        "event_count": 5,
-        "percentile_rank": 19.0,
+        "cumulative_event_count": 29,
+        "event_count": 6,
+        "percentile_rank": 0.86,
         "class_site": 2,
         "student": 1
     },
@@ -2181,44 +2421,16 @@
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.36,
-        "week_end_date": "2015-10-17",
+        "cumulative_percentile_rank": 0.5,
+        "week_end_date": "2015-10-31",
         "event_type": 1,
-        "cumulative_event_count": 1,
-        "event_count": 4,
-        "percentile_rank": 23.0,
+        "cumulative_event_count": 35,
+        "event_count": 6,
+        "percentile_rank": 0.86,
         "class_site": 2,
         "student": 1
     },
     "model": "advising.weeklystudentclasssiteevent",
     "pk": 8
-},
-{
-    "fields": {
-        "cumulative_percentile_rank": 0.36,
-        "week_end_date": "2015-10-24",
-        "event_type": 1,
-        "cumulative_event_count": 1,
-        "event_count": 6,
-        "percentile_rank": 29.0,
-        "class_site": 2,
-        "student": 1
-    },
-    "model": "advising.weeklystudentclasssiteevent",
-    "pk": 9
-},
-{
-    "fields": {
-        "cumulative_percentile_rank": 0.5,
-        "week_end_date": "2015-10-31",
-        "event_type": 1,
-        "cumulative_event_count": 1,
-        "event_count": 6,
-        "percentile_rank": 35.0,
-        "class_site": 2,
-        "student": 1
-    },
-    "model": "advising.weeklystudentclasssiteevent",
-    "pk": 10
 }
 ]
