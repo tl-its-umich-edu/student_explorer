@@ -26,5 +26,5 @@ RUN mkdir -p /usr/src/app
 COPY . /usr/src/app
 
 WORKDIR /usr/src/app
-EXPOSE 80
+EXPOSE 8000
 CMD ./start.sh
