@@ -68,6 +68,9 @@ if REMOTE_USER_HEADER:
 USE_X_FORWARDED_HOST = bool(getenv('DJANGO_USE_X_FORWARDED_HOST', False))
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+STATIC_ROOT = getenv('DJANGO_STATIC_ROOT', None)
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

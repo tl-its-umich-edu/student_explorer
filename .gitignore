@@ -4,4 +4,6 @@
 /student_explorer/extras/
 !/student_explorer/extras/README
 
+/sespa/app/static
+
 /.vagrant

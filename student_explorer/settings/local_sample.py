@@ -53,7 +53,7 @@ if REMOTE_USER_HEADER:
         },
     }
 
-STATIC_ROOT = '/var/www/student_explorer/static'
+STATIC_ROOT = '/vagrant/sespa/app/static'
 
 LOGGING = {
     'version': 1,
