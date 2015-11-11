@@ -9,10 +9,8 @@ logger = logging.getLogger(__name__)
 
 
 def login_or_serve(request, path, document_root):
-    if (not hasattr(settings, 'HASHREDIRECT_LOGIN_URL') or
-            len(settings.HASHREDIRECT_LOGIN_URL) < 1):
-        logger.info(('HASHREDIRECT_LOGIN_URL is missing. Serving content '
-                     'without redirecting for login.'))
+    if (not hasattr(settings, 'HASHREDIRECT_ENABLED') or
+            not settings.HASHREDIRECT_ENABLED):
         return serve(request, path=path, document_root=document_root)
 
     if request.user.is_authenticated():

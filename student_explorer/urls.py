@@ -26,7 +26,9 @@ urlpatterns = [
     url(r'^$', hashredirect.views.login_or_serve, {
         'document_root': 'sespa/app',
         'path': 'index.html'
-    }, name='index'),
+    }, name='app-root'),
+    url(r'^login/$', hashredirect.views.login_redirect,
+        name='hashredirect-login-redirect'),
     # url(r'^$', serve, {
     #     'document_root': 'sespa/app',
     #     'path': 'index.html'
