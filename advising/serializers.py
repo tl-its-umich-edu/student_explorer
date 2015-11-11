@@ -94,7 +94,7 @@ class StudentSummarySerializer(serializers.ModelSerializer):
 
 # Serializations of the relationships between advisors and students.
 
-class StudentAdvisorsSerializer(serializers.ModelSerializer):
+class StudentAdvisorSerializer(serializers.ModelSerializer):
     advisor = AdvisorSerializer(read_only=True)
     role = serializers.ReadOnlyField(source='role.description')
 
@@ -144,7 +144,7 @@ class StudentClassSiteSerializer(serializers.ModelSerializer):
         # fields = ('description', 'code', 'status', 'url', 'assignments_url')
 
 
-class AdvisorStudentsSerializer(serializers.ModelSerializer):
+class AdvisorStudentSerializer(serializers.ModelSerializer):
     # student = StudentSerializer(read_only=True)
     advisor_role = serializers.ReadOnlyField(source='role.description')
     first_name = serializers.ReadOnlyField(source='student.first_name')
@@ -162,8 +162,8 @@ class AdvisorStudentsSerializer(serializers.ModelSerializer):
 class StudentFullSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='student-detail',
                                                lookup_field='username')
-    advisors = StudentAdvisorsSerializer(source='studentadvisorrole_set',
-                                         many=True, read_only=True)
+    advisors = StudentAdvisorSerializer(source='studentadvisorrole_set',
+                                        many=True, read_only=True)
     cohorts = CohortSerializer(many=True, read_only=True)
     mentors = MentorSerializer(many=True, read_only=True)
     class_sites = StudentClassSiteSerializer(

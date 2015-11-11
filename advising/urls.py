@@ -12,7 +12,7 @@ urlpatterns = [
         views.AdvisorDetail.as_view(),
         name='advisor-detail'),
     url(r'^advisors/(?P<username>[a-zA-Z ]*)/students/$',
-        views.AdvisorStudentsList.as_view(),
+        views.AdvisorStudentList.as_view(),
         name='advisor-students-list'),
 
     url(r'^mentors/$',
@@ -22,7 +22,7 @@ urlpatterns = [
         views.MentorDetail.as_view(),
         name='mentor-detail'),
     url(r'^mentors/(?P<username>[a-zA-Z ]*)/students/$',
-        views.MentorStudentsList.as_view(),
+        views.MentorStudentList.as_view(),
         name='mentor-students-list'),
 
     url(r'^students/$',
@@ -35,7 +35,7 @@ urlpatterns = [
         views.StudentFullDetail.as_view(),
         name='student-full-detail'),
     url(r'^students/(?P<username>[a-zA-Z ]*)/advisors/$',
-        views.StudentAdvisorsList.as_view(),
+        views.StudentAdvisorList.as_view(),
         name='student-advisors-list'),
     url(r'^students/(?P<username>[a-zA-Z ]*)/class_sites/$',
         views.StudentClassSiteList.as_view(),
