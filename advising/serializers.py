@@ -58,7 +58,7 @@ class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
         fields = ('name', 'status')
 
 
-class StudentSummarySerializer(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='student-detail',
                                                lookup_field='username')
     full_url = serializers.HyperlinkedIdentityField(

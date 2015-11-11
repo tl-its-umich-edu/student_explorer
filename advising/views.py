@@ -3,7 +3,7 @@ from advising.models import (Advisor, Student, Mentor, ClassSite,
                              StudentClassSiteAssignment)
 from advising.serializers import (AdvisorSerializer,
                                   MentorSerializer,
-                                  StudentSummarySerializer,
+                                  StudentSerializer,
                                   StudentFullSerializer,
                                   StudentClassSiteSerializer,
                                   StudentClassSiteAssignmentSerializer,
@@ -85,7 +85,7 @@ class AdvisorStudentList(generics.ListAPIView):
     API endpoint that lists an advisor's students.
     '''
     queryset = Advisor.objects.all()
-    serializer_class = StudentSummarySerializer
+    serializer_class = StudentSerializer
     # lookup_field = 'username'
 
     def get_queryset(self):
@@ -118,7 +118,7 @@ class MentorStudentList(generics.ListAPIView):
     API endpoint that lists an advisor's students.
     '''
     queryset = Mentor.objects.all()
-    serializer_class = StudentSummarySerializer
+    serializer_class = StudentSerializer
     # lookup_field = 'username'
 
     def get_queryset(self):
@@ -133,7 +133,7 @@ class StudentList(generics.ListAPIView):
     API endpoint that lists students.
     '''
     queryset = Student.objects.all()
-    serializer_class = StudentSummarySerializer
+    serializer_class = StudentSerializer
     lookup_field = 'username'
     search_fields = ('username', 'univ_id', 'first_name', 'last_name')
 
@@ -143,7 +143,7 @@ class StudentDetail(generics.RetrieveAPIView):
     API endpoint that shows student details.
     '''
     queryset = Student.objects.all()
-    serializer_class = StudentSummarySerializer
+    serializer_class = StudentSerializer
     lookup_field = 'username'
 
 

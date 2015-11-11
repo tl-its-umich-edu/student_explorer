@@ -3,7 +3,7 @@ from rest_framework.test import APIClient
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from advising.serializers import StudentSummarySerializer
+from advising.serializers import StudentSerializer
 import json
 
 import advising.models
@@ -295,7 +295,7 @@ class AdvisingSerializersTestCase(TestCase):
 
     def test_get_status_weight(self):
         test_student = Student.objects.get(username="james")
-        calculated_weight = StudentSummarySerializer().get_status_weight(test_student)
+        calculated_weight = StudentSerializer().get_status_weight(test_student)
 
         response = self.client.get(reverse('student-list'),
                                    {'search': 'james'})
