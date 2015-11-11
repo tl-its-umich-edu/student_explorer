@@ -7,7 +7,6 @@
 4. `vagrant ssh`
     - `cd /vagrant/`
     - `python manage.py migrate`
-    - `python manage.py createsuperuser` ("admin" is fine for both username and password, email can be empty)
     - `python manage.py loaddata */fixtures/*.json`
     - `python manage.py runserver`
 7. Browse to [http://localhost:2080/](http://localhost:2080/)
