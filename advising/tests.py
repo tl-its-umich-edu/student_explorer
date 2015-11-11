@@ -2,12 +2,11 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
-from rest_framework import serializers
-from advising.serializers import StudentSerializer
+
 import json
 
 import advising.models
-from advising.models import Student
+import advising.serializers
 
 
 class AdvisingModelsTestCase(TestCase):
@@ -294,8 +293,9 @@ class AdvisingSerializersTestCase(TestCase):
         self.assertEqual(serialized_weight, 10)
 
     def test_get_status_weight(self):
-        test_student = Student.objects.get(username="james")
-        calculated_weight = StudentSerializer().get_status_weight(test_student)
+        test_student = advising.models.Student.objects.get(username="james")
+        calculated_weight = (advising.serializers.StudentSerializer()
+                             .get_status_weight(test_student))
 
         response = self.client.get(reverse('student-list'),
                                    {'search': 'james'})
