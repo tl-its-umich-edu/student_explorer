@@ -9,24 +9,34 @@ if hasattr(settings, 'ADVISING_PACKAGE'):
     advising_models_module = settings.ADVISING_PACKAGE + '.models'
     advising_models = importlib.import_module(advising_models_module)
 
-    Student = advising_models.Student
+    # "Dimension" models
+
     Advisor = advising_models.Advisor
     Mentor = advising_models.Mentor
-    Term = advising_models.Term
-    AdvisorRole = advising_models.AdvisorRole
-    StudentAdvisorRole = advising_models.StudentAdvisorRole
-    Cohort = advising_models.Cohort
-    StudentCohortMentor = advising_models.StudentCohortMentor
-    ClassSite = advising_models.ClassSite
-    ClassSiteTerm = advising_models.ClassSiteTerm
     Status = advising_models.Status
-    StudentClassSiteStatus = advising_models.StudentClassSiteStatus
-    Assignment = advising_models.Assignment
-    StudentClassSiteAssignment = advising_models.StudentClassSiteAssignment
+    Student = advising_models.Student
+    Term = advising_models.Term
+    SourceSystem = advising_models.SourceSystem
 
+    # "Dimension" models that depend on SourceSystem
+
+    AdvisorRole = advising_models.AdvisorRole
+    Assignment = advising_models.Assignment
+    ClassSite = advising_models.ClassSite
+    Cohort = advising_models.Cohort
     EventType = advising_models.EventType
 
-    WeeklyStudentClassSiteEvent = advising_models.WeeklyStudentClassSiteEvent
-    WeeklyStudentClassSiteStatus = advising_models.WeeklyStudentClassSiteStatus
-    WeeklyStudentClassSiteScore = advising_models.WeeklyStudentClassSiteScore
+    # "Bridge" models
+
+    ClassSiteTerm = advising_models.ClassSiteTerm
+    StudentAdvisorRole = advising_models.StudentAdvisorRole
+    StudentCohortMentor = advising_models.StudentCohortMentor
+
+    # "Fact" models
+
+    StudentClassSiteAssignment = advising_models.StudentClassSiteAssignment
+    StudentClassSiteStatus = advising_models.StudentClassSiteStatus
     WeeklyClassSiteScore = advising_models.WeeklyClassSiteScore
+    WeeklyStudentClassSiteEvent = advising_models.WeeklyStudentClassSiteEvent
+    WeeklyStudentClassSiteScore = advising_models.WeeklyStudentClassSiteScore
+    WeeklyStudentClassSiteStatus = advising_models.WeeklyStudentClassSiteStatus

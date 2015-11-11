@@ -1,27 +1,8 @@
 from django.db import models
 from advisingumich.mixins import AdvisingUmichDataCleanerMixin
 
-class Student(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='STDNT_KEY')
-    username = models.CharField(max_length=16, db_column='STDNT_UM_UNQNM')
-    univ_id = models.CharField(max_length=11, db_column='STDNT_UM_ID')
-    first_name = models.CharField(max_length=500,
-                                  db_column='STDNT_PREF_FIRST_NM')
-    last_name = models.CharField(max_length=500, db_column='STDNT_PREF_SURNM')
-    advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
-    mentors = models.ManyToManyField('Mentor', through='StudentCohortMentor')
-    cohorts = models.ManyToManyField('Cohort', through='StudentCohortMentor')
-    class_sites = models.ManyToManyField('ClassSite',
-                                         through='StudentClassSiteStatus')
-    statuses = models.ManyToManyField('Status',
-                                      through='StudentClassSiteStatus')
 
-    def __unicode__(self):
-        return self.username
-
-    class Meta:
-        db_table = '"CNLYR002"."DM_STDNT"'
-        managed = False
+# "Dimension" models
 
 
 class Advisor(models.Model):
@@ -50,6 +31,61 @@ class Date(models.Model):
 
     class Meta:
         db_table = '"CNLYR001"."DM_DT"'
+        managed = False
+
+
+class Mentor(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='MNTR_KEY')
+    username = models.CharField(max_length=16, db_column='MNTR_UM_UNQNM')
+    univ_id = models.CharField(max_length=11, db_column='MNTR_UM_ID')
+    first_name = models.CharField(max_length=500,
+                                  db_column='MNTR_PREF_FIRST_NM')
+    last_name = models.CharField(max_length=500, db_column='MNTR_PREF_SURNM')
+    students = models.ManyToManyField('Student', through='StudentCohortMentor')
+
+    def __unicode__(self):
+        return self.username
+
+    class Meta:
+        db_table = '"CNLYR002"."DM_MNTR"'
+        managed = False
+
+
+class Status(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='ACAD_PERF_KEY')
+    code = models.CharField(max_length=20, db_column='ACAD_PERF_VAL')
+    description = models.CharField(max_length=50, db_column='ACAD_PERF_TXT')
+    order = models.IntegerField(db_column='ACAD_PERF_ORDNL_NBR')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        ordering = ('order',)
+        db_table = '"CNLYR002"."DM_ACAD_PERF"'
+        managed = False
+
+
+class Student(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='STDNT_KEY')
+    username = models.CharField(max_length=16, db_column='STDNT_UM_UNQNM')
+    univ_id = models.CharField(max_length=11, db_column='STDNT_UM_ID')
+    first_name = models.CharField(max_length=500,
+                                  db_column='STDNT_PREF_FIRST_NM')
+    last_name = models.CharField(max_length=500, db_column='STDNT_PREF_SURNM')
+    advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
+    mentors = models.ManyToManyField('Mentor', through='StudentCohortMentor')
+    cohorts = models.ManyToManyField('Cohort', through='StudentCohortMentor')
+    class_sites = models.ManyToManyField('ClassSite',
+                                         through='StudentClassSiteStatus')
+    statuses = models.ManyToManyField('Status',
+                                      through='StudentClassSiteStatus')
+
+    def __unicode__(self):
+        return self.username
+
+    class Meta:
+        db_table = '"CNLYR002"."DM_STDNT"'
         managed = False
 
 
@@ -90,6 +126,9 @@ class SourceSystem(models.Model):
         managed = False
 
 
+# "Dimension" models that depend on SourceSystem
+
+
 class AdvisorRole(models.Model):
     id = models.IntegerField(primary_key=True, db_column='ADVSR_ROLE_KEY')
     code = models.CharField(max_length=4, db_column='ADVSR_ROLE_CD')
@@ -100,6 +139,79 @@ class AdvisorRole(models.Model):
 
     class Meta:
         db_table = '"CNLYR002"."DM_ADVSR_ROLE"'
+        managed = False
+
+
+class Assignment(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='ASSGN_KEY')
+    code = models.CharField(max_length=20, db_column='ASSGN_CD')
+    description = models.CharField(max_length=50, db_column='ASSGN_DES')
+    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        db_table = '"CNLYR002"."DM_ASSGN"'
+        managed = False
+
+
+class ClassSite(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='CLASS_SITE_KEY')
+    code = models.CharField(max_length=20, db_column='CLASS_SITE_CD')
+    description = models.CharField(max_length=50, db_column='CLASS_SITE_DES')
+    terms = models.ManyToManyField('Term', through='ClassSiteTerm')
+    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        db_table = '"CNLYR002"."DM_CLASS_SITE"'
+        managed = False
+
+
+class Cohort(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='CHRT_KEY')
+    code = models.CharField(max_length=20, db_column='CHRT_CD')
+    description = models.CharField(max_length=50, db_column='CHRT_DES')
+    group = models.CharField(max_length=100, db_column='CHRT_GRP_NM')
+    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        db_table = '"CNLYR002"."DM_CHRT"'
+        managed = False
+
+
+class EventType(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='EVENT_TYP_KEY')
+    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
+    description = models.CharField(max_length=50, db_column='EVENT_TYP_NM')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        db_table = '"CNLYR002"."DM_EVENT_TYP"'
+        managed = False
+
+
+# "Bridge" models
+
+
+class ClassSiteTerm(models.Model):
+    id = models.IntegerField(primary_key=True, db_column='CLASS_SITE_TERM_KEY')
+    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
+    term = models.ForeignKey(Term, db_column='TERM_KEY')
+
+    def __unicode__(self):
+        return '%s was held in %s' % (self.class_site, self.term)
+
+    class Meta:
+        db_table = '"CNLYR002"."BG_CLASS_SITE_TERM"'
         managed = False
 
 
@@ -119,38 +231,6 @@ class StudentAdvisorRole(models.Model):
         managed = False
 
 
-class Cohort(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='CHRT_KEY')
-    code = models.CharField(max_length=20, db_column='CHRT_CD')
-    description = models.CharField(max_length=50, db_column='CHRT_DES')
-    group = models.CharField(max_length=100, db_column='CHRT_GRP_NM')
-    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
-
-    def __unicode__(self):
-        return self.description
-
-    class Meta:
-        db_table = '"CNLYR002"."DM_CHRT"'
-        managed = False
-
-
-class Mentor(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='MNTR_KEY')
-    username = models.CharField(max_length=16, db_column='MNTR_UM_UNQNM')
-    univ_id = models.CharField(max_length=11, db_column='MNTR_UM_ID')
-    first_name = models.CharField(max_length=500,
-                                  db_column='MNTR_PREF_FIRST_NM')
-    last_name = models.CharField(max_length=500, db_column='MNTR_PREF_SURNM')
-    students = models.ManyToManyField('Student', through='StudentCohortMentor')
-
-    def __unicode__(self):
-        return self.username
-
-    class Meta:
-        db_table = '"CNLYR002"."DM_MNTR"'
-        managed = False
-
-
 class StudentCohortMentor(models.Model):
     student = models.ForeignKey(Student, db_column='STDNT_KEY',
                                 primary_key=True)
@@ -166,77 +246,7 @@ class StudentCohortMentor(models.Model):
         managed = False
 
 
-class ClassSite(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='CLASS_SITE_KEY')
-    code = models.CharField(max_length=20, db_column='CLASS_SITE_CD')
-    description = models.CharField(max_length=50, db_column='CLASS_SITE_DES')
-    terms = models.ManyToManyField('Term', through='ClassSiteTerm')
-    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
-
-    def __unicode__(self):
-        return self.description
-
-    class Meta:
-        db_table = '"CNLYR002"."DM_CLASS_SITE"'
-        managed = False
-
-
-class ClassSiteTerm(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='CLASS_SITE_TERM_KEY')
-    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
-    term = models.ForeignKey(Term, db_column='TERM_KEY')
-
-    def __unicode__(self):
-        return '%s was held in %s' % (self.class_site, self.term)
-
-    class Meta:
-        db_table = '"CNLYR002"."BG_CLASS_SITE_TERM"'
-        managed = False
-
-
-class Status(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='ACAD_PERF_KEY')
-    code = models.CharField(max_length=20, db_column='ACAD_PERF_VAL')
-    description = models.CharField(max_length=50, db_column='ACAD_PERF_TXT')
-    order = models.IntegerField(db_column='ACAD_PERF_ORDNL_NBR')
-
-    def __unicode__(self):
-        return self.description
-
-    class Meta:
-        ordering = ('order',)
-        db_table = '"CNLYR002"."DM_ACAD_PERF"'
-        managed = False
-
-
-class StudentClassSiteStatus(models.Model):
-    student = models.ForeignKey(Student, db_column='STDNT_KEY',
-                                primary_key=True)
-    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
-    status = models.ForeignKey(Status, db_column='ACAD_PERF_KEY')
-
-    def __unicode__(self):
-        return '%s has status %s in %s' % (self.student, self.status,
-                                           self.class_site)
-
-    class Meta:
-        unique_together = ('student', 'class_site', 'status')
-        db_table = '"CNLYR002"."FC_STDNT_CLASS_ACAD_PERF"'
-        managed = False
-
-
-class Assignment(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='ASSGN_KEY')
-    code = models.CharField(max_length=20, db_column='ASSGN_CD')
-    description = models.CharField(max_length=50, db_column='ASSGN_DES')
-    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
-
-    def __unicode__(self):
-        return self.description
-
-    class Meta:
-        db_table = '"CNLYR002"."DM_ASSGN"'
-        managed = False
+# "Fact" models
 
 
 class StudentClassSiteAssignment(models.Model, AdvisingUmichDataCleanerMixin):
@@ -298,20 +308,19 @@ class StudentClassSiteAssignment(models.Model, AdvisingUmichDataCleanerMixin):
         managed = False
 
 
-class WeeklyStudentClassSiteStatus(models.Model):
+class StudentClassSiteStatus(models.Model):
     student = models.ForeignKey(Student, db_column='STDNT_KEY',
                                 primary_key=True)
     class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
-    week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
     status = models.ForeignKey(Status, db_column='ACAD_PERF_KEY')
 
     def __unicode__(self):
-        return '%s has status %s in %s on %s' % (
-            self.student, self.status, self.class_site, self.week_end_date)
+        return '%s has status %s in %s' % (self.student, self.status,
+                                           self.class_site)
 
     class Meta:
-        unique_together = ('student', 'class_site', 'week_end_date', 'status')
-        db_table = '"CNLYR002"."FC_STDNT_CLS_WKLY_ACAD_PRF"'
+        unique_together = ('student', 'class_site', 'status')
+        db_table = '"CNLYR002"."FC_STDNT_CLASS_ACAD_PERF"'
         managed = False
 
 
@@ -329,37 +338,6 @@ class WeeklyClassSiteScore(models.Model):
         ordering = ('week_end_date',)
         unique_together = ('class_site', 'week_end_date')
         db_table = '"CNLYR002"."FC_CLASS_WKLY_SCR"'
-        managed = False
-
-
-class WeeklyStudentClassSiteScore(models.Model):
-    student = models.ForeignKey(Student, db_column='STDNT_KEY',
-                                primary_key=True)
-    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
-    week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
-    score = models.IntegerField(db_column='STDNT_CURR_SCR_AVG')
-
-    def __unicode__(self):
-        return '%s has score %s in %s on %s' % (
-            self.student, self.score, self.class_site, self.week_end_date)
-
-    class Meta:
-        ordering = ('week_end_date',)
-        unique_together = ('student', 'class_site', 'week_end_date')
-        db_table = '"CNLYR002"."FC_STDNT_CLASS_WKLY_SCR"'
-        managed = False
-
-
-class EventType(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='EVENT_TYP_KEY')
-    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
-    description = models.CharField(max_length=50, db_column='EVENT_TYP_NM')
-
-    def __unicode__(self):
-        return self.description
-
-    class Meta:
-        db_table = '"CNLYR002"."DM_EVENT_TYP"'
         managed = False
 
 
@@ -386,4 +364,39 @@ class WeeklyStudentClassSiteEvent(models.Model):
         ordering = ('week_end_date',)
         unique_together = ('student', 'class_site', 'week_end_date')
         db_table = '"CNLYR002"."FC_STDNT_CLASS_WKLY_EVENT"'
+        managed = False
+
+
+class WeeklyStudentClassSiteScore(models.Model):
+    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+                                primary_key=True)
+    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
+    week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
+    score = models.IntegerField(db_column='STDNT_CURR_SCR_AVG')
+
+    def __unicode__(self):
+        return '%s has score %s in %s on %s' % (
+            self.student, self.score, self.class_site, self.week_end_date)
+
+    class Meta:
+        ordering = ('week_end_date',)
+        unique_together = ('student', 'class_site', 'week_end_date')
+        db_table = '"CNLYR002"."FC_STDNT_CLASS_WKLY_SCR"'
+        managed = False
+
+
+class WeeklyStudentClassSiteStatus(models.Model):
+    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+                                primary_key=True)
+    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
+    week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
+    status = models.ForeignKey(Status, db_column='ACAD_PERF_KEY')
+
+    def __unicode__(self):
+        return '%s has status %s in %s on %s' % (
+            self.student, self.status, self.class_site, self.week_end_date)
+
+    class Meta:
+        unique_together = ('student', 'class_site', 'week_end_date', 'status')
+        db_table = '"CNLYR002"."FC_STDNT_CLS_WKLY_ACAD_PRF"'
         managed = False

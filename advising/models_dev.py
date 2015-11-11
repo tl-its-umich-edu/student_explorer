@@ -1,6 +1,43 @@
 from django.db import models
 
 
+# "Dimension" models
+
+
+class Advisor(models.Model):
+    username = models.CharField(max_length=10)
+    univ_id = models.CharField(max_length=10)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    students = models.ManyToManyField('Student', through='StudentAdvisorRole')
+
+    def __unicode__(self):
+        return self.username
+
+
+class Mentor(models.Model):
+    username = models.CharField(max_length=16)
+    univ_id = models.CharField(max_length=11)
+    first_name = models.CharField(max_length=500)
+    last_name = models.CharField(max_length=500)
+    students = models.ManyToManyField('Student', through='StudentCohortMentor')
+
+    def __unicode__(self):
+        return self.username
+
+
+class Status(models.Model):
+    code = models.CharField(max_length=20)
+    description = models.CharField(max_length=50)
+    order = models.IntegerField()
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        ordering = ('order',)
+
+
 class Student(models.Model):
     username = models.CharField(max_length=10)
     univ_id = models.CharField(max_length=10)
@@ -18,26 +55,12 @@ class Student(models.Model):
         return self.username
 
 
-class Advisor(models.Model):
-    username = models.CharField(max_length=10)
-    univ_id = models.CharField(max_length=10)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    students = models.ManyToManyField('Student', through='StudentAdvisorRole')
-
-    def __unicode__(self):
-        return self.username
-
-
 class Term(models.Model):
     id = models.IntegerField(primary_key=True)
     code = models.CharField(max_length=6)
     description = models.CharField(max_length=30)
     begin_date = models.DateField()
     end_date = models.DateField()
-
-    def __unicode__(self):
-        return self.description
 
 
 class SourceSystem(models.Model):
@@ -49,12 +72,63 @@ class SourceSystem(models.Model):
         return self.description
 
 
+# "Dimension" models that depend on SourceSystem
+
+
 class AdvisorRole(models.Model):
     code = models.CharField(max_length=4)
     description = models.CharField(max_length=30)
 
     def __unicode__(self):
         return self.description
+
+
+class Assignment(models.Model):
+    code = models.CharField(max_length=20)
+    description = models.CharField(max_length=50)
+    source_system = models.ForeignKey(SourceSystem, null=True)
+
+    def __unicode__(self):
+        return self.description
+
+
+class ClassSite(models.Model):
+    code = models.CharField(max_length=20)
+    description = models.CharField(max_length=50)
+    terms = models.ManyToManyField('Term', through='ClassSiteTerm')
+    source_system = models.ForeignKey(SourceSystem, null=True)
+
+    def __unicode__(self):
+        return self.description
+
+
+class Cohort(models.Model):
+    code = models.CharField(max_length=20)
+    description = models.CharField(max_length=50)
+    group = models.CharField(max_length=100)
+    source_system = models.ForeignKey(SourceSystem, null=True)
+
+    def __unicode__(self):
+        return self.description
+
+
+class EventType(models.Model):
+    source_system = models.ForeignKey(SourceSystem)
+    description = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.description
+
+
+# "Bridge" models
+
+
+class ClassSiteTerm(models.Model):
+    class_site = models.ForeignKey(ClassSite)
+    term = models.ForeignKey(Term)
+
+    def __unicode__(self):
+        return '%s was held in %s' % (self.class_site, self.term)
 
 
 class StudentAdvisorRole(models.Model):
@@ -69,28 +143,6 @@ class StudentAdvisorRole(models.Model):
         unique_together = ('student', 'advisor', 'role')
 
 
-class Cohort(models.Model):
-    code = models.CharField(max_length=20)
-    description = models.CharField(max_length=50)
-    group = models.CharField(max_length=100)
-    source_system = models.ForeignKey(SourceSystem, null=True)
-
-    def __unicode__(self):
-        return self.description
-
-
-class Mentor(models.Model):
-    id = models.IntegerField(primary_key=True)
-    username = models.CharField(max_length=16)
-    univ_id = models.CharField(max_length=11)
-    first_name = models.CharField(max_length=500)
-    last_name = models.CharField(max_length=500)
-    students = models.ManyToManyField('Student', through='StudentCohortMentor')
-
-    def __unicode__(self):
-        return self.username
-
-
 class StudentCohortMentor(models.Model):
     student = models.ForeignKey(Student)
     mentor = models.ForeignKey(Mentor)
@@ -100,54 +152,7 @@ class StudentCohortMentor(models.Model):
         return '%s is in the %s cohort' % (self.student, self.cohort)
 
 
-class ClassSite(models.Model):
-    code = models.CharField(max_length=20)
-    description = models.CharField(max_length=50)
-    terms = models.ManyToManyField('Term', through='ClassSiteTerm')
-    source_system = models.ForeignKey(SourceSystem, null=True)
-
-    def __unicode__(self):
-        return self.description
-
-
-class ClassSiteTerm(models.Model):
-    id = models.IntegerField(primary_key=True)
-    class_site = models.ForeignKey(ClassSite)
-    term = models.ForeignKey(Term)
-
-    def __unicode__(self):
-        return '%s was held in %s' % (self.class_site, self.term)
-
-
-class Status(models.Model):
-    code = models.CharField(max_length=20)
-    description = models.CharField(max_length=50)
-    order = models.IntegerField()
-
-    def __unicode__(self):
-        return self.description
-
-    class Meta:
-        ordering = ('order',)
-
-
-class StudentClassSiteStatus(models.Model):
-    student = models.ForeignKey(Student)
-    class_site = models.ForeignKey(ClassSite)
-    status = models.ForeignKey(Status)
-
-    def __unicode__(self):
-        return '%s has status %s in %s' % (self.student, self.status,
-                                           self.class_site)
-
-
-class Assignment(models.Model):
-    code = models.CharField(max_length=20)
-    description = models.CharField(max_length=50)
-    source_system = models.ForeignKey(SourceSystem, null=True)
-
-    def __unicode__(self):
-        return self.description
+# "Fact" models
 
 
 class StudentClassSiteAssignment(models.Model):
@@ -191,15 +196,14 @@ class StudentClassSiteAssignment(models.Model):
         ordering = ('due_date',)
 
 
-class WeeklyStudentClassSiteStatus(models.Model):
+class StudentClassSiteStatus(models.Model):
     student = models.ForeignKey(Student)
     class_site = models.ForeignKey(ClassSite)
-    week_end_date = models.DateField(null=True)
     status = models.ForeignKey(Status)
 
     def __unicode__(self):
-        return '%s has status %s in %s on %s' % (
-            self.student, self.status, self.class_site, self.week_end_date)
+        return '%s has status %s in %s' % (self.student, self.status,
+                                           self.class_site)
 
 
 class WeeklyClassSiteScore(models.Model):
@@ -213,28 +217,6 @@ class WeeklyClassSiteScore(models.Model):
 
     class Meta:
         ordering = ('week_end_date',)
-
-
-class WeeklyStudentClassSiteScore(models.Model):
-    student = models.ForeignKey(Student)
-    class_site = models.ForeignKey(ClassSite)
-    week_end_date = models.DateField(null=True)
-    score = models.FloatField(null=True)
-
-    def __unicode__(self):
-        return '%s has score %s in %s on %s' % (
-            self.student, self.score, self.class_site, self.week_end_date)
-
-    class Meta:
-        ordering = ('week_end_date',)
-
-
-class EventType(models.Model):
-    source_system = models.ForeignKey(SourceSystem)
-    description = models.CharField(max_length=50)
-
-    def __unicode__(self):
-        return self.description
 
 
 class WeeklyStudentClassSiteEvent(models.Model):
@@ -255,3 +237,28 @@ class WeeklyStudentClassSiteEvent(models.Model):
 
     class Meta:
         ordering = ('week_end_date',)
+
+
+class WeeklyStudentClassSiteScore(models.Model):
+    student = models.ForeignKey(Student)
+    class_site = models.ForeignKey(ClassSite)
+    week_end_date = models.DateField(null=True)
+    score = models.FloatField(null=True)
+
+    def __unicode__(self):
+        return '%s has score %s in %s on %s' % (
+            self.student, self.score, self.class_site, self.week_end_date)
+
+    class Meta:
+        ordering = ('week_end_date',)
+
+
+class WeeklyStudentClassSiteStatus(models.Model):
+    student = models.ForeignKey(Student)
+    class_site = models.ForeignKey(ClassSite)
+    week_end_date = models.DateField(null=True)
+    status = models.ForeignKey(Status)
+
+    def __unicode__(self):
+        return '%s has status %s in %s on %s' % (
+            self.student, self.status, self.class_site, self.week_end_date)
