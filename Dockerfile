@@ -4,10 +4,7 @@ RUN apt-get update
 
 RUN apt-get --no-install-recommends install --yes \
         libldap2-dev libsasl2-dev \
-        libaio1 libaio-dev \
-        nodejs npm \
-    && ln -s /usr/bin/nodejs /usr/bin/node
-RUN npm install -g bower
+        libaio1 libaio-dev
 
 WORKDIR /tmp/
 
