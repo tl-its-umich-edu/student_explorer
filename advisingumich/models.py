@@ -1,5 +1,5 @@
 from django.db import models
-from advisingumich.mixins import AdvisingUmichDataCleanerMixin
+from advisingumich.mixins import AdvisingUmichDataCleanupMixin
 
 
 # "Dimension" models
@@ -249,7 +249,7 @@ class StudentCohortMentor(models.Model):
 # "Fact" models
 
 
-class StudentClassSiteAssignment(models.Model, AdvisingUmichDataCleanerMixin):
+class StudentClassSiteAssignment(models.Model, AdvisingUmichDataCleanupMixin):
     student = models.ForeignKey(Student, db_column='STDNT_KEY',
                                 primary_key=True)
     class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
