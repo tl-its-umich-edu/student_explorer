@@ -253,7 +253,8 @@ class AdvisingApiMentorTestCase(TestCase):
                 u'last_name': u'Agrippa',
                 u'univ_id': u'20000001',
                 u'url': u'http://testserver/api/mentors/zander/',
-                u'students_url': u'http://testserver/api/mentors/zander/students/'
+                u'students_url': (u'http://testserver/api/mentors/zander/'
+                                  'students/')
             }, data)
 
     def test_mentors_detail_not_exists(self):
