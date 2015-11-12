@@ -1,6 +1,6 @@
 from settings.base import *
 
-SECRET_KEY = 'I need to be changed! Get some random characters -->    head /dev/random | openssl base64'
+SECRET_KEY = 'I need to be changed!'
 
 DATABASES = {
     'default': {
