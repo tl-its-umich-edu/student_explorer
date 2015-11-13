@@ -107,6 +107,17 @@ angular.module('sespaApp')
         });
       },
       
+      studentMentors: function(studentName) {
+        return config().then(function(config) {
+          return $http.get(config.students + studentName + '/mentors/', {
+              'cache': true
+            })
+            .then(function(response) {
+              return response.data;
+            });
+        });
+      },
+      
       studentCourses: function(studentName) {
         return config().then(function(config) {
           return $http.get(config.students + studentName + '/class_sites/', {
