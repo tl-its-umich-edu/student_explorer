@@ -53,6 +53,10 @@ urlpatterns = [
         views.StudentAdvisorList.as_view(),
         name='student-advisors-list'),
 
+    url(r'^students/(?P<username>[a-zA-Z ]*)/mentors/$',
+        views.StudentMentorList.as_view(),
+        name='student-mentors-list'),
+
     url(r'^students/(?P<username>[a-zA-Z ]*)/class_sites/$',
         views.StudentClassSiteList.as_view(),
         name='student-classsite-list'),

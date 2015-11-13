@@ -1,5 +1,5 @@
 from advising.models import (Student, Advisor, Mentor, Cohort, Assignment,
-                             StudentAdvisorRole,
+                             StudentAdvisorRole, StudentCohortMentor,
                              StudentClassSiteStatus,
                              StudentClassSiteAssignment,
                              ClassSite)
@@ -67,6 +67,8 @@ class StudentSerializer(serializers.ModelSerializer):
         view_name='student-classsite-list', lookup_field='username')
     advisors_url = serializers.HyperlinkedIdentityField(
         view_name='student-advisors-list', lookup_field='username')
+    mentors_url = serializers.HyperlinkedIdentityField(
+        view_name='student-mentors-list', lookup_field='username')
     cohorts = serializers.StringRelatedField(many=True)
     statuses = serializers.StringRelatedField(many=True)
     advisors = serializers.StringRelatedField(many=True)
@@ -78,7 +80,8 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = ('url', 'full_url', 'username', 'univ_id',
                   'first_name', 'last_name',
                   'advisors', 'mentors', 'cohorts', 'statuses',
-                  'status_weight', 'class_sites_url', 'advisors_url')
+                  'status_weight',
+                  'class_sites_url', 'advisors_url', 'mentors_url')
 
     def get_status_weight(self, obj):
         weight = 0
@@ -101,6 +104,15 @@ class StudentAdvisorSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentAdvisorRole
         fields = ('role', 'advisor',)
+
+
+class StudentMentorSerializer(serializers.ModelSerializer):
+    mentor = MentorSerializer(read_only=True)
+    cohort = serializers.ReadOnlyField(source='cohort.description')
+
+    class Meta:
+        model = StudentCohortMentor
+        fields = ('cohort', 'mentor',)
 
 
 class StudentClassSiteHyperlink(serializers.HyperlinkedIdentityField):
