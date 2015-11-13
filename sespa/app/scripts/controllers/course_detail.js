@@ -10,13 +10,12 @@
 angular.module('sespaApp')
   .controller('CourseDetailCtrl', function(advisingData, $scope, $routeParams) {
     $scope.courseDetailHeader = null;
+    $scope.assignments = null;
     $scope.courseDescription = $routeParams.course;
-    $scope.sortType = 'last_name';
+    $scope.sortType = 'assignment.description';
     $scope.sortReverse = false;
     $scope.searchStudent = '';
     // $scope.scroll = scroll;
-
-    $scope.assignments = [];
 
     advisingData.studentCourseAssignments($routeParams.student, $routeParams.courseCode).then(function(assignment) {
       $scope.assignments = assignment;

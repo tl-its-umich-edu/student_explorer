@@ -11,7 +11,7 @@ angular.module('sespaApp')
   .controller('CourseListCtrl', function(advisingData, $scope, $routeParams) {
     $scope.courseListHeader = null;
     $scope.student = null;
-    $scope.sortType = 'last_name';
+    $scope.sortType = 'class_site.description';
     $scope.sortReverse = false;
     $scope.searchStudent = '';
     // $scope.scroll = scroll;
@@ -19,7 +19,6 @@ angular.module('sespaApp')
     $scope.courses = [];
 
     advisingData.studentCourses($routeParams.student).then(function(course) {
-      console.log(course);
       $scope.courses = course;
     });
     
