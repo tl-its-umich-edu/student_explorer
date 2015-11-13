@@ -19,7 +19,6 @@ angular.module('sespaApp')
     $scope.courses = [];
 
     advisingData.studentCourses($routeParams.student).then(function(course) {
-      console.log(course);
       $scope.courses = course;
     });
     
