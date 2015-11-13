@@ -12,12 +12,14 @@ angular.module('sespaApp')
   	$scope.student = null;
   	$scope.sortType = 'class_site';
   	$scope.advisors = null;
-
-    $scope.courses = [];
+    $scope.courses = null;
 
   	advisingData.studentDetails($routeParams.student).then(function(student) {
       $scope.student = student;
-      $scope.advisors = student.advisors;
+    });
+    
+    advisingData.studentAdvisors($routeParams.student).then(function(advisors){
+        $scope.advisors = advisors;
     });
     
     advisingData.studentCourses($routeParams.student).then(function(course) {
