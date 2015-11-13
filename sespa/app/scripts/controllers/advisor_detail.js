@@ -15,7 +15,7 @@ angular.module('sespaApp')
     $scope.sortReverse = false;
     // $scope.searchAdvisor = '';
     // $scope.scroll = scroll;
-
+    
     advisingData.advisorDetails($routeParams.advisor).then(function(advisor) {
       $scope.advisor = advisor;
     });
