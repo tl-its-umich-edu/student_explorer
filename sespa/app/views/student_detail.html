@@ -33,33 +33,71 @@
     <thead>
       <tr>
         <td>
-          <a href="" ng-click="sortType = 'last_name'; sortReverse = !sortReverse">
+          <a href="" ng-click="sortTypeAdvisor = 'last_name'; sortReverseAdvisor = !sortReverseAdvisor">
             Advisor Name
-            <span class="fa fa-caret-down" ng-show="sortType == 'last_name' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortType == 'last_name' &amp;&amp; sortReverse"></span>
+            <span class="fa fa-caret-down" ng-show="sortTypeAdvisor == 'last_name' &amp;&amp; !sortReverseAdvisor"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAdvisor == 'last_name' &amp;&amp; sortReverseAdvisor"></span>
           </a>
         </td>
         <td>
-          <a href="" ng-click="sortType = 'univ_id'; sortReverse = !sortReverse">
+          <a href="" ng-click="sortTypeAdvisor = 'univ_id'; sortReverseAdvisor = !sortReverseAdvisor">
             Advisor ID
-            <span class="fa fa-caret-down" ng-show="sortType == 'univ_id' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortType == 'univ_id' &amp;&amp; sortReverse"></span>
+            <span class="fa fa-caret-down" ng-show="sortTypeAdvisor == 'univ_id' &amp;&amp; !sortReverseAdvisor"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAdvisor == 'univ_id' &amp;&amp; sortReverseAdvisor"></span>
           </a>
         </td>
         <td>
-          <a href="" ng-click="sortType = 'role'; sortReverse = !sortReverse">
+          <a href="" ng-click="sortTypeAdvisor = 'role'; sortReverseAdvisor = !sortReverseAdvisor">
             Advisor Role
-            <span class="fa fa-caret-down" ng-show="sortType == 'role' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortType == 'role' &amp;&amp; sortReverse"></span>
+            <span class="fa fa-caret-down" ng-show="sortTypeAdvisor == 'role' &amp;&amp; !sortReverseAdvisor"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAdvisor == 'role' &amp;&amp; sortReverseAdvisor"></span>
           </a>
         </td>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="advisor in advisors | orderBy:sortType:sortReverse | filter:searchAdvisor">
+      <tr ng-repeat="advisor in advisors | orderBy:sortTypeAdvisor:sortReverseAdvisor | filter:searchAdvisor">
         <td class="bold">{{ advisor.advisor.first_name }} {{ advisor.advisor.last_name }}</td>
         <td>{{ advisor.advisor.univ_id }}</td>
         <td>{{ advisor.role }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Mentors</h3>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>
+          <a href="" ng-click="sortTypeMentor = 'last_name'; sortReverseMentor = !sortReverseMentor">
+            Mentor Name
+            <span class="fa fa-caret-down" ng-show="sortTypeMentor == 'last_name' &amp;&amp; !sortReverseMentor"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeMentor == 'last_name' &amp;&amp; sortReverseMentor"></span>
+          </a>
+        </td>
+        <td>
+          <a href="" ng-click="sortTypeMentor = 'univ_id'; sortReverseMentor = !sortReverseMentor">
+            Mentor ID
+            <span class="fa fa-caret-down" ng-show="sortTypeMentor == 'univ_id' &amp;&amp; !sortReverseMentor"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeMentor == 'univ_id' &amp;&amp; sortReverseMentor"></span>
+          </a>
+        </td>
+        <td>
+          <a href="" ng-click="sortTypeMentor = 'role'; sortReverseMentor = !sortReverseMentor">
+            Cohort
+            <span class="fa fa-caret-down" ng-show="sortTypeMentor == 'role' &amp;&amp; !sortReverseMentor"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeMentor == 'role' &amp;&amp; sortReverseMentor"></span>
+          </a>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="mentor in mentors | orderBy:sortTypeMentor:sortReverseMentor | filter:searchAdvisor">
+        <td class="bold">{{ mentor.mentor.first_name }} {{ mentor.mentor.last_name }}</td>
+        <td>{{ mentor.mentor.univ_id }}</td>
+        <td>{{ mentor.cohort }}</td>
       </tr>
     </tbody>
   </table>
