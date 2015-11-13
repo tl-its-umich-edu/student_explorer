@@ -87,7 +87,18 @@ angular.module('sespaApp')
 
       studentDetails: function(studentName) {
         return config().then(function(config) {
-          return $http.get(config.students + studentName + '/full/', {
+          return $http.get(config.students + studentName + '/', {
+              'cache': true
+            })
+            .then(function(response) {
+              return response.data;
+            });
+        });
+      },
+      
+      studentAdvisors: function(studentName) {
+        return config().then(function(config) {
+          return $http.get(config.students + studentName + '/advisors/', {
               'cache': true
             })
             .then(function(response) {
