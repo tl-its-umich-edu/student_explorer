@@ -10,14 +10,13 @@
 angular.module('sespaApp')
   .controller('CourseDetailCtrl', function(advisingData, $scope, $routeParams) {
     $scope.courseDetailHeader = null;
+    $scope.assignments = null;
     $scope.courseDescription = null;
-    $scope.sortType = 'last_name';
+    $scope.sortType = 'assignment.description';
     $scope.sortReverse = false;
     $scope.searchStudent = '';
     // $scope.scroll = scroll;
 
-    $scope.assignments = [];
-    
     advisingData.studentCourses($routeParams.student).then(function(courses){
       courses.forEach(function(course){
         if (course.class_site.code === $routeParams.courseCode) {
