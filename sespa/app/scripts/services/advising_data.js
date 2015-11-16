@@ -45,12 +45,16 @@ angular.module('sespaApp')
         });
       },
 
-      advisorDetails: function(advisorName) {
+      advisorDetails: function(advisorUsername) {
         return config().then(function(config) {
-          if (typeof advisorName === 'undefined') {
-            advisorName = config.username;
+          if (typeof advisorUsername === 'undefined') {
+            if (config.username !== null){
+              advisorUsername = config.username;
+            } else {
+              return null;
+            }
           }
-          return $http.get(config.advisors + advisorName + '/', {
+          return $http.get(config.advisors + advisorUsername + '/', {
               'cache': true
             })
             .then(function(response) {
@@ -59,12 +63,16 @@ angular.module('sespaApp')
         });
       },
 
-      advisorsStudents: function(advisorName) {
+      advisorsStudents: function(advisorUsername) {
         return config().then(function(config) {
-          if (typeof advisorName === 'undefined') {
-            advisorName = config.username;
+          if (typeof advisorUsername === 'undefined') {
+            if (config.username !== null){
+              advisorUsername = config.username;
+            } else {
+              return null;
+            }
           }
-          return $http.get(config.advisors + advisorName + '/students/', {
+          return $http.get(config.advisors + advisorUsername + '/students/', {
               'cache': true
             })
             .then(function(response) {
@@ -85,9 +93,9 @@ angular.module('sespaApp')
         });
       },
 
-      studentDetails: function(studentName) {
+      studentDetails: function(studentUsername) {
         return config().then(function(config) {
-          return $http.get(config.students + studentName + '/', {
+          return $http.get(config.students + studentUsername + '/', {
               'cache': true
             })
             .then(function(response) {
@@ -96,9 +104,9 @@ angular.module('sespaApp')
         });
       },
       
-      studentAdvisors: function(studentName) {
+      studentAdvisors: function(studentUsername) {
         return config().then(function(config) {
-          return $http.get(config.students + studentName + '/advisors/', {
+          return $http.get(config.students + studentUsername + '/advisors/', {
               'cache': true
             })
             .then(function(response) {
@@ -107,9 +115,9 @@ angular.module('sespaApp')
         });
       },
       
-      studentMentors: function(studentName) {
+      studentMentors: function(studentUsername) {
         return config().then(function(config) {
-          return $http.get(config.students + studentName + '/mentors/', {
+          return $http.get(config.students + studentUsername + '/mentors/', {
               'cache': true
             })
             .then(function(response) {
@@ -118,9 +126,9 @@ angular.module('sespaApp')
         });
       },
       
-      studentCourses: function(studentName) {
+      studentCourses: function(studentUsername) {
         return config().then(function(config) {
-          return $http.get(config.students + studentName + '/class_sites/', {
+          return $http.get(config.students + studentUsername + '/class_sites/', {
             'cache': true
           })
           .then(function(response) {
@@ -129,9 +137,9 @@ angular.module('sespaApp')
         });
       },
       
-      studentCourseAssignments: function(studentName, courseCode) {
+      studentCourseAssignments: function(studentUsername, courseCode) {
         return config().then(function(config) {
-          return $http.get(config.students + studentName + '/class_sites/' + courseCode + '/assignments/', {
+          return $http.get(config.students + studentUsername + '/class_sites/' + courseCode + '/assignments/', {
             'cache': true
           })
           .then(function(response) {
