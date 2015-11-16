@@ -1,6 +1,7 @@
 from settings.base import *
 
 SECRET_KEY = 'I need to be changed!'
+HASHREDIRECT_ENABLED = False
 
 DATABASES = {
     'default': {
