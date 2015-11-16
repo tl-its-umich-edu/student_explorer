@@ -1,0 +1,3 @@
+[submodule "hashredirect"]
+	path = hashredirect
+	url = git@bitbucket.org:umichdig/hashredirect.git
