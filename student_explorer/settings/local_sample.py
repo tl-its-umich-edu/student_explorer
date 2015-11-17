@@ -35,12 +35,12 @@ REMOTE_USER_HEADER = None
 
 if REMOTE_USER_HEADER:
     MIDDLEWARE_CLASSES += (
-        'umichdig.middleware.ProxiedRemoteUserMiddleware',
+        'umichuser.middleware.ProxiedRemoteUserMiddleware',
     )
 
     AUTHENTICATION_BACKENDS = (
         # 'django.contrib.auth.backends.RemoteUserBackend',
-        'umichdig.backends.DigRemoteUserBackend',
+        'umichuser.backends.DigRemoteUserBackend',
 
     )
 
@@ -83,7 +83,7 @@ LOGGING = {
         #     'handlers': ['console'],
         #     'level': 'INFO',
         # },
-        'umichdig': {
+        'umichuser': {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
