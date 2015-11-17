@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'student_explorer',
     'advising',
     'hashredirect',
+    'umichuser',
 )
 
 MIDDLEWARE_CLASSES = (
