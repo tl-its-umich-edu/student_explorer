@@ -1,0 +1,79 @@
+[
+{
+    "fields": {
+        "is_policy_accepted": null,
+        "is_student": null,
+        "policy_accepted_date": null,
+        "user": 1,
+        "is_faculty": null
+    },
+    "model": "umichuser.profile",
+    "pk": 1
+},
+{
+    "fields": {
+        "is_policy_accepted": true,
+        "is_student": false,
+        "policy_accepted_date": "2015-05-18",
+        "user": 6,
+        "is_faculty": false
+    },
+    "model": "umichuser.profile",
+    "pk": 2
+},
+{
+    "fields": {
+        "is_policy_accepted": true,
+        "is_student": false,
+        "policy_accepted_date": "2015-05-18",
+        "user": 7,
+        "is_faculty": false
+    },
+    "model": "umichuser.profile",
+    "pk": 3
+},
+{
+    "fields": {
+        "is_policy_accepted": true,
+        "is_student": false,
+        "policy_accepted_date": "2015-05-18",
+        "user": 8,
+        "is_faculty": false
+    },
+    "model": "umichuser.profile",
+    "pk": 4
+},
+{
+    "fields": {
+        "is_policy_accepted": true,
+        "is_student": false,
+        "policy_accepted_date": "2015-05-18",
+        "user": 9,
+        "is_faculty": false
+    },
+    "model": "umichuser.profile",
+    "pk": 5
+},
+{
+    "fields": {
+        "is_policy_accepted": true,
+        "is_student": false,
+        "policy_accepted_date": "2015-05-18",
+        "user": 10,
+        "is_faculty": false
+    },
+    "model": "umichuser.profile",
+    "pk": 6
+},
+{
+    "fields": {
+        "is_policy_accepted": true,
+        "is_student": false,
+        "policy_accepted_date": "2015-03-02",
+        "user": 11,
+        "is_faculty": false
+    },
+    "model": "umichuser.profile",
+    "pk": 7
+}
+]
