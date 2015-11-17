@@ -1,5 +1,5 @@
 Django<1.9
 mysql-python
 djangorestframework
-
--r umichuser/requirements.txt
+python-ldap
+requests
