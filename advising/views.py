@@ -27,18 +27,6 @@ logger = logging.getLogger(__name__)
 
 @api_view(('GET',))
 def api_root(request, format=None):
-    if hasattr(settings, 'CUSTOM_LOGIN_URL'):
-        login_url = settings.CUSTOM_LOGIN_URL
-    else:
-        login_url = reverse('rest_framework:login',
-                            request=request, format=format)
-
-    if hasattr(settings, 'CUSTOM_LOGOUT_URL'):
-        logout_url = settings.CUSTOM_LOGOUT_URL
-    else:
-        logout_url = reverse('rest_framework:logout',
-                             request=request, format=format)
-
     if request.user.is_authenticated():
         username = request.user.username
     else:
@@ -50,8 +38,6 @@ def api_root(request, format=None):
         'students': reverse('student-list', request=request, format=format),
         'username': username,
         'debug': settings.DEBUG,
-        'login': login_url,
-        'logout': logout_url,
     })
 
 
