@@ -1,5 +1,9 @@
 # student explorer #
 
+## Set up submodules ##
+1. git submodule init
+2. git submodule update
+
 ## Development Environment ##
 1. Install Vagrant (https://www.vagrantup.com/)
 2. `cd student_explorer`
