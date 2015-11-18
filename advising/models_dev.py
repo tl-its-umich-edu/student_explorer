@@ -56,7 +56,6 @@ class Student(models.Model):
 
 
 class Term(models.Model):
-    id = models.IntegerField(primary_key=True)
     code = models.CharField(max_length=6)
     description = models.CharField(max_length=30)
     begin_date = models.DateField()
