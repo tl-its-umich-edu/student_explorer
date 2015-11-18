@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^', include('dashboard.urls')),
     url(r'^api/', include('advising.urls')),
+    url(r'^api/users/', include('umichuser.urls')),
     # url(r'^$', hashredirect.views.login, name='login-redirect'),
     url(r'^$', hashredirect.views.login_or_serve, {
         'document_root': 'sespa/app',
