@@ -20,8 +20,8 @@
 {
     "fields": {
         "username": "zander",
-        "first_name": "",
-        "last_name": "",
+        "first_name": "Zander",
+        "last_name": "Agrippa",
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
@@ -38,8 +38,8 @@
 {
     "fields": {
         "username": "carla",
-        "first_name": "",
-        "last_name": "",
+        "first_name": "Calra",
+        "last_name": "Beumer",
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
@@ -56,12 +56,12 @@
 {
     "fields": {
         "username": "burl",
-        "first_name": "",
-        "last_name": "",
+        "first_name": "Burl",
+        "last_name": "Chandler",
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
-        "last_login": "2015-10-15T17:36:23Z",
+        "last_login": "2015-11-18T19:16:37Z",
         "groups": [],
         "user_permissions": [],
         "password": "pbkdf2_sha256$20000$93rkHn7zyOIm$q02j77FK+u012Tp4afivmt7vcpJ+3f+e6as7xX9gCPY=",
@@ -74,8 +74,8 @@
 {
     "fields": {
         "username": "lavera",
-        "first_name": "",
-        "last_name": "",
+        "first_name": "Lavera",
+        "last_name": "Rumore",
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
@@ -92,8 +92,8 @@
 {
     "fields": {
         "username": "will",
-        "first_name": "",
-        "last_name": "",
+        "first_name": "Will",
+        "last_name": "Smith",
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
@@ -110,8 +110,8 @@
 {
     "fields": {
         "username": "mollie",
-        "first_name": "",
-        "last_name": "",
+        "first_name": "Mollie",
+        "last_name": "Whistler",
         "is_active": true,
         "is_superuser": false,
         "is_staff": false,
