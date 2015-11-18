@@ -20,20 +20,17 @@ import hashredirect.views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    # url(r'^', include('dashboard.urls')),
+
     url(r'^api/', include('advising.urls')),
     url(r'^api/users/', include('umichuser.urls')),
-    # url(r'^$', hashredirect.views.login, name='login-redirect'),
+
     url(r'^$', hashredirect.views.login_or_serve, {
         'document_root': 'sespa/app',
         'path': 'index.html'
     }, name='app-root'),
     url(r'^login/$', hashredirect.views.login_redirect,
         name='hashredirect-login-redirect'),
-    # url(r'^$', serve, {
-    #     'document_root': 'sespa/app',
-    #     'path': 'index.html'
-    # }),
+
     url(r'^bower_components/(?P<path>.*)$', serve, {
         'document_root': 'sespa/bower_components',
     }),
