@@ -24,27 +24,27 @@ angular
         templateUrl: 'views/advisor_detail.html',
         controller: 'AdvisorDetailCtrl',
       })
-      .when('/advisors', {
+      .when('/advisors/', {
         templateUrl: 'views/advisor_list.html',
         controller: 'AdvisorListCtrl',
       })
-      .when('/advisors/:advisor', {
+      .when('/advisors/:advisor/', {
         templateUrl: 'views/advisor_detail.html',
         controller: 'AdvisorDetailCtrl',
       })
-      .when('/students', {
+      .when('/students/', {
         templateUrl: 'views/student_list.html',
         controller: 'StudentSearchCtrl',
       })
-      .when('/students/:student', {
+      .when('/students/:student/', {
         templateUrl: 'views/student_detail.html',
         controller: 'StudentDetailCtrl',
       })
-      .when('/students/:student/course', {
+      .when('/students/:student/course/', {
         templateUrl: 'views/course_list.html',
         controller: 'CourseListCtrl',
       })
-      .when('/students/:student/course/:courseCode', {
+      .when('/students/:student/course/:courseCode/', {
         templateUrl: 'views/course_detail.html',
         controller: 'CourseDetailCtrl',
       })
