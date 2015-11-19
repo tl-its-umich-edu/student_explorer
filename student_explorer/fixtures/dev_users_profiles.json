@@ -23,9 +23,9 @@
 },
 {
     "fields": {
-        "is_policy_accepted": true,
+        "is_policy_accepted": false,
         "is_student": false,
-        "policy_accepted_date": "2015-05-18",
+        "policy_accepted_date": null,
         "user": 7,
         "is_faculty": false
     },
@@ -45,9 +45,9 @@
 },
 {
     "fields": {
-        "is_policy_accepted": true,
+        "is_policy_accepted": false,
         "is_student": false,
-        "policy_accepted_date": "2015-05-18",
+        "policy_accepted_date": null,
         "user": 9,
         "is_faculty": false
     },
