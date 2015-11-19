@@ -28,6 +28,12 @@ body {
   padding: 3px 20px;
 }
 
+/* Highlight background if the user hasn't accepted the policy */
+
+.red-bg {
+    background-color: rgba(255,0,0,0.5);
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
