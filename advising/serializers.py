@@ -61,8 +61,6 @@ class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='student-detail',
                                                lookup_field='username')
-    full_url = serializers.HyperlinkedIdentityField(
-            view_name='student-full-detail', lookup_field='username')
     class_sites_url = serializers.HyperlinkedIdentityField(
         view_name='student-classsite-list', lookup_field='username')
     advisors_url = serializers.HyperlinkedIdentityField(
@@ -77,7 +75,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Student
-        fields = ('url', 'full_url', 'username', 'univ_id',
+        fields = ('url', 'username', 'univ_id',
                   'first_name', 'last_name',
                   'advisors', 'mentors', 'cohorts', 'statuses',
                   'status_weight',
@@ -169,22 +167,6 @@ class AdvisorStudentSerializer(serializers.ModelSerializer):
         # fields = ('role', 'student',)
         fields = ('advisor_role', 'first_name', 'last_name', 'username',
                   'univ_id',)
-
-
-class StudentFullSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='student-detail',
-                                               lookup_field='username')
-    advisors = StudentAdvisorSerializer(source='studentadvisorrole_set',
-                                        many=True, read_only=True)
-    cohorts = CohortSerializer(many=True, read_only=True)
-    mentors = MentorSerializer(many=True, read_only=True)
-    class_sites = StudentClassSiteSerializer(
-        source='studentclasssitestatus_set', many=True, read_only=True)
-
-    class Meta:
-        model = Student
-        fields = ('username', 'univ_id', 'first_name', 'last_name', 'advisors',
-                  'mentors', 'cohorts', 'class_sites', 'url')
 
 
 class AssignmentSerializer(serializers.ModelSerializer):
