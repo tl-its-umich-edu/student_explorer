@@ -30,7 +30,7 @@ body {
 
 /* Highlight background if the user hasn't accepted the policy */
 
-.red-bg {
+.policy-warning {
     background-color: rgba(255,0,0,0.5);
 }
 
