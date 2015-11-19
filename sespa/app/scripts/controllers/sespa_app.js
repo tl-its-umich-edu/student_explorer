@@ -16,4 +16,8 @@ angular.module('sespaApp')
         $location.path('/students').search({search: $scope.search});
       };
     });
+    
+    advisingData.userInfo().then(function(userInfo) {
+      $scope.userInfo = userInfo;
+    });
   });

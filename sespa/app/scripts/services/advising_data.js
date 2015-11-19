@@ -33,6 +33,15 @@ angular.module('sespaApp')
       config: function() {
         return config();
       },
+      
+      userInfo: function() {
+        return config().then(function() {
+          return $http.get('api/users/me/', {'cache': true})
+            .then(function(response) {
+              return response.data;
+            });
+        });
+      },
 
       allAdvisors: function() {
         return config().then(function(config) {

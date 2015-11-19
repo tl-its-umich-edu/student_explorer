@@ -52,7 +52,20 @@
                   <li><a ng-href="{{config.logout}}?next=/">Logout</a></li>
                   <li role="separator" class="divider"></li>
                   <!-- <li class="dropdown-header">Nav header</li> -->
-                  <li><a>Policy <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
+                  <li ng-if="userInfo.profile.is_policy_accepted">
+                    <p>
+                      You accepted the 
+                      <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
+                      on {{userInfo.profile.policy_accepted_date}}
+                    </p>
+                  </li>
+                  <li ng-if="!userInfo.profile.is_policy_accepted">
+                    <p>
+                      You haven't accepted the 
+                      <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
+                      yet.
+                    </p>
+                  </li>
                 </ul>
               </li>
             </ul>
