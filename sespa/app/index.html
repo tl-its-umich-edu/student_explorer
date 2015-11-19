@@ -51,6 +51,8 @@
                 <ul class="dropdown-menu">
                   <li><a ng-href="{{config.logout}}?next=/">Logout</a></li>
                   <li role="separator" class="divider"></li>
+                  <li><p>{{userInfo.first_name}} {{userInfo.last_name}}</p></li>
+                  <li role="separator" class="divider"></li>
                   <!-- <li class="dropdown-header">Nav header</li> -->
                   <li ng-if="userInfo.profile.is_policy_accepted">
                     <p>
