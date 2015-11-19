@@ -23,6 +23,10 @@ body {
   border: 0;
 }
 
+/* Unify indents in the dropdown-menu */
+.dropdown-menu p {
+  padding: 3px 20px;
+}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
