@@ -1,5 +1,5 @@
-<h2 ng-if="courseDetailHeader" class="sub-header">{{courseDetailHeader}}</h2>
-<h3>{{courseDescription}}</h3>
+<h2 ng-if="classSiteDetailHeader" class="sub-header">{{classSiteDetailHeader}}</h2>
+<h3>{{classSiteDescription}}</h3>
 <div ng-if="assignments.length == 0">
   <p>There is no assignment data for this student.</p>
 </div>
@@ -56,9 +56,9 @@
   </table>
 </div>
 
-<h3>Course History</h3>
+<h3>Class Site History</h3>
 <div ng-if="!(historyLength > 0)">
-  <p>There is no course history data for this student.</p>
+  <p>There is no class site history data for this student.</p>
 </div>
 <div ng-if="historyLength > 0" class="table-responsive">
   <table class="table table-striped">
@@ -91,11 +91,11 @@
     <tbody>
       <tr ng-repeat="date in historyDate | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
         <td>{{date}}</td>
-        <td><img alt="{{courseHistory[date].status}}" class="course-status {{ courseHistory[date].status | lowercase }}" ng-src="images/Status_Icons_{{courseHistory[date].status}}.png"/></td>
-        <td>{{courseHistory[date].score}}</td>
-        <td>{{courseHistory[date].class_score}}</td>
-        <td>{{courseHistory[date].event_percentile_rank}}</td>
-        <td>{{courseHistory[date].event_count}}</td>
+        <td><img alt="{{classSiteHistory[date].status}}" class="class-site-status {{ classSiteHistory[date].status | lowercase }}" ng-src="images/Status_Icons_{{classSiteHistory[date].status}}.png"/></td>
+        <td>{{classSiteHistory[date].score}}</td>
+        <td>{{classSiteHistory[date].class_score}}</td>
+        <td>{{classSiteHistory[date].event_percentile_rank}}</td>
+        <td>{{classSiteHistory[date].event_count}}</td>
       </tr>
     </tbody>
   </table>

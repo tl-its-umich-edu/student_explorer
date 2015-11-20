@@ -12,7 +12,7 @@ angular.module('sespaApp')
   	$scope.student = null;
     $scope.advisors = null;
     $scope.mentors = null;
-    $scope.courses = null;
+    $scope.classSites = null;
     $scope.sortTypeAdvisor = 'advisor.last_name';
     $scope.sortTypeMentor = 'mentor.last_name';
   	$scope.sortType = 'class_site.description';
@@ -24,16 +24,16 @@ angular.module('sespaApp')
       $scope.student = student;
     });
     
-    advisingData.studentAdvisors($routeParams.student).then(function(advisors){
+    advisingData.studentAdvisors($routeParams.student).then(function(advisors) {
       $scope.advisors = advisors;
     });
     
-    advisingData.studentMentors($routeParams.student).then(function(mentors){
+    advisingData.studentMentors($routeParams.student).then(function(mentors) {
       $scope.mentors = mentors;
     });
     
-    advisingData.studentCourses($routeParams.student).then(function(course) {
-      $scope.courses = course;
+    advisingData.studentClassSites($routeParams.student).then(function(class_sites) {
+      $scope.classSites = class_sites;
     });
 
   });
