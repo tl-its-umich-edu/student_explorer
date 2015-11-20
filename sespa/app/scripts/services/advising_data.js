@@ -135,7 +135,7 @@ angular.module('sespaApp')
         });
       },
       
-      studentCourses: function(studentUsername) {
+      studentClassSites: function(studentUsername) {
         return config().then(function(config) {
           return $http.get(config.students + studentUsername + '/class_sites/', {
             'cache': true
@@ -146,9 +146,9 @@ angular.module('sespaApp')
         });
       },
       
-      studentCourseAssignments: function(studentUsername, courseCode) {
+      studentClassSiteAssignments: function(studentUsername, classSiteCode) {
         return config().then(function(config) {
-          return $http.get(config.students + studentUsername + '/class_sites/' + courseCode + '/assignments/', {
+          return $http.get(config.students + studentUsername + '/class_sites/' + classSiteCode + '/assignments/', {
             'cache': true
           })
           .then(function(response) {
@@ -157,9 +157,9 @@ angular.module('sespaApp')
         });
       },
       
-      studentCourseHistory: function(studentUsername, courseCode) {
+      studentClassSiteHistory: function(studentUsername, classSiteCode) {
         return config().then(function(config) {
-          return $http.get(config.students + studentUsername + '/class_sites/' + courseCode + '/history/', {
+          return $http.get(config.students + studentUsername + '/class_sites/' + classSiteCode + '/history/', {
             'cache': true
           })
           .then(function(response) {
