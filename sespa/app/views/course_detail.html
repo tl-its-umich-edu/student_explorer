@@ -8,10 +8,10 @@
     <thead>
       <tr>
         <td>
-          <a href="" ng-click="sortType = 'assignment.description'; sortReverse = !sortReverse">
+          <a href="" ng-click="sortTypeAssignment = 'assignment.description'; sortReverse = !sortReverse">
             Assignment
-            <span class="fa fa-caret-down" ng-show="sortType == 'assignment.description' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortType == 'assignment.description' &amp;&amp; sortReverse"></span>
+            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; sortReverse"></span>
           </a>
         </td>
         <td>
@@ -24,17 +24,17 @@
           <a>Points Possible</a>
         </td>
         <td>
-          <a href="" ng-click="sortType = 'weight'; sortReverse = !sortReverse">
+          <a href="" ng-click="sortTypeAssignment = 'weight'; sortReverse = !sortReverse">
             Weight
-            <span class="fa fa-caret-down" ng-show="sortType == 'weight' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortType == 'weight' &amp;&amp; sortReverse"></span>
+            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'weight' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'weight' &amp;&amp; sortReverse"></span>
           </a>
         </td>
         <td>
-          <a href="" ng-click="sortType = 'due_date'; sortReverse = !sortReverse">
+          <a href="" ng-click="sortTypeAssignment = 'due_date'; sortReverse = !sortReverse">
             Due Date
-            <span class="fa fa-caret-down" ng-show="sortType == 'due_date' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortType == 'due_date' &amp;&amp; sortReverse"></span>
+            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; sortReverse"></span>
           </a>
         </td>
         <td>
@@ -43,7 +43,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="assignment in assignments | orderBy:sortType:sortReverse | filter:searchAdvisor">
+      <tr ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
         <td>{{assignment.assignment.description }}</td>
         <td>{{assignment.included_in_grade}}</td>
         <td>{{assignment.points_earned}}</td>
@@ -51,6 +51,51 @@
         <td>{{assignment.weight}}</td>
         <td>{{assignment.due_date}}</td>
         <td>{{assignment.grader_comment}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Course History</h3>
+<div ng-if="!(historyLength > 0)">
+  <p>There is no course history data for this student.</p>
+</div>
+<div ng-if="historyLength > 0" class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>
+          <a href="" ng-click="sortTypeHistory = 'date'; sortReverse = !sortReverse">
+            Date
+            <span class="fa fa-caret-down" ng-show="sortTypeHistory == 'assignment.description' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeHistory == 'assignment.description' &amp;&amp; sortReverse"></span>
+          </a>
+        </td>
+        <td>
+          <a>Status</a>
+        </td>
+        <td>
+          <a>Score</a>
+        </td>
+        <td>
+          <a>Class Score</a>
+        </td>
+        <td>
+          <a>Event Percentile Rank</a>
+        </td>
+        <td>
+          <a>Event Count</a>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="date in historyDate | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
+        <td>{{date}}</td>
+        <td><img alt="{{courseHistory[date].status}}" class="course-status {{ courseHistory[date].status | lowercase }}" ng-src="images/Status_Icons_{{courseHistory[date].status}}.png"/></td>
+        <td>{{courseHistory[date].score}}</td>
+        <td>{{courseHistory[date].class_score}}</td>
+        <td>{{courseHistory[date].event_percentile_rank}}</td>
+        <td>{{courseHistory[date].event_count}}</td>
       </tr>
     </tbody>
   </table>

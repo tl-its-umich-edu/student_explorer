@@ -156,6 +156,17 @@ angular.module('sespaApp')
           });
         });
       },
+      
+      studentCourseHistory: function(studentUsername, courseCode) {
+        return config().then(function(config) {
+          return $http.get(config.students + studentUsername + '/class_sites/' + courseCode + '/history/', {
+            'cache': true
+          })
+          .then(function(response) {
+            return response.data;
+          });
+        });
+      },
 
     };
   });
