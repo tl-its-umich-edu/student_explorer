@@ -40,11 +40,11 @@ angular
         templateUrl: 'views/student_detail.html',
         controller: 'StudentDetailCtrl',
       })
-      .when('/students/:student/class_site/', {
+      .when('/students/:student/class_sites/', {
         templateUrl: 'views/class_site_list.html',
         controller: 'ClassSiteListCtrl',
       })
-      .when('/students/:student/class_site/:classSiteCode/', {
+      .when('/students/:student/class_sites/:classSiteCode/', {
         templateUrl: 'views/class_site_detail.html',
         controller: 'ClassSiteDetailCtrl',
       })
