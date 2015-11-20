@@ -49,9 +49,7 @@
               <li ng-if="config.username" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{config.username}} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a ng-href="{{config.logout}}?next=/">Logout</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><p>{{userInfo.first_name}} {{userInfo.last_name}}</p></li>
+                  <li><p><strong>{{userInfo.first_name}} {{userInfo.last_name}}</strong></p></li>
                   <li role="separator" class="divider"></li>
                   <!-- <li class="dropdown-header">Nav header</li> -->
                   <li ng-if="userInfo.profile.is_policy_accepted">
@@ -68,6 +66,8 @@
                       yet.
                     </p>
                   </li>
+                  <li role="separator" class="divider"></li>
+                  <li><a ng-href="{{config.logout}}?next=/">Logout</a></li>
                 </ul>
               </li>
             </ul>
