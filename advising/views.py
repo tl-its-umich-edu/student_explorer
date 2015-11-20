@@ -4,7 +4,6 @@ from advising.models import (Advisor, Student, Mentor, ClassSite,
 from advising.serializers import (AdvisorSerializer,
                                   MentorSerializer,
                                   StudentSerializer,
-                                  StudentFullSerializer,
                                   StudentClassSiteSerializer,
                                   StudentClassSiteAssignmentSerializer,
                                   StudentAdvisorSerializer,
@@ -131,15 +130,6 @@ class StudentDetail(generics.RetrieveAPIView):
     '''
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    lookup_field = 'username'
-
-
-class StudentFullDetail(generics.RetrieveAPIView):
-    '''
-    API endpoint that shows student details.
-    '''
-    queryset = Student.objects.all()
-    serializer_class = StudentFullSerializer
     lookup_field = 'username'
 
 
