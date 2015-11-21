@@ -48,6 +48,12 @@ angular
         templateUrl: 'views/class_site_detail.html',
         controller: 'ClassSiteDetailCtrl',
       })
+      .when('/students/:student/class_sites/:classSiteCode/assignments/', {
+        redirectTo: '/students/:student/class_sites/:classSiteCode/',
+      })
+      .when('/students/:student/class_sites/:classSiteCode/history/', {
+        redirectTo: '/students/:student/class_sites/:classSiteCode/',
+      })
       .otherwise({
         redirectTo: '/'
       });
