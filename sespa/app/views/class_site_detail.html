@@ -90,7 +90,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="entry in classSiteHistory | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
-        <td>{{entry.week_end_date | date}}</td>
+        <td>Week {{entry.week_number}} ({{entry.week_end_date | date}})</td>
         <td><img alt="{{entry.status}}" class="class-site-status {{ entry.status | lowercase }}" ng-src="images/Status_Icons_{{entry.status}}.png"/></td>
         <td>{{entry.score}}</td>
         <td>{{entry.class_score}}</td>

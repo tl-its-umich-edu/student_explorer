@@ -222,9 +222,13 @@ class StudentClassSiteHistoryList(APIView):
         class_scores = class_site.weeklyclasssitescore_set.all()
 
         history = []
+        week_number = 0
         for week_end_date in term.week_end_dates():
             entry = {}
             entry['week_end_date'] = str(week_end_date)
+
+            week_number += 1
+            entry['week_number'] = week_number
 
             try:
                 event = events.get(week_end_date=week_end_date)
