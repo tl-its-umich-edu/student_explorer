@@ -14,10 +14,10 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from collections import OrderedDict
 
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 import logging
 
@@ -211,40 +211,68 @@ class StudentClassSiteHistoryList(APIView):
         class_site = ClassSite.objects.get(code=code)
         term = class_site.terms.get()  # FIXME
 
-        events = class_site.weeklystudentclasssiteevent_set.filter(
-            student=student,
-            week_end_date__gte=term.begin_date,
-            week_end_date__lte=term.end_date)
+        week_end_dates = self._term_week_end_dates(term)
 
-        history = OrderedDict()
-        for event in events:
-            # FIXME check if the entry exists
-            history[str(event.week_end_date)] = {
-                'event_count': event.event_count,
-                'event_percentile_rank': event.percentile_rank,
-            }
+        events = class_site.weeklystudentclasssiteevent_set.filter(
+            student=student)
 
         student_scores = class_site.weeklystudentclasssitescore_set.filter(
-            student=student,
-            week_end_date__gte=term.begin_date,
-            week_end_date__lte=term.end_date)
-
-        for score in student_scores:
-            history[str(score.week_end_date)]['score'] = score.score
-
+            student=student)
         student_statuses = class_site.weeklystudentclasssitestatus_set.filter(
-            student=student,
-            week_end_date__gte=term.begin_date,
-            week_end_date__lte=term.end_date)
+            student=student)
 
-        for status in student_statuses:
-            history[str(status.week_end_date)]['status'] = str(status.status)
+        class_scores = class_site.weeklyclasssitescore_set.all()
 
-        class_scores = class_site.weeklyclasssitescore_set.filter(
-            week_end_date__gte=term.begin_date,
-            week_end_date__lte=term.end_date)
+        history = []
+        for week_end_date in week_end_dates:
+            entry = {}
+            entry['week_end_date'] = week_end_date.isoformat()
 
-        for score in class_scores:
-            history[str(score.week_end_date)]['class_score'] = score.score
+            try:
+                event = events.get(week_end_date=week_end_date)
+            except ObjectDoesNotExist:
+                # entry['event_count'] = None
+                # entry['event_percentile_rank'] = None
+                pass
+            else:
+                entry['event_count'] = event.event_count
+                entry['event_percentile_rank'] = event.percentile_rank
 
+            try:
+                score = student_scores.get(week_end_date=week_end_date)
+            except ObjectDoesNotExist:
+                # entry['score'] = None
+                pass
+            else:
+                entry['score'] = score.score
+
+            try:
+                status = student_statuses.get(week_end_date=week_end_date)
+            except ObjectDoesNotExist:
+                # entry['status'] = None
+                pass
+            else:
+                entry['status'] = str(status.status)
+
+            try:
+                score = class_scores.get(week_end_date=week_end_date)
+            except ObjectDoesNotExist:
+                # entry['class_score'] = None
+                pass
+            else:
+                entry['class_score'] = score.score
+
+            history.append(entry)
         return Response(history)
+
+    def _term_week_end_dates(self, term):
+        from datetime import timedelta
+
+        delta = term.end_date - term.begin_date
+        dates = []
+        for i in range(delta.days + 1):
+            date = term.begin_date + timedelta(days=i)
+            if date.weekday() == 5:
+                dates.append(date)
+
+        return dates

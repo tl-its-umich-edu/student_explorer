@@ -65,7 +65,7 @@
     <thead>
       <tr>
         <td>
-          <a href="" ng-click="sortTypeHistory = 'date'; sortReverse = !sortReverse">
+          <a href="" ng-click="sortTypeHistory = 'week_end_date'; sortReverse = !sortReverse">
             Date
             <span class="fa fa-caret-down" ng-show="sortTypeHistory == 'assignment.description' &amp;&amp; !sortReverse"></span>
             <span class="fa fa-caret-up" ng-show="sortTypeHistory == 'assignment.description' &amp;&amp; sortReverse"></span>
@@ -89,13 +89,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="date in historyDate | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
-        <td>{{date}}</td>
-        <td><img alt="{{classSiteHistory[date].status}}" class="class-site-status {{ classSiteHistory[date].status | lowercase }}" ng-src="images/Status_Icons_{{classSiteHistory[date].status}}.png"/></td>
-        <td>{{classSiteHistory[date].score}}</td>
-        <td>{{classSiteHistory[date].class_score}}</td>
-        <td>{{classSiteHistory[date].event_percentile_rank}}</td>
-        <td>{{classSiteHistory[date].event_count}}</td>
+      <tr ng-repeat="entry in classSiteHistory | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
+        <td>{{entry.week_end_date | date}}</td>
+        <td><img alt="{{entry.status}}" class="class-site-status {{ entry.status | lowercase }}" ng-src="images/Status_Icons_{{entry.status}}.png"/></td>
+        <td>{{entry.score}}</td>
+        <td>{{entry.class_score}}</td>
+        <td>{{entry.event_percentile_rank}}</td>
+        <td>{{entry.event_count}}</td>
       </tr>
     </tbody>
   </table>
