@@ -81,10 +81,10 @@
           <a>Class Score</a>
         </td>
         <td>
-          <a>Event Percentile Rank</a>
+          <a>Event Count</a>
         </td>
         <td>
-          <a>Event Count</a>
+          <a>Event Percentile Rank</a>
         </td>
       </tr>
     </thead>
@@ -94,8 +94,8 @@
         <td><img alt="{{entry.status}}" class="class-site-status {{ entry.status | lowercase }}" ng-src="images/Status_Icons_{{entry.status}}.png"/></td>
         <td>{{entry.score}}</td>
         <td>{{entry.class_score}}</td>
-        <td>{{entry.event_percentile_rank}}</td>
         <td>{{entry.event_count}}</td>
+        <td>{{entry.event_percentile_rank}}</td>
       </tr>
     </tbody>
   </table>
