@@ -61,6 +61,17 @@ class Term(models.Model):
     begin_date = models.DateField()
     end_date = models.DateField()
 
+    def week_end_dates(self):
+        from datetime import timedelta
+
+        delta = self.end_date - self.begin_date
+        dates = []
+        for i in range(delta.days + 1):
+            date = self.begin_date + timedelta(days=i)
+            if date.weekday() == 5:
+                dates.append(date)
+
+        return dates
 
 class SourceSystem(models.Model):
     code = models.CharField(max_length=6)

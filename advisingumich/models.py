@@ -104,6 +104,23 @@ class Term(models.Model):
     def end_date(self):
         return Date.objects.get(date=self._end_date)
 
+    def week_end_dates(self):
+        from datetime import timedelta
+        from datetime import datetime
+
+        print str(self.end_date)
+        begin_date = datetime.strptime(str(self.begin_date), '%Y-%m-%d').date()
+        end_date = datetime.strptime(str(self.end_date), '%Y-%m-%d').date()
+
+        delta = end_date - begin_date
+        dates = []
+        for i in range(delta.days + 1):
+            date = begin_date + timedelta(days=i)
+            if date.weekday() == 5:
+                dates.append(Date.objects.get(date=date))
+
+        return dates
+
     def __unicode__(self):
         return self.description
 

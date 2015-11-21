@@ -211,8 +211,6 @@ class StudentClassSiteHistoryList(APIView):
         class_site = ClassSite.objects.get(code=code)
         term = class_site.terms.get()  # FIXME
 
-        week_end_dates = self._term_week_end_dates(term)
-
         events = class_site.weeklystudentclasssiteevent_set.filter(
             student=student)
 
@@ -224,9 +222,11 @@ class StudentClassSiteHistoryList(APIView):
         class_scores = class_site.weeklyclasssitescore_set.all()
 
         history = []
+        week_end_dates = term.week_end_dates()
+        print week_end_dates
         for week_end_date in week_end_dates:
             entry = {}
-            entry['week_end_date'] = week_end_date.isoformat()
+            entry['week_end_date'] = str(week_end_date)
 
             try:
                 event = events.get(week_end_date=week_end_date)
@@ -247,7 +247,8 @@ class StudentClassSiteHistoryList(APIView):
                 entry['score'] = score.score
 
             try:
-                status = student_statuses.get(week_end_date=week_end_date)
+                status = student_statuses.get(
+                    week_end_date=week_end_date)
             except ObjectDoesNotExist:
                 # entry['status'] = None
                 pass
@@ -264,15 +265,3 @@ class StudentClassSiteHistoryList(APIView):
 
             history.append(entry)
         return Response(history)
-
-    def _term_week_end_dates(self, term):
-        from datetime import timedelta
-
-        delta = term.end_date - term.begin_date
-        dates = []
-        for i in range(delta.days + 1):
-            date = term.begin_date + timedelta(days=i)
-            if date.weekday() == 5:
-                dates.append(date)
-
-        return dates
