@@ -19,7 +19,6 @@ angular.module('sespaApp')
     };
 
     var getAdvisingData = function(url) {
-      console.log(url);
       var deferred = $q.defer();
       var data = [];
       var getNext = function(url) {
