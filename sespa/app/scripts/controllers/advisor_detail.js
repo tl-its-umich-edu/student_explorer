@@ -22,6 +22,12 @@ angular.module('sespaApp')
 
     advisingData.advisorsStudents($routeParams.advisor).then(function(students) {
       $scope.students = students;
+    }, function(reason) {
+      console.log(reason);
+    }, function(update) {
+      if (typeof update === 'number') {
+        $scope.progress = update * 100;
+      }
     });
 
   });
