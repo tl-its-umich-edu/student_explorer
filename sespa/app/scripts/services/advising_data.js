@@ -32,6 +32,10 @@ angular.module('sespaApp')
               data.push(entry);
             });
 
+            if (typeof response.data.count === 'number') {
+              deferred.notify(data.length / response.data.count);
+            }
+
             if (response.data.next !== null) {
               getNext(response.data.next);
             } else {
