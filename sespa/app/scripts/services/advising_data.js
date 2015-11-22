@@ -18,7 +18,7 @@ angular.module('sespaApp')
         });
     };
 
-    var getPaginatedData = function(url) {
+    var getAdvisingData = function(url) {
       console.log(url);
       var deferred = $q.defer();
       var data = [];
@@ -61,7 +61,7 @@ angular.module('sespaApp')
       },
 
       allAdvisors: function() {
-        return getPaginatedData('api/advisors/');
+        return getAdvisingData('advisors/');
       },
 
       advisorDetails: function(advisorUsername) {
