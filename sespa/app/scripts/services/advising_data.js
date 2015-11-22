@@ -38,8 +38,11 @@ angular.module('sespaApp')
           }
         });
       };
-      getNext(url);
       
+      config().then(function(config) {
+        getNext(config.apiRootUrl + url);
+      });
+
       return deferred.promise;
     };
 
