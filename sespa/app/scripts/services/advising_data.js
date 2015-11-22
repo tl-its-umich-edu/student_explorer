@@ -8,7 +8,7 @@
  * Factory in the sespaApp.
  */
 angular.module('sespaApp')
-  .factory('advisingData', function($http) {
+  .factory('advisingData', function($http, $q) {
     var config = function() {
       return $http.get('api/', {
           'cache': true
@@ -18,16 +18,29 @@ angular.module('sespaApp')
         });
     };
 
-    var pushPaginatedData = function(obj, url) {
-      $http.get(url).then(function(response) {
-        response.data.results.forEach(function(entry) {
-          obj.push(entry);
-        });
+    var getPaginatedData = function(url) {
+      console.log(url);
+      var deferred = $q.defer();
+      var data = [];
+      var getNext = function(url) {
+        console.log(url);
+        
+        $http.get(url).then(function(response) {
+          response.data.results.forEach(function(entry) {
+            data.push(entry);
+          });
 
-        if (response.data.next !== null) {
-          pushPaginatedData(obj, response.data.next);
-        }
-      });
+          if (response.data.next !== null) {
+            getNext(response.data.next);
+            // TODO deferred.notify()
+          } else {
+            deferred.resolve(data);
+          }
+        });
+      };
+      getNext(url);
+      
+      return deferred.promise;
     };
 
     // Public API here
@@ -48,12 +61,7 @@ angular.module('sespaApp')
       },
 
       allAdvisors: function() {
-        return $http.get('api/advisors/', {
-            'cache': true
-          })
-          .then(function(response) {
-            return response.data;
-          });
+        return getPaginatedData('api/advisors/');
       },
 
       advisorDetails: function(advisorUsername) {
