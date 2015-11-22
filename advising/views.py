@@ -26,16 +26,17 @@ logger = logging.getLogger(__name__)
 
 @api_view(('GET',))
 def api_root(request, format=None):
-    if request.user.is_authenticated():
-        username = request.user.username
-    else:
-        username = None
-
     return Response({
-        'advisors': reverse('advisor-list', request=request, format=format),
-        'mentors': reverse('mentor-list', request=request, format=format),
-        'students': reverse('student-list', request=request, format=format),
-        'username': username,
+        'apiRootUrl': reverse('advising-api-root',
+                              request=request, format=format),
+        'advisorsUrl': reverse('advisor-list',
+                               request=request, format=format),
+        'mentorsUrl': reverse('mentor-list',
+                              request=request, format=format),
+        'studentsUrl': reverse('student-list',
+                               request=request, format=format),
+        'userInfoUrl': reverse('current-user-detail',
+                               request=request, format=format),
         'debug': settings.DEBUG,
     })
 
