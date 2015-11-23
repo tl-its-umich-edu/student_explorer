@@ -8,7 +8,7 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('AdvisorListCtrl', function(advisingData, $scope) {
+  .controller('AdvisorListCtrl', function(advisingData, advisingUtilities, $scope) {
     $scope.advisorListHeader = 'All Advisors';
     $scope.selected = null;
     $scope.sortType = 'last_name';
@@ -23,8 +23,6 @@ angular.module('sespaApp')
     }, function(reason) {
       console.log(reason);
     }, function(update) {
-      if (typeof update === 'number') {
-        $scope.progress = update * 100;
-      }
+      advisingUtilities.updateProgress(update, $scope);
     });
   });

@@ -8,7 +8,7 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('AdvisorDetailCtrl', function(advisingData, $scope, $routeParams) {
+  .controller('AdvisorDetailCtrl', function(advisingData, advisingUtilities, $scope, $routeParams) {
     $scope.advisor = null;
     $scope.students = null;
     $scope.sortType = 'last_name';
@@ -25,9 +25,7 @@ angular.module('sespaApp')
     }, function(reason) {
       console.log(reason);
     }, function(update) {
-      if (typeof update === 'number') {
-        $scope.progress = update * 100;
-      }
+      advisingUtilities.updateProgress(update, $scope);
     });
 
   });
