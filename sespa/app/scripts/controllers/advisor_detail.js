@@ -13,6 +13,8 @@ angular.module('sespaApp')
     $scope.students = null;
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;
+    $scope.progress = 0;
+
     // $scope.searchAdvisor = '';
     // $scope.scroll = scroll;
 
@@ -21,6 +23,8 @@ angular.module('sespaApp')
     });
 
     advisingData.advisorsStudents($routeParams.advisor).then(function(students) {
+      $scope.progress = 100;
+
       $scope.students = students;
     }, function(reason) {
       console.log(reason);
