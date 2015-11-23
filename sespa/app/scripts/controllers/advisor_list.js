@@ -18,7 +18,7 @@ angular.module('sespaApp')
     // $scope.scroll = scroll;
 
     advisingData.allAdvisors().then(function(advisors) {
-      $scope.progress = null;
+      $scope.progress = 100;
       $scope.advisors = advisors;
     }, function(reason) {
       console.log(reason);
