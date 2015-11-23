@@ -1,0 +1,6 @@
+  <div ng-show="progress" class="progress">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+      <span class="progress-label">Loading...</span>
+      <span class="sr-only">{{progress | number:0}}% Complete</span>
+    </div>
+  </div>

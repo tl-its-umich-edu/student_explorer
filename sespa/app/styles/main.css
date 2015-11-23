@@ -125,5 +125,14 @@ body {
 
 .progress {
   width: 200px;
-  margin-left: 150px;
+  margin-left: 50px;
+}
+
+.progress-bar {
+  text-align: left;
+  padding-left: 5px;
+}
+
+.progress-label {
+  font-weight: bold;
 }
