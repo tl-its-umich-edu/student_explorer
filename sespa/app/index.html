@@ -43,11 +43,11 @@
             <input ng-model="search" type="text" class="form-control" placeholder="Search Students...">
           </form>
             <ul class="nav navbar-nav navbar-right">
-              <li ng-if="!config.username">
+              <li ng-if="!userInfo.username">
                 <a ng-href="{{config.login}}?next=/" aria-haspopup="true" aria-expanded="false">Login</a>
               </li>
-              <li ng-if="config.username" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{config.username}} <span class="caret"></span></a>
+              <li ng-if="userInfo.username" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{userInfo.username}} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><p><strong>{{userInfo.first_name}} {{userInfo.last_name}}</strong></p></li>
                   <li role="separator" class="divider"></li>
