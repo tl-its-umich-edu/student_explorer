@@ -56,7 +56,7 @@
                     <p>
                       You accepted the 
                       <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
-                      on {{userInfo.profile.policy_accepted_date}}
+                      on {{userInfo.profile.policy_accepted_date | date}}
                     </p>
                   </li>
                   <li ng-if="!userInfo.profile.is_policy_accepted" class="policy-warning">
