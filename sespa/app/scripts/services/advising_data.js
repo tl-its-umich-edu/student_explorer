@@ -45,6 +45,8 @@ angular.module('sespaApp')
             // console.log('dealing with unpaginaged data');
             deferred.resolve(response.data);
           }
+        }, function(reason) {
+          deferred.reject(reason);
         });
       };
 
