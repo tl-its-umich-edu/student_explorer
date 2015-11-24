@@ -62,14 +62,7 @@ angular.module('sespaApp')
       },
 
       userInfo: function() {
-        return config().then(function() {
-          return $http.get('api/users/me/', {
-              'cache': true
-            })
-            .then(function(response) {
-              return response.data;
-            });
-        });
+        return getAdvisingData('users/me/');
       },
 
       allAdvisors: function() {
