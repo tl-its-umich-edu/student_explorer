@@ -4,3 +4,6 @@
 [submodule "umichuser"]
 	path = umichuser
 	url = git@bitbucket.org:umichdig/umichuser.git
+[submodule "healthcheck"]
+	path = healthcheck
+	url = git@bitbucket.org:umichdig/healthcheck.git
