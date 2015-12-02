@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'advising',
     'hashredirect',
     'umichuser',
-    'healthcheck',
+    'statuscheck',
 )
 
 MIDDLEWARE_CLASSES = (

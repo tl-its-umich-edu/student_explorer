@@ -20,7 +20,7 @@ import hashredirect.views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^check/', include('healthcheck.urls')),
+    url(r'^check/', include('statuscheck.urls')),
 
     url(r'^api/', include('advising.urls')),
     url(r'^api/users/', include('umichuser.urls')),
