@@ -19,5 +19,9 @@
     "angular-mocks": "^1.4.7"
   },
   "appPath": "app",
-  "moduleName": "sespaApp"
+  "moduleName": "sespaApp",
+  "resolutions": {
+    "angular": "1.4.7",
+    "d3": "~3.4.1"
+  }
 }
