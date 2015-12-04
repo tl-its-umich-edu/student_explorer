@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui-rangeSlider'
+    'ui-rangeSlider',
+    'nvd3ChartDirectives'
   ])
   .config(function($routeProvider) {
     $routeProvider
