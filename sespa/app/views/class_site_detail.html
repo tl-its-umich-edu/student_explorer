@@ -56,6 +56,20 @@
   </table>
 </div>
 
+<div ng-controller="ClassSiteDetailCtrl">
+	<nvd3-line-chart
+    	data="exampleData"
+        id="exampleId"
+        xAxisTickFormat="xAxisTickFormatFunction()"
+        yAxisTickFormat="yAxisTickFormatFunction()"
+        width="550"
+        height="350"
+        showXAxis="true"
+        showYAxis="true">
+        	<svg></svg>
+    </nvd3-line-chart>
+</div>
+
 <h3>Class Site History</h3>
 <div ng-if="!(historyLength > 0)">
   <p>There is no class site history data for this student.</p>
