@@ -55,8 +55,13 @@ body {
   padding-bottom: 19px;
 }
 
-.content {
-    margin: 0 20px;
+.student-info table tbody th,
+.student-info table tbody td {
+    border: 0;
+}
+
+.student-info table tbody td p {
+    margin: 0 0 2px;
 }
 
 /* Custom page footer */
