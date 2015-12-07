@@ -21,14 +21,16 @@ angular.module('sespaApp')
     advisingData.advisorDetails($routeParams.advisor).then(function(advisor) {
       $scope.advisor = advisor;
     }, function(reason) {
-      window.alert(reason);
+      // window.alert(reason);
+      appendAlert(reason);
     });
 
     advisingData.advisorsStudents($routeParams.advisor).then(function(students) {
       $scope.progress = 100;
       $scope.students = students;
     }, function(reason) {
-      window.alert(reason);
+      // window.alert(reason);
+      appendAlert(reason);
     }, function(update) {
       advisingUtilities.updateProgress(update, $scope);
     });
