@@ -55,6 +55,10 @@ body {
   padding-bottom: 19px;
 }
 
+.content {
+    margin: 0 20px;
+}
+
 /* Custom page footer */
 .footer {
   padding-top: 19px;
