@@ -8,7 +8,7 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('ClassSiteDetailCtrl', function(advisingData, $scope, $routeParams) {
+  .controller('ClassSiteDetailCtrl', function(advisingData, advisingUtilities, $scope, $routeParams) {
     $scope.classSiteDetailHeader = null;
     $scope.assignments = null;
     $scope.classSiteHistory = null;
@@ -19,6 +19,7 @@ angular.module('sespaApp')
     $scope.sortTypeHistory = 'date';
     $scope.sortReverse = false;
     $scope.searchStudent = '';
+    $scope.progress = 0;
     // $scope.scroll = scroll;
 
 
@@ -32,7 +33,12 @@ angular.module('sespaApp')
     });
 
     advisingData.studentClassSiteAssignments($routeParams.student, $routeParams.classSiteCode).then(function(assignment) {
+      $scope.progress = 100;
       $scope.assignments = assignment;
+    }, function(reason) {
+      window.alert(reason);
+    }, function(update) {
+      advisingUtilities.updateProgress(update, $scope);
     });
 
     advisingData.studentClassSiteHistory($routeParams.student, $routeParams.classSiteCode).then(function(classSiteHistory) {

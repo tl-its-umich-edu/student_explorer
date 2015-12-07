@@ -59,3 +59,12 @@ angular
         redirectTo: '/'
       });
   });
+
+/* Remove cache */
+angular
+  .module('sespaApp')
+  .run(function($rootScope, $templateCache) {
+   $rootScope.$on('$viewContentLoaded', function() {
+      $templateCache.removeAll();
+   });
+});
