@@ -56,19 +56,17 @@
   </table>
 </div>
 
-<div ng-controller="ClassSiteDetailCtrl">
-	<nvd3-line-chart
-    	data="exampleData"
-        id="exampleId"
-        xAxisTickFormat="xAxisTickFormatFunction()"
-        yAxisTickFormat="yAxisTickFormatFunction()"
-        width="550"
-        height="350"
-        showXAxis="true"
-        showYAxis="true">
-        	<svg></svg>
-    </nvd3-line-chart>
-</div>
+<nvd3-line-chart
+	data="scoreData"
+    id="score-chart"
+    xAxisTickFormat="xAxisTickFormatFunction()"
+    yAxisTickFormat="yAxisTickFormatFunction()"
+    width="550"
+    height="350"
+    showXAxis="true"
+    showYAxis="true">
+        <svg></svg>
+</nvd3-line-chart>
 
 <h3>Class Site History</h3>
 <div ng-if="!(historyLength > 0)">
