@@ -1,22 +1,21 @@
 <h2 ng-if="classSiteListHeader" class="sub-header">{{classSiteListHeader}}</h2>
-<h3>Class Sites</h3>
 <div ng-if="classSites.length == 0">
   <p>There is no class site data for this student.</p>
 </div>
 <div ng-if="classSites.length > 0" class="table-responsive">
-  <table class="table table-striped">
+  <table class="table">
     <thead>
       <tr>
-        <td>
+        <th>
           <a href="" ng-click="sortType = 'class_site.description'; sortReverse = !sortReverse">
-            Class Site Title
+            Class Site
             <span class="fa fa-caret-down" ng-show="sortType == 'class_site.description' &amp;&amp; !sortReverse"></span>
             <span class="fa fa-caret-up" ng-show="sortType == 'class_site.description' &amp;&amp; sortReverse"></span>
           </a>
-        </td>
-        <td>
+      </th>
+        <th>
           <a>Status</a>
-        </td>
+      </th>
       </tr>
     </thead>
     <tbody>

@@ -142,13 +142,11 @@ class StudentAdvisorList(generics.ListAPIView):
     serializer_class = StudentAdvisorSerializer
     lookup_field = 'username'
 
-    def get(self, request, *args, **kwargs):
-        self.queryset = (
-            self.queryset
-            .get(username=kwargs['username'])
+    def get_queryset(self):
+        return (
+            get_object_or_404(Student, username=self.kwargs['username'])
             .studentadvisorrole_set.all()
         )
-        return self.list(request, *args, **kwargs)
 
 
 class StudentMentorList(generics.ListAPIView):
@@ -159,13 +157,11 @@ class StudentMentorList(generics.ListAPIView):
     serializer_class = StudentMentorSerializer
     lookup_field = 'username'
 
-    def get(self, request, *args, **kwargs):
-        self.queryset = (
-            self.queryset
-            .get(username=kwargs['username'])
+    def get_queryset(self):
+        return (
+            get_object_or_404(Student, username=self.kwargs['username'])
             .studentcohortmentor_set.all()
         )
-        return self.list(request, *args, **kwargs)
 
 
 class StudentClassSiteList(MultipleFieldLookupMixin, generics.ListAPIView):

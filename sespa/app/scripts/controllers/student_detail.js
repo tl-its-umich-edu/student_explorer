@@ -26,6 +26,7 @@ angular.module('sespaApp')
     
     advisingData.studentAdvisors($routeParams.student).then(function(advisors) {
       $scope.advisors = advisors;
+      console.log(advisors);
     });
     
     advisingData.studentMentors($routeParams.student).then(function(mentors) {

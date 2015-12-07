@@ -1,106 +1,30 @@
 <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
-<h3>Basic Information</h3>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <td>
-          <a>
-            Student ID
-          </a>
-        </td>
-        <td>
-          <a>
-            Cohorts
-          </a>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ student.univ_id }}</td>
-        <td>
-          <p ng-repeat="cohort in student.cohorts">{{ cohort }}</p>
-      	</td>
-      </tr>
-    </tbody>
-  </table>
+
+<div class="col-sm-8">
+    <div ng-include="'views/class_site_list.html'" ></div>
 </div>
 
-<h3>Advisors</h3>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <td>
-          <a href="" ng-click="sortTypeAdvisor = 'advisor.last_name'; sortReverseAdvisor = !sortReverseAdvisor">
-            Advisor Name
-            <span class="fa fa-caret-down" ng-show="sortTypeAdvisor == 'advisor.last_name' &amp;&amp; !sortReverseAdvisor"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeAdvisor == 'advisor.last_name' &amp;&amp; sortReverseAdvisor"></span>
-          </a>
-        </td>
-        <td>
-          <a href="" ng-click="sortTypeAdvisor = 'advisor.univ_id'; sortReverseAdvisor = !sortReverseAdvisor">
-            Advisor ID
-            <span class="fa fa-caret-down" ng-show="sortTypeAdvisor == 'advisor.univ_id' &amp;&amp; !sortReverseAdvisor"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeAdvisor == 'advisor.univ_id' &amp;&amp; sortReverseAdvisor"></span>
-          </a>
-        </td>
-        <td>
-          <a href="" ng-click="sortTypeAdvisor = 'role'; sortReverseAdvisor = !sortReverseAdvisor">
-            Advisor Role
-            <span class="fa fa-caret-down" ng-show="sortTypeAdvisor == 'role' &amp;&amp; !sortReverseAdvisor"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeAdvisor == 'role' &amp;&amp; sortReverseAdvisor"></span>
-          </a>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="advisor in advisors | orderBy:sortTypeAdvisor:sortReverseAdvisor | filter:searchAdvisor">
-        <td class="bold">{{ advisor.advisor.first_name }} {{ advisor.advisor.last_name }}</td>
-        <td>{{ advisor.advisor.univ_id }}</td>
-        <td>{{ advisor.role }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="student-info col-sm-4 well">
+    <div class="table-responsive">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th><a>Student ID</a></th>
+            <td>{{ student.univ_id }}</td>
+          </tr>
+          <tr>
+            <th><a>Cohorts</a></th>
+            <td><p ng-repeat="cohort in student.cohorts">{{ cohort }}</p></td>
+          </tr>
+          <tr>
+            <th><a>Advisors</a></th>
+            <td><p ng-repeat="advisor in advisors">{{ advisor.advisor.first_name }} {{ advisor.advisor.last_name }}<!-- ({{ advisor.role }}) --></p></td>
+          </tr>
+          <tr>
+            <th><a>Mentors</a></th>
+            <td><p ng-repeat="mentor in mentors">{{ mentor.mentor.first_name }} {{ mentor.mentor.last_name }}<!-- ({{ mentor.cohort }}) --></p></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 </div>
-
-<h3>Mentors</h3>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <td>
-          <a href="" ng-click="sortTypeMentor = 'mentor.last_name'; sortReverseMentor = !sortReverseMentor">
-            Mentor Name
-            <span class="fa fa-caret-down" ng-show="sortTypeMentor == 'mentor.last_name' &amp;&amp; !sortReverseMentor"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeMentor == 'mentor.last_name' &amp;&amp; sortReverseMentor"></span>
-          </a>
-        </td>
-        <td>
-          <a href="" ng-click="sortTypeMentor = 'mentor.univ_id'; sortReverseMentor = !sortReverseMentor">
-            Mentor ID
-            <span class="fa fa-caret-down" ng-show="sortTypeMentor == 'mentor.univ_id' &amp;&amp; !sortReverseMentor"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeMentor == 'mentor.univ_id' &amp;&amp; sortReverseMentor"></span>
-          </a>
-        </td>
-        <td>
-          <a href="" ng-click="sortTypeMentor = 'cohort'; sortReverseMentor = !sortReverseMentor">
-            Cohort
-            <span class="fa fa-caret-down" ng-show="sortTypeMentor == 'cohort' &amp;&amp; !sortReverseMentor"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeMentor == 'cohort' &amp;&amp; sortReverseMentor"></span>
-          </a>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="mentor in mentors | orderBy:sortTypeMentor:sortReverseMentor | filter:searchAdvisor">
-        <td class="bold">{{ mentor.mentor.first_name }} {{ mentor.mentor.last_name }}</td>
-        <td>{{ mentor.mentor.univ_id }}</td>
-        <td>{{ mentor.cohort }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div ng-include="'views/class_site_list.html'" ></div>

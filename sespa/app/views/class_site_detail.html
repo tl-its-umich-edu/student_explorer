@@ -58,6 +58,18 @@
 
 <dig-data-fetch-progress progress="{{progress}}"></dig-data-fetch-progress>
 
+<nvd3-line-chart
+	data="scoreData"
+    id="score-chart"
+    xAxisTickFormat="xAxisTickFormatFunction()"
+    yAxisTickFormat="yAxisTickFormatFunction()"
+    width="550"
+    height="350"
+    showXAxis="true"
+    showYAxis="true">
+        <svg></svg>
+</nvd3-line-chart>
+
 <h3>Class Site History</h3>
 <div ng-if="!(historyLength > 0)">
   <p>There is no class site history data for this student.</p>
