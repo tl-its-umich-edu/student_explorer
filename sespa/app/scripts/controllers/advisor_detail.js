@@ -18,19 +18,27 @@ angular.module('sespaApp')
     // $scope.searchAdvisor = '';
     // $scope.scroll = scroll;
 
-    advisingData.advisorDetails($routeParams.advisor).then(function(advisor) {
-      $scope.advisor = advisor;
-    }, function(reason) {
-      advisingUtilities.alert(reason);
-    });
+    advisingData.userInfo().then(function(userInfo) {
+      var advisorUsername;
+      if (typeof $routeParams.advisor === 'undefined') {
+        advisorUsername = userInfo.username;
+      } else {
+        advisorUsername = $routeParams.advisor;
+      }
+      advisingData.advisorDetails(advisorUsername).then(function(advisor) {
+        $scope.advisor = advisor;
+      }, function(reason) {
+        advisingUtilities.alert(reason);
+      });
 
-    advisingData.advisorsStudents($routeParams.advisor).then(function(students) {
-      $scope.progress = 100;
-      $scope.students = students;
-    }, function(reason) {
-      advisingUtilities.alert(reason);
-    }, function(update) {
-      advisingUtilities.updateProgress(update, $scope);
-    });
+      advisingData.advisorsStudents(advisorUsername).then(function(students) {
+        $scope.progress = 100;
+        $scope.students = students;
+      }, function(reason) {
+        advisingUtilities.alert(reason);
+      }, function(update) {
+        advisingUtilities.updateProgress(update, $scope);
+      });
 
+    });
   });
