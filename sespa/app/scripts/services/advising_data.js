@@ -22,33 +22,35 @@ angular.module('sespaApp')
       var deferred = $q.defer();
       var data = [];
       var getNext = function(url) {
-        $http.get(url, {'cache': true})
+        $http.get(url, {
+            'cache': true
+          })
           .then(function(response) {
-          if ((typeof response.data.results === 'object' &&
-              (typeof response.data.next === 'string' ||
-                response.data.next === null)
-            )) {
-            // console.log('dealing with paginaged data');
-            response.data.results.forEach(function(entry) {
-              data.push(entry);
-            });
+            if ((typeof response.data.results === 'object' &&
+                (typeof response.data.next === 'string' ||
+                  response.data.next === null)
+              )) {
+              // console.log('dealing with paginaged data');
+              response.data.results.forEach(function(entry) {
+                data.push(entry);
+              });
 
-            if (typeof response.data.count === 'number') {
-              deferred.notify(data.length / response.data.count);
-            }
+              if (typeof response.data.count === 'number') {
+                deferred.notify(data.length / response.data.count);
+              }
 
-            if (response.data.next !== null) {
-              getNext(response.data.next);
+              if (response.data.next !== null) {
+                getNext(response.data.next);
+              } else {
+                deferred.resolve(data);
+              }
             } else {
-              deferred.resolve(data);
+              // console.log('dealing with unpaginaged data');
+              deferred.resolve(response.data);
             }
-          } else {
-            // console.log('dealing with unpaginaged data');
-            deferred.resolve(response.data);
-          }
-        }, function(reason) {
-          deferred.reject('Failed to load data (' + url + ' ' + reason.status + ')');
-        });
+          }, function(reason) {
+            deferred.reject('Failed to load data (' + url + ' ' + reason.status + ')');
+          });
       };
 
       config().then(function(config) {
