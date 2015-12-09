@@ -22,7 +22,7 @@ angular.module('sespaApp')
       $scope.advisor = advisor;
     }, function(reason) {
       // window.alert(reason);
-      appendAlert(reason);
+      advisingUtilities.alert(reason);
     });
 
     advisingData.advisorsStudents($routeParams.advisor).then(function(students) {
@@ -30,7 +30,7 @@ angular.module('sespaApp')
       $scope.students = students;
     }, function(reason) {
       // window.alert(reason);
-      appendAlert(reason);
+      advisingUtilities.alert(reason);
     }, function(update) {
       advisingUtilities.updateProgress(update, $scope);
     });
