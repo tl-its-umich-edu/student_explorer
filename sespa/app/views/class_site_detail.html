@@ -61,12 +61,18 @@
 <nvd3-line-chart
 	data="scoreData"
     id="score-chart"
-    xAxisTickFormat="xAxisTickFormatFunction()"
-    yAxisTickFormat="yAxisTickFormatFunction()"
     width="550"
     height="350"
     showXAxis="true"
-    showYAxis="true">
+    showYAxis="true"
+    showLegend="true"
+    forcey="[0,100]"
+    interactive="true"
+    useInteractiveGuideLine="true"
+    tooltips="true"
+    xAxisTickFormat="xAxisTickFormatFunction()"
+    isArea = "true"
+    noData="No Data For You!">
         <svg></svg>
 </nvd3-line-chart>
 
