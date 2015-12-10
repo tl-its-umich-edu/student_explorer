@@ -26,7 +26,6 @@ angular.module('sespaApp')
     
     advisingData.studentAdvisors($routeParams.student).then(function(advisors) {
       $scope.advisors = advisors;
-      console.log(advisors);
     });
     
     advisingData.studentMentors($routeParams.student).then(function(mentors) {
@@ -34,6 +33,10 @@ angular.module('sespaApp')
     });
     
     advisingData.studentClassSites($routeParams.student).then(function(class_sites) {
+      class_sites.forEach(function(class_site) {
+        class_site.studentAve = parseInt(100 * Math.random());
+        class_site.classAve = parseInt(100 * Math.random());
+      });
       $scope.classSites = class_sites;
     });
 
