@@ -49,7 +49,7 @@ angular.module('sespaApp')
       var classData = [];
       for (var i = 0; i < classSiteHistory.length; i++) {
         studentData.push([i + 1, classSiteHistory[i].score]);
-        classData.push([i + 1, classSiteHistory[i].class_score]);
+        classData.push([i + 1 , classSiteHistory[i].class_score]);
       }
       $scope.scoreData = [{
         'key': 'student',
@@ -63,5 +63,15 @@ angular.module('sespaApp')
     advisingData.studentDetails($routeParams.student).then(function(student) {
       $scope.classSiteDetailHeader = student.first_name + ' ' + student.last_name;
     });
+    
+    // nvd3 chart manipulation functions
+    $scope.xAxisTickFormatFunction = function(){
+      return function(d){
+        return 'Week  ' + d;
+      };
+    }
+    
+    
+
 
   });
