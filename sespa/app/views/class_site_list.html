@@ -28,13 +28,13 @@
           <img alt="{{classSite.status}}" class="class-site-status {{ classSite.status | lowercase }}" ng-src="images/Status_Icons_{{classSite.status}}.png"/>
       	</td>
         <td>
-          <div class="progress">
-            <div class="progress-bar studentGradeBar" role="progressbar" aria-valuenow="{{classSite.studentAve}}"
-              aria-valuemin="0" aria-valuemax="100" style="width:{{classSite.studentAve}}%" title="Student Grade: {{classSite.studentAve}}%" data-toggle="tooltip" data-placement="bottom" tooltip>
-              <span class="sr-only">Student Grade: {{classSite.studentAve}}%</span>
+          <div class="progress" ng-if="classSite.current_student_score_average || classSite.current_class_score_average">
+            <div class="progress-bar studentGradeBar" role="progressbar" aria-valuenow="{{classSite.current_student_score_average}}"
+              aria-valuemin="0" aria-valuemax="100" style="width:{{classSite.current_student_score_average}}%" title="Student Grade: {{classSite.current_student_score_average}}%" data-toggle="tooltip" data-placement="bottom" tooltip>
+              <span class="sr-only">Student Grade: {{classSite.current_student_score_average}}%</span>
             </div>
-            <div class="classAveBar" data-toggle="tooltip" data-placement="bottom" style="left: {{classSite.classAve}}%;" title="Class Average Grade: {{classSite.classAve}}%" tooltip>
-              <span class="sr-only">Class Average Grade: {{classSite.classAve}}%</span>
+            <div class="classAveBar" data-toggle="tooltip" data-placement="bottom" style="left: {{classSite.current_class_score_average}}%;" title="Class Average Grade: {{classSite.current_class_score_average}}%" tooltip>
+              <span class="sr-only">Class Average Grade: {{classSite.current_class_score_average}}%</span>
             </div>
           </div>
         </td>

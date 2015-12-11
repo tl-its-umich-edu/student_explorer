@@ -266,6 +266,36 @@ class StudentCohortMentor(models.Model):
 # "Fact" models
 
 
+class ClassSiteScore(models.Model):
+    class_site = models.ForeignKey(ClassSite, primary_key=True,
+                                   db_column='CLASS_SITE_KEY')
+    current_score_average = models.FloatField(db_column="CLASS_CURR_SCR_AVG")
+
+    def __unicode__(self):
+        return '%s has an average score of %s' % (
+            self.class_site, self.current_score_average)
+
+    class Meta:
+        db_table = '"CNLYR002"."FC_CLASS_SCR"'
+        managed = False
+
+
+class StudentClassSiteScore(models.Model):
+    student = models.ForeignKey(Student, primary_key=True,
+                                db_column='STDNT_KEY')
+    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
+    current_score_average = models.FloatField(db_column="STDNT_CURR_SCR_AVG")
+
+    def __unicode__(self):
+        return '%s has an average score of %s in %s' % (
+            self.student, self.current_score_average, self.class_site)
+
+    class Meta:
+        unique_together = ('student', 'class_site')
+        db_table = '"CNLYR002"."FC_STDNT_CLASS_SCR"'
+        managed = False
+
+
 class StudentClassSiteAssignment(models.Model, AdvisingUmichDataCleanupMixin):
     student = models.ForeignKey(Student, db_column='STDNT_KEY',
                                 primary_key=True)

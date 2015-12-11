@@ -136,6 +136,8 @@ class StudentClassSiteSerializer(serializers.ModelSerializer):
     # code = serializers.ReadOnlyField(source='class_site.code')
     status = serializers.ReadOnlyField(source='status.description')
     class_site = ClassSiteSerializer()
+    current_class_score_average = serializers.SerializerMethodField()
+    current_student_score_average = serializers.SerializerMethodField()
 
     url = StudentClassSiteHyperlink(
         read_only=True,
@@ -147,11 +149,22 @@ class StudentClassSiteSerializer(serializers.ModelSerializer):
         read_only=True,
         view_name='student-classsite-history-list')
 
+    def get_current_class_score_average(self, obj):
+        return obj.class_site.classsitescore_set.get(
+            class_site=obj.class_site).current_score_average
+
+    def get_current_student_score_average(self, obj):
+        return obj.class_site.studentclasssitescore_set.get(
+            class_site=obj.class_site,
+            student=obj.student
+        ).current_score_average
+
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('class_site', 'status', 'url',
-                  'assignments_url', 'history_url')
-        # fields = ('description', 'code', 'status', 'url', 'assignments_url')
+        fields = ('class_site', 'status',
+                  'current_class_score_average',
+                  'current_student_score_average',
+                  'url', 'assignments_url', 'history_url')
 
 
 class AdvisorStudentSerializer(serializers.ModelSerializer):
