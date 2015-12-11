@@ -1,62 +1,5 @@
 <h2 ng-if="classSiteDetailHeader" class="sub-header">{{classSiteDetailHeader}}</h2>
 <h3>{{classSiteDescription}}</h3>
-<div ng-if="assignments.length == 0">
-  <p>There is no assignment data for this student.</p>
-</div>
-<div ng-if="assignments.length > 0" class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <td>
-          <a href="" ng-click="sortTypeAssignment = 'assignment.description'; sortReverse = !sortReverse">
-            Assignment
-            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; sortReverse"></span>
-          </a>
-        </td>
-        <td>
-          <a>Included in Grade</a>
-        </td>
-        <td>
-          <a>Points Earned</a>
-        </td>
-        <td>
-          <a>Points Possible</a>
-        </td>
-        <td>
-          <a href="" ng-click="sortTypeAssignment = 'weight'; sortReverse = !sortReverse">
-            Weight
-            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'weight' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'weight' &amp;&amp; sortReverse"></span>
-          </a>
-        </td>
-        <td>
-          <a href="" ng-click="sortTypeAssignment = 'due_date'; sortReverse = !sortReverse">
-            Due Date
-            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; sortReverse"></span>
-          </a>
-        </td>
-        <td>
-          <a>Grader's Comment</a>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
-        <td>{{assignment.assignment.description }}</td>
-        <td>{{assignment.included_in_grade}}</td>
-        <td>{{assignment.points_earned}}</td>
-        <td>{{assignment.points_possible}}</td>
-        <td>{{assignment.weight}}</td>
-        <td>{{assignment.due_date | date}}</td>
-        <td>{{assignment.grader_comment}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<dig-data-fetch-progress progress="{{progress}}"></dig-data-fetch-progress>
 
 <nvd3-line-chart
 	data="scoreData"
@@ -120,3 +63,61 @@
     </tbody>
   </table>
 </div>
+
+<div ng-if="assignments.length == 0">
+  <p>There is no assignment data for this student.</p>
+</div>
+<div ng-if="assignments.length > 0" class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>
+          <a href="" ng-click="sortTypeAssignment = 'assignment.description'; sortReverse = !sortReverse">
+            Assignment
+            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; sortReverse"></span>
+          </a>
+        </td>
+        <td>
+          <a>Included in Grade</a>
+        </td>
+        <td>
+          <a>Points Earned</a>
+        </td>
+        <td>
+          <a>Points Possible</a>
+        </td>
+        <td>
+          <a href="" ng-click="sortTypeAssignment = 'weight'; sortReverse = !sortReverse">
+            Weight
+            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'weight' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'weight' &amp;&amp; sortReverse"></span>
+          </a>
+        </td>
+        <td>
+          <a href="" ng-click="sortTypeAssignment = 'due_date'; sortReverse = !sortReverse">
+            Due Date
+            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; sortReverse"></span>
+          </a>
+        </td>
+        <td>
+          <a>Grader's Comment</a>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
+        <td>{{assignment.assignment.description }}</td>
+        <td>{{assignment.included_in_grade}}</td>
+        <td>{{assignment.points_earned}}</td>
+        <td>{{assignment.points_possible}}</td>
+        <td>{{assignment.weight}}</td>
+        <td>{{assignment.due_date | date}}</td>
+        <td>{{assignment.grader_comment}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<dig-data-fetch-progress progress="{{progress}}"></dig-data-fetch-progress>
