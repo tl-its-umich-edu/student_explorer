@@ -14,6 +14,7 @@ angular.module('sespaApp')
       $scope.config = config;
       $scope.studentSearch = function() {
         $location.path('/students').search({search: $scope.search});
+        $('.navbar-toggle').click();
       };
     });
     

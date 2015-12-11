@@ -121,13 +121,15 @@ body {
   margin-right: 5px;
 }
 
+@media screen and (max-width: 768px) {
+  .open > .dropdown-menu {
+    color: #9d9d9d;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .hide-small {
     display: none;
-  }
-  
-  .open > .dropdown-menu {
-    color: #9d9d9d;
   }
 }
 
