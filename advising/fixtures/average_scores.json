@@ -1,0 +1,36 @@
+[
+{
+    "fields": {
+        "class_site": 1,
+        "current_score_average": 88.1
+    },
+    "model": "advising.classsitescore",
+    "pk": 1
+},
+{
+    "fields": {
+        "class_site": 2,
+        "current_score_average": 81.9
+    },
+    "model": "advising.classsitescore",
+    "pk": 2
+},
+{
+    "fields": {
+        "class_site": 1,
+        "current_score_average": 83.8,
+        "student": 1
+    },
+    "model": "advising.studentclasssitescore",
+    "pk": 1
+},
+{
+    "fields": {
+        "class_site": 2,
+        "current_score_average": 86.3,
+        "student": 1
+    },
+    "model": "advising.studentclasssitescore",
+    "pk": 2
+}
+]

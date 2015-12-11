@@ -11,7 +11,7 @@
 4. `vagrant ssh`
     - `cd /vagrant/`
     - `python manage.py migrate`
-    - `python manage.py loaddata student_explorer/fixtures/dev_users.json student_explorer/fixtures/dev_users_profiles.json advising/fixtures/dev_data.json`
+    - `python manage.py loaddata student_explorer/fixtures/*.json student_explorer/fixtures/dev_users_profiles.json advising/fixtures/dev_data.json`
     - `python manage.py runserver`
 7. Browse to [http://localhost:2080/](http://localhost:2080/)
 

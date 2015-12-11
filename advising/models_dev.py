@@ -165,6 +165,25 @@ class StudentCohortMentor(models.Model):
 # "Fact" models
 
 
+class ClassSiteScore(models.Model):
+    class_site = models.ForeignKey(ClassSite)
+    current_score_average = models.FloatField()
+
+    def __unicode__(self):
+        return '%s has an average score of %s' % (
+            self.class_site, self.current_score_average)
+
+
+class StudentClassSiteScore(models.Model):
+    student = models.ForeignKey(Student)
+    class_site = models.ForeignKey(ClassSite)
+    current_score_average = models.FloatField()
+
+    def __unicode__(self):
+        return '%s has an average score of %s in %s' % (
+            self.student, self.current_score_average, self.class_site)
+
+
 class StudentClassSiteAssignment(models.Model):
     student = models.ForeignKey(Student)
     class_site = models.ForeignKey(ClassSite)

@@ -5,6 +5,7 @@ from advising.models import (Student, Advisor, Mentor, Cohort, Assignment,
                              ClassSite)
 from rest_framework import serializers
 from rest_framework.reverse import reverse
+from django.core.exceptions import ObjectDoesNotExist
 import logging
 
 logger = logging.getLogger(__name__)
@@ -150,14 +151,20 @@ class StudentClassSiteSerializer(serializers.ModelSerializer):
         view_name='student-classsite-history-list')
 
     def get_current_class_score_average(self, obj):
-        return obj.class_site.classsitescore_set.get(
-            class_site=obj.class_site).current_score_average
+        try:
+            return obj.class_site.classsitescore_set.get(
+                class_site=obj.class_site).current_score_average
+        except ObjectDoesNotExist:
+            return None
 
     def get_current_student_score_average(self, obj):
-        return obj.class_site.studentclasssitescore_set.get(
-            class_site=obj.class_site,
-            student=obj.student
-        ).current_score_average
+        try:
+            return obj.class_site.studentclasssitescore_set.get(
+                class_site=obj.class_site,
+                student=obj.student
+            ).current_score_average
+        except ObjectDoesNotExist:
+            return None
 
     class Meta:
         model = StudentClassSiteStatus
