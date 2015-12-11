@@ -125,6 +125,10 @@ body {
   .hide-small {
     display: none;
   }
+  
+  .open > .dropdown-menu {
+    color: #9d9d9d;
+  }
 }
 
 /* For ng-cloak */
