@@ -5,6 +5,9 @@ from os import getenv
 SECRET_KEY = getenv('DJANGO_SECRET_KEY', 'I need to be changed!')
 
 HASHREDIRECT_ENABLED = bool(int(getenv('DJANGO_HASHREDIRECT_ENABLED', '0')))
+HASHREDIRECT_LOGOUT_REDIRECT = getenv(
+    'DJANGO_HASHREDIRECT_LOGOUT_REDIRECT', '0')
+
 LOGIN_URL = getenv('DJANGO_LOGIN_URL', None)
 
 DATABASES = {
