@@ -29,8 +29,11 @@ urlpatterns = [
         'document_root': 'sespa/app',
         'path': 'index.html'
     }, name='app-root'),
+
     url(r'^login/$', hashredirect.views.login_redirect,
         name='hashredirect-login-redirect'),
+    url(r'^logout/$', hashredirect.views.logout_redirect,
+        name='hashredirect-logout-redirect'),
 
     url(r'^bower_components/(?P<path>.*)$', serve, {
         'document_root': 'sespa/bower_components',
