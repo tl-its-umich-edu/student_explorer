@@ -13,7 +13,7 @@
     - `python manage.py migrate`
     - `python manage.py loaddata */fixtures/*.json`
     - `python manage.py runserver`
-7. Browse to [http://localhost:2080/](http://localhost:2080/)
+5. Browse to [http://localhost:2080/](http://localhost:2080/)
 
 ## Configuring an external database ##
 - Add an database to the DATABASES setting ('lt_dataset' in this example).
