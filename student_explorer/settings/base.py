@@ -111,7 +111,6 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/api/api-auth/login/'
 
 REST_FRAMEWORK = {
-    'PAGE_SIZE': None,
+    'PAGE_SIZE': 100,
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.SearchFilter',),
-
 }
