@@ -6,12 +6,18 @@
 }
 
 body {
+  font-family: Lato;
   padding-top: 50px;
 }
 
+.navbar-inverse {
+    background-color: #1c3144;
+}
+
 .sub-header {
-  padding-bottom: 10px;
-  padding-left: 5px;
+  padding-top: 50px;
+  color: brown;
+  font-weight: 400;
   /*border-bottom: 1px solid #eee;*/
 }
 
@@ -38,8 +44,12 @@ body {
 .header,
 .marketing,
 .footer {
+  background-color: #1c3144;
+  font-weight: 300;
+  color: white;
   padding-left: 15px;
   padding-right: 15px;
+  margin-top: 40px;
 }
 
 /* Custom page header */
@@ -96,7 +106,7 @@ body {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
-    max-width: 730px;
+    /*max-width: 730px;*/
   }
 
   /* Remove the padding we set earlier */
@@ -162,3 +172,41 @@ body {
   position: relative;
   background: gray;
 }
+
+.main-no-margin-top{
+    margin-top: 0px;
+}
+
+.main-less-weight{
+    margin-top: 65px;
+    font-weight: 300;
+}
+
+.main-h3{
+    color: #1c3144;
+}
+
+.main-color-white{
+    color: #e5e5e5 !important;
+}
+.main-navbar-brand {
+    font-weight: 200;
+}
+
+.main-page-end-margin-bottom{
+    margin-bottom: 100px;
+}
+
+svg {
+    height: 350px !important;
+    margin-top: 40px;
+}
+
+svg text {
+  font: normal 13px Lato;
+}
+.nvtooltip {
+    font-family: Lato;
+}
+
+    
