@@ -52,10 +52,10 @@ angular.module('sespaApp')
         classData.push([i + 1 , classSiteHistory[i].class_score]);
       }
       $scope.scoreData = [{
-        'key': 'student',
+        'key': 'Student',
         'values': studentData
       }, {
-        'key': 'class',
+        'key': 'Class',
         'values': classData
       }];
     });

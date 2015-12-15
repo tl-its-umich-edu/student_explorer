@@ -1,5 +1,6 @@
 <h2 ng-if="classSiteDetailHeader" class="sub-header">{{classSiteDetailHeader}}</h2>
-<h3>{{classSiteDescription}}</h3>
+<hr class="main-no-margin-top"/>
+<h3 class="main-h3">Class : {{classSiteDescription}}</h3>
 
 <nvd3-line-chart
 	data="scoreData"
@@ -19,7 +20,8 @@
         <svg></svg>
 </nvd3-line-chart>
 
-<h3>Class Site History</h3>
+<h3 class="main-less-weight">Class Site History</h3>
+<hr class="main-no-margin-top">
 <div ng-if="!(historyLength > 0)">
   <p>There is no class site history data for this student.</p>
 </div>
@@ -64,10 +66,12 @@
   </table>
 </div>
 
+<h3 class="main-less-weight">Assignments</h3>
+<hr class="main-no-margin-top">
 <div ng-if="assignments.length == 0">
   <p>There is no assignment data for this student.</p>
 </div>
-<div ng-if="assignments.length > 0" class="table-responsive">
+<div ng-if="assignments.length > 0" class="table-responsive main-page-end-margin-bottom">
   <table class="table table-striped">
     <thead>
       <tr>
