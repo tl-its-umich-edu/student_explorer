@@ -8,6 +8,7 @@
 body {
   font-family: Lato, Helvetica;
   padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .navbar-inverse {
@@ -15,7 +16,6 @@ body {
 }
 
 .sub-header {
-  padding-top: 50px;
   color: brown;
   font-weight: 400;
   /*border-bottom: 1px solid #eee;*/
