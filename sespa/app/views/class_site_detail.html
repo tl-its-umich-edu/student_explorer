@@ -1,7 +1,8 @@
 <h2 ng-if="classSiteDetailHeader" class="sub-header">{{classSiteDetailHeader}}</h2>
 <hr class="main-no-margin-top"/>
-<h3 class="main-h3">Class : {{classSiteDescription}}</h3>
-
+<h3 class="main-h3">Class : {{classSite.class_site.description}}
+  <img alt="{{classSite.status}}" class="class-site-status {{ classSite.status | lowercase }}" ng-src="images/Status_Icons_{{classSite.status}}.png"/>
+</h3>
 <nvd3-line-chart
 	data="scoreData"
     id="score-chart"
