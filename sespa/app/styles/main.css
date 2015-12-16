@@ -205,10 +205,10 @@ svg {
 }
 
 svg text {
-  font: normal 13px Lato;
+  font: normal 13px Lato, Helvetica;
 }
 .nvtooltip {
-    font-family: Lato;
+    font-family: Lato, Helvetica;
 }
 
     
