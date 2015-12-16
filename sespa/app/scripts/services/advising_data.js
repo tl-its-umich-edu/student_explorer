@@ -102,6 +102,10 @@ angular.module('sespaApp')
         return getAdvisingData('students/' + studentUsername + '/class_sites/');
       },
 
+      studentClassSiteDetails: function(studentUsername, classSiteCode) {
+        return getAdvisingData('students/' + studentUsername + '/class_sites/' + classSiteCode + '/');
+      },
+
       studentClassSiteAssignments: function(studentUsername, classSiteCode) {
         return getAdvisingData('students/' + studentUsername + '/class_sites/' + classSiteCode + '/assignments/');
       },
