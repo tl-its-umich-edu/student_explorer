@@ -27,7 +27,7 @@ angular.module('sespaApp')
     advisingData.studentClassSites($routeParams.student).then(function(class_sites) {
       class_sites.forEach(function(class_site) {
         if (class_site.class_site.code === $routeParams.classSiteCode) {
-          $scope.classSiteDescription = class_site.class_site.description;
+          $scope.classSite = class_site;
         }
       });
     });
