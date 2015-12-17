@@ -1,6 +1,123 @@
 [
 {
     "fields": {
+        "username": "zander",
+        "first_name": "Zander",
+        "last_name": "Agrippa",
+        "univ_id": "20000001"
+    },
+    "model": "advising.advisor",
+    "pk": 1
+},
+{
+    "fields": {
+        "username": "burl",
+        "first_name": "Burl",
+        "last_name": "Chandler",
+        "univ_id": "20000002"
+    },
+    "model": "advising.advisor",
+    "pk": 2
+},
+{
+    "fields": {
+        "username": "lavera",
+        "first_name": "Lavera",
+        "last_name": "Rumore",
+        "univ_id": "20000003"
+    },
+    "model": "advising.advisor",
+    "pk": 3
+},
+{
+    "fields": {
+        "username": "mollie",
+        "first_name": "Mollie",
+        "last_name": "Whistler",
+        "univ_id": "20000004"
+    },
+    "model": "advising.advisor",
+    "pk": 4
+},
+{
+    "fields": {
+        "username": "carla",
+        "first_name": "Carla",
+        "last_name": "Beumer",
+        "univ_id": "20000005"
+    },
+    "model": "advising.advisor",
+    "pk": 5
+},
+{
+    "fields": {
+        "username": "will",
+        "first_name": "Will",
+        "last_name": "Smith",
+        "univ_id": "20000006"
+    },
+    "model": "advising.advisor",
+    "pk": 6
+},
+{
+    "fields": {
+        "username": "zander",
+        "first_name": "Zander",
+        "last_name": "Agrippa",
+        "univ_id": "20000001"
+    },
+    "model": "advising.mentor",
+    "pk": 1
+},
+{
+    "fields": {
+        "username": "burl",
+        "first_name": "Burl",
+        "last_name": "Chandler",
+        "univ_id": "20000002"
+    },
+    "model": "advising.mentor",
+    "pk": 2
+},
+{
+    "fields": {
+        "username": "lavera",
+        "first_name": "Lavera",
+        "last_name": "Rumore",
+        "univ_id": "20000003"
+    },
+    "model": "advising.mentor",
+    "pk": 3
+},
+{
+    "fields": {
+        "code": "G",
+        "description": "Green",
+        "order": 1
+    },
+    "model": "advising.status",
+    "pk": 1
+},
+{
+    "fields": {
+        "code": "Y",
+        "description": "Yellow",
+        "order": 2
+    },
+    "model": "advising.status",
+    "pk": 2
+},
+{
+    "fields": {
+        "code": "R",
+        "description": "Red",
+        "order": 3
+    },
+    "model": "advising.status",
+    "pk": 3
+},
+{
+    "fields": {
         "username": "grace",
         "first_name": "Grace",
         "last_name": "Devilbiss",
@@ -231,66 +348,6 @@
 },
 {
     "fields": {
-        "username": "zander",
-        "first_name": "Zander",
-        "last_name": "Agrippa",
-        "univ_id": "20000001"
-    },
-    "model": "advising.advisor",
-    "pk": 1
-},
-{
-    "fields": {
-        "username": "burl",
-        "first_name": "Burl",
-        "last_name": "Chandler",
-        "univ_id": "20000002"
-    },
-    "model": "advising.advisor",
-    "pk": 2
-},
-{
-    "fields": {
-        "username": "lavera",
-        "first_name": "Lavera",
-        "last_name": "Rumore",
-        "univ_id": "20000003"
-    },
-    "model": "advising.advisor",
-    "pk": 3
-},
-{
-    "fields": {
-        "username": "mollie",
-        "first_name": "Mollie",
-        "last_name": "Whistler",
-        "univ_id": "20000004"
-    },
-    "model": "advising.advisor",
-    "pk": 4
-},
-{
-    "fields": {
-        "username": "carla",
-        "first_name": "Carla",
-        "last_name": "Beumer",
-        "univ_id": "20000005"
-    },
-    "model": "advising.advisor",
-    "pk": 5
-},
-{
-    "fields": {
-        "username": "will",
-        "first_name": "Will",
-        "last_name": "Smith",
-        "univ_id": "20000006"
-    },
-    "model": "advising.advisor",
-    "pk": 6
-},
-{
-    "fields": {
         "code": "1000",
         "begin_date": "2015-09-08",
         "description": "Fall 2015",
@@ -340,6 +397,267 @@
     },
     "model": "advising.advisorrole",
     "pk": 3
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "589",
+        "description": "Intro Quiz"
+    },
+    "model": "advising.assignment",
+    "pk": 1
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "590",
+        "description": "Quiz 1"
+    },
+    "model": "advising.assignment",
+    "pk": 2
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "815",
+        "description": "Quiz 2"
+    },
+    "model": "advising.assignment",
+    "pk": 3
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "817",
+        "description": "Quiz 3"
+    },
+    "model": "advising.assignment",
+    "pk": 4
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "818",
+        "description": "Quiz 4"
+    },
+    "model": "advising.assignment",
+    "pk": 5
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "816",
+        "description": "Quiz 6"
+    },
+    "model": "advising.assignment",
+    "pk": 6
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "822",
+        "description": "Homework 1"
+    },
+    "model": "advising.assignment",
+    "pk": 7
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "813",
+        "description": "Quiz 7"
+    },
+    "model": "advising.assignment",
+    "pk": 8
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "820",
+        "description": "Quiz 10"
+    },
+    "model": "advising.assignment",
+    "pk": 9
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "814",
+        "description": "Quiz 5"
+    },
+    "model": "advising.assignment",
+    "pk": 10
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "810",
+        "description": "Homework 2"
+    },
+    "model": "advising.assignment",
+    "pk": 11
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "006",
+        "description": "Homework 3"
+    },
+    "model": "advising.assignment",
+    "pk": 12
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "747",
+        "description": "Quiz extra 1"
+    },
+    "model": "advising.assignment",
+    "pk": 13
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "819",
+        "description": "Homework 4"
+    },
+    "model": "advising.assignment",
+    "pk": 14
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "062",
+        "description": "Quiz extra 2"
+    },
+    "model": "advising.assignment",
+    "pk": 15
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "374",
+        "description": "Assessment"
+    },
+    "model": "advising.assignment",
+    "pk": 16
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "936",
+        "description": "Exam 1"
+    },
+    "model": "advising.assignment",
+    "pk": 17
+},
+{
+    "fields": {
+        "source_system": 1,
+        "code": "1",
+        "description": "Math 101"
+    },
+    "model": "advising.classsite",
+    "pk": 1
+},
+{
+    "fields": {
+        "source_system": 1,
+        "code": "2",
+        "description": "Math 101 Lab"
+    },
+    "model": "advising.classsite",
+    "pk": 2
+},
+{
+    "fields": {
+        "source_system": 1,
+        "code": "3",
+        "description": "Physics 101"
+    },
+    "model": "advising.classsite",
+    "pk": 3
+},
+{
+    "fields": {
+        "source_system": 1,
+        "code": "4",
+        "description": "Physics 101 Lab"
+    },
+    "model": "advising.classsite",
+    "pk": 4
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "5",
+        "description": "English 101"
+    },
+    "model": "advising.classsite",
+    "pk": 5
+},
+{
+    "fields": {
+        "source_system": 2,
+        "code": "6",
+        "description": "History 101"
+    },
+    "model": "advising.classsite",
+    "pk": 6
+},
+{
+    "fields": {
+        "source_system": null,
+        "code": "SPPRO-F14",
+        "group": "CSP",
+        "description": "Special Probation F14"
+    },
+    "model": "advising.cohort",
+    "pk": 1
+},
+{
+    "fields": {
+        "source_system": null,
+        "code": "SPPRO-W15",
+        "group": "CSP",
+        "description": "Special Probation W15"
+    },
+    "model": "advising.cohort",
+    "pk": 2
+},
+{
+    "fields": {
+        "source_system": null,
+        "code": "SPPRO-F15",
+        "group": "CSP",
+        "description": "Special Probation F15"
+    },
+    "model": "advising.cohort",
+    "pk": 3
+},
+{
+    "fields": {
+        "source_system": 1,
+        "description": "session start"
+    },
+    "model": "advising.eventtype",
+    "pk": 1
+},
+{
+    "fields": {
+        "class_site": 1,
+        "term": 1
+    },
+    "model": "advising.classsiteterm",
+    "pk": 1
+},
+{
+    "fields": {
+        "class_site": 2,
+        "term": 1
+    },
+    "model": "advising.classsiteterm",
+    "pk": 2
 },
 {
     "fields": {
@@ -649,66 +967,6 @@
 },
 {
     "fields": {
-        "source_system": null,
-        "code": "SPPRO-F14",
-        "group": "CSP",
-        "description": "Special Probation F14"
-    },
-    "model": "advising.cohort",
-    "pk": 1
-},
-{
-    "fields": {
-        "source_system": null,
-        "code": "SPPRO-W15",
-        "group": "CSP",
-        "description": "Special Probation W15"
-    },
-    "model": "advising.cohort",
-    "pk": 2
-},
-{
-    "fields": {
-        "source_system": null,
-        "code": "SPPRO-F15",
-        "group": "CSP",
-        "description": "Special Probation F15"
-    },
-    "model": "advising.cohort",
-    "pk": 3
-},
-{
-    "fields": {
-        "username": "zander",
-        "first_name": "Zander",
-        "last_name": "Agrippa",
-        "univ_id": "20000001"
-    },
-    "model": "advising.mentor",
-    "pk": 1
-},
-{
-    "fields": {
-        "username": "burl",
-        "first_name": "Burl",
-        "last_name": "Chandler",
-        "univ_id": "20000002"
-    },
-    "model": "advising.mentor",
-    "pk": 2
-},
-{
-    "fields": {
-        "username": "lavera",
-        "first_name": "Lavera",
-        "last_name": "Rumore",
-        "univ_id": "20000003"
-    },
-    "model": "advising.mentor",
-    "pk": 3
-},
-{
-    "fields": {
         "cohort": 1,
         "mentor": 2,
         "student": 1
@@ -961,604 +1219,37 @@
 },
 {
     "fields": {
-        "source_system": 1,
-        "code": "1",
-        "description": "Math 101"
-    },
-    "model": "advising.classsite",
-    "pk": 1
-},
-{
-    "fields": {
-        "source_system": 1,
-        "code": "2",
-        "description": "Math 101 Lab"
-    },
-    "model": "advising.classsite",
-    "pk": 2
-},
-{
-    "fields": {
-        "source_system": 1,
-        "code": "3",
-        "description": "Physics 101"
-    },
-    "model": "advising.classsite",
-    "pk": 3
-},
-{
-    "fields": {
-        "source_system": 1,
-        "code": "4",
-        "description": "Physics 101 Lab"
-    },
-    "model": "advising.classsite",
-    "pk": 4
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "5",
-        "description": "English 101"
-    },
-    "model": "advising.classsite",
-    "pk": 5
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "6",
-        "description": "History 101"
-    },
-    "model": "advising.classsite",
-    "pk": 6
-},
-{
-    "fields": {
         "class_site": 1,
-        "term": 1
+        "current_score_average": 88.1
     },
-    "model": "advising.classsiteterm",
+    "model": "advising.classsitescore",
     "pk": 1
 },
 {
     "fields": {
         "class_site": 2,
-        "term": 1
+        "current_score_average": 81.9
     },
-    "model": "advising.classsiteterm",
+    "model": "advising.classsitescore",
     "pk": 2
-},
-{
-    "fields": {
-        "code": "G",
-        "description": "Green",
-        "order": 1
-    },
-    "model": "advising.status",
-    "pk": 1
-},
-{
-    "fields": {
-        "code": "Y",
-        "description": "Yellow",
-        "order": 2
-    },
-    "model": "advising.status",
-    "pk": 2
-},
-{
-    "fields": {
-        "code": "R",
-        "description": "Red",
-        "order": 3
-    },
-    "model": "advising.status",
-    "pk": 3
 },
 {
     "fields": {
         "class_site": 1,
-        "status": 2,
+        "current_score_average": 83.8,
         "student": 1
     },
-    "model": "advising.studentclasssitestatus",
+    "model": "advising.studentclasssitescore",
     "pk": 1
 },
 {
     "fields": {
         "class_site": 2,
-        "status": 1,
+        "current_score_average": 86.3,
         "student": 1
     },
-    "model": "advising.studentclasssitestatus",
+    "model": "advising.studentclasssitescore",
     "pk": 2
-},
-{
-    "fields": {
-        "class_site": 1,
-        "status": 1,
-        "student": 2
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 3
-},
-{
-    "fields": {
-        "class_site": 2,
-        "status": 3,
-        "student": 3
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 4
-},
-{
-    "fields": {
-        "class_site": 3,
-        "status": 3,
-        "student": 5
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 5
-},
-{
-    "fields": {
-        "class_site": 2,
-        "status": 2,
-        "student": 6
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 6
-},
-{
-    "fields": {
-        "class_site": 1,
-        "status": 1,
-        "student": 7
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 7
-},
-{
-    "fields": {
-        "class_site": 4,
-        "status": 3,
-        "student": 9
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 8
-},
-{
-    "fields": {
-        "class_site": 2,
-        "status": 2,
-        "student": 11
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 9
-},
-{
-    "fields": {
-        "class_site": 3,
-        "status": 3,
-        "student": 11
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 10
-},
-{
-    "fields": {
-        "class_site": 4,
-        "status": 3,
-        "student": 11
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 11
-},
-{
-    "fields": {
-        "class_site": 5,
-        "status": 2,
-        "student": 21
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 12
-},
-{
-    "fields": {
-        "class_site": 6,
-        "status": 1,
-        "student": 21
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 13
-},
-{
-    "fields": {
-        "class_site": 4,
-        "status": 3,
-        "student": 21
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 14
-},
-{
-    "fields": {
-        "class_site": 2,
-        "status": 1,
-        "student": 21
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 15
-},
-{
-    "fields": {
-        "class_site": 3,
-        "status": 3,
-        "student": 21
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 16
-},
-{
-    "fields": {
-        "class_site": 2,
-        "status": 2,
-        "student": 22
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 17
-},
-{
-    "fields": {
-        "class_site": 1,
-        "status": 3,
-        "student": 22
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 18
-},
-{
-    "fields": {
-        "class_site": 3,
-        "status": 3,
-        "student": 22
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 19
-},
-{
-    "fields": {
-        "class_site": 6,
-        "status": 1,
-        "student": 22
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 20
-},
-{
-    "fields": {
-        "class_site": 4,
-        "status": 2,
-        "student": 22
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 21
-},
-{
-    "fields": {
-        "class_site": 2,
-        "status": 1,
-        "student": 10
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 22
-},
-{
-    "fields": {
-        "class_site": 3,
-        "status": 2,
-        "student": 12
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 23
-},
-{
-    "fields": {
-        "class_site": 5,
-        "status": 3,
-        "student": 13
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 24
-},
-{
-    "fields": {
-        "class_site": 6,
-        "status": 2,
-        "student": 14
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 25
-},
-{
-    "fields": {
-        "class_site": 4,
-        "status": 1,
-        "student": 14
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 26
-},
-{
-    "fields": {
-        "class_site": 1,
-        "status": 2,
-        "student": 14
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 27
-},
-{
-    "fields": {
-        "class_site": 3,
-        "status": 2,
-        "student": 15
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 28
-},
-{
-    "fields": {
-        "class_site": 5,
-        "status": 3,
-        "student": 16
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 29
-},
-{
-    "fields": {
-        "class_site": 4,
-        "status": 1,
-        "student": 16
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 30
-},
-{
-    "fields": {
-        "class_site": 5,
-        "status": 2,
-        "student": 4
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 31
-},
-{
-    "fields": {
-        "class_site": 5,
-        "status": 1,
-        "student": 17
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 32
-},
-{
-    "fields": {
-        "class_site": 6,
-        "status": 3,
-        "student": 17
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 33
-},
-{
-    "fields": {
-        "class_site": 2,
-        "status": 2,
-        "student": 18
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 34
-},
-{
-    "fields": {
-        "class_site": 4,
-        "status": 1,
-        "student": 19
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 35
-},
-{
-    "fields": {
-        "class_site": 1,
-        "status": 3,
-        "student": 20
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 36
-},
-{
-    "fields": {
-        "class_site": 3,
-        "status": 2,
-        "student": 8
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 37
-},
-{
-    "fields": {
-        "class_site": 6,
-        "status": 3,
-        "student": 8
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 38
-},
-{
-    "fields": {
-        "class_site": 5,
-        "status": 3,
-        "student": 8
-    },
-    "model": "advising.studentclasssitestatus",
-    "pk": 39
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "589",
-        "description": "Intro Quiz"
-    },
-    "model": "advising.assignment",
-    "pk": 1
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "590",
-        "description": "Quiz 1"
-    },
-    "model": "advising.assignment",
-    "pk": 2
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "815",
-        "description": "Quiz 2"
-    },
-    "model": "advising.assignment",
-    "pk": 3
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "817",
-        "description": "Quiz 3"
-    },
-    "model": "advising.assignment",
-    "pk": 4
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "818",
-        "description": "Quiz 4"
-    },
-    "model": "advising.assignment",
-    "pk": 5
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "816",
-        "description": "Quiz 6"
-    },
-    "model": "advising.assignment",
-    "pk": 6
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "822",
-        "description": "Homework 1"
-    },
-    "model": "advising.assignment",
-    "pk": 7
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "813",
-        "description": "Quiz 7"
-    },
-    "model": "advising.assignment",
-    "pk": 8
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "820",
-        "description": "Quiz 10"
-    },
-    "model": "advising.assignment",
-    "pk": 9
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "814",
-        "description": "Quiz 5"
-    },
-    "model": "advising.assignment",
-    "pk": 10
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "810",
-        "description": "Homework 2"
-    },
-    "model": "advising.assignment",
-    "pk": 11
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "006",
-        "description": "Homework 3"
-    },
-    "model": "advising.assignment",
-    "pk": 12
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "747",
-        "description": "Quiz extra 1"
-    },
-    "model": "advising.assignment",
-    "pk": 13
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "819",
-        "description": "Homework 4"
-    },
-    "model": "advising.assignment",
-    "pk": 14
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "062",
-        "description": "Quiz extra 2"
-    },
-    "model": "advising.assignment",
-    "pk": 15
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "374",
-        "description": "Assessment"
-    },
-    "model": "advising.assignment",
-    "pk": 16
-},
-{
-    "fields": {
-        "source_system": 2,
-        "code": "936",
-        "description": "Exam 1"
-    },
-    "model": "advising.assignment",
-    "pk": 17
 },
 {
     "fields": {
@@ -1852,162 +1543,353 @@
 {
     "fields": {
         "class_site": 1,
-        "week_end_date": "2015-09-12",
-        "status": 1,
-        "student": 3
+        "status": 2,
+        "student": 1
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 1
 },
 {
     "fields": {
-        "class_site": 1,
-        "week_end_date": "2015-09-19",
+        "class_site": 2,
         "status": 1,
-        "student": 3
+        "student": 1
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 2
 },
 {
     "fields": {
         "class_site": 1,
-        "week_end_date": "2015-09-26",
         "status": 1,
-        "student": 3
+        "student": 2
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 3
 },
 {
     "fields": {
-        "class_site": 1,
-        "week_end_date": "2015-10-03",
-        "status": 1,
+        "class_site": 2,
+        "status": 3,
         "student": 3
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 4
 },
 {
     "fields": {
-        "class_site": 1,
-        "week_end_date": "2015-10-10",
-        "status": 1,
-        "student": 1
+        "class_site": 3,
+        "status": 3,
+        "student": 5
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 5
 },
 {
     "fields": {
-        "class_site": 1,
-        "week_end_date": "2015-10-17",
-        "status": 1,
-        "student": 1
+        "class_site": 2,
+        "status": 2,
+        "student": 6
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 6
 },
 {
     "fields": {
         "class_site": 1,
-        "week_end_date": "2015-10-24",
         "status": 1,
-        "student": 1
+        "student": 7
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 7
 },
 {
     "fields": {
-        "class_site": 1,
-        "week_end_date": "2015-10-31",
-        "status": 1,
-        "student": 1
+        "class_site": 4,
+        "status": 3,
+        "student": 9
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 8
 },
 {
     "fields": {
         "class_site": 2,
-        "week_end_date": "2015-09-12",
-        "status": 1,
-        "student": 1
+        "status": 2,
+        "student": 11
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 9
 },
 {
     "fields": {
-        "class_site": 2,
-        "week_end_date": "2015-09-19",
-        "status": 1,
-        "student": 1
+        "class_site": 3,
+        "status": 3,
+        "student": 11
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 10
 },
 {
     "fields": {
-        "class_site": 2,
-        "week_end_date": "2015-09-26",
-        "status": 1,
-        "student": 1
+        "class_site": 4,
+        "status": 3,
+        "student": 11
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 11
 },
 {
     "fields": {
-        "class_site": 2,
-        "week_end_date": "2015-10-03",
-        "status": 1,
-        "student": 1
+        "class_site": 5,
+        "status": 2,
+        "student": 21
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 12
 },
 {
     "fields": {
-        "class_site": 2,
-        "week_end_date": "2015-10-10",
+        "class_site": 6,
         "status": 1,
-        "student": 1
+        "student": 21
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 13
 },
 {
     "fields": {
-        "class_site": 2,
-        "week_end_date": "2015-10-17",
-        "status": 1,
-        "student": 1
+        "class_site": 4,
+        "status": 3,
+        "student": 21
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 14
 },
 {
     "fields": {
         "class_site": 2,
-        "week_end_date": "2015-10-24",
         "status": 1,
-        "student": 1
+        "student": 21
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 15
 },
 {
     "fields": {
-        "class_site": 2,
-        "week_end_date": "2015-10-31",
-        "status": 1,
-        "student": 1
+        "class_site": 3,
+        "status": 3,
+        "student": 21
     },
-    "model": "advising.weeklystudentclasssitestatus",
+    "model": "advising.studentclasssitestatus",
     "pk": 16
+},
+{
+    "fields": {
+        "class_site": 2,
+        "status": 2,
+        "student": 22
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 17
+},
+{
+    "fields": {
+        "class_site": 1,
+        "status": 3,
+        "student": 22
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 18
+},
+{
+    "fields": {
+        "class_site": 3,
+        "status": 3,
+        "student": 22
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 19
+},
+{
+    "fields": {
+        "class_site": 6,
+        "status": 1,
+        "student": 22
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 20
+},
+{
+    "fields": {
+        "class_site": 4,
+        "status": 2,
+        "student": 22
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 21
+},
+{
+    "fields": {
+        "class_site": 2,
+        "status": 1,
+        "student": 10
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 22
+},
+{
+    "fields": {
+        "class_site": 3,
+        "status": 2,
+        "student": 12
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 23
+},
+{
+    "fields": {
+        "class_site": 5,
+        "status": 3,
+        "student": 13
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 24
+},
+{
+    "fields": {
+        "class_site": 6,
+        "status": 2,
+        "student": 14
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 25
+},
+{
+    "fields": {
+        "class_site": 4,
+        "status": 1,
+        "student": 14
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 26
+},
+{
+    "fields": {
+        "class_site": 1,
+        "status": 2,
+        "student": 14
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 27
+},
+{
+    "fields": {
+        "class_site": 3,
+        "status": 2,
+        "student": 15
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 28
+},
+{
+    "fields": {
+        "class_site": 5,
+        "status": 3,
+        "student": 16
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 29
+},
+{
+    "fields": {
+        "class_site": 4,
+        "status": 1,
+        "student": 16
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 30
+},
+{
+    "fields": {
+        "class_site": 5,
+        "status": 2,
+        "student": 4
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 31
+},
+{
+    "fields": {
+        "class_site": 5,
+        "status": 1,
+        "student": 17
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 32
+},
+{
+    "fields": {
+        "class_site": 6,
+        "status": 3,
+        "student": 17
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 33
+},
+{
+    "fields": {
+        "class_site": 2,
+        "status": 2,
+        "student": 18
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 34
+},
+{
+    "fields": {
+        "class_site": 4,
+        "status": 1,
+        "student": 19
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 35
+},
+{
+    "fields": {
+        "class_site": 1,
+        "status": 3,
+        "student": 20
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 36
+},
+{
+    "fields": {
+        "class_site": 3,
+        "status": 2,
+        "student": 8
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 37
+},
+{
+    "fields": {
+        "class_site": 6,
+        "status": 3,
+        "student": 8
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 38
+},
+{
+    "fields": {
+        "class_site": 5,
+        "status": 3,
+        "student": 8
+    },
+    "model": "advising.studentclasssitestatus",
+    "pk": 39
 },
 {
     "fields": {
@@ -2152,6 +2034,118 @@
     },
     "model": "advising.weeklyclasssitescore",
     "pk": 16
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.73,
+        "week_end_date": "2015-09-12",
+        "event_type": 1,
+        "cumulative_event_count": 0,
+        "event_count": 0,
+        "percentile_rank": 0.73,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 1
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.59,
+        "week_end_date": "2015-09-19",
+        "event_type": 1,
+        "cumulative_event_count": 3,
+        "event_count": 3,
+        "percentile_rank": 0.68,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 2
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.41,
+        "week_end_date": "2015-09-26",
+        "event_type": 1,
+        "cumulative_event_count": 10,
+        "event_count": 7,
+        "percentile_rank": 0.45,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 3
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.36,
+        "week_end_date": "2015-10-03",
+        "event_type": 1,
+        "cumulative_event_count": 14,
+        "event_count": 4,
+        "percentile_rank": 0.59,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 4
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.32,
+        "week_end_date": "2015-10-10",
+        "event_type": 1,
+        "cumulative_event_count": 19,
+        "event_count": 5,
+        "percentile_rank": 0.45,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 5
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.36,
+        "week_end_date": "2015-10-17",
+        "event_type": 1,
+        "cumulative_event_count": 23,
+        "event_count": 4,
+        "percentile_rank": 0.86,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 6
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.36,
+        "week_end_date": "2015-10-24",
+        "event_type": 1,
+        "cumulative_event_count": 29,
+        "event_count": 6,
+        "percentile_rank": 0.86,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 7
+},
+{
+    "fields": {
+        "cumulative_percentile_rank": 0.5,
+        "week_end_date": "2015-10-31",
+        "event_type": 1,
+        "cumulative_event_count": 35,
+        "event_count": 6,
+        "percentile_rank": 0.86,
+        "class_site": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssiteevent",
+    "pk": 8
 },
 {
     "fields": {
@@ -2315,122 +2309,162 @@
 },
 {
     "fields": {
-        "source_system": 1,
-        "description": "session start"
-    },
-    "model": "advising.eventtype",
-    "pk": 1
-},
-{
-    "fields": {
-        "cumulative_percentile_rank": 0.73,
+        "class_site": 1,
         "week_end_date": "2015-09-12",
-        "event_type": 1,
-        "cumulative_event_count": 0,
-        "event_count": 0,
-        "percentile_rank": 0.73,
-        "class_site": 2,
-        "student": 1
+        "status": 1,
+        "student": 3
     },
-    "model": "advising.weeklystudentclasssiteevent",
+    "model": "advising.weeklystudentclasssitestatus",
     "pk": 1
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.59,
+        "class_site": 1,
         "week_end_date": "2015-09-19",
-        "event_type": 1,
-        "cumulative_event_count": 3,
-        "event_count": 3,
-        "percentile_rank": 0.68,
-        "class_site": 2,
-        "student": 1
+        "status": 1,
+        "student": 3
     },
-    "model": "advising.weeklystudentclasssiteevent",
+    "model": "advising.weeklystudentclasssitestatus",
     "pk": 2
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.41,
+        "class_site": 1,
         "week_end_date": "2015-09-26",
-        "event_type": 1,
-        "cumulative_event_count": 10,
-        "event_count": 7,
-        "percentile_rank": 0.45,
-        "class_site": 2,
-        "student": 1
+        "status": 1,
+        "student": 3
     },
-    "model": "advising.weeklystudentclasssiteevent",
+    "model": "advising.weeklystudentclasssitestatus",
     "pk": 3
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.36,
+        "class_site": 1,
         "week_end_date": "2015-10-03",
-        "event_type": 1,
-        "cumulative_event_count": 14,
-        "event_count": 4,
-        "percentile_rank": 0.59,
-        "class_site": 2,
-        "student": 1
+        "status": 1,
+        "student": 3
     },
-    "model": "advising.weeklystudentclasssiteevent",
+    "model": "advising.weeklystudentclasssitestatus",
     "pk": 4
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.32,
+        "class_site": 1,
         "week_end_date": "2015-10-10",
-        "event_type": 1,
-        "cumulative_event_count": 19,
-        "event_count": 5,
-        "percentile_rank": 0.45,
-        "class_site": 2,
+        "status": 1,
         "student": 1
     },
-    "model": "advising.weeklystudentclasssiteevent",
+    "model": "advising.weeklystudentclasssitestatus",
     "pk": 5
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.36,
+        "class_site": 1,
         "week_end_date": "2015-10-17",
-        "event_type": 1,
-        "cumulative_event_count": 23,
-        "event_count": 4,
-        "percentile_rank": 0.86,
-        "class_site": 2,
+        "status": 1,
         "student": 1
     },
-    "model": "advising.weeklystudentclasssiteevent",
+    "model": "advising.weeklystudentclasssitestatus",
     "pk": 6
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.36,
+        "class_site": 1,
         "week_end_date": "2015-10-24",
-        "event_type": 1,
-        "cumulative_event_count": 29,
-        "event_count": 6,
-        "percentile_rank": 0.86,
-        "class_site": 2,
+        "status": 1,
         "student": 1
     },
-    "model": "advising.weeklystudentclasssiteevent",
+    "model": "advising.weeklystudentclasssitestatus",
     "pk": 7
 },
 {
     "fields": {
-        "cumulative_percentile_rank": 0.5,
+        "class_site": 1,
         "week_end_date": "2015-10-31",
-        "event_type": 1,
-        "cumulative_event_count": 35,
-        "event_count": 6,
-        "percentile_rank": 0.86,
-        "class_site": 2,
+        "status": 1,
         "student": 1
     },
-    "model": "advising.weeklystudentclasssiteevent",
+    "model": "advising.weeklystudentclasssitestatus",
     "pk": 8
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-12",
+        "status": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 9
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-19",
+        "status": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 10
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-09-26",
+        "status": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 11
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-03",
+        "status": 2,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 12
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-10",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 13
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-17",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 14
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-24",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 15
+},
+{
+    "fields": {
+        "class_site": 2,
+        "week_end_date": "2015-10-31",
+        "status": 1,
+        "student": 1
+    },
+    "model": "advising.weeklystudentclasssitestatus",
+    "pk": 16
 }
 ]
