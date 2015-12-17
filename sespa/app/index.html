@@ -53,14 +53,14 @@
                   <li><p><strong>{{userInfo.first_name}} {{userInfo.last_name}}</strong></p></li>
                   <li role="separator" class="divider"></li>
                   <!-- <li class="dropdown-header">Nav header</li> -->
-                  <li ng-if="userInfo.profile.is_policy_accepted">
+                  <li ng-if="userInfo.profile.is_policy_accepted === true">
                     <p>
                       You accepted the 
                       <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
                       on {{userInfo.profile.policy_accepted_date | date}}
                     </p>
                   </li>
-                  <li ng-if="!userInfo.profile.is_policy_accepted" class="policy-warning">
+                  <li ng-if="userInfo.profile.is_policy_accepted === false" class="policy-warning">
                     <p>
                       You haven't accepted the 
                       <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
