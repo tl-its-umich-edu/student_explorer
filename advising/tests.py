@@ -65,7 +65,7 @@ class AdvisingModelsTestCase(TestCase):
 
         self.assertEqual('Math 101 Lab', str(w[0].class_site))
         self.assertEqual('grace', str(w[0].student))
-        self.assertEqual('Green', str(w[0].status))
+        self.assertEqual('Yellow', str(w[0].status))
         self.assertEqual('2015-09-12', str(w[0].week_end_date))
 
     def test_SourceSystem(self):
@@ -116,10 +116,9 @@ class AdvisingApiTestCase(TestCase):
         self.assertNotEqual(response.status_code, 500)
 
     def test_api_config_username_unauthenticated(self):
-        response = self.client.get(reverse('advising-api-root'))
-        data = json.loads(response.content)
+        response = self.client.get(reverse('current-user-detail'))
 
-        self.assertIsNone(data['username'], 'username should be None')
+        self.assertEqual(response.status_code, 404)
 
     def test_api_config_username_authenticated(self):
         username = 'burl'
@@ -127,7 +126,7 @@ class AdvisingApiTestCase(TestCase):
         user = get_user_model().objects.get(username=username)
         self.client.force_authenticate(user=user)
 
-        response = self.client.get(reverse('advising-api-root'))
+        response = self.client.get(reverse('current-user-detail'))
         data = json.loads(response.content)
 
         self.assertEqual(data['username'], username,
@@ -151,14 +150,14 @@ class AdvisingApiStudentTestCase(TestCase):
 
         data = json.loads(response.content)
 
-        self.assertEqual(2, len(data))
+        self.assertEqual(2, data['count'])
 
     def test_students_search_with_no_results(self):
         response = self.client.get(reverse('student-list'), {'search': 'asdf'})
 
         data = json.loads(response.content)
 
-        self.assertEqual(0, len(data))
+        self.assertEqual(0, data['count'])
 
     def test_students_search_check_data(self):
         response = self.client.get(reverse('student-list'),
@@ -166,8 +165,8 @@ class AdvisingApiStudentTestCase(TestCase):
 
         data = json.loads(response.content)
 
-        self.assertEqual(1, len(data))
-        self.assertEqual('james', data[0]['username'])
+        self.assertEqual(1, data['count'])
+        self.assertEqual('james', data['results'][0]['username'])
 
 
 class AdvisingApiAdvisorTestCase(TestCase):
@@ -181,7 +180,7 @@ class AdvisingApiAdvisorTestCase(TestCase):
         response = self.client.get(reverse('advisor-list'))
         data = json.loads(response.content)
 
-        self.assertEqual(len(data), 6)
+        self.assertEqual(data['count'], 6)
         self.assertEqual(response.status_code, 200)
 
     def test_advisors_detail_exists(self):
@@ -215,7 +214,7 @@ class AdvisingApiAdvisorTestCase(TestCase):
         data = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(data), 6)
+        self.assertEqual(data['count'], 6)
 
     def test_advisors_student_list_not_exists(self):
         response = self.client.get(reverse('advisor-students-list',
@@ -237,7 +236,7 @@ class AdvisingApiMentorTestCase(TestCase):
         response = self.client.get(reverse('mentor-list'))
         data = json.loads(response.content)
 
-        self.assertEqual(len(data), 3)
+        self.assertEqual(data['count'], 3)
         self.assertEqual(response.status_code, 200)
 
     def test_mentors_detail_exists(self):
@@ -271,7 +270,7 @@ class AdvisingApiMentorTestCase(TestCase):
         data = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(data), 17)
+        self.assertEqual(data['count'], 17)
 
     def test_mentors_student_list_not_exists(self):
         response = self.client.get(reverse('mentor-students-list',
@@ -289,7 +288,7 @@ class AdvisingSerializersTestCase(TestCase):
                                    {'search': 'james'})
         data = json.loads(response.content)
 
-        serialized_weight = data[0]['status_weight']
+        serialized_weight = data['results'][0]['status_weight']
 
         self.assertEqual(serialized_weight, 10)
 
@@ -302,6 +301,6 @@ class AdvisingSerializersTestCase(TestCase):
                                    {'search': 'james'})
         data = json.loads(response.content)
 
-        serialized_weight = data[0]['status_weight']
+        serialized_weight = data['results'][0]['status_weight']
 
         self.assertEqual(serialized_weight, calculated_weight)
