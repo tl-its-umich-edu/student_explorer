@@ -73,6 +73,7 @@ class Term(models.Model):
 
         return dates
 
+
 class SourceSystem(models.Model):
     code = models.CharField(max_length=6)
     description = models.CharField(max_length=30)
