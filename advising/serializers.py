@@ -44,10 +44,11 @@ class CohortSerializer(serializers.ModelSerializer):
 
 class ClassSiteSerializer(serializers.ModelSerializer):
     terms = serializers.StringRelatedField(many=True)
+    source_system = serializers.StringRelatedField()
 
     class Meta:
         model = ClassSite
-        fields = ('code', 'description', 'terms')
+        fields = ('code', 'description', 'terms', 'source_system')
 
 
 class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
