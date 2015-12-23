@@ -86,6 +86,13 @@
           </a>
         </td>
         <td>
+          <a href="" ng-click="sortTypeAssignment = 'due_date'; sortReverse = !sortReverse">
+            Due Date
+            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; !sortReverse"></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; sortReverse"></span>
+          </a>
+        </td>
+        <td>
           <a>Included in Grade</a>
         </td>
         <td>
@@ -102,13 +109,6 @@
           </a>
         </td>
         <td>
-          <a href="" ng-click="sortTypeAssignment = 'due_date'; sortReverse = !sortReverse">
-            Due Date
-            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; sortReverse"></span>
-          </a>
-        </td>
-        <td>
           <a>Grader's Comment</a>
         </td>
       </tr>
@@ -116,11 +116,11 @@
     <tbody>
       <tr ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
         <td>{{assignment.assignment.description }}</td>
+        <td>{{assignment.due_date | date}}</td>
         <td>{{assignment.included_in_grade}}</td>
         <td>{{assignment.points_earned}}</td>
         <td>{{assignment.points_possible}}</td>
         <td>{{assignment.weight}}</td>
-        <td>{{assignment.due_date | date}}</td>
         <td>{{assignment.grader_comment}}</td>
       </tr>
     </tbody>

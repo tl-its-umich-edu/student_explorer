@@ -15,7 +15,7 @@ angular.module('sespaApp')
     $scope.historyLength = null;
     $scope.historyDate = null;
     $scope.classSiteDescription = null;
-    $scope.sortTypeAssignment = 'assignment.description';
+    $scope.sortTypeAssignment = 'assignment.due_date';
     $scope.sortTypeHistory = 'date';
     $scope.sortReverse = false;
     $scope.searchStudent = '';
