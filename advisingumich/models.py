@@ -2,12 +2,28 @@ from django.db import models
 from advisingumich.mixins import AdvisingUmichDataCleanupMixin
 
 
+class UsernameField(models.CharField):
+    '''Convert case for data warehouse values. Only handles read situations,
+    this implementation would need to be extended if writing to the dataset is
+    necessary.'''
+
+    def from_db_value(self, value, expression, connection, context):
+        return value.lower()
+
+    def get_db_prep_value(self, value, connection, prepared=False):
+        value = super(UsernameField, self).get_db_prep_value(
+            value, connection, prepared)
+        if value is not None:
+            return value.upper()
+        return value
+
+
 # "Dimension" models
 
 
 class Advisor(models.Model):
     id = models.IntegerField(primary_key=True, db_column='ADVSR_KEY')
-    username = models.CharField(max_length=16, db_column='ADVSR_UM_UNQNM')
+    username = UsernameField(max_length=16, db_column='ADVSR_UM_UNQNM')
     univ_id = models.CharField(max_length=11, db_column='ADVSR_UM_ID')
     first_name = models.CharField(max_length=500,
                                   db_column='ADVSR_PREF_FIRST_NM')
@@ -36,7 +52,7 @@ class Date(models.Model):
 
 class Mentor(models.Model):
     id = models.IntegerField(primary_key=True, db_column='MNTR_KEY')
-    username = models.CharField(max_length=16, db_column='MNTR_UM_UNQNM')
+    username = UsernameField(max_length=16, db_column='MNTR_UM_UNQNM')
     univ_id = models.CharField(max_length=11, db_column='MNTR_UM_ID')
     first_name = models.CharField(max_length=500,
                                   db_column='MNTR_PREF_FIRST_NM')
@@ -68,7 +84,7 @@ class Status(models.Model):
 
 class Student(models.Model):
     id = models.IntegerField(primary_key=True, db_column='STDNT_KEY')
-    username = models.CharField(max_length=16, db_column='STDNT_UM_UNQNM')
+    username = UsernameField(max_length=16, db_column='STDNT_UM_UNQNM')
     univ_id = models.CharField(max_length=11, db_column='STDNT_UM_ID')
     first_name = models.CharField(max_length=500,
                                   db_column='STDNT_PREF_FIRST_NM')
