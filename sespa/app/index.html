@@ -42,7 +42,7 @@
             <li><a href="#/advisors" data-toggle="collapse" data-target="#navbar">Advisors</a></li>
           </ul>
           <form ng-submit="studentSearch()" class="navbar-form navbar-right">
-            <input ng-model="search" type="text" class="form-control" placeholder="Search Students...">
+            <input id="student-search" ng-model="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
           </form>
             <ul class="nav navbar-nav navbar-right">
               <li ng-if="!userInfo.username">
