@@ -58,6 +58,7 @@ EOM
         echo "CREATE DATABASE IF NOT EXISTS student_explorer;" | mysql -v -u root -p12345
         echo "GRANT ALL PRIVILEGES ON *.* TO 'student_explorer'@'%' IDENTIFIED BY 'student_explorer';" | mysql -v -u root -p12345
 
+        pip install coverage
         pip install -r requirements.txt
 
         if [ ! -e student_explorer/settings/local.py ]; then
