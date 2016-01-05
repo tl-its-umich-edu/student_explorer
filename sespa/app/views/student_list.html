@@ -1,5 +1,8 @@
 <h2 ng-if="studentListHeader" class="sub-header">{{studentListHeader}}</h2>
-<div class="table-responsive">
+<div ng-if="students.length == 0">
+  <p>No students found.</p>
+</div>
+<div ng-if="students.length > 0" class="table-responsive">
 <table class="table table-striped">
   <thead>
     <tr>
