@@ -21,6 +21,7 @@ angular.module('sespaApp')
     };
 
     if (typeof $routeParams.search !== 'undefined') {
+      $scope.$parent.search = $routeParams.search;
       advisingData.searchStudents($routeParams.search).then(displayStudents);
     }
   });
