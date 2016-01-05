@@ -14,16 +14,8 @@
             <td>{{ student.univ_id }}</td>
           </tr>
           <tr>
-            <th><a>Cohorts</a></th>
-            <td><p ng-repeat="cohort in student.cohorts">{{ cohort }}</p></td>
-          </tr>
-          <tr>
             <th><a>Advisors</a></th>
             <td><p ng-repeat="advisor in advisors">{{ advisor.advisor.first_name }} {{ advisor.advisor.last_name }}<!-- ({{ advisor.role }}) --></p></td>
-          </tr>
-          <tr>
-            <th><a>Mentors</a></th>
-            <td><p ng-repeat="mentor in mentors">{{ mentor.mentor.first_name }} {{ mentor.mentor.last_name }}<!-- ({{ mentor.cohort }}) --></p></td>
           </tr>
         </tbody>
       </table>

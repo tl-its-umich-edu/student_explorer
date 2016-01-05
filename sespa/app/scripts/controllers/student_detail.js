@@ -28,10 +28,6 @@ angular.module('sespaApp')
       $scope.advisors = advisors;
     });
     
-    advisingData.studentMentors($routeParams.student).then(function(mentors) {
-      $scope.mentors = mentors;
-    });
-    
     advisingData.studentClassSites($routeParams.student).then(function(class_sites) {
       console.log(class_sites);
       $scope.classSites = class_sites;
