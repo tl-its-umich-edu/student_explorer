@@ -1,27 +1,28 @@
 <h2 ng-if="classSiteDetailHeader" class="sub-header">{{classSiteDetailHeader}}</h2>
-<hr class="main-no-margin-top"/>
+<hr class="main-no-margin-top" />
 <h3 class="main-h3">Class : {{classSite.class_site.description}}</h3>
 <p>
-    <img alt="{{classSite.status}}" class="class-site-status {{ classSite.status | lowercase }}" ng-src="images/Status_Icons_{{classSite.status}}.png"/>
-    <span class="label label-primary">{{classSite.class_site.source_system}}</span>
+  <img alt="{{classSite.status}}" class="class-site-status {{ classSite.status | lowercase }}" ng-src="images/Status_Icons_{{classSite.status}}.png" />
+  <span class="label label-primary">{{classSite.class_site.source_system}}</span>
 </p>
-<nvd3-line-chart
-	data="scoreData"
-    id="score-chart"
-    width="550"
-    height="350"
-    showXAxis="true"
-    showYAxis="true"
-    showLegend="true"
-    forcey="[0,100]"
-    interactive="true"
-    useInteractiveGuideLine="true"
-    tooltips="true"
-    xAxisTickFormat="xAxisTickFormatFunction()"
-    isArea = "true"
-    noData="No Data For You!">
-        <svg></svg>
-</nvd3-line-chart>
+
+<div class="row">
+  <div class="col-lg-6">
+    <nvd3-line-chart data="scoreData" id="score-chart" width="500" height="350" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true" useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()"
+    isArea="true" noData="No Data For You!">
+      <svg></svg>
+    </nvd3-line-chart>
+  </div>
+
+
+  <div class="col-lg-6">
+    <nvd3-line-chart data="eventData" id="exampleId" xAxisTickFormat="xAxisTickFormatFunction()" yAxisTickFormat="yAxisTickFormatFunction()" width="500" height="350" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true"
+    useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()" isArea="true" noData="No Data For You!">
+      <svg></svg>
+    </nvd3-line-chart>
+  </div>
+</div>
+
 
 <h3 class="main-less-weight">Class Site History</h3>
 <hr class="main-no-margin-top">
@@ -59,7 +60,9 @@
     <tbody>
       <tr ng-repeat="entry in classSiteHistory | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
         <td>Week {{entry.week_number}} ({{entry.week_end_date | date}})</td>
-        <td><img alt="{{entry.status}}" class="class-site-status {{ entry.status | lowercase }}" ng-src="images/Status_Icons_{{entry.status}}.png"/></td>
+        <td>
+          <img alt="{{entry.status}}" class="class-site-status {{ entry.status | lowercase }}" ng-src="images/Status_Icons_{{entry.status}}.png" />
+        </td>
         <td>{{entry.score}}</td>
         <td>{{entry.class_score}}</td>
         <td>{{entry.event_count}}</td>
