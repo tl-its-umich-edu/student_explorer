@@ -43,16 +43,26 @@ angular.module('sespaApp')
       $scope.historyLength = $scope.historyDate.length;
       var studentData = [];
       var classData = [];
+      var event_percentile = [];
+      var event_count = [];
       for (var i = 0; i < classSiteHistory.length; i++) {
         studentData.push([i + 1, classSiteHistory[i].score]);
         classData.push([i + 1 , classSiteHistory[i].class_score]);
+        //add no data condition
+        event_percentile.push([i+1,classSiteHistory[i].event_percentile_rank*100]);
       }
+      
       $scope.scoreData = [{
         'key': 'Student',
         'values': studentData
       }, {
         'key': 'Class',
         'values': classData
+      }];
+      
+      $scope.eventData = [{
+        'key': 'Percentile',
+        'values': event_percentile
       }];
     });
 
@@ -66,8 +76,5 @@ angular.module('sespaApp')
         return 'Week  ' + d;
       };
     }
-    
-    
-
 
   });
