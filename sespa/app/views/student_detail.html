@@ -15,7 +15,10 @@
           </tr>
           <tr>
             <th><a>Advisors</a></th>
-            <td><p ng-repeat="advisor in advisors">{{ advisor.advisor.first_name }} {{ advisor.advisor.last_name }}<!-- ({{ advisor.role }}) --></p></td>
+            <td><p ng-repeat="advisor in advisors">
+                {{ advisor.advisor.first_name }} {{ advisor.advisor.last_name }}
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true" title="{{advisor.roles}}"></span>
+            </p></td>
           </tr>
         </tbody>
       </table>
