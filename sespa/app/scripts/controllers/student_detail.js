@@ -29,7 +29,6 @@ angular.module('sespaApp')
     });
     
     advisingData.studentClassSites($routeParams.student).then(function(class_sites) {
-      console.log(class_sites);
       $scope.classSites = class_sites;
     });
 
