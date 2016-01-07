@@ -1,4 +1,5 @@
 from django.db import models
+from advising import utils
 
 
 # "Dimension" models
@@ -43,13 +44,17 @@ class Student(models.Model):
     univ_id = models.CharField(max_length=10)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
     mentors = models.ManyToManyField('Mentor', through='StudentCohortMentor')
     cohorts = models.ManyToManyField('Cohort', through='StudentCohortMentor')
     class_sites = models.ManyToManyField('ClassSite',
                                          through='StudentClassSiteStatus')
     statuses = models.ManyToManyField('Status',
                                       through='StudentClassSiteStatus')
+
+    @property
+    def advisors(self):
+        return utils.aggrate_relationships(self.studentadvisorrole_set.all(),
+                                           'advisor', 'role')
 
     def __unicode__(self):
         return self.username

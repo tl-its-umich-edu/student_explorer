@@ -71,7 +71,6 @@ class StudentSerializer(serializers.ModelSerializer):
         view_name='student-mentors-list', lookup_field='username')
     cohorts = serializers.StringRelatedField(many=True)
     statuses = serializers.StringRelatedField(many=True)
-    advisors = serializers.StringRelatedField(many=True)
     mentors = serializers.StringRelatedField(many=True)
     status_weight = serializers.SerializerMethodField()
 
@@ -79,7 +78,7 @@ class StudentSerializer(serializers.ModelSerializer):
         model = Student
         fields = ('url', 'username', 'univ_id',
                   'first_name', 'last_name',
-                  'advisors', 'mentors', 'cohorts', 'statuses',
+                  'mentors', 'cohorts', 'statuses',
                   'status_weight',
                   'class_sites_url', 'advisors_url', 'mentors_url')
 
@@ -99,11 +98,11 @@ class StudentSerializer(serializers.ModelSerializer):
 
 class StudentAdvisorSerializer(serializers.ModelSerializer):
     advisor = AdvisorSerializer(read_only=True)
-    role = serializers.ReadOnlyField(source='role.description')
+    roles = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = StudentAdvisorRole
-        fields = ('role', 'advisor',)
+        fields = ('advisor', 'roles')
 
 
 class StudentMentorSerializer(serializers.ModelSerializer):

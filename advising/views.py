@@ -138,14 +138,13 @@ class StudentAdvisorList(generics.ListAPIView):
     '''
     API endpoint that lists a student's advisors.
     '''
-    queryset = Student.objects.all()
     serializer_class = StudentAdvisorSerializer
     lookup_field = 'username'
 
     def get_queryset(self):
         return (
             get_object_or_404(Student, username=self.kwargs['username'])
-            .studentadvisorrole_set.all()
+            .advisors
         )
 
 

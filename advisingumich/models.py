@@ -1,5 +1,6 @@
 from django.db import models
 from advisingumich.mixins import AdvisingUmichDataCleanupMixin
+from advising import utils
 
 
 class UsernameField(models.CharField):
@@ -89,13 +90,17 @@ class Student(models.Model):
     first_name = models.CharField(max_length=500,
                                   db_column='STDNT_PREF_FIRST_NM')
     last_name = models.CharField(max_length=500, db_column='STDNT_PREF_SURNM')
-    advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
     mentors = models.ManyToManyField('Mentor', through='StudentCohortMentor')
     cohorts = models.ManyToManyField('Cohort', through='StudentCohortMentor')
     class_sites = models.ManyToManyField('ClassSite',
                                          through='StudentClassSiteStatus')
     statuses = models.ManyToManyField('Status',
                                       through='StudentClassSiteStatus')
+
+    @property
+    def advisors(self):
+        return utils.aggrate_relationships(self.studentadvisorrole_set.all(),
+                                           'advisor', 'role')
 
     def __unicode__(self):
         return self.username
