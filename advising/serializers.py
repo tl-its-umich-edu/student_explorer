@@ -98,11 +98,11 @@ class StudentSerializer(serializers.ModelSerializer):
 
 class StudentAdvisorSerializer(serializers.ModelSerializer):
     advisor = AdvisorSerializer(read_only=True)
-    roles = serializers.StringRelatedField(many=True)
+    role = serializers.ReadOnlyField(source='role.description')
 
     class Meta:
         model = StudentAdvisorRole
-        fields = ('advisor', 'roles')
+        fields = ('advisor', 'role')
 
 
 class StudentMentorSerializer(serializers.ModelSerializer):

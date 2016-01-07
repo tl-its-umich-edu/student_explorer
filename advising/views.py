@@ -144,7 +144,7 @@ class StudentAdvisorList(generics.ListAPIView):
     def get_queryset(self):
         return (
             get_object_or_404(Student, username=self.kwargs['username'])
-            .advisors
+            .studentadvisorrole_set.all()
         )
 
 
