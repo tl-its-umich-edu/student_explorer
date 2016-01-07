@@ -18,6 +18,7 @@ body {
 .sub-header {
   color: brown;
   font-weight: 400;
+  margin-top: 7%;
   /*border-bottom: 1px solid #eee;*/
 }
 
@@ -106,7 +107,7 @@ body {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
-    /*max-width: 730px;*/
+    max-width: 100% !important;
   }
 
   /* Remove the padding we set earlier */
@@ -213,4 +214,11 @@ svg text {
 
 #student-search {
     width: 25em;
+}
+
+.graph-caption{
+    font-size:x-large;
+    font-weight: 300;
+    color:brown;
+    text-align: center;
 }
