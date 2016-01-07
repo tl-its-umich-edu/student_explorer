@@ -43,13 +43,26 @@ class Student(models.Model):
     univ_id = models.CharField(max_length=10)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    advisors = models.ManyToManyField('Advisor', through='StudentAdvisorRole')
     mentors = models.ManyToManyField('Mentor', through='StudentCohortMentor')
     cohorts = models.ManyToManyField('Cohort', through='StudentCohortMentor')
     class_sites = models.ManyToManyField('ClassSite',
                                          through='StudentClassSiteStatus')
     statuses = models.ManyToManyField('Status',
                                       through='StudentClassSiteStatus')
+
+    @property
+    def advisors(self):
+        aggrated = {}
+        for rel in self.studentadvisorrole_set.all():
+            if rel.advisor not in aggrated.keys():
+                aggrated[rel.advisor] = []
+            aggrated[rel.advisor].append(rel.role)
+
+        advisor_roles = []
+        for (advisor, roles) in aggrated.iteritems():
+            advisor_roles.append({'advisor': advisor, 'roles': roles})
+
+        return advisor_roles
 
     def __unicode__(self):
         return self.username
