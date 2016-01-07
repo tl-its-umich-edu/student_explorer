@@ -1,4 +1,5 @@
 from django.db import models
+from advising import utils
 
 
 # "Dimension" models
@@ -52,17 +53,8 @@ class Student(models.Model):
 
     @property
     def advisors(self):
-        aggrated = {}
-        for rel in self.studentadvisorrole_set.all():
-            if rel.advisor not in aggrated.keys():
-                aggrated[rel.advisor] = []
-            aggrated[rel.advisor].append(rel.role)
-
-        advisor_roles = []
-        for (advisor, roles) in aggrated.iteritems():
-            advisor_roles.append({'advisor': advisor, 'roles': roles})
-
-        return advisor_roles
+        return utils.aggrate_relationships(self.studentadvisorrole_set.all(),
+                                           'advisor', 'role')
 
     def __unicode__(self):
         return self.username
