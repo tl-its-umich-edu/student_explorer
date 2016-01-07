@@ -1,133 +1,140 @@
-<h2 ng-if="classSiteDetailHeader" class="sub-header">{{classSiteDetailHeader}}</h2>
-<hr class="main-no-margin-top" />
-<h3 class="main-h3">Class : {{classSite.class_site.description}}</h3>
-<p>
-  <img alt="{{classSite.status}}" class="class-site-status {{ classSite.status | lowercase }}" ng-src="images/Status_Icons_{{classSite.status}}.png" />
-  <span class="label label-primary">{{classSite.class_site.source_system}}</span>
-</p>
+<div class="col-lg-12">
+  <h2 ng-if="classSiteDetailHeader" class="sub-header">{{classSiteDetailHeader}}</h2>
+  <hr class="main-no-margin-top" />
+  <h3 class="main-h3">Class : {{classSite.class_site.description}}</h3>
+  <p>
+    <img alt="{{classSite.status}}" class="class-site-status {{ classSite.status | lowercase }}" ng-src="images/Status_Icons_{{classSite.status}}.png" />
+    <span class="label label-primary">{{classSite.class_site.source_system}}</span>
+  </p>
 
-<div class="row">
-  <div class="col-lg-6">
-    <nvd3-line-chart data="scoreData" id="score-chart" width="500" height="350" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true" useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()"
-    isArea="true" noData="No Data For You!">
-      <svg></svg>
-    </nvd3-line-chart>
+  <div class="row">
+    <div class="col-lg-6">
+      <nvd3-line-chart data="scoreData" id="score-chart" width="500" height="350" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true" useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()"
+      isArea="true" noData="No Data For You!">
+        <svg></svg>
+      </nvd3-line-chart>
+      <div class="graph-caption">Scores</div>
+    </div>
+
+
+    <div class="col-lg-6">
+      <nvd3-line-chart data="eventData" id="exampleId" width="500" height="350" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true" useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()"
+      isArea="true" noData="No Data For You!">
+        <svg></svg>
+      </nvd3-line-chart>
+      <div class="graph-caption">Ctools Activity</div>
+    </div>
   </div>
 
-
-  <div class="col-lg-6">
-    <nvd3-line-chart data="eventData" id="exampleId" xAxisTickFormat="xAxisTickFormatFunction()" yAxisTickFormat="yAxisTickFormatFunction()" width="500" height="350" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true"
-    useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()" isArea="true" noData="No Data For You!">
-      <svg></svg>
-    </nvd3-line-chart>
-  </div>
-</div>
-
-
-<h3 class="main-less-weight">Class Site History</h3>
-<hr class="main-no-margin-top">
-<div ng-if="!(historyLength > 0)">
-  <p>There is no class site history data for this student.</p>
-</div>
-<div ng-if="historyLength > 0" class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <td>
-          <a href="" ng-click="sortTypeHistory = 'week_end_date'; sortReverse = !sortReverse">
+  <div class="row site-history">
+    <h3 class="main-less-weight">Class Site History</h3>
+    <hr class="main-no-margin-top">
+    <div ng-if="!(historyLength > 0)">
+      <p>There is no class site history data for this student.</p>
+    </div>
+    <div ng-if="historyLength > 0" class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td>
+              <a href="" ng-click="sortTypeHistory = 'week_end_date'; sortReverse = !sortReverse">
             Date
             <span class="fa fa-caret-down" ng-show="sortTypeHistory == 'assignment.description' &amp;&amp; !sortReverse"></span>
             <span class="fa fa-caret-up" ng-show="sortTypeHistory == 'assignment.description' &amp;&amp; sortReverse"></span>
           </a>
-        </td>
-        <td>
-          <a>Status</a>
-        </td>
-        <td>
-          <a>Score</a>
-        </td>
-        <td>
-          <a>Class Score</a>
-        </td>
-        <td>
-          <a>Event Count</a>
-        </td>
-        <td>
-          <a>Event Percentile Rank</a>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="entry in classSiteHistory | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
-        <td>Week {{entry.week_number}} ({{entry.week_end_date | date}})</td>
-        <td>
-          <img alt="{{entry.status}}" class="class-site-status {{ entry.status | lowercase }}" ng-src="images/Status_Icons_{{entry.status}}.png" />
-        </td>
-        <td>{{entry.score}}</td>
-        <td>{{entry.class_score}}</td>
-        <td>{{entry.event_count}}</td>
-        <td>{{entry.event_percentile_rank}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+            </td>
+            <td>
+              <a>Status</a>
+            </td>
+            <td>
+              <a>Score</a>
+            </td>
+            <td>
+              <a>Class Score</a>
+            </td>
+            <td>
+              <a>Event Count</a>
+            </td>
+            <td>
+              <a>Event Percentile Rank</a>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entry in classSiteHistory | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
+            <td>Week {{entry.week_number}} ({{entry.week_end_date | date}})</td>
+            <td>
+              <img alt="{{entry.status}}" class="class-site-status {{ entry.status | lowercase }}" ng-src="images/Status_Icons_{{entry.status}}.png" />
+            </td>
+            <td>{{entry.score}}</td>
+            <td>{{entry.class_score}}</td>
+            <td>{{entry.event_count}}</td>
+            <td>{{entry.event_percentile_rank}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-<h3 class="main-less-weight">Assignments</h3>
-<hr class="main-no-margin-top">
-<div ng-if="assignments.length == 0">
-  <p>There is no assignment data for this student.</p>
-</div>
-<div ng-if="assignments.length > 0" class="table-responsive main-page-end-margin-bottom">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <td>
-          <a href="" ng-click="sortTypeAssignment = 'assignment.description'; sortReverse = !sortReverse">
+  <div class="row assignments">
+    <h3 class="main-less-weight">Assignments</h3>
+    <hr class="main-no-margin-top">
+    <div ng-if="assignments.length == 0">
+      <p>There is no assignment data for this student.</p>
+    </div>
+    <div ng-if="assignments.length > 0" class="table-responsive main-page-end-margin-bottom">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td>
+              <a href="" ng-click="sortTypeAssignment = 'assignment.description'; sortReverse = !sortReverse">
             Assignment
             <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; !sortReverse"></span>
             <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; sortReverse"></span>
           </a>
-        </td>
-        <td>
-          <a href="" ng-click="sortTypeAssignment = 'due_date'; sortReverse = !sortReverse">
+            </td>
+            <td>
+              <a href="" ng-click="sortTypeAssignment = 'due_date'; sortReverse = !sortReverse">
             Due Date
             <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; !sortReverse"></span>
             <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; sortReverse"></span>
           </a>
-        </td>
-        <td>
-          <a>Included in Grade</a>
-        </td>
-        <td>
-          <a>Points Earned</a>
-        </td>
-        <td>
-          <a>Points Possible</a>
-        </td>
-        <td>
-          <a href="" ng-click="sortTypeAssignment = 'weight'; sortReverse = !sortReverse">
+            </td>
+            <td>
+              <a>Included in Grade</a>
+            </td>
+            <td>
+              <a>Points Earned</a>
+            </td>
+            <td>
+              <a>Points Possible</a>
+            </td>
+            <td>
+              <a href="" ng-click="sortTypeAssignment = 'weight'; sortReverse = !sortReverse">
             Weight
             <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'weight' &amp;&amp; !sortReverse"></span>
             <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'weight' &amp;&amp; sortReverse"></span>
           </a>
-        </td>
-        <td>
-          <a>Grader's Comment</a>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
-        <td>{{assignment.assignment.description }}</td>
-        <td>{{assignment.due_date | date}}</td>
-        <td>{{assignment.included_in_grade}}</td>
-        <td>{{assignment.points_earned}}</td>
-        <td>{{assignment.points_possible}}</td>
-        <td>{{assignment.weight}}</td>
-        <td>{{assignment.grader_comment}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+            </td>
+            <td>
+              <a>Grader's Comment</a>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
+            <td>{{assignment.assignment.description }}</td>
+            <td>{{assignment.due_date | date}}</td>
+            <td>{{assignment.included_in_grade}}</td>
+            <td>{{assignment.points_earned}}</td>
+            <td>{{assignment.points_possible}}</td>
+            <td>{{assignment.weight}}</td>
+            <td>{{assignment.grader_comment}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-<dig-data-fetch-progress progress="{{progress}}"></dig-data-fetch-progress>
+  <dig-data-fetch-progress progress="{{progress}}"></dig-data-fetch-progress>
+</div>
