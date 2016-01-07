@@ -7,9 +7,11 @@
 ## Development Environment ##
 1. Install Vagrant (https://www.vagrantup.com/)
 2. `cd student_explorer`
-3. `vagrant up`
-4. `vagrant ssh`
-    - `cd /vagrant/`
+   `vagrant up`
+   `vagrant ssh`
+   `cd /vagrant`
+3. Follow instructions in sespa/README.md
+4. Initialize and run application server
     - `python manage.py migrate`
     - `python manage.py loaddata */fixtures/*.json`
     - `python manage.py runserver`
