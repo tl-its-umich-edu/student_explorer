@@ -1,7 +1,7 @@
 <div class="col-lg-12">
   <h2 ng-if="classSiteDetailHeader" class="sub-header">{{classSiteDetailHeader}}</h2>
   <hr class="main-no-margin-top" />
-  <h3 class="main-h3">Class : {{classSite.class_site.description}}</h3>
+  <h3 class="main-h3">Course Site: {{classSite.class_site.description}}</h3>
   <p>
     <img alt="{{classSite.status}}" class="class-site-status {{ classSite.status | lowercase }}" ng-src="images/Status_Icons_{{classSite.status}}.png" />
     <span class="label label-primary">{{classSite.class_site.source_system}}</span>
@@ -13,7 +13,7 @@
       isArea="true" noData="No Data For You!">
         <svg></svg>
       </nvd3-line-chart>
-      <div class="graph-caption">Scores</div>
+      <div class="graph-caption">Score History</div>
     </div>
 
 
@@ -22,15 +22,15 @@
       isArea="true" noData="No Data For You!">
         <svg></svg>
       </nvd3-line-chart>
-      <div class="graph-caption">Ctools Activity</div>
+      <div class="graph-caption">Activity History</div>
     </div>
   </div>
 
   <div class="row site-history">
-    <h3 class="main-less-weight">Class Site History</h3>
+    <h3 class="main-less-weight">Course Site History</h3>
     <hr class="main-no-margin-top">
     <div ng-if="!(historyLength > 0)">
-      <p>There is no class site history data for this student.</p>
+      <p>There is no course site history data for this student.</p>
     </div>
     <div ng-if="historyLength > 0" class="table-responsive">
       <table class="table table-striped">
@@ -47,16 +47,16 @@
               <a>Status</a>
             </td>
             <td>
-              <a>Score</a>
+              <a>Student Percentage</a>
             </td>
             <td>
-              <a>Class Score</a>
+              <a>Class Percentage</a>
             </td>
             <td>
               <a>Event Count</a>
             </td>
             <td>
-              <a>Event Percentile Rank</a>
+              <a>Activity Percentile Rank</a>
             </td>
           </tr>
         </thead>

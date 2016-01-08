@@ -53,15 +53,15 @@ angular.module('sespaApp')
       }
       
       $scope.scoreData = [{
-        'key': 'Student',
+        'key': 'Student Percentage',
         'values': studentData
       }, {
-        'key': 'Class',
+        'key': 'Class Percentage',
         'values': classData
       }];
       
       $scope.eventData = [{
-        'key': 'Percentile',
+        'key': 'Activity Percentile Rank',
         'values': event_percentile
       }];
     });
