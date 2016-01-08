@@ -1,3 +1,6 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -18,7 +21,7 @@ body {
 .sub-header {
   color: brown;
   font-weight: 400;
-  margin-top: 7%;
+  margin-top: 7 %;
   /*border-bottom: 1px solid #eee;*/
 }
 
