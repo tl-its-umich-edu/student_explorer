@@ -67,7 +67,7 @@ angular.module('sespaApp')
     });
 
     advisingData.studentDetails($routeParams.student).then(function(student) {
-      $scope.classSiteDetailHeader = student.first_name + ' ' + student.last_name;
+      $scope.student = student;
     });
     
     // nvd3 chart manipulation functions
