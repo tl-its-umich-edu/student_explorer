@@ -155,7 +155,6 @@ body {
 /* For progress bar */
 .progress {
   width: 200px;
-  margin-left: 50px;
 }
 
 .progress-bar {
@@ -169,14 +168,14 @@ body {
 
 /* For student grade progress bar*/
 .studentGradeBar {
-  background: #333333;
+  background: #255c91;
 }
 
 .classAveBar {
   width: 3px;
   height: 20px;
   position: relative;
-  background: gray;
+      background: #dac15f;
 }
 
 .main-no-margin-top{
