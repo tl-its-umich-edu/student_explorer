@@ -30,10 +30,10 @@
         <td>
           <div class="progress" ng-if="classSite.current_student_score_average || classSite.current_class_score_average">
             <div class="progress-bar studentGradeBar" role="progressbar" aria-valuenow="{{classSite.current_student_score_average}}"
-              aria-valuemin="0" aria-valuemax="100" style="width:{{classSite.current_student_score_average}}%" title="Student Grade: {{classSite.current_student_score_average}}%" data-toggle="tooltip" data-placement="bottom" tooltip>
+              aria-valuemin="0" aria-valuemax="100" style="width:{{classSite.current_student_score_average}}%" title="Student Percentage: {{classSite.current_student_score_average}}%" data-toggle="tooltip" data-placement="bottom" tooltip>
               <span class="sr-only">Student Percentage: {{classSite.current_student_score_average}}%</span>
             </div>
-            <div class="classAveBar" data-toggle="tooltip" data-placement="bottom" style="left: {{classSite.current_class_score_average}}%;" title="Class Average Grade: {{classSite.current_class_score_average}}%" tooltip>
+            <div class="classAveBar" data-toggle="tooltip" data-placement="bottom" style="left: {{classSite.current_class_score_average}}%;" title="Class Average Percentage: {{classSite.current_class_score_average}}%" tooltip>
               <span class="sr-only">Class Percentage: {{classSite.current_class_score_average}}%</span>
             </div>
           </div>
