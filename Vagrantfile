@@ -65,7 +65,16 @@ EOM
             cp student_explorer/settings/local_sample.py student_explorer/settings/local.py
         fi
 
-        cd student_explorer/extras
+        echo "Installing Bower..."        
+        cd /vagrant
+        apt-get update
+        apt-get install --yes git
+        curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
+        apt-get install --yes nodejs
+        npm install --global npm@latest
+        npm install --global bower
+
+        cd /vagrant/student_explorer/extras
         ls *.deb; if [ $? -eq 0 ]; then
             apt-get --no-install-recommends install --yes libaio1 libaio-dev
             dpkg -i *.deb

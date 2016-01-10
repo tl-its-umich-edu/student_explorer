@@ -6,10 +6,15 @@
 
 ## Development Environment ##
 1. Install Vagrant (https://www.vagrantup.com/)
-2. `cd student_explorer`
-3. `vagrant up`
-4. `vagrant ssh`
-    - `cd /vagrant/`
+2. Start Vagrant
+   - `cd student_explorer`
+   - `vagrant up`
+   - `vagrant ssh`
+3. Install bower
+   - `cd /vagrant/sespa`
+   - `bower install`
+4. Initialize and start app server
+    - `cd /vagrant`
     - `python manage.py migrate`
     - `python manage.py loaddata */fixtures/*.json`
     - `python manage.py runserver`
