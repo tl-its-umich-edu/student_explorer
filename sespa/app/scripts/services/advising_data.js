@@ -22,9 +22,7 @@ angular.module('sespaApp')
       var deferred = $q.defer();
       var data = [];
       var getNext = function(url) {
-        $http.get(url, {
-            'cache': true
-          })
+        $http.get(url)
           .then(function(response) {
             if ((typeof response.data.results === 'object' &&
                 (typeof response.data.next === 'string' ||
