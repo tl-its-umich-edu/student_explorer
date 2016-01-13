@@ -1,26 +1,28 @@
-FROM python:2.7
+FROM oracle_instantclient
 
 RUN apt-get update
 
-RUN apt-get --no-install-recommends install --yes \
-        libldap2-dev libsasl2-dev \
-        libaio1 libaio-dev
+RUN apt-get --no-install-recommends install --yes libldap2-dev libsasl2-dev
+RUN apt-get --no-install-recommends install --yes python-pip python-dev
+RUN apt-get --no-install-recommends install --yes build-essential libmysqlclient-dev git
+RUN apt-get --no-install-recommends install --yes nodejs npm \
+    && ln -s /usr/bin/nodejs /usr/bin/node
+RUN npm install -g bower
 
 WORKDIR /tmp/
 
-COPY student_explorer/extras/*.deb /tmp/
-RUN dpkg -i *.deb
-ENV ORACLE_HOME /usr/lib/oracle/12.1/client64
-ENV LD_LIBRARY_PATH /usr/lib/oracle/12.1/client64/lib
-RUN pip install cx_Oracle
+RUN pip install cx_Oracle gunicorn
 
-RUN pip install gunicorn
 COPY requirements.txt /tmp/
 RUN pip install -r requirements.txt
 
 RUN mkdir -p /usr/src/app
 
 COPY . /usr/src/app
+
+WORKDIR /usr/src/app/sespa
+RUN bower --allow-root install
+WORKDIR /usr/src/app
 
 WORKDIR /usr/src/app
 EXPOSE 8000
