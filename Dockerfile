@@ -24,6 +24,5 @@ WORKDIR /usr/src/app/sespa
 RUN bower --allow-root install
 WORKDIR /usr/src/app
 
-WORKDIR /usr/src/app
 EXPOSE 8000
 CMD ./start.sh
