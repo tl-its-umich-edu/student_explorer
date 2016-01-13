@@ -21,7 +21,7 @@
   "appPath": "app",
   "moduleName": "sespaApp",
   "resolutions": {
-    "angular": "1.4.7",
+    "angular": "^1.4.7",
     "d3": "~3.4.1"
   }
 }
