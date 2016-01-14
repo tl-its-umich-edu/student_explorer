@@ -46,20 +46,22 @@ angular.module('sespaApp')
       var event_percentile = [];
       var event_count = [];
       for (var i = 0; i < classSiteHistory.length; i++) {
-        studentData.push([i + 1, classSiteHistory[i].score]);
-        classData.push([i + 1 , classSiteHistory[i].class_score]);
+        studentData.push([classSiteHistory[i].week_number, classSiteHistory[i].score]);
+        classData.push([classSiteHistory[i].week_number, classSiteHistory[i].class_score]);
         //add no data condition
-        event_percentile.push([i+1,classSiteHistory[i].event_percentile_rank*100]);
+        event_percentile.push([i + 1, classSiteHistory[i].event_percentile_rank * 100]);
       }
-      
+
+
       $scope.scoreData = [{
-        'key': 'Student Percentage',
-        'values': studentData
+        'key': 'Student %',
+        'values': studentData,
+        'bar': true
       }, {
-        'key': 'Class Percentage',
+        'key': 'Class %',
         'values': classData
       }];
-      
+
       $scope.eventData = [{
         'key': 'Activity Percentile Rank',
         'values': event_percentile
@@ -69,12 +71,27 @@ angular.module('sespaApp')
     advisingData.studentDetails($routeParams.student).then(function(student) {
       $scope.student = student;
     });
-    
+
+
+    $scope.y1axislabeltext = "Student %";
+    $scope.y2axislabeltext = "Class %";
+
     // nvd3 chart manipulation functions
-    $scope.xAxisTickFormatFunction = function(){
-      return function(d){
-        return 'Week  ' + d;
+    $scope.xAxisTickFormatFunction = function() {
+      return function(d) {
+        return '' + d;
       };
+    }
+
+    $scope.y1AxisTickFormat = function() {
+      return function(d) {
+        return d3.format(',f')(d);
+      }
+    }
+    $scope.y2AxisTickFormat = function() {
+      return function(d) {
+        return '$' + d3.format(',.2f')(d);
+      }
     }
 
   });
