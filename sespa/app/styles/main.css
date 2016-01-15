@@ -21,7 +21,7 @@ body {
 .sub-header {
   color: brown;
   font-weight: 400;
-  margin-top: 7 %;
+  margin-top: 6%;
   /*border-bottom: 1px solid #eee;*/
 }
 
@@ -213,6 +213,33 @@ svg text {
 .nvtooltip {
     font-family: Lato, Helvetica;
 }
+.nvtooltip h3 {
+  margin: 0;
+  padding: 4px 14px;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: bold;
+  background-color: rgba(247,247,247,0.75);
+  text-align: center;
+
+  border-bottom: 1px solid #ebebeb;
+
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+}
+
+
+.backlink{
+    font-size: 20px;
+    color:#1F77B4;
+    text-decoration: none !important;
+}
+
+.backlink : hover{
+    color: #1c3144;
+}
+
 
 #student-search {
     width: 25em;

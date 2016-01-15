@@ -1,5 +1,11 @@
 <div class="col-lg-12">
-  <a href="#/students/{{student.username}}/"><h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2></a>
+
+  <h2 class="sub-header">{{student.first_name}} {{student.last_name}}
+    <a class="pull-right backlink" href="#/students/{{student.username}}/">
+      < Back to Course List<p>
+    </a>
+  </h2>
+
 
   <hr class="main-no-margin-top" />
   <h3 class="main-h3">Course Site: {{classSite.class_site.description}}</h3>
@@ -10,19 +16,20 @@
 
   <div class="row">
     <div class="col-lg-6">
-      <nvd3-line-chart data="scoreData" id="score-chart" width="500" height="350" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true" useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()"
-      isArea="true" noData="No Data For You!">
+      <nvd3-line-plus-bar-chart data="scoreData" id="scoreChart" width="540" margin="{left:73}" xAxisTickFormat="xAxisTickFormatFunction()" y1AxisLabel="{{y1axislabeltext}}" y2AxisLabel="{{y2axislabeltext}}" y1AxisTickFormat="y1AxisTickFormat()" forceY="[0,100]"
+      legendWidth="400" showLegend="true" interactive="true" useInteractiveGuideLine="true" tooltips="true" forcey="[0,100]" xAxisLabel="Weeks">
         <svg></svg>
-      </nvd3-line-chart>
+      </nvd3-line-plus-bar-chart>
+
       <div class="graph-caption">Score History</div>
     </div>
 
 
     <div class="col-lg-6">
-      <nvd3-line-chart data="eventData" id="exampleId" width="500" height="350" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true" useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()"
-      isArea="true" noData="No Data For You!">
+      <nvd3-multi-bar-chart data="eventData" id="exampleId" width="530" height="350" margin="{left:73}" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true" useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()"
+      isArea="true" noData="No Data For You!" xAxisLabel="Weeks" yAxisLabel="Percentile">
         <svg></svg>
-      </nvd3-line-chart>
+      </nvd3-multi-bar-chart>
       <div class="graph-caption">Activity History</div>
     </div>
   </div>
