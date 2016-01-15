@@ -18,7 +18,8 @@
     - `python manage.py migrate`
     - `python manage.py loaddata */fixtures/*.json`
     - `python manage.py runserver`
-5. Browse to [http://localhost:2080/](http://localhost:2080/)
+5. Browse to [http://localhost:2080/#/advisors/](http://localhost:2080/#/advisors/)
+    - Login as individual advisors using their lower-case first name as username/password
 
 ## Configuring an external database ##
 - Add an database to the DATABASES setting ('lt_dataset' in this example).
