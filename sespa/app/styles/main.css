@@ -145,6 +145,14 @@ body {
   .hide-small {
     display: none;
   }
+  
+  .navbar-fixed-bottom {
+    position: relative;
+  }
+  
+  body {
+      padding-bottom: 0;
+  }
 }
 
 /* For ng-cloak */
