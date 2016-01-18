@@ -31,10 +31,6 @@ angular.module('sespaApp')
     advisingData.studentClassSiteAssignments($routeParams.student, $routeParams.classSiteCode).then(function(assignment) {
       $scope.progress = 100;
       $scope.assignments = assignment;
-      $scope.showComment = function(index) {
-        $('#commentButton'+(index+1)).addClass('hidden');
-        $('#graderComment'+(index+1)).removeClass('hidden');
-      };
     }, function(reason) {
       window.alert(reason);
     }, function(update) {

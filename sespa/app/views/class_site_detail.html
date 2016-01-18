@@ -138,8 +138,10 @@
             <td>{{assignment.points_possible}}</td>
             <td>{{assignment.weight}}</td>
             <td>
-              <button ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null" id="{{'commentButton' + ($index + 1)}}" type="button" ng-click="showComment($index)">Show Grader's comments</button>
-              <p class="hidden" id="{{'graderComment' + ($index + 1)}}">{{assignment.grader_comment}}</p>
+              <span ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null" 
+                  class="glyphicon glyphicon-comment" aria-hidden="true"
+                  title="{{assignment.grader_comment}}"
+                  data-toggle="tooltip" data-placement="bottom" tooltip></span>
             </td>
           </tr>
         </tbody>
