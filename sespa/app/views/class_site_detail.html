@@ -137,7 +137,12 @@
             <td>{{assignment.points_earned}}</td>
             <td>{{assignment.points_possible}}</td>
             <td>{{assignment.weight}}</td>
-            <td>{{assignment.grader_comment}}</td>
+            <td>
+              <span ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null" 
+                  class="glyphicon glyphicon-comment" aria-hidden="true"
+                  title="{{assignment.grader_comment}}"
+                  data-toggle="tooltip" data-placement="bottom" tooltip></span>
+            </td>
           </tr>
         </tbody>
       </table>

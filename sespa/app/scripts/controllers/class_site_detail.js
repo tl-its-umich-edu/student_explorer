@@ -73,25 +73,25 @@ angular.module('sespaApp')
     });
 
 
-    $scope.y1axislabeltext = "Student %";
-    $scope.y2axislabeltext = "Class %";
+    $scope.y1axislabeltext = 'Student %';
+    $scope.y2axislabeltext = 'Class %';
 
     // nvd3 chart manipulation functions
     $scope.xAxisTickFormatFunction = function() {
       return function(d) {
         return '' + d;
       };
-    }
+    };
 
     $scope.y1AxisTickFormat = function() {
       return function(d) {
         return d3.format(',f')(d);
-      }
-    }
+      };
+    };
     $scope.y2AxisTickFormat = function() {
       return function(d) {
         return '$' + d3.format(',.2f')(d);
-      }
-    }
+      };
+    };
 
   });
