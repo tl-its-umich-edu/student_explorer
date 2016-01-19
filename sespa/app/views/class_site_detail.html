@@ -10,7 +10,10 @@
   <hr class="main-no-margin-top" />
   <h3 class="main-h3">Course Site: {{classSite.class_site.description}}</h3>
   <p>
-    <img alt="{{classSite.status}}" class="class-site-status {{ classSite.status | lowercase }}" ng-src="images/Status_Icons_{{classSite.status}}.png" />
+    <img alt="{{classSite.status}}" class="class-site-status {{ classSite.status | lowercase }}" ng-src="images/Status_Icons_{{classSite.status}}.png"
+      aria-hidden="true"
+      title="{{classSite.status}}"
+      data-toggle="tooltip" data-placement="bottom" status-tooltip/>
     <span class="label label-primary">{{classSite.class_site.source_system}}</span>
   </p>
 
@@ -72,7 +75,10 @@
           <tr ng-repeat="entry in classSiteHistory | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
             <td>Week {{entry.week_number}} ({{entry.week_end_date | date}})</td>
             <td>
-              <img alt="{{entry.status}}" class="class-site-status {{ entry.status | lowercase }}" ng-src="images/Status_Icons_{{entry.status}}.png" />
+              <img alt="{{entry.status}}" class="class-site-status {{ entry.status | lowercase }}" ng-src="images/Status_Icons_{{entry.status}}.png"
+                aria-hidden="true"
+                title="{{entry.status}}"
+                data-toggle="tooltip" data-placement="bottom" status-tooltip/>
             </td>
             <td>{{entry.score}}</td>
             <td>{{entry.class_score}}</td>
