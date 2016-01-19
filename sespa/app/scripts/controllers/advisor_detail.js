@@ -20,22 +20,24 @@ angular.module('sespaApp')
 
     advisingData.userInfo().then(function(userInfo) {
       var advisorUsername;
+      $scope.username = userInfo.username;
       if (typeof $routeParams.advisor === 'undefined') {
         advisorUsername = userInfo.username;
       } else {
         advisorUsername = $routeParams.advisor;
       }
+
       advisingData.advisorDetails(advisorUsername).then(function(advisor) {
         $scope.advisor = advisor;
       }, function(reason) {
-        advisingUtilities.alert(reason);
+        console.log(reason);
       });
 
       advisingData.advisorsStudents(advisorUsername).then(function(students) {
         $scope.progress = 100;
         $scope.students = students;
       }, function(reason) {
-        advisingUtilities.alert(reason);
+        console.log(reason);
       }, function(update) {
         advisingUtilities.updateProgress(update, $scope);
       });
