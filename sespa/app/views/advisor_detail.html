@@ -1,4 +1,11 @@
-<h2 class="sub-header">{{advisor.first_name}} {{advisor.last_name}}</h2>
-<hr class="main-no-margin-top"/>
-<h3 ng-if="advisor">Students</h3>
-  <div ng-if="advisor" ng-include="'views/student_list.html'" class="main-page-end-margin-bottom"></div>
+<div ng-if="advisor">
+    <h2 class="sub-header">{{advisor.first_name}} {{advisor.last_name}}</h2>
+    <hr class="main-no-margin-top"/>
+    <h3 ng-if="advisor">Students</h3>
+    <div ng-if="advisor" ng-include="'views/student_list.html'" class="main-page-end-margin-bottom"></div>
+</div>
+
+<div ng-if="!advisor">
+    <h2 class="sub-header"></h2>
+    <p>No advisor profile found for the current user ({{username}}).</p>
+</div>
