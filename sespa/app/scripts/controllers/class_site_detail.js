@@ -67,15 +67,18 @@ angular.module('sespaApp')
       $scope.scoreData = [{
         'key': 'Student %',
         'values': studentData,
-        'bar': true
+        'bar': true,
+        'color': '#255c91'
       }, {
         'key': 'Class %',
-        'values': classData
+        'values': classData,
+        'color': '#dac251'
       }];
 
       $scope.eventData = [{
         'key': 'Activity Percentile Rank',
-        'values': event_percentile
+        'values': event_percentile,
+        'color': '#255c91'
       }];
     });
 
