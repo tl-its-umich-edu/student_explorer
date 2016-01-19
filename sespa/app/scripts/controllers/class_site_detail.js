@@ -26,6 +26,17 @@ angular.module('sespaApp')
 
     advisingData.studentClassSiteDetails($routeParams.student, $routeParams.classSiteCode).then(function(classSite) {
       $scope.classSite = classSite;
+      $scope.colorFunction = function() {
+      	return function(d) {
+          if (d.key === 'Activity Percentile Rank') {
+            return '#255c91';
+          } else if (d.bar) {
+            return '#255c91';
+          } else {
+            return '#dac251';
+          }
+      	};
+      };
     });
 
     advisingData.studentClassSiteAssignments($routeParams.student, $routeParams.classSiteCode).then(function(assignment) {
