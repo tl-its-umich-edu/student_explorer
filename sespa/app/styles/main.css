@@ -141,12 +141,6 @@ body {
   }
 }
 
-@media screen and (max-width: 612px) {
-  .footer-block {
-    display: block;
-  }
-}
-
 @media screen and (max-width: 600px) {
   .hide-small {
     display: none;
@@ -158,6 +152,10 @@ body {
   
   body {
     padding-bottom: 0;
+  }
+  
+  .footer-block {
+    display: block;
   }
 }
 
