@@ -20,6 +20,7 @@ angular.module('sespaApp')
 
     advisingData.userInfo().then(function(userInfo) {
       var advisorUsername;
+      $scope.username = userInfo.username;
       if (typeof $routeParams.advisor === 'undefined') {
         advisorUsername = userInfo.username;
       } else {
