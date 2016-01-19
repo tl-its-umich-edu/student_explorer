@@ -44,7 +44,10 @@
       </td>
       <td class="hide-small">{{ student.univ_id }}</td>
       <td>
-        <img alt="{{status}}" class="class-site-status {{ status | lowercase }}" ng-repeat="status in student.statuses track by $index" ng-src="images/Status_Icons_{{status}}.png"/>
+        <img alt="{{status}}" class="class-site-status {{ status | lowercase }}" ng-repeat="status in student.statuses track by $index" ng-src="images/Status_Icons_{{status}}.png"
+          aria-hidden="true"
+          title="{{status}}"
+          data-toggle="tooltip" data-placement="bottom" status-tooltip/>
       </td>
       <td class="hide-small">
           <div ng-repeat="cohort in student.cohorts">{{ cohort }}</div>
