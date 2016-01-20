@@ -75,7 +75,6 @@ angular.module('sespaApp')
       $scope.student = student;
     });
 
-
     $scope.y1axislabeltext = 'Student %';
     $scope.y2axislabeltext = 'Class %';
 
