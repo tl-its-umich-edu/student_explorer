@@ -263,3 +263,14 @@ svg text {
     color:brown;
     text-align: center;
 }
+
+.navbar-inverse .navbar-nav > li > a {
+    color: whitesmoke;
+    font-weight: 300;
+    font-size: 15px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    color: #dedede;
+    background-color: transparent;
+}
