@@ -32,7 +32,7 @@ angular.module('sespaApp')
       $scope.progress = 100;
       $scope.assignments = assignment;
     }, function(reason) {
-      window.alert(reason);
+        advisingUtilities.httpErrorHandler(reason, $scope);
     }, function(update) {
       advisingUtilities.updateProgress(update, $scope);
     });
@@ -69,10 +69,14 @@ angular.module('sespaApp')
         'values': event_percentile,
         'color': '#255c91'
       }];
+    }, function(reason) {
+        advisingUtilities.httpErrorHandler(reason, $scope);
     });
 
     advisingData.studentDetails($routeParams.student).then(function(student) {
       $scope.student = student;
+    }, function(reason) {
+        advisingUtilities.httpErrorHandler(reason, $scope);
     });
 
     $scope.y1axislabeltext = 'Student %';
