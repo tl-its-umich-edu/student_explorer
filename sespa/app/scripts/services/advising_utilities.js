@@ -24,5 +24,8 @@ angular.module('sespaApp')
           '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
           '<strong>Warning!</strong> ' + reason + '</div>');
       },
+      httpErrorHandler: function(reason) {
+        console.log(reason);
+      }
     };
   });

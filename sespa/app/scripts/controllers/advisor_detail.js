@@ -37,7 +37,7 @@ angular.module('sespaApp')
         $scope.progress = 100;
         $scope.students = students;
       }, function(reason) {
-        console.log(reason);
+        advisingUtilities.httpErrorHandler(reason);
       }, function(update) {
         advisingUtilities.updateProgress(update, $scope);
       });
