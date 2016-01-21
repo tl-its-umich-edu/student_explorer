@@ -13,9 +13,9 @@ angular.module('sespaApp')
 
     // Public API here
     return {
-      updateProgress: function(update, $scope) {
+      updateProgress: function(update, scope) {
         if (typeof update === 'number') {
-          $scope.progress = update * 100;
+          scope.progress = update * 100;
         }
       },
       alert: function(reason) {
