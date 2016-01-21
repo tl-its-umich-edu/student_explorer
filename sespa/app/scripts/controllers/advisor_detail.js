@@ -30,14 +30,14 @@ angular.module('sespaApp')
       advisingData.advisorDetails(advisorUsername).then(function(advisor) {
         $scope.advisor = advisor;
       }, function(reason) {
-        console.log(reason);
+        advisingUtilities.httpErrorHandler(reason, $scope);
       });
 
       advisingData.advisorsStudents(advisorUsername).then(function(students) {
         $scope.progress = 100;
         $scope.students = students;
       }, function(reason) {
-        console.log(reason);
+        advisingUtilities.httpErrorHandler(reason, $scope);
       }, function(update) {
         advisingUtilities.updateProgress(update, $scope);
       });

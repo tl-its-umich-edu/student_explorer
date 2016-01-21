@@ -38,8 +38,19 @@ body {
   padding: 3px 20px;
 }
 
-/* Highlight background if the user hasn't accepted the policy */
+.alert-container {
+  position: absolute;
+  width: 100%;
+  top: 70px;
+  z-index: 1000;
+}
+.alert-container div {
+  margin: auto;
+  margin-bottom: 2px;
+  width: 600px;
+}
 
+/* Highlight background if the user hasn't accepted the policy */
 .policy-warning {
     background-color: rgba(255,200,200,1);
 }

@@ -1,4 +1,5 @@
-<h2 ng-if="advisorListHeader" class="sub-header">{{advisorListHeader}}</h2>
+<div ng-if="advisors" ng-cloak>
+<h2 class="sub-header">{{advisorListHeader}}</h2>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -32,3 +33,4 @@
 </div>
 
 <dig-data-fetch-progress progress="{{progress}}" />
+</div>

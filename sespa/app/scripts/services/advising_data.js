@@ -47,7 +47,7 @@ angular.module('sespaApp')
               deferred.resolve(response.data);
             }
           }, function(reason) {
-            deferred.reject('Failed to load data (' + url + ' ' + reason.status + ')');
+            deferred.reject(reason);
           });
       };
 
