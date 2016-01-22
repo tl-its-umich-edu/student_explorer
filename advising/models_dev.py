@@ -74,6 +74,9 @@ class Term(models.Model):
 
         return dates
 
+    def __unicode__(self):
+        return self.description
+
 
 class SourceSystem(models.Model):
     code = models.CharField(max_length=6)
