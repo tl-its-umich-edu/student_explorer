@@ -43,12 +43,14 @@ class CohortSerializer(serializers.ModelSerializer):
 
 
 class ClassSiteSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='class-site-detail',
+                                               lookup_field='code')
     terms = serializers.StringRelatedField(many=True)
     source_system = serializers.StringRelatedField()
 
     class Meta:
         model = ClassSite
-        fields = ('code', 'description', 'terms', 'source_system')
+        fields = ('url', 'code', 'description', 'terms', 'source_system')
 
 
 class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):

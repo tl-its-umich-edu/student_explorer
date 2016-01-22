@@ -3,6 +3,7 @@ from advising.models import (Advisor, Student, Mentor, ClassSite,
                              StudentClassSiteAssignment)
 from advising.serializers import (AdvisorSerializer,
                                   MentorSerializer,
+                                  ClassSiteSerializer,
                                   StudentSerializer,
                                   StudentClassSiteSerializer,
                                   StudentClassSiteAssignmentSerializer,
@@ -113,6 +114,24 @@ class MentorStudentList(generics.ListAPIView):
             get_object_or_404(Mentor, username=self.kwargs['username'])
             .students.all()
         )
+
+
+class ClassSiteList(generics.ListAPIView):
+    '''
+    API endpoint that lists Class Sites.
+    '''
+    queryset = ClassSite.objects.all()
+    serializer_class = ClassSiteSerializer
+    lookup_field = 'code'
+
+
+class ClassSiteDetail(generics.RetrieveAPIView):
+    '''
+    API endpoint that lists Class Sites.
+    '''
+    queryset = ClassSite.objects.all()
+    serializer_class = ClassSiteSerializer
+    lookup_field = 'code'
 
 
 class StudentList(generics.ListAPIView):
