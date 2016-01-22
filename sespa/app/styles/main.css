@@ -1,5 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
+@import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
 
 .browsehappy {
   margin: 0.2em 0;
@@ -38,8 +38,19 @@ body {
   padding: 3px 20px;
 }
 
-/* Highlight background if the user hasn't accepted the policy */
+.alert-container {
+  position: absolute;
+  width: 100%;
+  top: 70px;
+  z-index: 1000;
+}
+.alert-container div {
+  margin: auto;
+  margin-bottom: 2px;
+  width: 600px;
+}
 
+/* Highlight background if the user hasn't accepted the policy */
 .policy-warning {
     background-color: rgba(255,200,200,1);
 }
@@ -151,7 +162,11 @@ body {
   }
   
   body {
-      padding-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  .footer-block {
+    display: block;
   }
 }
 
@@ -258,4 +273,15 @@ svg text {
     font-weight: 300;
     color:brown;
     text-align: center;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: whitesmoke;
+    font-weight: 300;
+    font-size: 15px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    color: #dedede;
+    background-color: transparent;
 }

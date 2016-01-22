@@ -1,3 +1,4 @@
+<div ng-if="classSites" ng-cloak>
 <h2 ng-if="classSiteListHeader" class="sub-header">{{classSiteListHeader}}</h2>
 <div ng-if="classSites.length == 0">
   <p>There is no class site data for this student.</p>
@@ -25,7 +26,7 @@
       <tr ng-repeat="classSite in classSites | orderBy:sortType:sortReverse | filter:searchAdvisor">
         <td class="bold"><a href="#/students/{{student.username}}/class_sites/{{classSite.class_site.code}}">{{ classSite.class_site.description }}</a></td>
         <td>
-          <img alt="{{classSite.status}}" class="class-site-status {{ classSite.status | lowercase }}" ng-src="images/Status_Icons_{{classSite.status}}.png"/>
+          <status-tooltip status="classSite.status"></status-tooltip>
       	</td>
         <td>
           <div class="progress" ng-if="classSite.current_student_score_average || classSite.current_class_score_average">
@@ -41,4 +42,5 @@
       </tr>
     </tbody>
   </table>
+</div>
 </div>

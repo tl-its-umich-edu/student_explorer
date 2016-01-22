@@ -8,7 +8,7 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('StudentListCtrl', function(advisingData, $scope, $routeParams) {
+  .controller('StudentListCtrl', function(advisingData, advisingUtilities, $scope, $routeParams) {
     $scope.studentListHeader = 'All Students';
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;
@@ -21,5 +21,7 @@ angular.module('sespaApp')
       $scope.students = students;
     };
 
-    advisingData.searchStudents($routeParams.search).then(displayStudents);
+    advisingData.searchStudents($routeParams.search).then(displayStudents, function(reason) {
+        advisingUtilities.httpErrorHandler(reason, $scope);
+    });
   });

@@ -40,6 +40,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="#/" data-toggle="collapse" data-target="#navbar">My Students</a></li>
+            <li><a href="#/advisors/" data-toggle="collapse" data-target="#navbar">Advisors</a></li>
           </ul>
           <form ng-submit="studentSearch()" class="navbar-form navbar-right">
             <input id="student-search" ng-model="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
@@ -85,6 +86,9 @@
           <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
           yet.
       </div>
+      <div ng-if="dataDown" class="alert alert-danger alert-dismissible" role="alert" ng-cloak>
+          The database appears to be down. This may be for normal maintanence, please try reloading in a few minutes.
+      </div>
     </div>
 
     <div class="container content">
@@ -93,7 +97,7 @@
 
     <div class="footer navbar-fixed-bottom">
       <div class="container">
-        <p class="main-color-white">Student Explorer 2.0alpha2 &mdash; Copyright &copy; 2015 The Regents of the Univerisity of Michigan</p>
+        <p class="main-color-white">Student Explorer (2.0alpha2) <span class="footer-block">Copyright &copy; 2015</span> <span class="footer-block">The Regents of the Univerisity of Michigan</span></p>
       </div>
     </div>
 
@@ -141,6 +145,7 @@
         <script src="scripts/directives/dig_data_fetch_progress.js"></script>
         <script src="scripts/services/advising_utilities.js"></script>
         <script src="scripts/directives/bootstrap_tooltip.js"></script>
+        <script src="scripts/directives/bootstrap_status_tooltip.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -13,16 +13,28 @@ angular.module('sespaApp')
 
     // Public API here
     return {
-      updateProgress: function(update, $scope) {
+      updateProgress: function(update, scope) {
         if (typeof update === 'number') {
-          $scope.progress = update * 100;
+          scope.progress = update * 100;
         }
       },
-      alert: function(reason) {
+      alert: function(reason, type) {
+        if (typeof type === 'undefined') {
+          type = 'warning';
+        }
         var alertDiv = angular.element(document.querySelector('.alert-container'));
-        alertDiv.append('<div class="alert alert-danger alert-dismissible" role="alert">' +
+        alertDiv.append('<div class="alert alert-'+type+' alert-dismissible" role="alert">' +
           '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
           '<strong>Warning!</strong> ' + reason + '</div>');
+      },
+      httpErrorHandler: function(reason, scope) {
+        console.log(reason);
+        this.alert(reason.config.url + ' ' + reason.status + ' ' + reason.statusText);
+        if (typeof scope === 'object') {
+          if (reason.status >= 500) {
+            scope.$parent.dataDown = true;
+          }
+        }
       },
     };
   });

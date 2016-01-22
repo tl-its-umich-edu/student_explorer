@@ -21,7 +21,7 @@ angular.module('sespaApp')
       $scope.progress = 100;
       $scope.advisors = advisors;
     }, function(reason) {
-      console.log(reason);
+      advisingUtilities.httpErrorHandler(reason, $scope);
     }, function(update) {
       advisingUtilities.updateProgress(update, $scope);
     });
