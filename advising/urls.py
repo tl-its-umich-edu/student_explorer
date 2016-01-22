@@ -41,11 +41,11 @@ urlpatterns = [
         views.ClassSiteList.as_view(),
         name='class-site-list'),
 
-    url(r'^class_sites/(?P<code>[0-9a-zA-Z ]*)/$',
+    url(r'^class_sites/(?P<code>[a-zA-Z0-9\-\~  ]*)/$',
         views.ClassSiteDetail.as_view(),
         name='class-site-detail'),
 
-    url(r'^class_sites/(?P<code>[0-9a-zA-Z ]*)/students/$',
+    url(r'^class_sites/(?P<code>[a-zA-Z0-9\-\~  ]*)/students/$',
         views.ClassSiteStudentList.as_view(),
         name='class-site-students-list'),
 
