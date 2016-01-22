@@ -134,6 +134,17 @@ class ClassSiteDetail(generics.RetrieveAPIView):
     lookup_field = 'code'
 
 
+class ClassSiteStudentList(MultipleFieldLookupMixin, generics.ListAPIView):
+    '''
+    API endpoint that lists a student's class sites.
+    '''
+    serializer_class = StudentClassSiteSerializer
+    queryset = StudentClassSiteStatus.objects.all()
+    lookup_params = {
+        'class_site__code': 'code',
+    }
+
+
 class StudentList(generics.ListAPIView):
     '''
     API endpoint that lists students.

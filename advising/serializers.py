@@ -47,10 +47,13 @@ class ClassSiteSerializer(serializers.ModelSerializer):
                                                lookup_field='code')
     terms = serializers.StringRelatedField(many=True)
     source_system = serializers.StringRelatedField()
+    students_url = serializers.HyperlinkedIdentityField(
+        view_name='class-site-students-list', lookup_field='code')
 
     class Meta:
         model = ClassSite
-        fields = ('url', 'code', 'description', 'terms', 'source_system')
+        fields = ('url', 'code', 'description', 'terms', 'source_system',
+                  'students_url')
 
 
 class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
@@ -139,6 +142,7 @@ class StudentClassSiteSerializer(serializers.ModelSerializer):
     # code = serializers.ReadOnlyField(source='class_site.code')
     status = serializers.ReadOnlyField(source='status.description')
     class_site = ClassSiteSerializer()
+    student = StudentSerializer()
     current_class_score_average = serializers.SerializerMethodField()
     current_student_score_average = serializers.SerializerMethodField()
 
@@ -170,10 +174,10 @@ class StudentClassSiteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('class_site', 'status',
+        fields = ('url', 'class_site', 'student', 'status',
                   'current_class_score_average',
                   'current_student_score_average',
-                  'url', 'assignments_url', 'history_url')
+                  'assignments_url', 'history_url')
 
 
 class AdvisorStudentSerializer(serializers.ModelSerializer):

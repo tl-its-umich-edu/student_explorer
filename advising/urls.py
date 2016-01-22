@@ -45,9 +45,9 @@ urlpatterns = [
         views.ClassSiteDetail.as_view(),
         name='class-site-detail'),
 
-    # url(r'^class_sites/(?P<code>[0-9a-zA-Z ]*)/students/$',
-    #     views.ClassSiteStudentList.as_view(),
-    #     name='class-site-students-list'),
+    url(r'^class_sites/(?P<code>[0-9a-zA-Z ]*)/students/$',
+        views.ClassSiteStudentList.as_view(),
+        name='class-site-students-list'),
 
 
     # Student API URLs
