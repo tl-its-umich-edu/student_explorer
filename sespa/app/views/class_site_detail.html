@@ -1,28 +1,35 @@
-<div class="col-lg-12">
-  <a href="#/students/{{student.username}}/"><h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2></a>
+<div ng-if="student && classSite" ng-cloak class="col-lg-12">
+
+  <h2 class="sub-header">{{student.first_name}} {{student.last_name}}
+    <a class="pull-right backlink" href="#/students/{{student.username}}/">
+      < Back to Course List<p>
+    </a>
+  </h2>
+
 
   <hr class="main-no-margin-top" />
   <h3 class="main-h3">Course Site: {{classSite.class_site.description}}</h3>
   <p>
-    <img alt="{{classSite.status}}" class="class-site-status {{ classSite.status | lowercase }}" ng-src="images/Status_Icons_{{classSite.status}}.png" />
+    <status-tooltip status="classSite.status"></status-tooltip>
     <span class="label label-primary">{{classSite.class_site.source_system}}</span>
   </p>
 
   <div class="row">
     <div class="col-lg-6">
-      <nvd3-line-chart data="scoreData" id="score-chart" width="500" height="350" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true" useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()"
-      isArea="true" noData="No Data For You!">
+      <nvd3-line-plus-bar-chart data="scoreData" id="scoreChart" width="540" margin="{left:73}" xAxisTickFormat="xAxisTickFormatFunction()" y1AxisLabel="{{y1axislabeltext}}" y2AxisLabel="{{y2axislabeltext}}" y1AxisTickFormat="y1AxisTickFormat()" forceY="[0,100]"
+      legendWidth="400" showLegend="true" interactive="true" useInteractiveGuideLine="true" tooltips="true" forcey="[0,100]" xAxisLabel="Weeks">
         <svg></svg>
-      </nvd3-line-chart>
+      </nvd3-line-plus-bar-chart>
+
       <div class="graph-caption">Score History</div>
     </div>
 
 
     <div class="col-lg-6">
-      <nvd3-line-chart data="eventData" id="exampleId" width="500" height="350" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true" useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()"
-      isArea="true" noData="No Data For You!">
+      <nvd3-multi-bar-chart data="eventData" id="exampleId" width="530" height="350" margin="{left:73}" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true" useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()"
+      isArea="true" noData="No Data For You!" xAxisLabel="Weeks" yAxisLabel="Percentile">
         <svg></svg>
-      </nvd3-line-chart>
+      </nvd3-multi-bar-chart>
       <div class="graph-caption">Activity History</div>
     </div>
   </div>
@@ -65,7 +72,7 @@
           <tr ng-repeat="entry in classSiteHistory | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
             <td>Week {{entry.week_number}} ({{entry.week_end_date | date}})</td>
             <td>
-              <img alt="{{entry.status}}" class="class-site-status {{ entry.status | lowercase }}" ng-src="images/Status_Icons_{{entry.status}}.png" />
+              <status-tooltip status="entry.status"></status-tooltip>
             </td>
             <td>{{entry.score}}</td>
             <td>{{entry.class_score}}</td>
@@ -130,7 +137,12 @@
             <td>{{assignment.points_earned}}</td>
             <td>{{assignment.points_possible}}</td>
             <td>{{assignment.weight}}</td>
-            <td>{{assignment.grader_comment}}</td>
+            <td>
+              <span ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null" 
+                  class="glyphicon glyphicon-comment" aria-hidden="true"
+                  title="{{assignment.grader_comment}}"
+                  data-toggle="tooltip" data-placement="bottom" tooltip></span>
+            </td>
           </tr>
         </tbody>
       </table>

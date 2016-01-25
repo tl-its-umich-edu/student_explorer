@@ -5,6 +5,8 @@
 2. git submodule update
 
 ## Development Environment ##
+
+### First Time Setup ###
 1. Install Vagrant (https://www.vagrantup.com/)
 2. Start Vagrant
    - `cd student_explorer`
@@ -13,12 +15,16 @@
 3. Install bower
    - `cd /vagrant/sespa`
    - `bower install`
-4. Initialize and start app server
+
+### Regular Use ###
+1. Initialize and start app server
     - `cd /vagrant`
-    - `python manage.py migrate`
-    - `python manage.py loaddata */fixtures/*.json`
+    - `python manage.py migrate` (updates your repo if anything as changed)
+    - `python manage.py loaddata */fixtures/*.json` (loads some test student data)
     - `python manage.py runserver`
-5. Browse to [http://localhost:2080/](http://localhost:2080/)
+2. Browse to [http://localhost:2080/login/](http://localhost:2080/login/)
+    - Login as individual advisors using their lower-case first name as username/password (e.g.: burl/burl)
+    - Student with useful data: [http://localhost:2080/#/students/grace/](http://localhost:2080/#/students/grace/)
 
 ## Configuring an external database ##
 - Add an database to the DATABASES setting ('lt_dataset' in this example).

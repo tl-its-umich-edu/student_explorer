@@ -32,7 +32,7 @@ angular.module('sespaApp')
       $scope.progress = 100;
       $scope.assignments = assignment;
     }, function(reason) {
-      window.alert(reason);
+        advisingUtilities.httpErrorHandler(reason, $scope);
     }, function(update) {
       advisingUtilities.updateProgress(update, $scope);
     });
@@ -46,35 +46,58 @@ angular.module('sespaApp')
       var event_percentile = [];
       var event_count = [];
       for (var i = 0; i < classSiteHistory.length; i++) {
-        studentData.push([i + 1, classSiteHistory[i].score]);
-        classData.push([i + 1 , classSiteHistory[i].class_score]);
+        studentData.push([classSiteHistory[i].week_number, classSiteHistory[i].score]);
+        classData.push([classSiteHistory[i].week_number, classSiteHistory[i].class_score]);
         //add no data condition
-        event_percentile.push([i+1,classSiteHistory[i].event_percentile_rank*100]);
+        event_percentile.push([i + 1, classSiteHistory[i].event_percentile_rank * 100]);
       }
-      
+
+
       $scope.scoreData = [{
-        'key': 'Student Percentage',
-        'values': studentData
+        'key': 'Student %',
+        'values': studentData,
+        'bar': true,
+        'color': '#255c91'
       }, {
-        'key': 'Class Percentage',
-        'values': classData
+        'key': 'Class %',
+        'values': classData,
+        'color': '#dac251'
       }];
-      
+
       $scope.eventData = [{
         'key': 'Activity Percentile Rank',
-        'values': event_percentile
+        'values': event_percentile,
+        'color': '#255c91'
       }];
+    }, function(reason) {
+        advisingUtilities.httpErrorHandler(reason, $scope);
     });
 
     advisingData.studentDetails($routeParams.student).then(function(student) {
       $scope.student = student;
+    }, function(reason) {
+        advisingUtilities.httpErrorHandler(reason, $scope);
     });
-    
+
+    $scope.y1axislabeltext = 'Student %';
+    $scope.y2axislabeltext = 'Class %';
+
     // nvd3 chart manipulation functions
-    $scope.xAxisTickFormatFunction = function(){
-      return function(d){
-        return 'Week  ' + d;
+    $scope.xAxisTickFormatFunction = function() {
+      return function(d) {
+        return '' + d;
       };
-    }
+    };
+
+    $scope.y1AxisTickFormat = function() {
+      return function(d) {
+        return d3.format(',f')(d);
+      };
+    };
+    $scope.y2AxisTickFormat = function() {
+      return function(d) {
+        return '$' + d3.format(',.2f')(d);
+      };
+    };
 
   });
