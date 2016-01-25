@@ -101,7 +101,7 @@ angular.module('sespaApp')
     };
     $scope.tooltipContentFunction = function() {
       return function(key, x, y, e, graph) {
-        return '<h3>' + key + '</h3>' + '<p>' + y + '% in Week ' + x + '</p>';
+        return '<p>' + y + '% in Week ' + x + '</p>';
       };
     };
 
