@@ -285,8 +285,3 @@ svg text {
     color: #dedede;
     background-color: transparent;
 }
-
-.unsortable:hover {
-    text-decoration: none;
-    color: #337ab7;
-}
