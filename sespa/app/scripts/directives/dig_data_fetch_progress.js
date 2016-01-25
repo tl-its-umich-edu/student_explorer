@@ -14,11 +14,8 @@ angular.module('sespaApp')
       scope: {
         progress: '@',
       },
-      controller: function ($scope, $timeout) {
-        $scope.showProgress = false;
-        $timeout(function() {
-          $scope.showProgress = true;
-        }, 500);
+      controller: function ($scope) {
+        $scope.showProgress = true;
       }
     };
   });
