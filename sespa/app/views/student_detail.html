@@ -17,7 +17,8 @@
           <tr>
             <th><a class="unsortable">Advisors</a></th>
             <td><p ng-repeat="advisor in advisors">
-                {{ advisor.advisor.first_name }} {{ advisor.advisor.last_name }}
+                <a href="#/advisors/{{advisor.advisor.username}}/">
+                {{ advisor.advisor.first_name }} {{ advisor.advisor.last_name }}</a>
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"
                     title="{{advisor.role}}"
                     data-toggle="tooltip" data-placement="bottom" tooltip></span>
