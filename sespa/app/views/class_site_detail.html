@@ -17,7 +17,7 @@
   <div class="row">
     <div class="col-lg-6">
       <nvd3-line-plus-bar-chart data="scoreData" id="scoreChart" width="540" margin="{left:73}" xAxisTickFormat="xAxisTickFormatFunction()" y1AxisLabel="{{y1axislabeltext}}" y2AxisLabel="{{y2axislabeltext}}" y1AxisTickFormat="y1AxisTickFormat()" forceY="[0,100]"
-      legendWidth="400" showLegend="true" interactive="true" useInteractiveGuideLine="true" tooltips="true" forcey="[0,100]" xAxisLabel="Weeks">
+      tooltipcontent="tooltipContentFunction()" legendWidth="400" showLegend="true" interactive="true" useInteractiveGuideLine="true" tooltips="true" forcey="[0,100]" xAxisLabel="Weeks">
         <svg></svg>
       </nvd3-line-plus-bar-chart>
 
@@ -27,7 +27,7 @@
 
     <div class="col-lg-6">
       <nvd3-multi-bar-chart data="eventData" id="exampleId" width="530" height="350" margin="{left:73}" showXAxis="true" showYAxis="true" showLegend="true" forcey="[0,100]" interactive="true" useInteractiveGuideLine="true" tooltips="true" xAxisTickFormat="xAxisTickFormatFunction()"
-      isArea="true" noData="No Data For You!" xAxisLabel="Weeks" yAxisLabel="Percentile">
+      tooltipcontent="tooltipContentFunction()" isArea="true" noData="No Data For You!" xAxisLabel="Weeks" yAxisLabel="Percentile">
         <svg></svg>
       </nvd3-multi-bar-chart>
       <div class="graph-caption">Activity History</div>
