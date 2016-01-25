@@ -11,11 +11,11 @@
       <table class="table">
         <tbody>
           <tr>
-            <th><a>Student ID</a></th>
+            <th><a class="unsortable">Student ID</a></th>
             <td>{{ student.univ_id }}</td>
           </tr>
           <tr>
-            <th><a>Advisors</a></th>
+            <th><a class="unsortable">Advisors</a></th>
             <td><p ng-repeat="advisor in advisors">
                 {{ advisor.advisor.first_name }} {{ advisor.advisor.last_name }}
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"
