@@ -18,7 +18,7 @@ angular.module('sespaApp')
         $scope.showProgress = false;
         $timeout(function() {
           $scope.showProgress = true;
-        }, 500);
+        }, 400);
       }
     };
   });
