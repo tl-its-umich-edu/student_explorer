@@ -99,5 +99,10 @@ angular.module('sespaApp')
         return '$' + d3.format(',.2f')(d);
       };
     };
+    $scope.toolTipContentFunction = function() {
+      return function(key, x, y, e, graph) {
+        return '<h3>' + key + '</h3>' + '<p>' + y + '% in Week ' + x + '</p>';
+      };
+    };
 
   });
