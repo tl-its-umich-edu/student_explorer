@@ -74,18 +74,18 @@ EOM
         npm install --global npm@latest
         npm install --global bower
 
-        cd /vagrant/student_explorer/extras
-        ls *.deb; if [ $? -eq 0 ]; then
-            apt-get --no-install-recommends install --yes libaio1 libaio-dev
-            dpkg -i *.deb
-            export ORACLE_HOME=/usr/lib/oracle/12.1/client64
-            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME/lib
-            export PATH=$PATH:$ORACLE_HOME/bin
-            echo "$ORACLE_HOME/lib" > /etc/ld.so.conf.d/oracle.conf;
-            ldconfig
-            pip install cx_Oracle
+        if [ -d /vagrant/student_explorer/extras ]; then
+            cd /vagrant/student_explorer/extras
+            ls *.deb; if [ $? -eq 0 ]; then
+                apt-get --no-install-recommends install --yes libaio1 libaio-dev
+                dpkg -i *.deb
+                export ORACLE_HOME=/usr/lib/oracle/12.1/client64
+                export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME/lib
+                export PATH=$PATH:$ORACLE_HOME/bin
+                echo "$ORACLE_HOME/lib" > /etc/ld.so.conf.d/oracle.conf;
+                ldconfig
+                pip install cx_Oracle
+            fi
         fi
-        cd ../..
-
     SHELL
 end
