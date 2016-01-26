@@ -94,9 +94,20 @@ angular.module('sespaApp')
         return d3.format(',f')(d);
       };
     };
+
     $scope.y2AxisTickFormat = function() {
       return function(d) {
         return '$' + d3.format(',.2f')(d);
+      };
+    };
+
+    $scope.tooltipContentFunction = function() {
+      return function(key, x, y, e, graph) {
+        if (key === 'Student % (left axis)') {
+          return '<p>' + y + '% in Week ' + x + '</p>';
+        } else if (key === 'Activity Percentile Rank') {
+          return '<p>' + y + '%ile in Week ' + x + '</p>';
+        }
       };
     };
 
