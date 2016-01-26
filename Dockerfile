@@ -2,11 +2,13 @@ FROM python:2.7
 
 RUN apt-get update
 
-RUN apt-get --no-install-recommends install --yes libaio1 libaio-dev
-RUN apt-get --no-install-recommends install --yes libldap2-dev libsasl2-dev
-RUN apt-get --no-install-recommends install --yes build-essential libmysqlclient-dev git
-RUN apt-get --no-install-recommends install --yes nodejs npm \
-    && ln -s /usr/bin/nodejs /usr/bin/node
+RUN apt-get --no-install-recommends install --yes \
+    libaio1 libaio-dev \
+    libldap2-dev libsasl2-dev \
+    build-essential libmysqlclient-dev git \
+    nodejs npm
+
+RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN npm install -g bower
 
 WORKDIR /tmp/
