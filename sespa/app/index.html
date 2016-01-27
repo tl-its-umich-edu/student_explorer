@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/angular-rangeslider/angular.rangeSlider.css" />
     <link rel="stylesheet" href="bower_components/nvd3/src/nv.d3.css" />
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -43,14 +44,14 @@
             <li><a href="#/advisors/" data-toggle="collapse" data-target="#navbar">Advisors</a></li>
           </ul>
           <form ng-submit="studentSearch()" class="navbar-form navbar-right">
-            <input id="student-search" ng-model="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+            <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label><input id="student-search" ng-model="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
           </form>
             <ul class="nav navbar-nav navbar-right">
               <li ng-if="!userInfo.username">
                 <a ng-href="login/" aria-haspopup="true" aria-expanded="false">Login</a>
               </li>
               <li ng-if="userInfo.username" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{userInfo.username}} <span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{userInfo.username}} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><p><strong>{{userInfo.first_name}} {{userInfo.last_name}}</strong></p></li>
                   <li role="separator" class="divider"></li>
@@ -145,6 +146,7 @@
         <script src="scripts/services/advising_utilities.js"></script>
         <script src="scripts/directives/bootstrap_tooltip.js"></script>
         <script src="scripts/directives/bootstrap_status_tooltip.js"></script>
+        <script src="scripts/filters/filters.js"></script>
         <!-- endbuild -->
 </body>
 </html>
