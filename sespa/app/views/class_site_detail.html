@@ -44,33 +44,33 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <td>
+            <th scope="col">
               <a href="" ng-click="sortTypeHistory = 'week_end_date'; sortReverse = !sortReverse">
             Date
-            <span class="fa fa-caret-down" ng-show="sortTypeHistory == 'assignment.description' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeHistory == 'assignment.description' &amp;&amp; sortReverse"></span>
+            <span class="fa fa-caret-down" ng-show="sortTypeHistory == 'week_end_date' &amp;&amp; !sortReverse"><span class="sr-only"> (ascending sort)</span></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeHistory == 'week_end_date' &amp;&amp; sortReverse"><span class="sr-only"> (descending sort)</span></span>
           </a>
-            </td>
-            <td>
+            </th>
+            <th scope="col">
               <a class="unsortable">Status</a>
-            </td>
-            <td>
+            </th>
+            <th scope="col">
               <a class="unsortable">Student Percentage</a>
-            </td>
-            <td>
+            </th>
+            <th scope="col">
               <a class="unsortable">Class Percentage</a>
-            </td>
-            <td>
+            </th>
+            <th scope="col">
               <a class="unsortable">Event Count</a>
-            </td>
-            <td>
+            </th>
+            <th scope="col">
               <a class="unsortable">Activity Percentile Rank</a>
-            </td>
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="entry in classSiteHistory | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
-            <td>Week {{entry.week_number}} ({{entry.week_end_date | date}})</td>
+            <th scope="row">Week {{entry.week_number}} ({{entry.week_end_date | date}})</th>
             <td>
               <status-tooltip status="entry.status"></status-tooltip>
             </td>
@@ -94,44 +94,44 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <td>
+            <th scope="col">
               <a href="" ng-click="sortTypeAssignment = 'assignment.description'; sortReverse = !sortReverse">
             Assignment
-            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; sortReverse"></span>
+            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; !sortReverse"><span class="sr-only"> (ascending sort)</span></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; sortReverse"><span class="sr-only"> (descending sort)</span></span>
           </a>
-            </td>
-            <td>
+            </th>
+            <th scope="col">
               <a href="" ng-click="sortTypeAssignment = 'due_date'; sortReverse = !sortReverse">
             Due Date
-            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; sortReverse"></span>
+            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; !sortReverse"><span class="sr-only"> (descending sort)</span></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; sortReverse"><span class="sr-only"> (ascending sort)</span></span>
           </a>
-            </td>
-            <td>
+            </th>
+            <th scope="col">
               <a class="unsortable">Included in Grade</a>
-            </td>
-            <td>
+            </th>
+            <th scope="col">
               <a class="unsortable">Points Earned</a>
-            </td>
-            <td>
+            </th>
+            <th scope="col">
               <a class="unsortable">Points Possible</a>
-            </td>
-            <td>
+            </th>
+            <th scope="col">
               <a href="" ng-click="sortTypeAssignment = 'weight'; sortReverse = !sortReverse">
             Weight
             <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'weight' &amp;&amp; !sortReverse"></span>
             <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'weight' &amp;&amp; sortReverse"></span>
           </a>
-            </td>
-            <td>
+            </th>
+            <th scope="col">
               <a class="unsortable">Grader's Comment</a>
-            </td>
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
-            <td>{{assignment.assignment.description }}</td>
+            <th scope="row">{{assignment.assignment.description }}</th>
             <td>{{assignment.due_date | date}}</td>
             <td>{{assignment.included_in_grade}}</td>
             <td>{{assignment.points_earned}}</td>
@@ -141,7 +141,7 @@
               <span ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null" 
                   class="glyphicon glyphicon-comment" aria-hidden="true"
                   title="{{assignment.grader_comment}}"
-                  data-toggle="tooltip" data-placement="bottom" tooltip></span>
+                  data-toggle="tooltip" data-placement="bottom" tooltip></span> <span class="sr-only">{{assignment.grader_comment}}</span>
             </td>
           </tr>
         </tbody>

@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui-rangeSlider',
-    'nvd3ChartDirectives'
+    'nvd3ChartDirectives',
+    'sespaFilters'
   ])
   .config(function($routeProvider) {
     $routeProvider

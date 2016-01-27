@@ -88,7 +88,9 @@ body {
 .student-info table tbody td p {
     margin: 0 0 2px;
 }
-
+th[scope="row"] {
+  font-weight:normal;
+}
 /* Custom page footer */
 .footer {
   padding-top: 19px;
