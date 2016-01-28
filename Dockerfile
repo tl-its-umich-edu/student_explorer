@@ -1,15 +1,23 @@
-FROM oracle_instantclient
+FROM python:2.7
 
 RUN apt-get update
 
-RUN apt-get --no-install-recommends install --yes libldap2-dev libsasl2-dev
-RUN apt-get --no-install-recommends install --yes python-pip python-dev
-RUN apt-get --no-install-recommends install --yes build-essential libmysqlclient-dev git
-RUN apt-get --no-install-recommends install --yes nodejs npm \
-    && ln -s /usr/bin/nodejs /usr/bin/node
+RUN apt-get --no-install-recommends install --yes \
+    libaio1 libaio-dev \
+    libldap2-dev libsasl2-dev \
+    build-essential libmysqlclient-dev git \
+    nodejs npm
+
+RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN npm install -g bower
 
 WORKDIR /tmp/
+
+COPY student_explorer/extras/oracle-instantclient12.1-*.deb /tmp/
+RUN dpkg -i oracle-instantclient12.1-*.deb
+ENV ORACLE_HOME /usr/lib/oracle/12.1/client64
+ENV LD_LIBRARY_PATH /usr/lib/oracle/12.1/client64/lib
+RUN rm oracle-instantclient12.1-*.deb
 
 RUN pip install cx_Oracle gunicorn
 
