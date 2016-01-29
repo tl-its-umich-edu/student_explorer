@@ -193,14 +193,19 @@ th[scope="row"] {
 
 /* For student grade progress bar*/
 .studentGradeBar {
-  background: #255c91;
+  background: #cccccc;
 }
 
 .classAveBar {
-  width: 3px;
+  width: 5px;
   height: 20px;
   position: relative;
-      background: #dac15f;
+      background: brown;
+}
+
+.progress-text{
+    color:#1c3144;
+    margin-left: 6px;
 }
 
 .main-no-margin-top{
