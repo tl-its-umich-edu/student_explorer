@@ -34,56 +34,7 @@
     </div>
   </div>
 
-  <div class="row site-history">
-    <h3 class="main-less-weight">Course Site History</h3>
-    <hr class="main-no-margin-top">
-    <div ng-if="!(historyLength > 0)">
-      <p>There is no course site history data for this student.</p>
-    </div>
-    <div ng-if="historyLength > 0" class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">
-              <a href="" ng-click="sortTypeHistory = 'week_end_date'; sortReverse = !sortReverse">
-            Date
-            <span class="fa fa-caret-down" ng-show="sortTypeHistory == 'week_end_date' &amp;&amp; !sortReverse"><span class="sr-only"> (ascending sort)</span></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeHistory == 'week_end_date' &amp;&amp; sortReverse"><span class="sr-only"> (descending sort)</span></span>
-          </a>
-            </th>
-            <th scope="col">
-              <a class="unsortable">Status</a>
-            </th>
-            <th scope="col">
-              <a class="unsortable">Student Percentage</a>
-            </th>
-            <th scope="col">
-              <a class="unsortable">Class Percentage</a>
-            </th>
-            <th scope="col">
-              <a class="unsortable">Event Count</a>
-            </th>
-            <th scope="col">
-              <a class="unsortable">Activity Percentile Rank</a>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="entry in classSiteHistory | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
-            <th scope="row">Week {{entry.week_number}} ({{entry.week_end_date | date}})</th>
-            <td>
-              <status-tooltip status="entry.status"></status-tooltip>
-            </td>
-            <td>{{entry.score}}</td>
-            <td>{{entry.class_score}}</td>
-            <td>{{entry.event_count}}</td>
-            <td>{{entry.event_percentile_rank}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
+  
   <div class="row assignments">
     <h3 class="main-less-weight">Assignments</h3>
     <hr class="main-no-margin-top">
