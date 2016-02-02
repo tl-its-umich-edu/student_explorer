@@ -88,7 +88,9 @@ body {
 .student-info table tbody td p {
     margin: 0 0 2px;
 }
-
+th[scope="row"] {
+  font-weight:normal;
+}
 /* Custom page footer */
 .footer {
   padding-top: 19px;
@@ -191,14 +193,19 @@ body {
 
 /* For student grade progress bar*/
 .studentGradeBar {
-  background: #255c91;
+  background: #cccccc;
 }
 
 .classAveBar {
-  width: 3px;
+  width: 5px;
   height: 20px;
   position: relative;
-      background: #dac15f;
+      background: brown;
+}
+
+.progress-text{
+    color:#1c3144;
+    margin-left: 6px;
 }
 
 .main-no-margin-top{
@@ -283,5 +290,10 @@ svg text {
 
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
     color: #dedede;
-    background-color: transparent;
+    background-color: #124465;
+}
+
+.unsortable:hover {
+    text-decoration: none;
+    color: #337ab7;
 }

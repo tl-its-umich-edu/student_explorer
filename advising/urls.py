@@ -35,6 +35,21 @@ urlpatterns = [
         name='mentor-students-list'),
 
 
+    # Class Site API URLs
+
+    url(r'^class_sites/$',
+        views.ClassSiteList.as_view(),
+        name='class-site-list'),
+
+    url(r'^class_sites/(?P<code>[a-zA-Z0-9\-\~  ]*)/$',
+        views.ClassSiteDetail.as_view(),
+        name='class-site-detail'),
+
+    url(r'^class_sites/(?P<code>[a-zA-Z0-9\-\~  ]*)/students/$',
+        views.ClassSiteStudentList.as_view(),
+        name='class-site-students-list'),
+
+
     # Student API URLs
 
     url(r'^students/$',
