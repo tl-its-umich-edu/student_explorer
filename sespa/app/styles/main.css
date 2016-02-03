@@ -297,3 +297,7 @@ svg text {
     text-decoration: none;
     color: #337ab7;
 }
+
+.not-found {
+    margin-top: 20px;
+}
