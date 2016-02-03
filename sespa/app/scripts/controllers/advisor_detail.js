@@ -9,6 +9,7 @@
  */
 angular.module('sespaApp')
   .controller('AdvisorDetailCtrl', function(advisingData, advisingUtilities, $scope, $routeParams) {
+    $scope.advisorUsername = null;
     $scope.advisor = null;
     $scope.students = null;
     $scope.sortType = 'last_name';
@@ -20,25 +21,20 @@ angular.module('sespaApp')
     // $scope.scroll = scroll;
 
     advisingData.userInfo().then(function(userInfo) {
-      var advisorUsername;
-      $scope.username = userInfo.username;
       if (typeof $routeParams.advisor === 'undefined') {
-        advisorUsername = userInfo.username;
+        // handle the current user case
+        $scope.advisorUsername = userInfo.username;
       } else {
-        advisorUsername = $routeParams.advisor;
+        $scope.advisorUsername = $routeParams.advisor;
       }
 
-      advisingData.advisorDetails(advisorUsername).then(function(advisor) {
+      advisingData.advisorDetails($scope.advisorUsername).then(function(advisor) {
         $scope.advisor = advisor;
       }, function(reason) {
-        if (reason.status === 404) {
-          $scope.hasAdvisorProfile = false;
-        } else {
-          advisingUtilities.httpErrorHandler(reason, $scope);
-        }
+        advisingUtilities.httpErrorHandler(reason, $scope, true);
       });
 
-      advisingData.advisorsStudents(advisorUsername).then(function(students) {
+      advisingData.advisorsStudents($scope.advisorUsername).then(function(students) {
         $scope.progress = 100;
         $scope.students = students;
       }, function(reason) {
