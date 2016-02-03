@@ -26,6 +26,8 @@ angular.module('sespaApp')
 
     advisingData.studentClassSiteDetails($routeParams.student, $routeParams.classSiteCode).then(function(classSite) {
       $scope.classSite = classSite;
+    }, function(reason) {
+        advisingUtilities.httpErrorHandler(reason, $scope, true);
     });
 
     advisingData.studentClassSiteAssignments($routeParams.student, $routeParams.classSiteCode).then(function(assignment) {
