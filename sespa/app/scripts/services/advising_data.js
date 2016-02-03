@@ -69,15 +69,15 @@ angular.module('sespaApp')
       },
 
       allAdvisors: function() {
-        return getAdvisingData('advisors/');
+        return getAdvisingData('mentors/');
       },
 
       advisorDetails: function(advisorUsername) {
-        return getAdvisingData('advisors/' + advisorUsername + '/');
+        return getAdvisingData('mentors/' + advisorUsername + '/');
       },
 
       advisorsStudents: function(advisorUsername) {
-        return getAdvisingData('advisors/' + advisorUsername + '/students/');
+        return getAdvisingData('mentors/' + advisorUsername + '/students/');
       },
 
       searchStudents: function(search) {
