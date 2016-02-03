@@ -57,7 +57,7 @@ class AdvisorDetail(generics.RetrieveAPIView):
     '''
     API endpoint that shows advisor details.
     '''
-    queryset = Advisor.objects.all()
+    queryset = Advisor.objects.filter(pk__gt=0)
     serializer_class = AdvisorSerializer
     lookup_field = 'username'
 
@@ -74,7 +74,6 @@ class AdvisorStudentList(generics.ListAPIView):
     '''
     API endpoint that lists an advisor's students.
     '''
-    queryset = Advisor.objects.all()
     serializer_class = StudentSerializer
     # lookup_field = 'username'
 
@@ -89,7 +88,7 @@ class MentorList(generics.ListAPIView):
     '''
     API endpoint that lists Mentors.
     '''
-    queryset = Mentor.objects.all()
+    queryset = Mentor.objects.filter(pk__gt=0)
     serializer_class = MentorSerializer
     lookup_field = 'username'
 
@@ -98,7 +97,7 @@ class MentorDetail(generics.RetrieveAPIView):
     '''
     API endpoint that shows advisor details.
     '''
-    queryset = Mentor.objects.all()
+    queryset = Mentor.objects.filter(pk__gt=0)
     serializer_class = MentorSerializer
     lookup_field = 'username'
 
@@ -107,7 +106,6 @@ class MentorStudentList(generics.ListAPIView):
     '''
     API endpoint that lists an advisor's students.
     '''
-    queryset = Mentor.objects.all()
     serializer_class = StudentSerializer
     # lookup_field = 'username'
 
