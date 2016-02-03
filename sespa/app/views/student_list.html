@@ -1,7 +1,13 @@
 <h2 ng-if="studentListHeader" class="sub-header">{{studentListHeader}}</h2>
-<div ng-if="students.length == 0">
-  <p>No students found.</p>
+<div ng-if="students.length == 0" class="panel panel-warning">
+  <div class="panel-heading">
+    <h3 class="panel-title">No Results</h3>
+  </div>
+  <div class="panel-body">
+    No students found when searching for "{{$parent.search}}".
+  </div>
 </div>
+
 <div ng-if="students.length > 0" class="table-responsive">
 <table class="table table-striped">
   <thead>
