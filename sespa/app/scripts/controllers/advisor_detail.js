@@ -14,6 +14,7 @@ angular.module('sespaApp')
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;
     $scope.progress = 0;
+    $scope.hasAdvisorProfile = true;
 
     // $scope.searchAdvisor = '';
     // $scope.scroll = scroll;
@@ -30,7 +31,9 @@ angular.module('sespaApp')
       advisingData.advisorDetails(advisorUsername).then(function(advisor) {
         $scope.advisor = advisor;
       }, function(reason) {
-        if (reason.status !== 404) {
+        if (reason.status === 404) {
+          $scope.hasAdvisorProfile = false;
+        } else {
           advisingUtilities.httpErrorHandler(reason, $scope);
         }
       });

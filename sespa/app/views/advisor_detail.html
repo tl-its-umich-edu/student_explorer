@@ -5,7 +5,7 @@
     <div ng-if="advisor" ng-include="'views/student_list.html'" class="main-page-end-margin-bottom"></div>
 </div>
 
-<div ng-if="!advisor" ng-cloak>
+<div ng-if="!hasAdvisorProfile" ng-cloak>
     <h2 class="sub-header"></h2>
     <p>No advisor profile found for the current user ({{username}}).</p>
 </div>
