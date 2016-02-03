@@ -235,8 +235,8 @@ class StudentClassSiteAssignmentList(MultipleFieldLookupMixin,
 class StudentClassSiteHistoryList(APIView):
 
     def get(self, request, username, code, format=None):
-        student = Student.objects.get(username=username)
-        class_site = ClassSite.objects.get(code=code)
+        student = get_object_or_404(Student, username=username)
+        class_site = get_object_or_404(ClassSite, code=code)
         try:
             term = class_site.terms.get()
         except ObjectDoesNotExist:
