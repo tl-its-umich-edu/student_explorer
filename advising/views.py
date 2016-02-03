@@ -17,6 +17,8 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
 from django.shortcuts import get_object_or_404
+from django.http import Http404
+
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -235,7 +237,10 @@ class StudentClassSiteHistoryList(APIView):
     def get(self, request, username, code, format=None):
         student = Student.objects.get(username=username)
         class_site = ClassSite.objects.get(code=code)
-        term = class_site.terms.get()  # FIXME
+        try:
+            term = class_site.terms.get()
+        except ObjectDoesNotExist:
+            raise Http404()
 
         events = class_site.weeklystudentclasssiteevent_set.filter(
             student=student)
