@@ -14,7 +14,7 @@
     <span class="label label-primary">{{classSite.class_site.source_system}}</span>
   </p>
 
-  <div class="row">
+  <div ng-if="classSiteHistory" class="row">
     <div class="col-lg-6">
       <nvd3-line-plus-bar-chart data="scoreData" id="scoreChart" width="540" margin="{left:73}" xAxisTickFormat="xAxisTickFormatFunction()" y1AxisLabel="{{y1axislabeltext}}" y2AxisLabel="{{y2axislabeltext}}" y1AxisTickFormat="y1AxisTickFormat()" forceY="[0,100]"
       tooltipcontent="tooltipContentFunction()" legendWidth="400" showLegend="true" interactive="true" useInteractiveGuideLine="true" tooltips="true" forcey="[0,100]" xAxisLabel="Weeks">
@@ -38,9 +38,12 @@
   <div class="row assignments">
     <h3 class="main-less-weight">Assignments</h3>
     <hr class="main-no-margin-top">
-    <div ng-if="assignments.length == 0">
-      <p>There is no assignment data for this student.</p>
+    <div ng-if="assignments.length == 0" class="panel panel-info">
+      <div class="panel-body">
+        No assignements found for this student.
+      </div>
     </div>
+
     <div ng-if="assignments.length > 0" class="table-responsive main-page-end-margin-bottom">
       <table class="table table-striped">
         <thead>
