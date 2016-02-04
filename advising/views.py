@@ -17,6 +17,8 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
 from django.shortcuts import get_object_or_404
+from django.http import Http404
+
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -55,7 +57,7 @@ class AdvisorDetail(generics.RetrieveAPIView):
     '''
     API endpoint that shows advisor details.
     '''
-    queryset = Advisor.objects.all()
+    queryset = Advisor.objects.filter(pk__gt=0)
     serializer_class = AdvisorSerializer
     lookup_field = 'username'
 
@@ -72,7 +74,6 @@ class AdvisorStudentList(generics.ListAPIView):
     '''
     API endpoint that lists an advisor's students.
     '''
-    queryset = Advisor.objects.all()
     serializer_class = StudentSerializer
     # lookup_field = 'username'
 
@@ -87,7 +88,7 @@ class MentorList(generics.ListAPIView):
     '''
     API endpoint that lists Mentors.
     '''
-    queryset = Mentor.objects.all()
+    queryset = Mentor.objects.filter(pk__gt=0)
     serializer_class = MentorSerializer
     lookup_field = 'username'
 
@@ -96,7 +97,7 @@ class MentorDetail(generics.RetrieveAPIView):
     '''
     API endpoint that shows advisor details.
     '''
-    queryset = Mentor.objects.all()
+    queryset = Mentor.objects.filter(pk__gt=0)
     serializer_class = MentorSerializer
     lookup_field = 'username'
 
@@ -105,7 +106,6 @@ class MentorStudentList(generics.ListAPIView):
     '''
     API endpoint that lists an advisor's students.
     '''
-    queryset = Mentor.objects.all()
     serializer_class = StudentSerializer
     # lookup_field = 'username'
 
@@ -233,9 +233,12 @@ class StudentClassSiteAssignmentList(MultipleFieldLookupMixin,
 class StudentClassSiteHistoryList(APIView):
 
     def get(self, request, username, code, format=None):
-        student = Student.objects.get(username=username)
-        class_site = ClassSite.objects.get(code=code)
-        term = class_site.terms.get()  # FIXME
+        student = get_object_or_404(Student, username=username)
+        class_site = get_object_or_404(ClassSite, code=code)
+        try:
+            term = class_site.terms.get()
+        except ObjectDoesNotExist:
+            raise Http404()
 
         events = class_site.weeklystudentclasssiteevent_set.filter(
             student=student)

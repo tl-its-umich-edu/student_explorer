@@ -2,7 +2,7 @@
 
   <h2 class="sub-header">{{student.first_name}} {{student.last_name}}
     <a class="pull-right backlink" href="#/students/{{student.username}}/">
-      < Back to Course List<p>
+      &lt; Back to Course List<p>
     </a>
   </h2>
 
@@ -14,7 +14,7 @@
     <span class="label label-primary">{{classSite.class_site.source_system}}</span>
   </p>
 
-  <div class="row">
+  <div ng-if="classSiteHistory" class="row">
     <div class="col-lg-6">
       <nvd3-line-plus-bar-chart data="scoreData" id="scoreChart" width="540" margin="{left:73}" xAxisTickFormat="xAxisTickFormatFunction()" y1AxisLabel="{{y1axislabeltext}}" y2AxisLabel="{{y2axislabeltext}}" y1AxisTickFormat="y1AxisTickFormat()" forceY="[0,100]"
       tooltipcontent="tooltipContentFunction()" legendWidth="400" showLegend="true" interactive="true" useInteractiveGuideLine="true" tooltips="true" forcey="[0,100]" xAxisLabel="Weeks">
@@ -34,62 +34,16 @@
     </div>
   </div>
 
-  <div class="row site-history">
-    <h3 class="main-less-weight">Course Site History</h3>
-    <hr class="main-no-margin-top">
-    <div ng-if="!(historyLength > 0)">
-      <p>There is no course site history data for this student.</p>
-    </div>
-    <div ng-if="historyLength > 0" class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">
-              <a href="" ng-click="sortTypeHistory = 'week_end_date'; sortReverse = !sortReverse">
-            Date
-            <span class="fa fa-caret-down" ng-show="sortTypeHistory == 'week_end_date' &amp;&amp; !sortReverse"><span class="sr-only"> (ascending sort)</span></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeHistory == 'week_end_date' &amp;&amp; sortReverse"><span class="sr-only"> (descending sort)</span></span>
-          </a>
-            </th>
-            <th scope="col">
-              <a class="unsortable">Status</a>
-            </th>
-            <th scope="col">
-              <a class="unsortable">Student Percentage</a>
-            </th>
-            <th scope="col">
-              <a class="unsortable">Class Percentage</a>
-            </th>
-            <th scope="col">
-              <a class="unsortable">Event Count</a>
-            </th>
-            <th scope="col">
-              <a class="unsortable">Activity Percentile Rank</a>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="entry in classSiteHistory | orderBy:sortTypeHistory:sortReverse | filter:searchAdvisor">
-            <th scope="row">Week {{entry.week_number}} ({{entry.week_end_date | date}})</th>
-            <td>
-              <status-tooltip status="entry.status"></status-tooltip>
-            </td>
-            <td>{{entry.score}}</td>
-            <td>{{entry.class_score}}</td>
-            <td>{{entry.event_count}}</td>
-            <td>{{entry.event_percentile_rank}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
+  
   <div class="row assignments">
     <h3 class="main-less-weight">Assignments</h3>
     <hr class="main-no-margin-top">
-    <div ng-if="assignments.length == 0">
-      <p>There is no assignment data for this student.</p>
+    <div ng-if="assignments.length == 0" class="panel panel-info">
+      <div class="panel-body">
+        No assignements found for this student.
+      </div>
     </div>
+
     <div ng-if="assignments.length > 0" class="table-responsive main-page-end-margin-bottom">
       <table class="table table-striped">
         <thead>
@@ -109,20 +63,10 @@
           </a>
             </th>
             <th scope="col">
-              <a class="unsortable">Included in Grade</a>
-            </th>
-            <th scope="col">
               <a class="unsortable">Points Earned</a>
             </th>
             <th scope="col">
               <a class="unsortable">Points Possible</a>
-            </th>
-            <th scope="col">
-              <a href="" ng-click="sortTypeAssignment = 'weight'; sortReverse = !sortReverse">
-            Weight
-            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'weight' &amp;&amp; !sortReverse"></span>
-            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'weight' &amp;&amp; sortReverse"></span>
-          </a>
             </th>
             <th scope="col">
               <a class="unsortable">Grader's Comment</a>
@@ -133,10 +77,8 @@
           <tr ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
             <th scope="row">{{assignment.assignment.description }}</th>
             <td>{{assignment.due_date | date}}</td>
-            <td>{{assignment.included_in_grade}}</td>
             <td>{{assignment.points_earned}}</td>
             <td>{{assignment.points_possible}}</td>
-            <td>{{assignment.weight}}</td>
             <td>
               <span ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null" 
                   class="glyphicon glyphicon-comment" aria-hidden="true"
@@ -150,4 +92,13 @@
   </div>
 
   <dig-data-fetch-progress progress="{{progress}}"></dig-data-fetch-progress>
+</div>
+
+<div ng-if="notFound" class="panel panel-warning not-found">
+  <div class="panel-heading">
+    <h3 class="panel-title">Not Found</h3>
+  </div>
+  <div class="panel-body">
+    This student was not found in the requested course site.
+  </div>
 </div>
