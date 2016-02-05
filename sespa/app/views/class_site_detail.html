@@ -8,12 +8,16 @@
 
 
   <hr class="main-no-margin-top" />
-  <h3 class="main-h3">Course Site: {{classSite.class_site.description}}</h3>
-  <p>
-    <status-tooltip status="classSite.status"></status-tooltip>
-    <span class="label label-primary">{{classSite.class_site.source_system}}</span>
-  </p>
-
+  
+  <div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+      <h3 class="main-h3">Course Site: {{classSite.class_site.description}} <status-tooltip status="classSite.status"></status-tooltip></h3>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <div class="pull-right"><br>Data Source: <span class="label label-primary">{{classSite.class_site.source_system}}</span></div>
+    </div>
+  </div>
+  <hr class="main-no-margin-top" />
   <div ng-if="classSiteHistory" class="row">
     <div class="col-lg-6">
       <nvd3-line-plus-bar-chart data="scoreData" id="scoreChart" width="540" margin="{left:73}" xAxisTickFormat="xAxisTickFormatFunction()" y1AxisLabel="{{y1axislabeltext}}" y2AxisLabel="{{y2axislabeltext}}" y1AxisTickFormat="y1AxisTickFormat()" forceY="[0,100]"
@@ -36,7 +40,9 @@
 
   
   <div class="row assignments">
-    <h3 class="main-less-weight">Assignments</h3>
+    <h3 class="main-less-weight">Assignments </h3>
+    <p><small class="note">Note that this list may not reflect all assignments included in current score calculation. For a complete list, please refer to the source system.</small></p>
+    
     <hr class="main-no-margin-top">
     <div ng-if="assignments.length == 0" class="panel panel-info">
       <div class="panel-body">
