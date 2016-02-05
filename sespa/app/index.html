@@ -40,12 +40,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#/" data-toggle="collapse" data-target="#navbar">My Students</a></li>
-            <li><a href="#/advisors/" data-toggle="collapse" data-target="#navbar">Advisors</a></li>
+            <li><a href="#/" data-toggle="collapse" data-target="#navbar.in">My Students</a></li>
+            <li><a href="#/advisors/" data-toggle="collapse" data-target="#navbar.in">Advisors</a></li>
           </ul>
-          <form ng-submit="studentSearch()" class="navbar-form navbar-right">
-            <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label><input id="student-search" ng-model="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
-          </form>
             <ul class="nav navbar-nav navbar-right">
               <li ng-if="!userInfo.username">
                 <a ng-href="login/" aria-haspopup="true" aria-expanded="false">Login</a>
@@ -75,7 +72,9 @@
                 </ul>
               </li>
             </ul>
-
+          <form ng-submit="studentSearch()" class="navbar-form navbar-right">
+            <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label><input id="student-search" ng-model="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+          </form>
         </div>
       </div>
     </nav>
