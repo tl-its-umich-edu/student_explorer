@@ -1,7 +1,8 @@
 <div ng-if="student && classSite" ng-cloak class="col-lg-12">
 
-  <h2 class="sub-header">{{student.first_name}} {{student.last_name}}
-    <a class="pull-right backlink" href="#/students/{{student.username}}/">
+  <h2 class="sub-header">
+    <p>{{student.first_name}} {{student.last_name}}<p>
+    <a class="backlink" href="#/students/{{student.username}}/">
       &lt; Back to Course List<p>
     </a>
   </h2>
