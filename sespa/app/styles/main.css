@@ -30,6 +30,8 @@ body {
 }
 
 .navbar-fixed-top {
+  position: relative;
+  margin-top: -50px;
   border: 0;
 }
 
