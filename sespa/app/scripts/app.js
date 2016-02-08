@@ -69,3 +69,14 @@ angular
       $templateCache.removeAll();
    });
 });
+
+/* Index nav bar*/
+$('[data-toggle="collapse"]').on('click', function() { 
+    $('li.active').removeClass('active');
+    $(this).parent('li').addClass('active'); 
+});
+
+$('.navbar-brand').on('click', function() {
+  $('li.active').removeClass('active');
+  $('#default-tab').addClass('active');
+});
