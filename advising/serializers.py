@@ -78,6 +78,7 @@ class StudentSerializer(serializers.ModelSerializer):
     statuses = serializers.StringRelatedField(many=True)
     mentors = serializers.StringRelatedField(many=True)
     status_weight = serializers.SerializerMethodField()
+    class_sites = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Student
@@ -85,7 +86,8 @@ class StudentSerializer(serializers.ModelSerializer):
                   'first_name', 'last_name',
                   'mentors', 'cohorts', 'statuses',
                   'status_weight',
-                  'class_sites_url', 'advisors_url', 'mentors_url')
+                  'class_sites_url', 'advisors_url', 'mentors_url',
+                  'class_sites')
 
     def get_status_weight(self, obj):
         weight = 0
