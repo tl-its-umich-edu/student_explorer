@@ -261,6 +261,10 @@ svg text {
   border-radius: 5px 5px 0 0;
 }
 
+.tooltip-inner {
+    text-align:left;
+    white-space: pre-line;
+}
 
 .backlink{
     font-size: 20px;
