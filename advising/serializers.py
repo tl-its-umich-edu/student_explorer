@@ -56,6 +56,7 @@ class ClassSiteSerializer(serializers.ModelSerializer):
                   'students_url')
 
 
+# TODO: lsloan - this looks useful for me
 class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source='class_site.description')
     status = serializers.ReadOnlyField(source='status.description')
