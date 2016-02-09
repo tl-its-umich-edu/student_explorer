@@ -111,6 +111,14 @@ angular.module('sespaApp')
       studentClassSiteHistory: function(studentUsername, classSiteCode) {
         return getAdvisingData('students/' + studentUsername + '/class_sites/' + classSiteCode + '/history/');
       },
+      
+      classSites: function() {
+        return getAdvisingData('class_sites/');
+      },
+
+      classSiteDetails: function(classSiteCode) {
+        return getAdvisingData('class_sites/' + classSiteCode + '/');
+      },
 
     };
   });

@@ -56,6 +56,14 @@ angular
       .when('/students/:student/class_sites/:classSiteCode/history/', {
         redirectTo: '/students/:student/class_sites/:classSiteCode/',
       })
+      .when('/class_sites/', {
+        templateUrl: 'views/class_site_list.html',
+        controller: 'ClassSiteListCtrl',
+      })
+      .when('/class_sites/:classSiteCode/', {
+        templateUrl: 'views/class_site_detail.html',
+        controller: 'ClassSiteDetailCtrl',
+      })
       .otherwise({
         redirectTo: '/'
       });
