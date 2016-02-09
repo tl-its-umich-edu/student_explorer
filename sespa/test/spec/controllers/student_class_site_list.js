@@ -1,23 +1,23 @@
 'use strict';
 
-describe('Controller: ClassSiteDetailCtrl', function () {
+describe('Controller: StudentClassSiteListCtrl', function () {
 
   // load the controller's module
   beforeEach(module('sespaApp'));
 
-  var ClassSiteDetailCtrl,
+  var StudentClassSiteListCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    ClassSiteDetailCtrl = $controller('ClassSiteDetailCtrl', {
+    StudentClassSiteListCtrl = $controller('StudentClassSiteListCtrl', {
       $scope: scope
       // place here mocked dependencies
     });
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    expect(ClassSiteDetailCtrl.awesomeThings.length).toBe(3);
+    expect(StudentClassSiteListCtrl.awesomeThings.length).toBe(3);
   });
 });

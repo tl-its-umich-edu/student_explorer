@@ -8,7 +8,7 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('ClassSiteListCtrl', function(advisingData, advisingUtilities, $scope, $routeParams) {
+  .controller('StudentClassSiteListCtrl', function(advisingData, advisingUtilities, $scope, $routeParams) {
     $scope.classSiteListHeader = null;
     $scope.student = null;
     $scope.sortType = 'class_site.description';

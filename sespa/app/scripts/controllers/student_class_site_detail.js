@@ -8,7 +8,7 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('ClassSiteDetailCtrl', function(advisingData, advisingUtilities, $scope, $routeParams) {
+  .controller('StudentClassSiteDetailCtrl', function(advisingData, advisingUtilities, $scope, $routeParams) {
     $scope.classSiteDetailHeader = null;
     $scope.assignments = null;
     $scope.classSiteHistory = null;
