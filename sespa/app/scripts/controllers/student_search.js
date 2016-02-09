@@ -14,8 +14,6 @@ angular.module('sespaApp')
     $scope.sortType = 'last_name';
     $scope.sortReverse = false;
 
-    $scope.students = [];
-
     var displayStudents = function(students) {
       $scope.students = students;
     };
