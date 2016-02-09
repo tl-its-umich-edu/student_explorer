@@ -20,9 +20,6 @@
         <th scope="col">
           <a class="unsortable">Source System</a>
         </th>
-        <th scope="col">
-          <a class="unsortable">Student List</a>
-        </th>
       </tr>
     </thead>
     <tbody>
@@ -32,9 +29,10 @@
           <p ng-repeat="term in classSite.terms">{{term}}</p>
         </td>
         <td>{{classSite.source_system}}</td>
-        <td>{{classSite.students_url}}</td>
       </tr>
     </tbody>
   </table>
 </div>
 </div>
+
+<dig-data-fetch-progress progress="{{progress}}" />
