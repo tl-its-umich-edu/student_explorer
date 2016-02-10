@@ -239,6 +239,9 @@ class StudentClassSiteStatus(models.Model):
         return '%s has status %s in %s' % (self.student, self.status,
                                            self.class_site)
 
+    class Meta:
+        ordering = ('status__order',)
+
 
 class WeeklyClassSiteScore(models.Model):
     class_site = models.ForeignKey(ClassSite)
