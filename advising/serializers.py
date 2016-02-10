@@ -56,14 +56,13 @@ class ClassSiteSerializer(serializers.ModelSerializer):
                   'students_url')
 
 
-# TODO: lsloan - this looks useful for me
 class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source='class_site.description')
     status = serializers.ReadOnlyField(source='status.description')
 
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('name', 'status')
+        fields = ('id', 'name', 'status')
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -79,7 +78,7 @@ class StudentSerializer(serializers.ModelSerializer):
     statuses = serializers.StringRelatedField(many=True)
     mentors = serializers.StringRelatedField(many=True)
     status_weight = serializers.SerializerMethodField()
-    class_sites = serializers.StringRelatedField(many=True)
+    class_sites = StudentClassSiteStatusSummarySerializer(many=True, source='studentclasssitestatus_set')
 
     class Meta:
         model = Student
