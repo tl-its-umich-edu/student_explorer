@@ -71,11 +71,11 @@ angular.module('sespaApp')
         'key': 'Class',
         'values': classData,
         'color': '#dac251',
-      }, {
-        'key': 'Activity Percentile Rank',
-        'values': event_percentile,
-        'color': '#babdba',
-        'disabled': true,
+      // }, {
+      //   'key': 'Activity Percentile Rank',
+      //   'values': event_percentile,
+      //   'color': '#babdba',
+      //   'disabled': true,
       }];
 
       var chart = nv.models.multiBarChart()
