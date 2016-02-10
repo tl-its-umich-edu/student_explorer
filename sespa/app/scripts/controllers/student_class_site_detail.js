@@ -90,6 +90,7 @@ angular.module('sespaApp')
         .showControls(false)
         .forceY([0, 100])
         .reduceXTicks(false)
+        .groupSpacing(0.3)
       ;
 
       chart.yAxis
