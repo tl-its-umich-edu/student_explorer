@@ -16,6 +16,8 @@ angular.module('sespaApp')
       $scope.classSites = class_sites;
     }, function(reason) {
         advisingUtilities.httpErrorHandler(reason, $scope);
+    }, function(update) {
+      advisingUtilities.updateProgress(update, $scope);
     });
 
   });
