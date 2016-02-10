@@ -53,10 +53,13 @@
           </a>
             </th>
             <th scope="col">
-              <a class="unsortable">Points Earned</a>
+              <a class="unsortable">Points Earned/Possible</a>
             </th>
             <th scope="col">
-              <a class="unsortable">Points Possible</a>
+              <a class="unsortable">Student Percentage</a>
+            </th>
+            <th scope="col">
+              <a class="unsortable">Class Average</a>
             </th>
             <th scope="col">
               <a class="unsortable">Grader's Comment</a>
@@ -67,8 +70,10 @@
           <tr ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
             <th scope="row">{{assignment.assignment.description }}</th>
             <td>{{assignment.due_date | date}}</td>
-            <td>{{assignment.points_earned}}</td>
-            <td>{{assignment.points_possible}}</td>
+            <td>{{assignment.points_earned}} / {{assignment.points_possible}}</td>
+            <td>{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</td>
+            <td>{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</td>
+            <td></td>
             <td>
               <span ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null" 
                   class="glyphicon glyphicon-comment" aria-hidden="true"
