@@ -51,7 +51,7 @@
       <td class="hide-small">{{ student.univ_id }}</td>
       <td>
         <!-- TODO: lsloan - as gsilver suggests, maybe statuses needs to become a list of objects, each with a class name and a status -->
-        <status-tooltip ng-repeat="status in student.statuses track by $index" status="status"></status-tooltip>
+        <status-tooltip ng-repeat="status in student.class_site_statuses track by $index" status="status"></status-tooltip>
       </td>
       <td class="hide-small">
           <div ng-repeat="cohort in student.cohorts">{{ cohort }}</div>

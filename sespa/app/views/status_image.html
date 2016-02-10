@@ -1,2 +1,2 @@
-<img ng-show="statusOutput" class="class-site-status {{ statusOutput | lowercase }}" ng-src="images/Status_Icons_{{statusOutput}}.png"
-       data-toggle="tooltip" data-placement="bottom" alt="{{statusOutput | lowercase | colorToStatus}}"/>
+<a href="{{statusOutput.url}}"><img ng-show="statusOutput" class="class-site-status {{statusOutput.status | lowercase}}" ng-src="images/Status_Icons_{{statusOutput.status}}.png"
+       data-toggle="tooltip" data-placement="bottom" alt="{{statusOutput.name}}"/></a>
