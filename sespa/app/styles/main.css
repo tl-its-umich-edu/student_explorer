@@ -195,18 +195,19 @@ th[scope="row"] {
 
 /* For student grade progress bar*/
 .studentGradeBar {
-  background: #cccccc;
+  background: #255c91;
 }
 
 .classAveBar {
   width: 5px;
   height: 20px;
   position: relative;
-      background: brown;
+  background: #dac251;
 }
 
 .progress-text{
-    color:#1c3144;
+    display: none;
+    color:#c8d6c7;
     margin-left: 6px;
 }
 
