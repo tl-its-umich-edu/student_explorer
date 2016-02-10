@@ -27,14 +27,14 @@ angular.module('sespaApp')
     advisingData.studentClassSiteDetails($routeParams.student, $routeParams.classSiteCode).then(function(classSite) {
       $scope.classSite = classSite;
     }, function(reason) {
-        advisingUtilities.httpErrorHandler(reason, $scope, true);
+      advisingUtilities.httpErrorHandler(reason, $scope, true);
     });
 
     advisingData.studentClassSiteAssignments($routeParams.student, $routeParams.classSiteCode).then(function(assignment) {
       $scope.progress = 100;
       $scope.assignments = assignment;
     }, function(reason) {
-        advisingUtilities.httpErrorHandler(reason, $scope);
+      advisingUtilities.httpErrorHandler(reason, $scope);
     }, function(update) {
       advisingUtilities.updateProgress(update, $scope);
     });
@@ -46,71 +46,79 @@ angular.module('sespaApp')
       var studentData = [];
       var classData = [];
       var event_percentile = [];
-      var event_count = [];
+      var weeks = [];
       for (var i = 0; i < classSiteHistory.length; i++) {
-        studentData.push([classSiteHistory[i].week_number, classSiteHistory[i].score]);
-        classData.push([classSiteHistory[i].week_number, classSiteHistory[i].class_score]);
-        //add no data condition
-        event_percentile.push([i + 1, classSiteHistory[i].event_percentile_rank * 100]);
+        weeks.push(i + 1);
+        studentData.push({
+          x: classSiteHistory[i].week_number,
+          y: classSiteHistory[i].score
+        });
+        classData.push({
+          x: classSiteHistory[i].week_number,
+          y: classSiteHistory[i].class_score
+        });
+        event_percentile.push({
+          x: i + 1,
+          y: classSiteHistory[i].event_percentile_rank * 100
+        });
       }
 
-
       $scope.scoreData = [{
-        'key': 'Student %',
+        'key': 'Student',
         'values': studentData,
-        'bar': true,
         'color': '#255c91'
       }, {
-        'key': 'Class %',
+        'key': 'Class',
         'values': classData,
-        'color': '#dac251'
-      }];
-
-      $scope.eventData = [{
+        'color': '#dac251',
+      }, {
         'key': 'Activity Percentile Rank',
         'values': event_percentile,
-        'color': '#255c91'
+        'color': '#babdba',
+        'disabled': true,
       }];
+
+      var chart = nv.models.multiBarChart()
+        .margin({
+          left: 50,
+          right: 50
+        }) //Adjust chart margins to give the x-axis some breathing room.
+        .transitionDuration(100) //how fast do you want the lines to transition?
+        .showLegend(true) //Show the legend, allowing users to turn on/off line series.
+        .showYAxis(true) //Show the y-axis
+        .showXAxis(true) //Show the x-axis
+        .showControls(false)
+        .forceY([0, 100])
+        .reduceXTicks(false)
+      ;
+
+      chart.yAxis
+        .tickFormat(function(d) {
+          if (d>0) {
+            return d + '%'
+          }
+        })
+      chart.xAxis //Chart x-axis settings
+        .tickFormat(function(d) {
+          return d > 0 ? 'Week ' + d : '';
+        })
+        .tickValues(weeks);
+
+      d3.select('#chart svg') //Select the <svg> element you want to render the chart in.
+        .datum($scope.scoreData) //Populate the <svg> element with chart data...
+        .call(chart); //Finally, render the chart!
+
+      //Update the chart when window resizes.
+      nv.utils.windowResize(function() {
+        chart.update()
+      });
     }, function(reason) {
-        advisingUtilities.httpErrorHandler(reason, $scope);
+      advisingUtilities.httpErrorHandler(reason, $scope);
     });
 
     advisingData.studentDetails($routeParams.student).then(function(student) {
       $scope.student = student;
     }, function(reason) {
-        advisingUtilities.httpErrorHandler(reason, $scope);
+      advisingUtilities.httpErrorHandler(reason, $scope);
     });
-
-    $scope.y1axislabeltext = 'Student %';
-    $scope.y2axislabeltext = 'Class %';
-
-    // nvd3 chart manipulation functions
-    $scope.xAxisTickFormatFunction = function() {
-      return function(d) {
-        return '' + d;
-      };
-    };
-
-    $scope.y1AxisTickFormat = function() {
-      return function(d) {
-        return d3.format(',f')(d);
-      };
-    };
-
-    $scope.y2AxisTickFormat = function() {
-      return function(d) {
-        return '$' + d3.format(',.2f')(d);
-      };
-    };
-
-    $scope.tooltipContentFunction = function() {
-      return function(key, x, y, e, graph) {
-        if (key === 'Student % (left axis)') {
-          return '<p>' + y + '% in Week ' + x + '</p>';
-        } else if (key === 'Activity Percentile Rank') {
-          return '<p>' + y + '%ile in Week ' + x + '</p>';
-        }
-      };
-    };
-
   });

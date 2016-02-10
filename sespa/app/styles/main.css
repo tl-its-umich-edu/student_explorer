@@ -311,3 +311,7 @@ svg text {
 .not-found {
     margin-top: 6%;
 }
+
+.nv-x .tick line {
+    display: none;
+}
