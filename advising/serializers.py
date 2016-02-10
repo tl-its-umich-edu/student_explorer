@@ -56,13 +56,34 @@ class ClassSiteSerializer(serializers.ModelSerializer):
                   'students_url')
 
 
+class StudentClassSiteHyperlink(serializers.HyperlinkedIdentityField):
+    def get_queryset(self):
+        return (Student.objects
+                .get(username=self.kwargs['username'])
+                .studentclasssitestatus_set.all()
+                )
+
+    def get_url(self, obj, view_name, request, format):
+        url_kwargs = {
+            'code': obj.class_site.code,
+            'username': obj.student.username
+        }
+
+        return reverse(view_name, kwargs=url_kwargs, request=request,
+                       format=format)
+
+
 class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source='class_site.description')
+    url = StudentClassSiteHyperlink(
+            read_only=True,
+            view_name='student-classsite-detail'
+    )
     status = serializers.ReadOnlyField(source='status.description')
 
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('id', 'name', 'status')
+        fields = ('id', 'name', 'url', 'status')
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -78,7 +99,7 @@ class StudentSerializer(serializers.ModelSerializer):
     statuses = serializers.StringRelatedField(many=True)
     mentors = serializers.StringRelatedField(many=True)
     status_weight = serializers.SerializerMethodField()
-    class_sites = StudentClassSiteStatusSummarySerializer(many=True, source='studentclasssitestatus_set')
+    class_site_statuses = StudentClassSiteStatusSummarySerializer(many=True, source='studentclasssitestatus_set')
 
     class Meta:
         model = Student
@@ -87,7 +108,7 @@ class StudentSerializer(serializers.ModelSerializer):
                   'mentors', 'cohorts', 'statuses',
                   'status_weight',
                   'class_sites_url', 'advisors_url', 'mentors_url',
-                  'class_sites')
+                  'class_site_statuses')
 
     def get_status_weight(self, obj):
         weight = 0
@@ -119,24 +140,6 @@ class StudentMentorSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentCohortMentor
         fields = ('cohort', 'mentor',)
-
-
-class StudentClassSiteHyperlink(serializers.HyperlinkedIdentityField):
-
-    def get_queryset(self):
-        return (Student.objects
-                .get(username=self.kwargs['username'])
-                .studentclasssitestatus_set.all()
-                )
-
-    def get_url(self, obj, view_name, request, format):
-        url_kwargs = {
-            'code': obj.class_site.code,
-            'username': obj.student.username
-        }
-
-        return reverse(view_name, kwargs=url_kwargs, request=request,
-                       format=format)
 
 
 class StudentClassSiteSerializer(serializers.ModelSerializer):
