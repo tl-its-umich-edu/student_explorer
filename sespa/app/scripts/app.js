@@ -43,18 +43,26 @@ angular
         controller: 'StudentDetailCtrl',
       })
       .when('/students/:student/class_sites/', {
-        templateUrl: 'views/class_site_list.html',
-        controller: 'ClassSiteListCtrl',
+        templateUrl: 'views/student_class_site_list.html',
+        controller: 'StudentClassSiteListCtrl',
       })
       .when('/students/:student/class_sites/:classSiteCode/', {
-        templateUrl: 'views/class_site_detail.html',
-        controller: 'ClassSiteDetailCtrl',
+        templateUrl: 'views/student_class_site_detail.html',
+        controller: 'StudentClassSiteDetailCtrl',
       })
       .when('/students/:student/class_sites/:classSiteCode/assignments/', {
         redirectTo: '/students/:student/class_sites/:classSiteCode/',
       })
       .when('/students/:student/class_sites/:classSiteCode/history/', {
         redirectTo: '/students/:student/class_sites/:classSiteCode/',
+      })
+      .when('/class_sites/', {
+        templateUrl: 'views/class_site_list.html',
+        controller: 'ClassSiteListCtrl',
+      })
+      .when('/class_sites/:classSiteCode/', {
+        templateUrl: 'views/class_site_detail.html',
+        controller: 'ClassSiteDetailCtrl',
       })
       .otherwise({
         redirectTo: '/'

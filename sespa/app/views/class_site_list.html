@@ -1,50 +1,38 @@
 <div ng-if="classSites" ng-cloak>
-<h2 ng-if="classSiteListHeader" class="sub-header">{{classSiteListHeader}}</h2>
+<h2 class="sub-header">Class Sites</h2>
 <div ng-if="classSites.length == 0">
-  <p>There is no class site data for this student.</p>
+  <p>There is no class site data available.</p>
 </div>
 <div ng-if="classSites.length > 0" class="table-responsive">
   <table class="table">
     <thead>
       <tr>
         <th scope="col">
-          <a href="" ng-click="sortType = 'class_site.description'; sortReverse = !sortReverse">
+          <a href="" ng-click="sortType = 'description'; sortReverse = !sortReverse">
             Course Site
-            <span class="fa fa-caret-down" ng-show="sortType == 'class_site.description' &amp;&amp; !sortReverse"><span class="sr-only"> (ascending sort)</span></span>
-            <span class="fa fa-caret-up" ng-show="sortType == 'class_site.description' &amp;&amp; sortReverse"><span class="sr-only"> (descending sort)</span></span>
+            <span class="fa fa-caret-down" ng-show="sortType == 'description' &amp;&amp; !sortReverse"><span class="sr-only"> (ascending sort)</span></span>
+            <span class="fa fa-caret-up" ng-show="sortType == 'description' &amp;&amp; sortReverse"><span class="sr-only"> (descending sort)</span></span>
           </a>
         </th>
         <th scope="col">
-          <a class="unsortable">Status</a>
+          <a class="unsortable">Terms</a>
         </th>
         <th scope="col">
-          <a class="unsortable">Current Percentage</a>
+          <a class="unsortable">Source System</a>
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="classSite in classSites | orderBy:sortType:sortReverse | filter:searchAdvisor">
-        <th scope="row" class="bold"><a href="#/students/{{student.username}}/class_sites/{{classSite.class_site.code}}">{{ classSite.class_site.description }}</a></th>
+      <tr ng-repeat="classSite in classSites | orderBy:sortType:sortReverse">
+        <th scope="row" class="bold"><a href="#/class_sites/{{classSite.code}}">{{ classSite.description }}</a></th>
         <td>
-          <status-tooltip status="classSite.status"></status-tooltip>
-      	</td>
-        <td>
-          <div class="progress" ng-if="classSite.current_student_score_average || classSite.current_class_score_average"
-            title="Student Percentage: {{classSite.current_student_score_average}}% &#013; Class Average Percentage: {{classSite.current_class_score_average}}%"
-            data-toggle="tooltip" data-placement="bottom" tooltip>
-            <div class="progress-bar studentGradeBar" role="progressbar" aria-valuenow="{{classSite.current_student_score_average}}"
-              aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_student_score_average}}%;">
-              <p class="progress-text">{{classSite.current_student_score_average}}%</p>
-              <span class="sr-only">Student Percentage: {{classSite.current_student_score_average}}%</span>
-            </div>
-            <div class="classAveBar" style="left: {{classSite.current_class_score_average}}%;">
-              <p class="progress-text">{{classSite.current_class_score_average}}%</p>
-              <span class="sr-only">Class Percentage: {{classSite.current_class_score_average}}%</span>
-            </div>
-          </div>
+          <p ng-repeat="term in classSite.terms">{{term}}</p>
         </td>
+        <td>{{classSite.source_system}}</td>
       </tr>
     </tbody>
   </table>
 </div>
 </div>
+
+<dig-data-fetch-progress progress="{{progress}}" />
