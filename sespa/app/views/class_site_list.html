@@ -26,7 +26,7 @@
       <tr ng-repeat="classSite in classSites | orderBy:sortType:sortReverse | filter:searchAdvisor">
         <th scope="row" class="bold"><a href="#/students/{{student.username}}/class_sites/{{classSite.class_site.code}}">{{ classSite.class_site.description }}</a></th>
         <td>
-          <status-tooltip status="classSite.status"></status-tooltip>
+          <!-- TODO: fix this status-tooltip --><status-tooltip status="classSite.status"></status-tooltip>
       	</td>
         <td>
           <div class="progress" ng-if="classSite.current_student_score_average || classSite.current_class_score_average">
