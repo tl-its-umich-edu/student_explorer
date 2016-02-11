@@ -153,6 +153,7 @@ class StudentList(generics.ListAPIView):
     serializer_class = StudentSerializer
     lookup_field = 'username'
     search_fields = ('username', 'univ_id', 'first_name', 'last_name')
+    filter_fields = ('univ_id',)
 
 
 class StudentDetail(generics.RetrieveAPIView):
