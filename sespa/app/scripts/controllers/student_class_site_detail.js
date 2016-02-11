@@ -74,47 +74,65 @@ angular.module('sespaApp')
       }];
 
       $scope.activityData = [{
-        'key': 'Activity Percentile Rank',
+        'key': 'Course Site Engagement',
         'values': event_percentile,
         'color': '#a9bdab',
         // 'disabled': true,
       }];
 
-      var chart = nv.models.multiBarChart()
+      var scoreChart = nv.models.multiBarChart()
         .margin({
           left: 50,
           right: 50
-        }) //Adjust chart margins to give the x-axis some breathing room.
-        .transitionDuration(100) //how fast do you want the lines to transition?
-        .showLegend(true) //Show the legend, allowing users to turn on/off line series.
-        .showYAxis(true) //Show the y-axis
-        .showXAxis(true) //Show the x-axis
+        })
+        .transitionDuration(100)
+        .showLegend(true)
+        .showYAxis(true)
+        .showXAxis(true)
         .showControls(false)
         .forceY([0, 100])
         .reduceXTicks(false)
-        .groupSpacing(0.3)
-      ;
-
-      chart.yAxis
-        .tickFormat(function(d) {
+        .groupSpacing(0.3);
+        scoreChart.yAxis.tickFormat(function(d) {
           if (d>0) {
             return d + '%'
           }
         })
-      chart.xAxis //Chart x-axis settings
-        .tickFormat(function(d) {
+        scoreChart.xAxis.tickFormat(function(d) {
           return d > 0 ? 'Week ' + d : '';
         })
         .tickValues(weeks);
 
-      d3.select('#assignments-chart svg') //Select the <svg> element you want to render the chart in.
-        .datum($scope.scoreData) //Populate the <svg> element with chart data...
-        .call(chart); //Finally, render the chart!
+      d3.select('#assignments-chart svg')
+        .datum($scope.scoreData)
+        .call(scoreChart);
 
-      var activityChart = chart
-      d3.select('#activity-chart svg') //Select the <svg> element you want to render the chart in.
-        .datum($scope.activityData) //Populate the <svg> element with chart data...
-        .call(activityChart); //Finally, render the chart!
+      var activityChart = nv.models.multiBarChart()
+        .margin({
+          left: 50,
+          right: 50
+        })
+        .transitionDuration(100)
+        .showLegend(true)
+        .showYAxis(true)
+        .showXAxis(true)
+        .showControls(false)
+        .forceY([0, 100])
+        .reduceXTicks(false)
+        .groupSpacing(0.3);
+        activityChart.yAxis.tickFormat(function(d) {
+          if (d>0) {
+            return d + '%ile'
+          }
+        })
+        activityChart.xAxis.tickFormat(function(d) {
+          return d > 0 ? 'Week ' + d : '';
+        })
+        .tickValues(weeks);
+
+      d3.select('#activity-chart svg')
+        .datum($scope.activityData)
+        .call(activityChart);
 
     }, function(reason) {
       advisingUtilities.httpErrorHandler(reason, $scope);
