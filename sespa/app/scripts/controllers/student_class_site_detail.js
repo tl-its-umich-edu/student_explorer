@@ -71,11 +71,13 @@ angular.module('sespaApp')
         'key': 'Class',
         'values': classData,
         'color': '#dac251',
-      // }, {
-      //   'key': 'Activity Percentile Rank',
-      //   'values': event_percentile,
-      //   'color': '#babdba',
-      //   'disabled': true,
+      }];
+
+      $scope.activityData = [{
+        'key': 'Activity Percentile Rank',
+        'values': event_percentile,
+        'color': '#a9bdab',
+        // 'disabled': true,
       }];
 
       var chart = nv.models.multiBarChart()
@@ -105,14 +107,15 @@ angular.module('sespaApp')
         })
         .tickValues(weeks);
 
-      d3.select('#chart svg') //Select the <svg> element you want to render the chart in.
+      d3.select('#assignments-chart svg') //Select the <svg> element you want to render the chart in.
         .datum($scope.scoreData) //Populate the <svg> element with chart data...
         .call(chart); //Finally, render the chart!
 
-      //Update the chart when window resizes.
-      nv.utils.windowResize(function() {
-        chart.update()
-      });
+      var activityChart = chart
+      d3.select('#activity-chart svg') //Select the <svg> element you want to render the chart in.
+        .datum($scope.activityData) //Populate the <svg> element with chart data...
+        .call(activityChart); //Finally, render the chart!
+
     }, function(reason) {
       advisingUtilities.httpErrorHandler(reason, $scope);
     });
