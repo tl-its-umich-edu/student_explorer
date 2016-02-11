@@ -6,6 +6,6 @@ angular.module('sespaFilters', []).filter('colorToStatus', function () {
       'green': 'Encourage',
       'yellow': 'Explore',
       'red': 'Engage',
-    }[String(statusOutput).toLowerCase()] || 'Experimental');
+    }[String(statusOutput).toLowerCase()] || null);
   };
 });
