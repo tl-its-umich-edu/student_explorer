@@ -23,11 +23,42 @@
 
   <div class="row charts">
     <h3 class="main-less-weight">Cumulative Score</h3>
-    <div id="assignments-chart"> <svg /> </div>
+    <nvd3-multi-bar-chart
+        data="scoreData"
+        id="assignments-chart"
+        yAxisTickFormat="scoreYTickFormat()"
+        xAxisTickFormat="xTickFormat()"
+
+        showXAxis="true"
+        showYAxis="true"
+        showLegend="true"
+        showControls="false"
+        forceY="[0,100]"
+        interactive="true"
+        tooltips="true"
+
+        >
+          <svg />
+    </nvd3-multi-bar-chart>
     <h3 class="main-less-weight">Weekly Activity</h3>
-    <div id="activity-chart"> <svg /> </div>
+    <nvd3-multi-bar-chart
+        data="activityData"
+        id="activity-chart"
+        yAxisTickFormat="activityYTickFormat()"
+        xAxisTickFormat="xTickFormat()"
+
+        showXAxis="true"
+        showYAxis="true"
+        showLegend="true"
+        showControls="false"
+        forceY="[0,100]"
+        interactive="true"
+        tooltips="true"
+        >
+          <svg />
+    </nvd3-multi-bar-chart>
   </div>
-  
+
   <div class="row assignments">
     <h3 class="main-less-weight">Assignments </h3>
     <p><small class="note">Note that this list may not reflect all assignments included in current score calculation. For a complete list, please refer to the source system.</small></p>

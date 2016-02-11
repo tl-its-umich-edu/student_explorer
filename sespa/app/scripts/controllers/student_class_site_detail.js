@@ -46,21 +46,19 @@ angular.module('sespaApp')
       var studentData = [];
       var classData = [];
       var event_percentile = [];
-      var weeks = [];
       for (var i = 0; i < classSiteHistory.length; i++) {
-        weeks.push(i + 1);
-        studentData.push({
-          x: classSiteHistory[i].week_number,
-          y: classSiteHistory[i].score
-        });
-        classData.push({
-          x: classSiteHistory[i].week_number,
-          y: classSiteHistory[i].class_score
-        });
-        event_percentile.push({
-          x: i + 1,
-          y: classSiteHistory[i].event_percentile_rank * 100
-        });
+        studentData.push([
+          classSiteHistory[i].week_number,
+          classSiteHistory[i].score
+        ]);
+        classData.push([
+          classSiteHistory[i].week_number,
+          classSiteHistory[i].class_score
+        ]);
+        event_percentile.push([
+          i + 1,
+          classSiteHistory[i].event_percentile_rank * 100
+        ]);
       }
 
       $scope.scoreData = [{
@@ -77,62 +75,23 @@ angular.module('sespaApp')
         'key': 'Course Site Engagement',
         'values': event_percentile,
         'color': '#a9bdab',
-        // 'disabled': true,
       }];
 
-      var scoreChart = nv.models.multiBarChart()
-        .margin({
-          left: 50,
-          right: 50
-        })
-        .transitionDuration(100)
-        .showLegend(true)
-        .showYAxis(true)
-        .showXAxis(true)
-        .showControls(false)
-        .forceY([0, 100])
-        .reduceXTicks(false)
-        .groupSpacing(0.3);
-        scoreChart.yAxis.tickFormat(function(d) {
-          if (d>0) {
-            return d + '%'
-          }
-        })
-        scoreChart.xAxis.tickFormat(function(d) {
+      $scope.scoreYTickFormat = function() {
+        return function(d) {
+          return d > 0 ? d + '%' : '';
+        };
+      };
+      $scope.activityYTickFormat = function() {
+        return function(d) {
+          return d > 0 ? d + '%ile' : '';
+        };
+      };
+      $scope.xTickFormat = function() {
+        return function(d) {
           return d > 0 ? 'Week ' + d : '';
-        })
-        .tickValues(weeks);
-
-      d3.select('#assignments-chart svg')
-        .datum($scope.scoreData)
-        .call(scoreChart);
-
-      var activityChart = nv.models.multiBarChart()
-        .margin({
-          left: 50,
-          right: 50
-        })
-        .transitionDuration(100)
-        .showLegend(true)
-        .showYAxis(true)
-        .showXAxis(true)
-        .showControls(false)
-        .forceY([0, 100])
-        .reduceXTicks(false)
-        .groupSpacing(0.3);
-        activityChart.yAxis.tickFormat(function(d) {
-          if (d>0) {
-            return d + '%ile'
-          }
-        })
-        activityChart.xAxis.tickFormat(function(d) {
-          return d > 0 ? 'Week ' + d : '';
-        })
-        .tickValues(weeks);
-
-      d3.select('#activity-chart svg')
-        .datum($scope.activityData)
-        .call(activityChart);
+        };
+      };
 
     }, function(reason) {
       advisingUtilities.httpErrorHandler(reason, $scope);
