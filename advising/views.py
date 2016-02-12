@@ -1,4 +1,5 @@
 from advising.models import (Advisor, Student, Mentor, ClassSite,
+                             ClassSiteScore,
                              StudentClassSiteStatus,
                              StudentClassSiteAssignment)
 from advising.serializers import (AdvisorSerializer,
@@ -21,6 +22,8 @@ from django.http import Http404
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
+
+from datetime import timedelta
 
 import logging
 
@@ -251,6 +254,8 @@ class StudentClassSiteHistoryList(APIView):
 
         class_scores = class_site.weeklyclasssitescore_set.all()
 
+        todays_week_end_date = term.todays_week_end_date()
+
         history = []
         week_number = 0
         for week_end_date in term.week_end_dates():
@@ -295,5 +300,18 @@ class StudentClassSiteHistoryList(APIView):
             else:
                 entry['class_score'] = score.score
 
+            if week_end_date == todays_week_end_date:
+                entry['this_week'] = True
+                logger.debug(student)
+                entry['score'] = (student.studentclasssitescore_set
+                                  .get(class_site=class_site)
+                                  .current_score_average)
+                entry['status'] = str(student.studentclasssitestatus_set
+                                      .get(class_site=class_site)
+                                      .status)
+                # logger.debug('class_site %s (%s)' % (class_site, type(class_site)))
+
+                class_site_score = ClassSiteScore.objects.get(class_site__code=code)
+                entry['class_score'] = class_site_score.current_score_average
             history.append(entry)
         return Response(history)
