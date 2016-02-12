@@ -105,10 +105,9 @@ class StudentSerializer(serializers.ModelSerializer):
         model = Student
         fields = ('url', 'username', 'univ_id',
                   'first_name', 'last_name',
-                  'mentors', 'cohorts',
+                  'mentors', 'cohorts', 'class_site_statuses',
                   'status_weight',
-                  'class_sites_url', 'advisors_url', 'mentors_url',
-                  'class_site_statuses')
+                  'class_sites_url', 'advisors_url', 'mentors_url')
 
     def get_status_weight(self, obj):
         weight = 0
