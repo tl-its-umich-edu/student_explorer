@@ -11,7 +11,8 @@ angular.module('sespaApp')
     return {
       restrict: 'E',
       scope: {
-        statusOutput: '=status'
+        status: '=status',
+        tooltipText: '=tooltiptext'
       },
       link: function (scope, element, attrs) {
         $(element).hover(
@@ -19,8 +20,7 @@ angular.module('sespaApp')
             // on mouseenter
             // TODO: must these element.context attributes be set *every* time?
             // FIXME: set these three attributes once, outside hover()
-            element.context.title = scope.statusOutput.name;
-            element.context.alt = scope.statusOutput.name;
+            element.context.title = scope.tooltipText;
             element.context.dataset.placement = 'bottom';
             $(element).tooltip('show');
           }, function () {
