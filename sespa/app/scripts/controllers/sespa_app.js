@@ -20,7 +20,7 @@ angular.module('sespaApp')
     advisingData.userInfo().then(function(userInfo) {
       $scope.userInfo = userInfo;
     }, function(reason) {
-      // window.alert(reason);
-      advisingUtilities.alert(reason);
+      console.log(reason);
+      advisingUtilities.alert('You are not logged in! <a href="login/">Login</a>', 'danger');
     });
   });
