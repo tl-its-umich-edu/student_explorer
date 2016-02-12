@@ -12,7 +12,7 @@
 
   <div class="row">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-      <h3 class="main-h3">Course Site: {{classSite.class_site.description}} <!-- TODO: fix this status-tooltip --><status-tooltip status="classSite.status"></status-tooltip></h3>
+      <h3 class="main-h3">Course Site: {{classSite.class_site.description}} <status-tooltip status="classSite.status" tooltiptext="classSite.status | colorToStatus"></status-tooltip></h3>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
       <div class="pull-right"><br>Data Source: <span class="label label-primary">{{classSite.class_site.source_system}}</span></div>
