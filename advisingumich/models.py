@@ -129,7 +129,6 @@ class Term(models.Model):
         from datetime import timedelta
         from datetime import datetime
 
-        print str(self.end_date)
         begin_date = datetime.strptime(str(self.begin_date), '%Y-%m-%d').date()
         end_date = datetime.strptime(str(self.end_date), '%Y-%m-%d').date()
 
