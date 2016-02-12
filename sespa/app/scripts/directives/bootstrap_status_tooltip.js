@@ -14,20 +14,21 @@ angular.module('sespaApp')
         status: '=status',
         tooltipText: '=tooltiptext'
       },
-      link: function (scope, element, attrs) {
-        $(element).hover(
-          function () {
-            // on mouseenter
-            // TODO: must these element.context attributes be set *every* time?
-            // FIXME: set these three attributes once, outside hover()
-            element.context.title = scope.tooltipText;
-            element.context.dataset.placement = 'bottom';
-            $(element).tooltip('show');
-          }, function () {
-            // on mouseleave
-            $(element).tooltip('hide');
-          }
-        );
+      link: function (scope, element) {
+        $(element)
+          .attr({
+            'title': scope.tooltipText,
+            'data-placement': 'bottom'
+          })
+          .hover(
+            function () {
+              // on mouseenter
+              $(element).tooltip('show');
+            }, function () {
+              // on mouseleave
+              $(element).tooltip('hide');
+            }
+          );
       },
       templateUrl: 'views/status_image.html'
     };
