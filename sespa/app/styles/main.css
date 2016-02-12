@@ -145,6 +145,10 @@ th[scope="row"] {
   }
 }
 
+a.class-site-status-link {
+  text-decoration: none;
+}
+
 .class-site-status {
   height: 20pt;
   margin-right: 5px;
@@ -160,15 +164,15 @@ th[scope="row"] {
   .hide-small {
     display: none;
   }
-  
+
   .navbar-fixed-bottom {
     position: relative;
   }
-  
+
   body {
     padding-bottom: 0;
   }
-  
+
   .footer-block {
     display: block;
   }
