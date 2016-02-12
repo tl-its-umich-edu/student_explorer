@@ -55,14 +55,14 @@
                   <!-- <li class="dropdown-header">Nav header</li> -->
                   <li ng-if="userInfo.profile.is_policy_accepted === true">
                     <p>
-                      You accepted the 
+                      You accepted the
                       <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
                       on {{userInfo.profile.policy_accepted_date | date}}
                     </p>
                   </li>
                   <li ng-if="userInfo.profile.is_policy_accepted === false" class="policy-warning">
                     <p>
-                      You haven't accepted the 
+                      You haven't accepted the
                       <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
                       yet.
                     </p>
@@ -78,11 +78,11 @@
         </div>
       </div>
     </nav>
-    
+
     <div class="alert-container">
       <div ng-if="userInfo.profile.is_policy_accepted === false" class="alert alert-warning alert-dismissible" role="alert" ng-cloak>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Warning!</strong> You haven't accepted the 
+        <strong>Warning!</strong> You haven't accepted the
           <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
           yet.
       </div>
