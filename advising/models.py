@@ -34,6 +34,7 @@ if hasattr(settings, 'ADVISING_PACKAGE'):
 
     # "Fact" models
 
+    ClassSiteScore = advising_models.ClassSiteScore
     StudentClassSiteAssignment = advising_models.StudentClassSiteAssignment
     StudentClassSiteStatus = advising_models.StudentClassSiteStatus
     WeeklyClassSiteScore = advising_models.WeeklyClassSiteScore

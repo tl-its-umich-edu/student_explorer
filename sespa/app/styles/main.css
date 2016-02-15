@@ -199,18 +199,19 @@ a.class-site-status-link {
 
 /* For student grade progress bar*/
 .studentGradeBar {
-  background: #cccccc;
+  background: #255c91;
 }
 
 .classAveBar {
   width: 5px;
   height: 20px;
   position: relative;
-      background: brown;
+  background: #dac251;
 }
 
 .progress-text{
-    color:#1c3144;
+    display: none;
+    color:#c8d6c7;
     margin-left: 6px;
 }
 
@@ -219,7 +220,7 @@ a.class-site-status-link {
 }
 
 .main-less-weight{
-    margin-top: 65px;
+    margin-top: 10px;
     font-weight: 300;
 }
 
@@ -265,6 +266,10 @@ svg text {
   border-radius: 5px 5px 0 0;
 }
 
+.tooltip-inner {
+    text-align:left;
+    white-space: pre-line;
+}
 
 .backlink{
     font-size: 20px;
@@ -310,4 +315,8 @@ svg text {
 
 .not-found {
     margin-top: 6%;
+}
+
+.nv-x .tick line {
+    display: none;
 }

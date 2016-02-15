@@ -2,6 +2,10 @@ from django.db import models
 from advisingumich.mixins import AdvisingUmichDataCleanupMixin
 from advising import utils
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class UsernameField(models.CharField):
     '''Convert case for data warehouse values. Only handles read situations,
@@ -129,7 +133,6 @@ class Term(models.Model):
         from datetime import timedelta
         from datetime import datetime
 
-        print str(self.end_date)
         begin_date = datetime.strptime(str(self.begin_date), '%Y-%m-%d').date()
         end_date = datetime.strptime(str(self.end_date), '%Y-%m-%d').date()
 
@@ -141,6 +144,14 @@ class Term(models.Model):
                 dates.append(Date.objects.get(date=date))
 
         return dates
+
+    def todays_week_end_date(self):
+        from datetime import date, timedelta
+
+        d = date.today()
+        while d.weekday() != 5:
+            d += timedelta(days=1)
+        return Date.objects.get(date=d)
 
     def __unicode__(self):
         return self.description
