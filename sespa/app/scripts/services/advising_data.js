@@ -8,7 +8,7 @@
  * Factory in the sespaApp.
  */
 angular.module('sespaApp')
-  .factory('advisingData', function($http, $q) {
+  .factory('advisingData', function($http, $q, $httpParamSerializer) {
     var config = function() {
       return $http.get('api/', {
           'cache': true
@@ -84,6 +84,11 @@ angular.module('sespaApp')
         return getAdvisingData('students/?search=' + search);
       },
 
+      filterStudents: function(params) {
+        var qs = $httpParamSerializer(params);
+        return getAdvisingData('students/?' + qs);
+      },
+
       studentDetails: function(studentUsername) {
         return getAdvisingData('students/' + studentUsername + '/');
       },
@@ -110,6 +115,14 @@ angular.module('sespaApp')
 
       studentClassSiteHistory: function(studentUsername, classSiteCode) {
         return getAdvisingData('students/' + studentUsername + '/class_sites/' + classSiteCode + '/history/');
+      },
+
+      classSites: function() {
+        return getAdvisingData('class_sites/');
+      },
+
+      classSiteDetails: function(classSiteCode) {
+        return getAdvisingData('class_sites/' + classSiteCode + '/');
       },
 
     };

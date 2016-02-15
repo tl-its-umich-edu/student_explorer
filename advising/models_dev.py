@@ -74,6 +74,14 @@ class Term(models.Model):
 
         return dates
 
+    def todays_week_end_date(self):
+        from datetime import date, timedelta
+
+        d = date.today()
+        while d.weekday() != 5:
+            d += timedelta(days=1)
+        return d
+
     def __unicode__(self):
         return self.description
 

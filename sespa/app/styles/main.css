@@ -30,6 +30,8 @@ body {
 }
 
 .navbar-fixed-top {
+  position: relative;
+  margin-top: -50px;
   border: 0;
 }
 
@@ -193,18 +195,19 @@ th[scope="row"] {
 
 /* For student grade progress bar*/
 .studentGradeBar {
-  background: #cccccc;
+  background: #255c91;
 }
 
 .classAveBar {
   width: 5px;
   height: 20px;
   position: relative;
-      background: brown;
+  background: #dac251;
 }
 
 .progress-text{
-    color:#1c3144;
+    display: none;
+    color:#c8d6c7;
     margin-left: 6px;
 }
 
@@ -213,7 +216,7 @@ th[scope="row"] {
 }
 
 .main-less-weight{
-    margin-top: 65px;
+    margin-top: 10px;
     font-weight: 300;
 }
 
@@ -259,6 +262,10 @@ svg text {
   border-radius: 5px 5px 0 0;
 }
 
+.tooltip-inner {
+    text-align:left;
+    white-space: pre-line;
+}
 
 .backlink{
     font-size: 20px;
@@ -288,7 +295,11 @@ svg text {
     font-size: 15px;
 }
 
-.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+.navbar-inverse .navbar-nav > li.active > a, .navbar-inverse .navbar-nav > li.active > a:hover, .navbar-inverse .navbar-nav > li.active > a:focus {
+    background-color: #124465;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
     color: #dedede;
     background-color: #124465;
 }
@@ -300,4 +311,8 @@ svg text {
 
 .not-found {
     margin-top: 6%;
+}
+
+.nv-x .tick line {
+    display: none;
 }
