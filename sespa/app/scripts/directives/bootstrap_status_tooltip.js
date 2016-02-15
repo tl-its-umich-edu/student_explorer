@@ -9,7 +9,7 @@
 angular.module('sespaApp')
   .directive('statusTooltip', function () {
     return {
-      restrict: 'E',
+      restrict: 'A',
       scope: {
         status: '=status',
         tooltipText: '=tooltiptext'
@@ -17,18 +17,11 @@ angular.module('sespaApp')
       link: function (scope, element) {
         $(element)
           .attr({
-            'title': scope.tooltipText,
-            'data-placement': 'bottom'
+            'data-animation': false,
+            'data-placement': 'bottom',
+            'data-title': scope.tooltipText,
           })
-          .hover(
-            function () {
-              // on mouseenter
-              $(element).tooltip('show');
-            }, function () {
-              // on mouseleave
-              $(element).tooltip('hide');
-            }
-          );
+          .tooltip();
       },
       templateUrl: 'views/status_image.html'
     };
