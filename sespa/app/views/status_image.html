@@ -1,2 +1,4 @@
-<img ng-show="statusOutput" class="class-site-status {{ statusOutput | lowercase }}" ng-src="images/Status_Icons_{{statusOutput}}.png"
-       data-toggle="tooltip" data-placement="bottom" alt="{{statusOutput | lowercase | colorToStatus}}"/>
+<img ng-show="status"
+     class="class-site-status"
+     ng-src="images/Status_Icons_{{ status }}.png"
+     alt="{{ status | colorToStatus }}"/>
