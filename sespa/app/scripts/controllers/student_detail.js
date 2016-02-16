@@ -9,7 +9,7 @@
  */
 angular.module('sespaApp')
   .controller('StudentDetailCtrl', function(advisingData, advisingUtilities, $scope, $routeParams) {
-    $scope.studentUsername = $routeParams.student
+    $scope.studentUsername = $routeParams.student;
     $scope.student = null;
     $scope.advisors = null;
     $scope.mentors = null;

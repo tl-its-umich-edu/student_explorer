@@ -18,7 +18,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
 from django.shortcuts import get_object_or_404
-from django.http import Http404
+from django.http import Http404, HttpResponse
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -26,6 +26,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from datetime import timedelta
 
 import logging
+import csv
 
 logger = logging.getLogger(__name__)
 
@@ -117,6 +118,43 @@ class MentorStudentList(generics.ListAPIView):
             get_object_or_404(Mentor, username=self.kwargs['username'])
             .students.all()
         )
+
+
+class ClassSiteAssignmentDownload(APIView):
+    '''
+    API endpoint that lists Class Sites.
+    '''
+    def get(self, request, code, username=None):
+        class_site = get_object_or_404(ClassSite, code=code)
+        description = class_site.description
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="' + \
+            description + '_assignment.csv"'
+        header = ['Student', 'Assignment', 'Points Possible', 'Points Earned',
+                  'Class Points Possible', 'Class Points Earned',
+                  'Grader Comment', 'Due Date']
+        writer = csv.writer(response)
+        writer.writerow(header)
+
+        if username:
+            entries = class_site.studentclasssiteassignment_set \
+                                .filter(student__username=username)
+        else:
+            entries = class_site.studentclasssiteassignment_set.all()
+
+        for entry in entries:
+            tmp = []
+            tmp.append(entry.student)
+            tmp.append(entry.assignment)
+            tmp.append(entry.points_possible)
+            tmp.append(entry.points_earned)
+            tmp.append(entry.class_points_possible)
+            tmp.append(entry.class_points_earned)
+            tmp.append(entry.grader_comment)
+            tmp.append(entry.due_date)
+            writer.writerow(tmp)
+
+        return response
 
 
 class ClassSiteList(generics.ListAPIView):

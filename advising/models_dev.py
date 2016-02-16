@@ -211,7 +211,7 @@ class StudentClassSiteAssignment(models.Model):
     due_date = models.DateField(null=True)
 
     def __unicode__(self):
-        return '%s has assignemnt %s in %s' % (self.student, self.assignment,
+        return '%s has assignment %s in %s' % (self.student, self.assignment,
                                                self.class_site)
 
     @property
@@ -246,6 +246,9 @@ class StudentClassSiteStatus(models.Model):
     def __unicode__(self):
         return '%s has status %s in %s' % (self.student, self.status,
                                            self.class_site)
+
+    class Meta:
+        ordering = ('status__order',)
 
 
 class WeeklyClassSiteScore(models.Model):
