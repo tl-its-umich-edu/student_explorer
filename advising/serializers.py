@@ -211,5 +211,5 @@ class StudentClassSiteAssignmentSerializer(serializers.ModelSerializer):
         fields = ('assignment',
                   'points_earned', 'points_possible', 'percentage', 'weight',
                   'class_points_earned', 'class_points_possible',
-                  'class_percentage',
+                  'class_percentage', 'relative_to_average',
                   'included_in_grade', 'grader_comment', 'due_date')
