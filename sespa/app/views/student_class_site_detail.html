@@ -9,10 +9,16 @@
 
 
   <hr class="main-no-margin-top" />
-  
+
   <div class="row">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-      <h3 class="main-h3">Course Site: {{classSite.class_site.description}} <status-tooltip status="classSite.status"></status-tooltip></h3>
+      <h3 class="main-h3">
+        Course Site: {{ classSite.class_site.description }}
+        <span status-tooltip
+              status="classSite.status"
+              tooltiptext="classSite.status | colorToStatus">
+        </span>
+      </h3>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
       <div class="pull-right"><br>Data Source: <span class="label label-primary">{{classSite.class_site.source_system}}</span></div>
@@ -111,7 +117,7 @@
             <td>{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</td>
             <td></td>
             <td>
-              <span ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null" 
+              <span ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null"
                   class="glyphicon glyphicon-comment" aria-hidden="true"
                   title="{{assignment.grader_comment}}"
                   data-toggle="tooltip" data-placement="bottom" tooltip></span> <span class="sr-only">{{assignment.grader_comment}}</span>
