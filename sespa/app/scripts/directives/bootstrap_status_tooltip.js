@@ -18,6 +18,7 @@ angular.module('sespaApp')
         $(element)
           .attr({
             'data-animation': false,
+            'data-delay': 200, // milliseconds
             'data-placement': 'bottom',
             'data-title': scope.tooltipText,
           })
