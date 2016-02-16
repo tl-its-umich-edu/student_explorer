@@ -224,6 +224,20 @@ class StudentClassSiteAssignment(models.Model):
         return self._percentage(self.class_points_earned,
                                 self.class_points_possible)
 
+    @property
+    def relative_to_average(self):
+        percentage = self.percentage
+        class_percentage = self.class_percentage
+
+        if ((percentage is None) or (class_percentage is None)):
+            return None
+
+        difference = self.percentage - self.class_percentage
+
+        return 'near' if abs(difference) <= 5.0 else (
+            'above' if difference > 0.0 else
+            'below')
+
     def _percentage(self, x, y):
         if x is None:
             return None
