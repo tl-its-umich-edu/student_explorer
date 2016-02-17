@@ -43,7 +43,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="student in students | orderBy:sortType:sortReverse | filter:searchStudent">
+    <tr ng-repeat="student in students | unique:'username' | orderBy:sortType:sortReverse | filter:searchStudent">
       <th scope="row" class="bold">
         <a href="#/students/{{student.username}}/">{{ student.first_name }}
           {{ student.last_name }}</a>
