@@ -398,6 +398,7 @@ class StudentClassSiteStatus(models.Model):
                                            self.class_site)
 
     class Meta:
+        ordering = ('status__order',)
         unique_together = ('student', 'class_site', 'status')
         db_table = '"CNLYR002"."FC_STDNT_CLASS_ACAD_PERF"'
         managed = False
