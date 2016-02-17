@@ -116,7 +116,7 @@ class MentorStudentList(generics.ListAPIView):
     def get_queryset(self):
         return (
             get_object_or_404(Mentor, username=self.kwargs['username'])
-            .students.all()
+            .students.distinct()
         )
 
 
