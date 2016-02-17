@@ -36,6 +36,14 @@ urlpatterns = [
 
 
     # Class Site API URLs
+    url(r'^class_sites/(?P<code>[a-zA-Z0-9\-\~  ]*)/assignments/download/$',
+        views.ClassSiteAssignmentDownload.as_view(),
+        name='class-site-assignment-download'),
+
+    url(r'^class_sites/(?P<code>[a-zA-Z0-9\-\~  ]*)/student/' +
+        '(?P<username>[a-zA-Z ]*)/assignments/download/$',
+        views.ClassSiteAssignmentDownload.as_view(),
+        name='class-site-assignment-download'),
 
     url(r'^class_sites/$',
         views.ClassSiteList.as_view(),
