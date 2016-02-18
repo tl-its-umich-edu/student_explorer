@@ -91,11 +91,11 @@ class StudentSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='student-detail',
                                                lookup_field='username')
     class_sites_url = serializers.HyperlinkedIdentityField(
-        view_name='student-classsite-list', lookup_field='username')
+            view_name='student-classsite-list', lookup_field='username')
     advisors_url = serializers.HyperlinkedIdentityField(
-        view_name='student-advisors-list', lookup_field='username')
+            view_name='student-advisors-list', lookup_field='username')
     mentors_url = serializers.HyperlinkedIdentityField(
-        view_name='student-mentors-list', lookup_field='username')
+            view_name='student-mentors-list', lookup_field='username')
     cohorts = serializers.StringRelatedField(many=True)
     mentors = serializers.StringRelatedField(many=True)
     status_weight = serializers.SerializerMethodField()
@@ -109,15 +109,17 @@ class StudentSerializer(serializers.ModelSerializer):
                   'status_weight', 'status_trend',
                   'class_sites_url', 'advisors_url', 'mentors_url')
 
-    def get_status_weight(self, obj):
+    def get_status_weight(self, student):
         weight = 0
-        for status in obj.statuses.all():
-            if status.description == 'Green':
-                weight += 0
-            elif status.description == 'Yellow':
-                weight += 2
-            elif status.description == 'Red':
-                weight += 4
+        status_weights = {
+            'Green': 0,
+            'Yellow': 2,
+            'Red': 4
+        }
+
+        for class_site in student.class_sites.all():
+            weight += status_weights.get(
+                    class_site.studentclasssitestatus_set.get(student=student.id).status.description, 0)
         return weight
 
 
