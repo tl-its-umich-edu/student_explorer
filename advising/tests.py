@@ -270,7 +270,7 @@ class AdvisingApiMentorTestCase(TestCase):
         data = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(data['count'], 17)
+        self.assertEqual(data['count'], 16)
 
     def test_mentors_student_list_not_exists(self):
         response = self.client.get(reverse('mentor-students-list',
