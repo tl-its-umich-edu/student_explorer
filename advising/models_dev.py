@@ -55,17 +55,6 @@ class Student(models.Model):
     def __unicode__(self):
         return self.username
 
-    @property
-    def status_trend(self):
-        # TODO: Calculate the difference between
-        # the current status in StudentClassSiteStatus and
-        # most recent weekly status in WeeklyStudentClassSiteStatus
-        difference = 7.1
-
-        return 'near' if abs(difference) <= 5.0 else (
-            'above' if difference > 0.0 else
-            'below')
-
 
 class Term(models.Model):
     code = models.CharField(max_length=6)
