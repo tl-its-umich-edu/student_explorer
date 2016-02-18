@@ -112,5 +112,8 @@ LOGIN_URL = '/api/api-auth/login/'
 
 REST_FRAMEWORK = {
     'PAGE_SIZE': 100,
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.SearchFilter',),
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.DjangoFilterBackend',
+    ),
 }

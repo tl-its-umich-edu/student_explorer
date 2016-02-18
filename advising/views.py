@@ -1,4 +1,5 @@
 from advising.models import (Advisor, Student, Mentor, ClassSite,
+                             ClassSiteScore,
                              StudentClassSiteStatus,
                              StudentClassSiteAssignment)
 from advising.serializers import (AdvisorSerializer,
@@ -17,10 +18,15 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
 from django.shortcuts import get_object_or_404
+from django.http import Http404, HttpResponse
+
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
+from datetime import timedelta
+
 import logging
+import csv
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +61,7 @@ class AdvisorDetail(generics.RetrieveAPIView):
     '''
     API endpoint that shows advisor details.
     '''
-    queryset = Advisor.objects.all()
+    queryset = Advisor.objects.filter(pk__gt=0)
     serializer_class = AdvisorSerializer
     lookup_field = 'username'
 
@@ -72,7 +78,6 @@ class AdvisorStudentList(generics.ListAPIView):
     '''
     API endpoint that lists an advisor's students.
     '''
-    queryset = Advisor.objects.all()
     serializer_class = StudentSerializer
     # lookup_field = 'username'
 
@@ -87,7 +92,7 @@ class MentorList(generics.ListAPIView):
     '''
     API endpoint that lists Mentors.
     '''
-    queryset = Mentor.objects.all()
+    queryset = Mentor.objects.filter(pk__gt=0)
     serializer_class = MentorSerializer
     lookup_field = 'username'
 
@@ -96,7 +101,7 @@ class MentorDetail(generics.RetrieveAPIView):
     '''
     API endpoint that shows advisor details.
     '''
-    queryset = Mentor.objects.all()
+    queryset = Mentor.objects.filter(pk__gt=0)
     serializer_class = MentorSerializer
     lookup_field = 'username'
 
@@ -105,15 +110,51 @@ class MentorStudentList(generics.ListAPIView):
     '''
     API endpoint that lists an advisor's students.
     '''
-    queryset = Mentor.objects.all()
     serializer_class = StudentSerializer
     # lookup_field = 'username'
 
     def get_queryset(self):
         return (
             get_object_or_404(Mentor, username=self.kwargs['username'])
-            .students.all()
+            .students.distinct()
         )
+
+
+class ClassSiteAssignmentDownload(APIView):
+    '''
+    API endpoint that lists Class Sites.
+    '''
+    def get(self, request, code, username=None):
+        class_site = get_object_or_404(ClassSite, code=code)
+        description = class_site.description
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="' + \
+            description + '_assignment.csv"'
+        header = ['Student', 'Assignment', 'Points Possible', 'Points Earned',
+                  'Class Points Possible', 'Class Points Earned',
+                  'Grader Comment', 'Due Date']
+        writer = csv.writer(response)
+        writer.writerow(header)
+
+        if username:
+            entries = class_site.studentclasssiteassignment_set \
+                                .filter(student__username=username)
+        else:
+            entries = class_site.studentclasssiteassignment_set.all()
+
+        for entry in entries:
+            tmp = []
+            tmp.append(entry.student)
+            tmp.append(entry.assignment)
+            tmp.append(entry.points_possible)
+            tmp.append(entry.points_earned)
+            tmp.append(entry.class_points_possible)
+            tmp.append(entry.class_points_earned)
+            tmp.append(entry.grader_comment)
+            tmp.append(entry.due_date)
+            writer.writerow(tmp)
+
+        return response
 
 
 class ClassSiteList(generics.ListAPIView):
@@ -153,6 +194,7 @@ class StudentList(generics.ListAPIView):
     serializer_class = StudentSerializer
     lookup_field = 'username'
     search_fields = ('username', 'univ_id', 'first_name', 'last_name')
+    filter_fields = ('univ_id',)
 
 
 class StudentDetail(generics.RetrieveAPIView):
@@ -233,9 +275,12 @@ class StudentClassSiteAssignmentList(MultipleFieldLookupMixin,
 class StudentClassSiteHistoryList(APIView):
 
     def get(self, request, username, code, format=None):
-        student = Student.objects.get(username=username)
-        class_site = ClassSite.objects.get(code=code)
-        term = class_site.terms.get()  # FIXME
+        student = get_object_or_404(Student, username=username)
+        class_site = get_object_or_404(ClassSite, code=code)
+        try:
+            term = class_site.terms.get()
+        except ObjectDoesNotExist:
+            raise Http404()
 
         events = class_site.weeklystudentclasssiteevent_set.filter(
             student=student)
@@ -246,6 +291,8 @@ class StudentClassSiteHistoryList(APIView):
             student=student)
 
         class_scores = class_site.weeklyclasssitescore_set.all()
+
+        todays_week_end_date = term.todays_week_end_date()
 
         history = []
         week_number = 0
@@ -291,5 +338,18 @@ class StudentClassSiteHistoryList(APIView):
             else:
                 entry['class_score'] = score.score
 
+            if week_end_date == todays_week_end_date:
+                entry['this_week'] = True
+                logger.debug(student)
+                entry['score'] = (student.studentclasssitescore_set
+                                  .get(class_site=class_site)
+                                  .current_score_average)
+                entry['status'] = str(student.studentclasssitestatus_set
+                                      .get(class_site=class_site)
+                                      .status)
+                # logger.debug('class_site %s (%s)' % (class_site, type(class_site)))
+
+                class_site_score = ClassSiteScore.objects.get(class_site__code=code)
+                entry['class_score'] = class_site_score.current_score_average
             history.append(entry)
         return Response(history)

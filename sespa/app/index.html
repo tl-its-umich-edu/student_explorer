@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/angular-rangeslider/angular.rangeSlider.css" />
     <link rel="stylesheet" href="bower_components/nvd3/src/nv.d3.css" />
-    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -36,16 +36,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="main-color-white main-navbar-brand navbar-brand" href="#/">Student Explorer</a>
+          <a class="main-color-white main-navbar-brand navbar-brand">Student Explorer</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#/" data-toggle="collapse" data-target="#navbar">My Students</a></li>
-            <li><a href="#/advisors/" data-toggle="collapse" data-target="#navbar">Advisors</a></li>
+            <li id="default-tab" class="active"><a href="#/" data-toggle="collapse" data-target="#navbar.in">My Students</a></li>
+            <li><a href="#/advisors/" data-toggle="collapse" data-target="#navbar.in">Advisors</a></li>
           </ul>
-          <form ng-submit="studentSearch()" class="navbar-form navbar-right">
-            <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label><input id="student-search" ng-model="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
-          </form>
             <ul class="nav navbar-nav navbar-right">
               <li ng-if="!userInfo.username">
                 <a ng-href="login/" aria-haspopup="true" aria-expanded="false">Login</a>
@@ -58,14 +55,14 @@
                   <!-- <li class="dropdown-header">Nav header</li> -->
                   <li ng-if="userInfo.profile.is_policy_accepted === true">
                     <p>
-                      You accepted the 
+                      You accepted the
                       <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
                       on {{userInfo.profile.policy_accepted_date | date}}
                     </p>
                   </li>
                   <li ng-if="userInfo.profile.is_policy_accepted === false" class="policy-warning">
                     <p>
-                      You haven't accepted the 
+                      You haven't accepted the
                       <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
                       yet.
                     </p>
@@ -75,21 +72,29 @@
                 </ul>
               </li>
             </ul>
-
+          <form ng-submit="studentSearch()" class="navbar-form navbar-right">
+            <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label><input id="student-search" ng-model="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+          </form>
         </div>
       </div>
     </nav>
-    
+
     <div class="alert-container">
       <div ng-if="userInfo.profile.is_policy_accepted === false" class="alert alert-warning alert-dismissible" role="alert" ng-cloak>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Warning!</strong> You haven't accepted the 
+        <strong>Warning!</strong> You haven't accepted the
           <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
           yet.
       </div>
       <div ng-if="dataDown" class="alert alert-danger alert-dismissible" role="alert" ng-cloak>
           The database appears to be down. This may be for normal maintanence, please try reloading in a few minutes.
       </div>
+      <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Help improve Student Explorer by sending us your feedback:<br />
+        <a href="mailto:student-explorer-help@umich.edu" class="alert-link">student-explorer-help@umich.edu</a>
+      </div>
+
     </div>
 
     <div class="container content">
@@ -98,7 +103,7 @@
 
     <div class="footer navbar-fixed-bottom">
       <div class="container">
-        <p class="main-color-white">Student Explorer (2.0alpha2) <span class="footer-block">Copyright &copy; 2015</span> <span class="footer-block">The Regents of the Univerisity of Michigan</span></p>
+        <p class="main-color-white">Student Explorer (2.0.5) <span class="footer-block">Copyright &copy; 2015</span> <span class="footer-block">The Regents of the University of Michigan</span></p>
       </div>
     </div>
 
@@ -139,14 +144,16 @@
         <script src="scripts/services/advising_data.js"></script>
         <script src="scripts/controllers/sespa_app.js"></script>
         <script src="scripts/controllers/student_detail.js"></script>
-        <script src="scripts/controllers/class_site_list.js"></script>
-        <script src="scripts/controllers/class_site_detail.js"></script>
+        <script src="scripts/controllers/student_class_site_list.js"></script>
+        <script src="scripts/controllers/student_class_site_detail.js"></script>
         <script src="scripts/controllers/student_search.js"></script>
         <script src="scripts/directives/dig_data_fetch_progress.js"></script>
         <script src="scripts/services/advising_utilities.js"></script>
         <script src="scripts/directives/bootstrap_tooltip.js"></script>
         <script src="scripts/directives/bootstrap_status_tooltip.js"></script>
         <script src="scripts/filters/filters.js"></script>
+        <script src="scripts/controllers/class_site_list.js"></script>
+        <script src="scripts/controllers/class_site_detail.js"></script>
         <!-- endbuild -->
 </body>
 </html>

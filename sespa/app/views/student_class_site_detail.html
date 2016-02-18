@@ -1,0 +1,141 @@
+<div ng-if="student && classSite" ng-cloak class="col-lg-12">
+
+  <h2 class="sub-header">
+    <p>{{student.first_name}} {{student.last_name}}</p>
+    <a class="backlink" href="#/students/{{student.username}}">
+      &lt; Back to Course List
+    </a>
+  </h2>
+
+
+  <hr class="main-no-margin-top" />
+
+  <div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+      <h3 class="main-h3">
+        Course Site: {{ classSite.class_site.description }}
+        <span status-tooltip
+              status="classSite.status"
+              tooltiptext="classSite.status | colorToStatus">
+        </span>
+      </h3>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <div class="pull-right"><br>Data Source: <span class="label label-primary">{{classSite.class_site.source_system}}</span></div>
+    </div>
+  </div>
+  <hr class="main-no-margin-top" />
+
+
+  <div class="row charts">
+    <h3 class="main-less-weight">Cumulative Score</h3>
+    <nvd3-multi-bar-chart
+        data="scoreData"
+        id="assignments-chart"
+        yAxisTickFormat="scoreYTickFormat()"
+        xAxisTickFormat="xTickFormat()"
+
+        showXAxis="true"
+        showYAxis="true"
+        showLegend="true"
+        showControls="false"
+        forceY="[0,100]"
+        interactive="true"
+        tooltips="true"
+
+        >
+          <svg />
+    </nvd3-multi-bar-chart>
+    <h3 class="main-less-weight">Weekly Activity</h3>
+    <nvd3-multi-bar-chart
+        data="activityData"
+        id="activity-chart"
+        yAxisTickFormat="activityYTickFormat()"
+        xAxisTickFormat="xTickFormat()"
+
+        showXAxis="true"
+        showYAxis="true"
+        showLegend="true"
+        showControls="false"
+        forceY="[0,100]"
+        interactive="true"
+        tooltips="true"
+        >
+          <svg />
+    </nvd3-multi-bar-chart>
+  </div>
+
+  <div class="row assignments">
+    <h3 class="main-less-weight">Assignments </h3>
+    <p><small class="note">Note that this list may not reflect all assignments included in current score calculation. For a complete list, please refer to the source system.</small></p>
+    <!-- <a href="api/class_sites/{{classSite.class_site.code}}/student/{{student.username}}/assignments/download/"><button>Download Assignment</button></a> -->
+    <hr class="main-no-margin-top">
+    <div ng-if="assignments.length == 0" class="panel panel-info">
+      <div class="panel-body">
+        No assignments found for this student.
+      </div>
+    </div>
+
+    <div ng-if="assignments.length > 0" class="table-responsive main-page-end-margin-bottom">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">
+              <a href="" ng-click="sortTypeAssignment = 'assignment.description'; sortReverse = !sortReverse">
+            Assignment
+            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; !sortReverse"><span class="sr-only"> (ascending sort)</span></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'assignment.description' &amp;&amp; sortReverse"><span class="sr-only"> (descending sort)</span></span>
+          </a>
+            </th>
+            <th scope="col">
+              <a href="" ng-click="sortTypeAssignment = 'due_date'; sortReverse = !sortReverse">
+            Due Date
+            <span class="fa fa-caret-down" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; !sortReverse"><span class="sr-only"> (descending sort)</span></span>
+            <span class="fa fa-caret-up" ng-show="sortTypeAssignment == 'due_date' &amp;&amp; sortReverse"><span class="sr-only"> (ascending sort)</span></span>
+          </a>
+            </th>
+            <th scope="col">
+              <a class="unsortable">Points Earned/Possible</a>
+            </th>
+            <th scope="col">
+              <a class="unsortable">Student Percentage</a>
+            </th>
+            <th scope="col">
+              <a class="unsortable">Class Average</a>
+            </th>
+            <th scope="col">
+              <a class="unsortable">Grader's Comment</a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
+            <th scope="row">{{assignment.assignment.description }}</th>
+            <td>{{assignment.due_date | date}}</td>
+            <td>{{assignment.points_earned}} / {{assignment.points_possible}}</td>
+            <td>{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</td>
+            <td>{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</td>
+            <td></td>
+            <td>
+              <span ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null"
+                  class="glyphicon glyphicon-comment" aria-hidden="true"
+                  title="{{assignment.grader_comment}}"
+                  data-toggle="tooltip" data-placement="bottom" tooltip></span> <span class="sr-only">{{assignment.grader_comment}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <dig-data-fetch-progress progress="{{progress}}"></dig-data-fetch-progress>
+</div>
+
+<div ng-if="notFound" class="panel panel-warning not-found">
+  <div class="panel-heading">
+    <h3 class="panel-title">Not Found</h3>
+  </div>
+  <div class="panel-body">
+    This student was not found in the requested course site.
+  </div>
+</div>

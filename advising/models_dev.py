@@ -74,6 +74,14 @@ class Term(models.Model):
 
         return dates
 
+    def todays_week_end_date(self):
+        from datetime import date, timedelta
+
+        d = date.today()
+        while d.weekday() != 5:
+            d += timedelta(days=1)
+        return d
+
     def __unicode__(self):
         return self.description
 
@@ -203,7 +211,7 @@ class StudentClassSiteAssignment(models.Model):
     due_date = models.DateField(null=True)
 
     def __unicode__(self):
-        return '%s has assignemnt %s in %s' % (self.student, self.assignment,
+        return '%s has assignment %s in %s' % (self.student, self.assignment,
                                                self.class_site)
 
     @property
@@ -215,6 +223,20 @@ class StudentClassSiteAssignment(models.Model):
     def class_percentage(self):
         return self._percentage(self.class_points_earned,
                                 self.class_points_possible)
+
+    @property
+    def relative_to_average(self):
+        percentage = self.percentage
+        class_percentage = self.class_percentage
+
+        if ((percentage is None) or (class_percentage is None)):
+            return None
+
+        difference = self.percentage - self.class_percentage
+
+        return 'near' if abs(difference) <= 5.0 else (
+            'above' if difference > 0.0 else
+            'below')
 
     def _percentage(self, x, y):
         if x is None:
@@ -238,6 +260,9 @@ class StudentClassSiteStatus(models.Model):
     def __unicode__(self):
         return '%s has status %s in %s' % (self.student, self.status,
                                            self.class_site)
+
+    class Meta:
+        ordering = ('status__order',)
 
 
 class WeeklyClassSiteScore(models.Model):

@@ -3,7 +3,7 @@
 <hr class="main-no-margin-top"/>
 
 <div class="col-sm-8">
-    <div ng-include="'views/class_site_list.html'" ></div>
+    <div ng-include="'views/student_class_site_list.html'" ></div>
 </div>
 
 <div class="student-info col-sm-4 well">
@@ -28,4 +28,13 @@
       </table>
     </div>
 </div>
+</div>
+
+<div ng-if="notFound" class="panel panel-warning not-found">
+  <div class="panel-heading">
+    <h3 class="panel-title">Not Found</h3>
+  </div>
+  <div class="panel-body">
+    Student not found ({{studentUsername}}).
+  </div>
 </div>

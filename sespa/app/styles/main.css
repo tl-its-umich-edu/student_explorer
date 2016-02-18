@@ -30,6 +30,8 @@ body {
 }
 
 .navbar-fixed-top {
+  position: relative;
+  margin-top: -50px;
   border: 0;
 }
 
@@ -143,6 +145,10 @@ th[scope="row"] {
   }
 }
 
+a.class-site-status-link {
+  text-decoration: none;
+}
+
 .class-site-status {
   height: 20pt;
   margin-right: 5px;
@@ -158,15 +164,15 @@ th[scope="row"] {
   .hide-small {
     display: none;
   }
-  
+
   .navbar-fixed-bottom {
     position: relative;
   }
-  
+
   body {
     padding-bottom: 0;
   }
-  
+
   .footer-block {
     display: block;
   }
@@ -193,18 +199,19 @@ th[scope="row"] {
 
 /* For student grade progress bar*/
 .studentGradeBar {
-  background: #cccccc;
+  background: #255c91;
 }
 
 .classAveBar {
   width: 5px;
   height: 20px;
   position: relative;
-      background: brown;
+  background: #dac251;
 }
 
 .progress-text{
-    color:#1c3144;
+    display: none;
+    color:#c8d6c7;
     margin-left: 6px;
 }
 
@@ -213,7 +220,7 @@ th[scope="row"] {
 }
 
 .main-less-weight{
-    margin-top: 65px;
+    margin-top: 10px;
     font-weight: 300;
 }
 
@@ -259,6 +266,10 @@ svg text {
   border-radius: 5px 5px 0 0;
 }
 
+.tooltip-inner {
+    text-align:left;
+    white-space: pre-line;
+}
 
 .backlink{
     font-size: 20px;
@@ -272,7 +283,7 @@ svg text {
 
 
 #student-search {
-    width: 25em;
+    width: 22em;
 }
 
 .graph-caption{
@@ -288,7 +299,11 @@ svg text {
     font-size: 15px;
 }
 
-.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+.navbar-inverse .navbar-nav > li.active > a, .navbar-inverse .navbar-nav > li.active > a:hover, .navbar-inverse .navbar-nav > li.active > a:focus {
+    background-color: #124465;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
     color: #dedede;
     background-color: #124465;
 }
@@ -296,4 +311,12 @@ svg text {
 .unsortable:hover {
     text-decoration: none;
     color: #337ab7;
+}
+
+.not-found {
+    margin-top: 6%;
+}
+
+.nv-x .tick line {
+    display: none;
 }
