@@ -2,7 +2,7 @@ from student_explorer.settings.base import *
 from os import getenv
 
 DEBUG = getenv('DJANGO_DEBUG', False)
-ALLOWED_HOSTS += env('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
+ALLOWED_HOSTS += getenv('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
 
 SECRET_KEY = getenv('DJANGO_SECRET_KEY', 'I need to be changed!')
 
