@@ -1,6 +1,7 @@
 from student_explorer.settings.base import *
 from os import getenv
 
+DEBUG = getenv('DJANGO_DEBUG', False)
 
 SECRET_KEY = getenv('DJANGO_SECRET_KEY', 'I need to be changed!')
 
