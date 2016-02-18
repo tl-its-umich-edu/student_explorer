@@ -91,11 +91,11 @@ class StudentSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='student-detail',
                                                lookup_field='username')
     class_sites_url = serializers.HyperlinkedIdentityField(
-            view_name='student-classsite-list', lookup_field='username')
+        view_name='student-classsite-list', lookup_field='username')
     advisors_url = serializers.HyperlinkedIdentityField(
-            view_name='student-advisors-list', lookup_field='username')
+        view_name='student-advisors-list', lookup_field='username')
     mentors_url = serializers.HyperlinkedIdentityField(
-            view_name='student-mentors-list', lookup_field='username')
+        view_name='student-mentors-list', lookup_field='username')
     cohorts = serializers.StringRelatedField(many=True)
     mentors = serializers.StringRelatedField(many=True)
     status_weight = serializers.SerializerMethodField()
