@@ -62,9 +62,9 @@ class Student(models.Model):
         # most recent weekly status in WeeklyStudentClassSiteStatus
         difference = 7.1
 
-        return 'near' if abs(difference) <= 5.0 else (
-            'above' if difference > 0.0 else
-            'below')
+        return 'steady' if abs(difference) <= 5.0 else (
+            'up' if difference > 0.0 else
+            'down')
 
 
 class Term(models.Model):
