@@ -17,10 +17,10 @@
           <tr>
             <th scope="row"><a class="unsortable">Advisors</a></th>
             <td><p ng-repeat="advisor in advisors">
-                <a href="#/advisors/{{advisor.advisor.username}}/">
-                {{ advisor.advisor.first_name }} {{ advisor.advisor.last_name }}</a>
+                <a href="#/advisors/{{advisor.mentor.username}}/">
+                {{ advisor.mentor.first_name }} {{ advisor.mentor.last_name }}</a>
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"
-                    title="{{advisor.role}}"
+                    title="{{advisor.cohort}}"
                     data-toggle="tooltip" data-placement="bottom" tooltip></span><span class="sr-only">{{advisor.role}}</span>
             </p></td>
           </tr>
