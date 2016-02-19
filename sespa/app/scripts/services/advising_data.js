@@ -94,10 +94,6 @@ angular.module('sespaApp')
       },
 
       studentAdvisors: function(studentUsername) {
-        return getAdvisingData('students/' + studentUsername + '/advisors/');
-      },
-
-      studentMentors: function(studentUsername) {
         return getAdvisingData('students/' + studentUsername + '/mentors/');
       },
 
