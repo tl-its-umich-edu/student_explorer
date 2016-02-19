@@ -110,17 +110,11 @@ class StudentSerializer(serializers.ModelSerializer):
                   'class_sites_url', 'advisors_url', 'mentors_url')
 
     def get_status_weight(self, student):
-        weight = 0
-        status_weights = {
-            'Green': 0,
-            'Yellow': 2,
-            'Red': 4
-        }
-
-        for class_site in student.class_sites.all():
-            weight += status_weights.get(
-                    class_site.studentclasssitestatus_set.get(student=student.id).status.description, 0)
-        return weight
+        return reduce(
+                lambda sum, classStatus: sum + (classStatus.status.order - 1) * 2,
+                student.studentclasssitestatus_set.all(),
+                0
+        )
 
 
 # Serializations of the relationships between advisors and students.
