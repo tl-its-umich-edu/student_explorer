@@ -109,16 +109,23 @@ class StudentSerializer(serializers.ModelSerializer):
                   'status_weight', 'status_trend',
                   'class_sites_url', 'advisors_url', 'mentors_url')
 
-    def get_status_weight(self, obj):
-        weight = 0
-        for status in obj.statuses.all():
-            if status.description == 'Green':
-                weight += 0
-            elif status.description == 'Yellow':
-                weight += 2
-            elif status.description == 'Red':
-                weight += 4
-        return weight
+    def get_status_weight(self, student):
+        """
+        Using the set of class site statuses for a Student, reduce them to a single number
+        representing their "weight".  The statuses' order attributes are used to calculate
+        an even-numbered weight for each one (E.g., 1 => 0, 2 => 2, 3 => 4, etc.).  It's
+        very important to initialize the reduction with zero.
+
+        :param student: The Student object being serialized
+        :type student: advising.models_dev.Student | advisingumich.models.Student
+        :return: Weight of Student's class statuses
+        :rtype: int
+        """
+        return reduce(
+                lambda sum, aClassStatus: sum + int((aClassStatus.status.order - 1) * 2),
+                student.studentclasssitestatus_set.all(),
+                0
+        )
 
 
 # Serializations of the relationships between advisors and students.
