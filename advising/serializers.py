@@ -81,10 +81,32 @@ class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
             view_name='student-classsite-detail'
     )
     status = serializers.ReadOnlyField(source='status.description')
+    status_trend = serializers.SerializerMethodField()
 
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('class_site_id', 'name', 'url', 'status')
+        fields = ('class_site_id', 'name', 'url', 'status', 'status_trend')
+
+    def get_status_trend(self, studentClassSiteStatus):
+        # TODO: Calculate the difference between
+        # the current status in StudentClassSiteStatus and
+        # most recent weekly status in WeeklyStudentClassSiteStatus
+
+        # difference = 7.1
+        difference = studentClassSiteStatus.status.order
+        logger.debug(dir(studentClassSiteStatus.class_site))
+        logger.debug((studentClassSiteStatus.class_site))
+
+        status_order_trend = {
+            1: 'up',
+            2: 'steady',
+            3: 'down',
+        }
+
+        # return 'steady' if abs(difference) <= 5.0 else (
+        #     'up' if difference > 0.0 else
+        #     'down')
+        return status_order_trend.get(difference, 'n/a')
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -106,7 +128,7 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = ('url', 'username', 'univ_id',
                   'first_name', 'last_name',
                   'mentors', 'cohorts', 'class_site_statuses',
-                  'status_weight', 'status_trend',
+                  'status_weight',
                   'class_sites_url', 'advisors_url', 'mentors_url')
 
     def get_status_weight(self, student):
