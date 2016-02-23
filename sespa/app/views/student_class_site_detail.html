@@ -16,7 +16,7 @@
         Course Site: {{ classSite.class_site.description }}
         <span status-tooltip
               status="classSite.status"
-              tooltiptext="classSite.status | changeStatus">
+              tooltiptext="classSite.status | colorToStatus">
         </span>
       </h3>
     </div>
@@ -42,7 +42,7 @@
         forceY="[0,100]"
         interactive="true"
         tooltips="true"
-
+        rotateLabels="-45"
         >
           <svg />
     </nvd3-multi-bar-chart>
@@ -60,6 +60,7 @@
         forceY="[0,100]"
         interactive="true"
         tooltips="true"
+        rotateLabels="-45"
         >
           <svg />
     </nvd3-multi-bar-chart>
@@ -115,7 +116,7 @@
             <td>{{assignment.points_earned}} / {{assignment.points_possible}}</td>
             <td>
                 {{assignment.points_earned / assignment.points_possible * 100 | number:1}}%
-                <span class="relative-to-ave-icon" ng-if="assignment.relative_to_average != null" status-tooltip status="assignment.relative_to_average" tooltiptext="assignment.relative_to_average | changeStatus"></span>
+                <span class="relative-to-ave-icon" ng-if="assignment.relative_to_average != null" status-tooltip status="assignment.relative_to_average" tooltiptext="assignment.relative_to_average | relativeToMeanDesc"></span>
             </td>
             <td>{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</td>
             <td></td>
