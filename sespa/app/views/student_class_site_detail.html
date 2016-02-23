@@ -16,7 +16,7 @@
         Course Site: {{ classSite.class_site.description }}
         <span status-tooltip
               status="classSite.status"
-              tooltiptext="classSite.status | colorToStatus">
+              tooltiptext="classSite.status | changeStatus">
         </span>
       </h3>
     </div>
@@ -113,7 +113,10 @@
             <th scope="row">{{assignment.assignment.description }}</th>
             <td>{{assignment.due_date | date}}</td>
             <td>{{assignment.points_earned}} / {{assignment.points_possible}}</td>
-            <td>{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</td>
+            <td>
+                {{assignment.points_earned / assignment.points_possible * 100 | number:1}}%
+                <span class="relative-to-ave-icon" ng-if="assignment.relative_to_average != null" status-tooltip status="assignment.relative_to_average" tooltiptext="assignment.relative_to_average | changeStatus"></span>
+            </td>
             <td>{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</td>
             <td></td>
             <td>

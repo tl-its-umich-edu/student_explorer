@@ -320,3 +320,12 @@ svg text {
 .nv-x .tick line {
     display: none;
 }
+
+.relative-to-ave-icon {
+    float: right;
+    margin-right: 30%;
+}
+
+.relative-to-ave-icon img {
+    margin-right: 0;
+}

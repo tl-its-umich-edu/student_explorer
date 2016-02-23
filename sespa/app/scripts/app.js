@@ -18,7 +18,6 @@ angular
     'ngTouch',
     'ui-rangeSlider',
     'nvd3ChartDirectives',
-    'sespaFilters'
   ])
   .config(function($routeProvider) {
     $routeProvider
