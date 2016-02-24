@@ -68,7 +68,7 @@ angular.module('sespaApp')
       }, {
         'key': 'Class',
         'values': classData,
-        'color': '#dac251',
+        'color': '#F0D654',
       }];
 
       $scope.activityData = [{

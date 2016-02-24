@@ -225,6 +225,10 @@ a.class-site-status-link {
   position: absolute;
   right: 0;
   transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  -o-transform: translateX(100%);
+  transform: translateX(100%);
 }
 
 /* For student and class average legend */
@@ -251,7 +255,7 @@ a.class-site-status-link {
 }
 
 .class-legend-key {
-  background-color: #dac251;
+  background-color: #F0D654;
 }
 
 /* For student grade progress bar*/
@@ -261,7 +265,7 @@ a.class-site-status-link {
 }
 
 .classAveBar {
-  background: #dac251;
+  background: #F0D654;
   height: 20px;
   position: relative;
   width: 5px;
