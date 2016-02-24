@@ -111,4 +111,10 @@ angular.module('sespaApp')
     angular.element($window).bind('resize', function() {
       $scope.$apply();
     });
+    
+    $scope.changeButton = function(code) {
+      if (!$('#collapse'+code).hasClass('collapsing')) {
+        $('#assignmentButton'+code).attr('src', ($('#assignmentButton'+code).attr('src') === 'images/Dropdown_Plus.png') ? 'images/Dropdown_Minus.png' : 'images/Dropdown_Plus.png');
+      }
+    };
   });

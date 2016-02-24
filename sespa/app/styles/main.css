@@ -321,11 +321,17 @@ svg text {
     display: none;
 }
 
-.assignment-button {
-    float: right;
-    margin-right: 20%;
+.panel-title {
+    vertical-align: middle;
 }
 
-.assignment-button-img {
+.assignment-button {
     width: 20px;
+    float: right;
+    margin-right: 20%;
+    padding-bottom: 5px;
+}
+
+.assignment-title {
+    margin-left: 10%;
 }

@@ -2,8 +2,10 @@
   <div class="panel panel-default" ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
     <div class="panel-heading" role="tab" id="heading{{assignment.assignment.code}}">
       <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{assignment.assignment.code}}" onclick="return false;" aria-expanded="true" aria-controls="collapse{{assignment.assignment.code}}">
-          {{assignment.assignment.description }}
+        <span class="assignment-title">{{assignment.assignment.description }}</span>
+        <a class="assignment-button" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{assignment.assignment.code}}"
+          onclick="return false;" ng-click="changeButton(assignment.assignment.code)" aria-expanded="true" aria-controls="collapse{{assignment.assignment.code}}">
+          <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="images/Dropdown_Plus.png" alt="Expand"/>
         </a>
       </h4>
     </div>
