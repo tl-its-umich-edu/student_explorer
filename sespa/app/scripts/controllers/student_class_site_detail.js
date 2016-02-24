@@ -114,7 +114,9 @@ angular.module('sespaApp')
     
     $scope.changeButton = function(code) {
       if (!$('#collapse'+code).hasClass('collapsing')) {
-        $('#assignmentButton'+code).attr('src', ($('#assignmentButton'+code).attr('src') === 'images/Dropdown_Plus.png') ? 'images/Dropdown_Minus.png' : 'images/Dropdown_Plus.png');
+        var sign = $('#assignmentButton'+code).attr('src');
+        $('[class="assignment-button"]').attr('src', 'images/Dropdown_Plus.png');
+        $('#assignmentButton'+code).attr('src', (sign === 'images/Dropdown_Plus.png') ? 'images/Dropdown_Minus.png' : 'images/Dropdown_Plus.png');
       }
     };
   });

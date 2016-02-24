@@ -385,10 +385,47 @@ svg text {
 .assignment-button {
     width: 20px;
     float: right;
-    margin-right: 20%;
     padding-bottom: 5px;
 }
 
 .assignment-title {
+    font-size: 18px;
+    width: 50%;
+    display: inline-block;
+}
+
+.assignment-title-score {
+    width: 25%;
+    display: inline-block;
+}
+
+.assignment-detail {
+    width: 35%;
+    margin: 10px auto;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.assignment-detail-bold {
+    font-weight: bold;
+}
+
+.assignment-detail-grade {
+    font-size: 25px;
+    margin-top: 10px;
+}
+
+.assignment-detail-left {
+    display: inline-block;
     margin-left: 10%;
+}
+
+.assignment-detail-right {
+    float: right;
+    display: inline-block;
+    margin-right: 5%;
+}
+
+.collapsing {
+    width: 100%;
 }
