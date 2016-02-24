@@ -321,15 +321,6 @@ svg text {
     display: none;
 }
 
-.relative-to-ave-icon {
-    float: right;
-    margin-right: 30%;
-}
-
-.relative-to-ave-icon img {
-    margin-right: 0;
-}
-
 .assignment-button {
     float: right;
     margin-right: 20%;
