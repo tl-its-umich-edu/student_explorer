@@ -20,6 +20,7 @@ angular.module('sespaApp')
     $scope.sortReverse = false;
     $scope.searchStudent = '';
     $scope.progress = 0;
+    $scope.windowWidth = window.innerWidth;
     // $scope.scroll = scroll;
 
 

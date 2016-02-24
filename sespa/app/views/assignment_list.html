@@ -1,0 +1,19 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
+    <div class="panel-heading" role="tab" id="heading{{assignment.assignment.code}}">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{assignment.assignment.code}}" onclick="return false;" aria-expanded="true" aria-controls="collapse{{assignment.assignment.code}}">
+          {{assignment.assignment.description }}
+        </a>
+      </h4>
+    </div>
+    <div id="collapse{{assignment.assignment.code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{assignment.assignment.code}}">
+      <div class="panel-body">
+        <span>Due Date: {{assignment.due_date | date}}</span>
+        <span>Score: {{assignment.points_earned}} / {{assignment.points_possible}}</span>
+        <span>Student's Grade<br>{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</span>
+        <span>Class Average<br>{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</span>
+      </div>
+    </div>
+  </div>
+</div>

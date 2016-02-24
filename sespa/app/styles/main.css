@@ -329,3 +329,12 @@ svg text {
 .relative-to-ave-icon img {
     margin-right: 0;
 }
+
+.assignment-button {
+    float: right;
+    margin-right: 20%;
+}
+
+.assignment-button-img {
+    width: 20px;
+}
