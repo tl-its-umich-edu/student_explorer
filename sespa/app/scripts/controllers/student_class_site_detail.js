@@ -8,7 +8,7 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('StudentClassSiteDetailCtrl', function(advisingData, advisingUtilities, $scope, $routeParams) {
+  .controller('StudentClassSiteDetailCtrl', function(advisingData, advisingUtilities, $scope, $routeParams, $window) {
     $scope.classSiteDetailHeader = null;
     $scope.assignments = null;
     $scope.classSiteHistory = null;
@@ -102,5 +102,13 @@ angular.module('sespaApp')
       $scope.student = student;
     }, function(reason) {
       advisingUtilities.httpErrorHandler(reason, $scope);
+    });
+    
+    $scope.$watch(function() {
+        $scope.windowWidth = window.innerWidth;
+    });
+    
+    angular.element($window).bind('resize', function() {
+      $scope.$apply();
     });
   });
