@@ -158,6 +158,20 @@ a.class-site-status-link {
   .open > .dropdown-menu {
     color: #9d9d9d;
   }
+  .sub-header {
+    margin-top: 0;
+  }
+  .alert-container {
+    position: inherit;
+    width: 100%;
+    top: 70px;
+    z-index: 1000;
+    padding: 10px
+  }
+  .alert-container div {
+    margin-bottom: 10px;
+    width: 100%
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -186,34 +200,91 @@ a.class-site-status-link {
 /* For progress bar */
 .progress {
   width: 200px;
+  overflow: visible;
+}
+
+.progress-flat {
+  -webkit-box-shadow: none;
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  margin-bottom: 0;
 }
 
 .progress-bar {
   text-align: left;
   padding-left: 5px;
+  min-width: 5em;
+}
+
+.progress-bar-flat {
+  box-shadow: none;
+  -webkit-box-shadow: none;
 }
 
 .progress-label {
   font-weight: bold;
 }
 
+.progress-text{
+    color:#c8d6c7;
+    display: none;
+    margin-left: 6px;
+}
+
+.progress-text-outside {
+  color: black;
+  display: inline-block;
+  padding-left: 5px;
+  position: absolute;
+  right: 0;
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  -o-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+/* For student and class average legend */
+
+.legend-text {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.legend-text:not(:first-of-type) {
+  margin-left: 1em;
+}
+
+.legend-key {
+  border-radius: 50%;
+  display: inline-block;
+  height: 10px;
+  margin-right: 0.4em;
+  width: 10px;
+}
+
+.student-legend-key {
+  background-color: #255c91;
+}
+
+.class-legend-key {
+  background-color: #F0D654;
+}
+
 /* For student grade progress bar*/
 .studentGradeBar {
   background: #255c91;
+  position: relative;
 }
 
 .classAveBar {
-  width: 5px;
+  background: #F0D654;
   height: 20px;
   position: relative;
-  background: #dac251;
+  width: 5px;
 }
 
-.progress-text{
-    display: none;
-    color:#c8d6c7;
-    margin-left: 6px;
-}
 
 .main-no-margin-top{
     margin-top: 0px;

@@ -30,7 +30,7 @@ class Mentor(models.Model):
 class Status(models.Model):
     code = models.CharField(max_length=20)
     description = models.CharField(max_length=50)
-    order = models.IntegerField()
+    order = models.IntegerField(null=True)
 
     def __unicode__(self):
         return self.description
