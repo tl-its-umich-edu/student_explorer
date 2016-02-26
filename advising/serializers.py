@@ -88,11 +88,24 @@ class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
         fields = ('class_site_id', 'name', 'url', 'status', 'status_trend')
 
     def get_status_trend(self, studentClassSiteStatus):
-        currentStatus = int(studentClassSiteStatus.status.order)
-        previousStatus = int(studentClassSiteStatus.class_site.weeklystudentclasssitestatus_set.
-                             filter(student=studentClassSiteStatus.student).first().status.order)
+        try:
+            currentStatus = studentClassSiteStatus.status.order
+        except:
+            currentStatus = None
 
-        difference = previousStatus - currentStatus
+        if (currentStatus is None):
+            return None
+
+        try:
+            previousStatus = studentClassSiteStatus.class_site.weeklystudentclasssitestatus_set. \
+                filter(student=studentClassSiteStatus.student).first().status.order
+        except:
+            previousStatus = None
+
+        if (previousStatus is None):
+            return None
+
+        difference = int(previousStatus) - int(currentStatus)
         status_order_trend = {
             1: 'up',
             0: 'steady',
