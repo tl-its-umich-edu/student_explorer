@@ -33,3 +33,15 @@
 - If custom models are needed:
     - Add the package to the INSTALLED_APPS
     - Use ADVISING_PACKAGE to specify the package name.
+
+## Update Data Fixtures ##
+
+This is the procedure to add dummy data to the fixture files.
+
+- Connect to the database in the Vagrant VM. (This can be done from your host system via the port defined in the Vagrant file, 2033)
+- Delete all tables.
+- Run the migrations to recreate the tables: `python manage.py migrate`
+- Run the loaddata command to load existing fixtures: `python manage.py loaddata */fixtures/*.json`
+- Make changes to the database.
+- Save the changes to a fixture file: `python manage.py dumpdata --indent 4 advising > advising/fixtures/dev_data.json`
+- Commit the changes to the updated fixture file.
