@@ -89,7 +89,7 @@ angular.module('sespaApp')
       };
       $scope.xTickFormat = function() {
         return function(d) {
-          return d > 0 ? 'Week ' + d : '';
+          return d > 0 ? d : '';
         };
       };
 
