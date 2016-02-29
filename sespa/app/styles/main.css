@@ -158,6 +158,20 @@ a.class-site-status-link {
   .open > .dropdown-menu {
     color: #9d9d9d;
   }
+  .sub-header {
+    margin-top: 0;
+  }
+  .alert-container {
+    position: inherit;
+    width: 100%;
+    top: 70px;
+    z-index: 1000;
+    padding: 10px
+  }
+  .alert-container div {
+    margin-bottom: 10px;
+    width: 100%
+  }
 }
 
 @media screen and (max-width: 600px) {

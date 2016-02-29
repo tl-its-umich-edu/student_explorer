@@ -68,15 +68,6 @@ angular
       });
   });
 
-/* Remove cache */
-angular
-  .module('sespaApp')
-  .run(function($rootScope, $templateCache) {
-   $rootScope.$on('$viewContentLoaded', function() {
-      $templateCache.removeAll();
-   });
-});
-
 /* Index nav bar*/
 $('[data-toggle="collapse"]').on('click', function() { 
     $('li.active').removeClass('active');
