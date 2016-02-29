@@ -145,6 +145,12 @@ th[scope="row"] {
   }
 }
 
+@media screen and (min-width: 769px) {
+  .assignment-list {
+      display: none;
+  }
+}
+
 a.class-site-status-link {
   text-decoration: none;
 }
@@ -172,6 +178,15 @@ a.class-site-status-link {
     margin-bottom: 10px;
     width: 100%
   }
+  .assignment-table {
+      display: none;
+  }
+  .table-responsive {
+      border: none;
+  }
+  nvd3-multi-bar-chart {
+      rotateLabels: "-45"; 
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -188,6 +203,10 @@ a.class-site-status-link {
   }
 
   .footer-block {
+    display: block;
+  }
+
+  .mobile-div {
     display: block;
   }
 }
@@ -396,21 +415,21 @@ svg text {
     vertical-align: middle;
 }
 
+.assignment-title-right {
+    float: right;
+}
+
 .assignment-button {
     width: 20px;
-    float: right;
     padding-bottom: 5px;
 }
 
 .assignment-title {
     font-size: 18px;
-    width: 50%;
-    display: inline-block;
 }
 
 .assignment-title-score {
-    width: 25%;
-    display: inline-block;
+    margin-right: 20px;
 }
 
 .assignment-detail {

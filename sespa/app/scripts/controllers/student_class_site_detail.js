@@ -20,7 +20,6 @@ angular.module('sespaApp')
     $scope.sortReverse = false;
     $scope.searchStudent = '';
     $scope.progress = 0;
-    $scope.windowWidth = window.innerWidth;
     // $scope.scroll = scroll;
 
 
@@ -103,15 +102,7 @@ angular.module('sespaApp')
     }, function(reason) {
       advisingUtilities.httpErrorHandler(reason, $scope);
     });
-    
-    $scope.$watch(function() {
-        $scope.windowWidth = window.innerWidth;
-    });
-    
-    angular.element($window).bind('resize', function() {
-      $scope.$apply();
-    });
-    
+
     $scope.changeButton = function(code) {
       if (!$('#collapse'+code).hasClass('collapsing')) {
         var sign = $('#assignmentButton'+code).attr('src');

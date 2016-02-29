@@ -42,7 +42,6 @@
         forceY="[0,100]"
         interactive="true"
         tooltips="true"
-        rotateLabels="-45"
         >
           <svg />
     </nvd3-multi-bar-chart>
@@ -60,7 +59,6 @@
         forceY="[0,100]"
         interactive="true"
         tooltips="true"
-        rotateLabels="-45"
         >
           <svg />
     </nvd3-multi-bar-chart>
@@ -78,8 +76,8 @@
     </div>
 
     <div ng-if="assignments.length > 0" class="table-responsive main-page-end-margin-bottom">
-      <div ng-include ng-if="windowWidth >= 769" src="'views/assignment_list_table.html'"></div>
-      <div ng-include ng-if="windowWidth <= 768" src="'views/assignment_list.html'"></div>
+      <div class="assignment-table" ng-include src="'views/assignment_list_table.html'"></div>
+      <div class="assignment-list" ng-include src="'views/assignment_list.html'"></div>
     </div>
   </div>
 
