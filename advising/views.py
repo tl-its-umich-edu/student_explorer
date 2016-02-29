@@ -330,7 +330,7 @@ class StudentClassSiteHistoryList(APIView):
                 pass
             else:
                 entry['status'] = str(status.status.description)
-                entry['status_order'] = int(status.status.order)
+                entry['status_order'] = status.status.order
 
             try:
                 score = class_scores.get(week_end_date=week_end_date)
