@@ -97,8 +97,8 @@ class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
             return None
 
         try:
-            previousStatus = studentClassSiteStatus.class_site.weeklystudentclasssitestatus_set. \
-                filter(student=studentClassSiteStatus.student).first().status.order
+            previousStatus = studentClassSiteStatus.class_site.weeklystudentclasssitestatus_set.\
+                order_by('-week_end_date').last().status.order
         except:
             previousStatus = None
 
