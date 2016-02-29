@@ -184,9 +184,6 @@ a.class-site-status-link {
   .table-responsive {
       border: none;
   }
-  nvd3-multi-bar-chart {
-      rotateLabels: "-45"; 
-  }
 }
 
 @media screen and (max-width: 600px) {
