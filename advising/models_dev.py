@@ -262,26 +262,6 @@ class StudentClassSiteStatus(models.Model):
     class Meta:
         ordering = ('status__order',)
 
-    # @property
-    # def status_trend(self):
-    #     # TODO: Calculate the difference between
-    #     # the current status in StudentClassSiteStatus and
-    #     # most recent weekly status in WeeklyStudentClassSiteStatus
-    #
-    #     # difference = 7.1
-    #     difference = self.status.order
-    #
-    #     status_order_trend = {
-    #         1: 'up',
-    #         2: 'steady',
-    #         3: 'down',
-    #     }
-    #
-    #     # return 'steady' if abs(difference) <= 5.0 else (
-    #     #     'up' if difference > 0.0 else
-    #     #     'down')
-    #     return status_order_trend.get(difference, 'n/a')
-
 
 class WeeklyClassSiteScore(models.Model):
     class_site = models.ForeignKey(ClassSite)
@@ -330,7 +310,6 @@ class WeeklyStudentClassSiteScore(models.Model):
         ordering = ('week_end_date',)
 
 
-# TODO: lsloan
 class WeeklyStudentClassSiteStatus(models.Model):
     student = models.ForeignKey(Student)
     class_site = models.ForeignKey(ClassSite)

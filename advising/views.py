@@ -287,7 +287,6 @@ class StudentClassSiteHistoryList(APIView):
 
         student_scores = class_site.weeklystudentclasssitescore_set.filter(
             student=student)
-        # TODO: lsloan
         student_statuses = class_site.weeklystudentclasssitestatus_set.filter(
             student=student)
 
@@ -342,16 +341,14 @@ class StudentClassSiteHistoryList(APIView):
 
             if week_end_date == todays_week_end_date:
                 entry['this_week'] = True
-                logger.debug(student)
                 entry['score'] = (student.studentclasssitescore_set
                                   .get(class_site=class_site)
                                   .current_score_average)
-                todaysStatus = student.studentclasssitestatus_set\
-                    .get(class_site=class_site)
+
+                todaysStatus = student.studentclasssitestatus_set.get(class_site=class_site)
                 entry['status'] = str(todaysStatus.status.description)
                 entry['status_order'] = int(todaysStatus.status.order)
-            # logger.debug('class_site %s (%s)' % (class_site, type(class_site)))
-
+                
                 class_site_score = ClassSiteScore.objects.get(class_site__code=code)
                 entry['class_score'] = class_site_score.current_score_average
             history.append(entry)
