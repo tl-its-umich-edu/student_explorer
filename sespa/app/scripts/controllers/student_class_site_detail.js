@@ -103,11 +103,13 @@ angular.module('sespaApp')
       advisingUtilities.httpErrorHandler(reason, $scope);
     });
 
-    $scope.changeButton = function(code) {
-      if (!$('#collapse'+code).hasClass('collapsing')) {
-        var sign = $('#assignmentButton'+code).attr('src');
-        $('[class="assignment-button"]').attr('src', 'images/Dropdown_Plus.png');
-        $('#assignmentButton'+code).attr('src', (sign === 'images/Dropdown_Plus.png') ? 'images/Dropdown_Minus.png' : 'images/Dropdown_Plus.png');
-      }
-    };
   });
+
+function changeButton(element) {
+  var code = element.id;
+  if (!$('#collapse'+code).hasClass('collapsing')) {
+    var sign = $(element).children().attr('src');
+    $('[class="assignment-button"]').attr('src', 'images/Dropdown_Plus.png');
+    $('#assignmentButton'+code).attr('src', (sign === 'images/Dropdown_Plus.png') ? 'images/Dropdown_Minus.png' : 'images/Dropdown_Plus.png');
+  }
+}
