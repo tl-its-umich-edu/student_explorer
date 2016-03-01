@@ -14,10 +14,14 @@
     </div>
     <div id="collapse{{assignment.assignment.code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{assignment.assignment.code}}">
       <div class="panel-body">
-        <span class="assignment-detail assignment-detail-left"><span class="assignment-detail-bold mobile-div">Due Date:</span> {{assignment.due_date | date}}</span>
-        <span class="assignment-detail assignment-detail-right"><span class="assignment-detail-bold mobile-div">Score:</span> {{assignment.points_earned}} / {{assignment.points_possible}}</span>
-        <span class="assignment-detail assignment-detail-left"><span class="assignment-detail-bold">Student's Grade</span><br><span class="assignment-detail-grade">{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</span></span>
-        <span class="assignment-detail assignment-detail-right"><span class="assignment-detail-bold">Class Average</span><br><span class="assignment-detail-grade">{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</span></span>
+        <div class="assignment-row">
+          <div class="assignment-detail assignment-detail-left"><span class="assignment-detail-bold mobile-div">Due Date:</span> {{assignment.due_date | date}}</div>
+          <div class="assignment-detail assignment-detail-right"><span class="assignment-detail-bold mobile-div">Score:</span> {{assignment.points_earned}} / {{assignment.points_possible}}</div>
+        </div>
+        <div class="assignment-row">
+          <div class="assignment-detail assignment-detail-left"><span class="assignment-detail-bold">Student's Grade</span><br><span class="assignment-detail-grade">{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</span></div>
+          <div class="assignment-detail assignment-detail-right"><span class="assignment-detail-bold">Class Average</span><br><span class="assignment-detail-grade">{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</span></div>
+        </div>
       </div>
     </div>
   </div>

@@ -441,11 +441,16 @@ svg text {
     margin-right: 20px;
 }
 
+.assignment-row {
+    height: 80px;
+    display: block;
+    margin-bottom: 20px;
+}
+
 .assignment-detail {
     width: 35%;
     margin: 10px auto;
     font-size: 18px;
-    display: inline-block;
 }
 
 .assignment-detail-bold {
@@ -464,7 +469,7 @@ svg text {
 
 .assignment-detail-right {
     float: right;
-    display: inline-block;
+    display: inline;
     margin-right: 5%;
 }
 
