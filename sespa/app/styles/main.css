@@ -152,7 +152,19 @@ a.class-site-status-link {
 .class-site-status {
   height: 20pt;
   margin-right: 5px;
+  content:url("../images/Status_Icons_Not Applicable.png")
 }
+
+.status-encourage {
+  content:url("../images/Status_Icons_Green.png")
+}
+.status-explore {
+  content:url("../images/Status_Icons_Yellow.png")
+}
+.status-engage {
+  content:url("../images/Status_Icons_Red.png")
+}
+
 
 @media screen and (max-width: 768px) {
   .open > .dropdown-menu {
