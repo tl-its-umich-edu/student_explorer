@@ -50,7 +50,7 @@
       </th>
       <td class="hide-small">{{ student.univ_id }}</td>
       <td>
-        <a href="#/students/{{ student.username }}/class_sites/{{ class_site_status.class_site_id }}/"
+        <a href="#/students/{{ student.username }}/class_sites/{{ class_site_status.class_site_code }}/"
            class="class-site-status-link"
            ng-repeat="class_site_status in student.class_site_statuses track by $index"
            status-tooltip status="class_site_status.status"
