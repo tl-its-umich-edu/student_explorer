@@ -18,7 +18,7 @@
           <div class="assignment-detail assignment-detail-left"><span class="assignment-detail-bold mobile-div">Due Date:</span> {{assignment.due_date | date}}</div>
           <div class="assignment-detail assignment-detail-right"><span class="assignment-detail-bold mobile-div">Score:</span> {{assignment.points_earned}} / {{assignment.points_possible}}</div>
         </div>
-        <div class="assignment-row">
+        <div class="assignment-row assignment-row-lower">
           <div class="assignment-detail assignment-detail-left"><span class="assignment-detail-bold">Student's Grade</span><br><span class="assignment-detail-grade">{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</span></div>
           <div class="assignment-detail assignment-detail-right"><span class="assignment-detail-bold">Class Average</span><br><span class="assignment-detail-grade">{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</span></div>
         </div>

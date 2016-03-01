@@ -444,6 +444,9 @@ svg text {
 .assignment-row {
     height: 80px;
     display: block;
+}
+
+.assignment-row-lower {
     margin-bottom: 20px;
 }
 
