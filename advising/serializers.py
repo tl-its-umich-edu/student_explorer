@@ -89,14 +89,14 @@ class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
 
     def get_status_trend(self, studentClassSiteStatus):
         try:
-            currentStatusOrder = studentClassSiteStatus.status.order
-            previousStatusOrder = studentClassSiteStatus.class_site.weeklystudentclasssitestatus_set \
-                .filter(student=studentClassSiteStatus.student, week_end_date__isnull=False) \
-                .order_by('week_end_date').last().status.order
-        except:
+            currentStatusOrder = int(studentClassSiteStatus.status.order)
+            previousStatusOrder = int(studentClassSiteStatus.class_site.weeklystudentclasssitestatus_set \
+                .filter(student=studentClassSiteStatus.student).exclude(week_end_date=None) \
+                .order_by('week_end_date').last().status.order)
+        except (AttributeError, TypeError):
             return None
 
-        statusOrderDifference = int(previousStatusOrder) - int(currentStatusOrder)
+        statusOrderDifference = previousStatusOrder - currentStatusOrder
         statusOrderTrend = {
             1: 'up',
             0: 'steady',
