@@ -347,8 +347,8 @@ class StudentClassSiteHistoryList(APIView):
 
                 todaysStatus = student.studentclasssitestatus_set.get(class_site=class_site)
                 entry['status'] = str(todaysStatus.status.description)
-                entry['status_order'] = int(todaysStatus.status.order)
-                
+                entry['status_order'] = todaysStatus.status.order
+
                 class_site_score = ClassSiteScore.objects.get(class_site__code=code)
                 entry['class_score'] = class_site_score.current_score_average
             history.append(entry)
