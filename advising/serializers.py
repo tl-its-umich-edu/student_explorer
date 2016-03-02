@@ -74,7 +74,7 @@ class StudentClassSiteHyperlink(serializers.HyperlinkedIdentityField):
 
 
 class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
-    class_site_id = serializers.ReadOnlyField(source='class_site.id')
+    code = serializers.ReadOnlyField(source='class_site.code')
     name = serializers.ReadOnlyField(source='class_site.description')
     url = StudentClassSiteHyperlink(
             read_only=True,
@@ -84,7 +84,7 @@ class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('class_site_id', 'name', 'url', 'status')
+        fields = ('code', 'name', 'url', 'status')
 
 
 class StudentSerializer(serializers.ModelSerializer):
