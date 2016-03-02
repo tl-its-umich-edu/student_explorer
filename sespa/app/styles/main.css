@@ -254,6 +254,8 @@ a.class-site-status-link {
   border-radius: 0;
   box-shadow: none;
   margin-bottom: 0;
+  width: 60%;
+  overflow: visible;
 }
 
 .progress-bar {
@@ -318,12 +320,12 @@ a.class-site-status-link {
 }
 
 /* For student grade progress bar*/
-.studentGradeBar {
+.student-average-bar {
   background: #255c91;
   position: relative;
 }
 
-.classAveBar {
+.class-average-bar {
   background: #F0D654;
   height: 20px;
   position: relative;
