@@ -105,7 +105,7 @@ angular.module('sespaApp')
 
   });
 
-function changeButton(element) {
+function toggleAssignment(element) {
   var code = element.id;
   if (!$('#collapse'+code).hasClass('collapsing')) {
     var sign = $(element).children().attr('src');

@@ -6,7 +6,7 @@
         <span class="assignment-title-right">
           <span class="assignment-title-score" ng-if="assignment.points_earned && assignment.points_possible > 0">{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</span>
           <a class="assignment-button" id="{{assignment.assignment.code}}" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapse{{assignment.assignment.code}}"
-          onclick="changeButton(this)" aria-expanded="true" aria-controls="collapse{{assignment.assignment.code}}">
+          onclick="toggleAssignment(this)" aria-expanded="true" aria-controls="collapse{{assignment.assignment.code}}">
             <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="images/Dropdown_Plus.png" alt="Expand"/>
           </a>
         </span>
