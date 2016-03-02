@@ -81,10 +81,29 @@ class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
             view_name='student-classsite-detail'
     )
     status = serializers.ReadOnlyField(source='status.description')
+    status_trend = serializers.SerializerMethodField()
 
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('code', 'name', 'url', 'status')
+        fields = ('code', 'name', 'url', 'status', 'status_trend')
+
+    def get_status_trend(self, studentClassSiteStatus):
+        try:
+            currentStatusOrder = int(studentClassSiteStatus.status.order)
+            previousStatusOrder = int(studentClassSiteStatus.class_site.weeklystudentclasssitestatus_set \
+                .filter(student=studentClassSiteStatus.student).exclude(week_end_date=None) \
+                .order_by('week_end_date').last().status.order)
+        except (AttributeError, TypeError):
+            return None
+
+        statusOrderDifference = previousStatusOrder - currentStatusOrder
+        statusOrderTrend = {
+            1: 'up',
+            0: 'steady',
+            -1: 'down',
+        }
+
+        return statusOrderTrend.get(cmp(statusOrderDifference, 0))
 
 
 class StudentSerializer(serializers.ModelSerializer):
