@@ -93,6 +93,14 @@ body {
 th[scope="row"] {
   font-weight:normal;
 }
+
+/* For tables on student-class-site-list */
+.student-class-site-list-table > tbody > tr > th,
+.student-class-site-list-table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+
 /* Custom page footer */
 .footer {
   padding-top: 19px;
@@ -211,7 +219,7 @@ a.class-site-status-link {
 
 /* For progress bar */
 .progress {
-  width: 200px;
+  width: 60%;
   overflow: visible;
 }
 
