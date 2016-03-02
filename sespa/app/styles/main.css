@@ -82,14 +82,7 @@ body {
   padding-bottom: 19px;
 }
 
-.student-info table tbody th,
-.student-info table tbody td {
-    border: 0;
-}
 
-.student-info table tbody td p {
-    margin: 0 0 2px;
-}
 th[scope="row"] {
   font-weight:normal;
 }
@@ -100,6 +93,20 @@ th[scope="row"] {
   vertical-align: middle;
 }
 
+/* For student-info on student-class-site-list view */
+.student-info {
+  background-color: #eee;
+  padding: .75em;
+  margin-bottom: 2em;
+}
+
+.student-info p {
+  display: inline;
+}
+
+.advisor-names {
+  margin-right: .4em;
+}
 
 /* Custom page footer */
 .footer {
@@ -234,7 +241,7 @@ a.class-site-status-link {
 .progress-bar {
   text-align: left;
   padding-left: 5px;
-  min-width: 5em;
+  min-width: .5em;
 }
 
 .progress-bar-flat {
