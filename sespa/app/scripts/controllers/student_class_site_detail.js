@@ -102,4 +102,14 @@ angular.module('sespaApp')
     }, function(reason) {
       advisingUtilities.httpErrorHandler(reason, $scope);
     });
+
   });
+
+function toggleAssignment(element) {
+  var code = element.id;
+  if (!$('#collapse'+code).hasClass('collapsing')) {
+    var sign = $(element).children().attr('src');
+    $('[class="assignment-button"]').attr('src', 'images/Dropdown_Plus.png');
+    $('#assignmentButton'+code).attr('src', (sign === 'images/Dropdown_Plus.png') ? 'images/Dropdown_Minus.png' : 'images/Dropdown_Plus.png');
+  }
+}
