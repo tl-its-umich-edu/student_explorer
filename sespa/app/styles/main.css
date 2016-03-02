@@ -186,13 +186,15 @@ a.class-site-status-link {
   }
 }
 
+@media screen and (max-width: 736px) {
+  .navbar-fixed-bottom {
+    position: relative;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .hide-small {
     display: none;
-  }
-
-  .navbar-fixed-bottom {
-    position: relative;
   }
 
   body {
