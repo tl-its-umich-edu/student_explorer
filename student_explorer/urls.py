@@ -16,7 +16,14 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.static import serve
+from django.conf import settings
+
 import hashredirect.views
+
+if settings.DEBUG:
+    document_root = 'sespa/app'
+else:
+    document_root = 'sespa/dist'
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -26,7 +33,7 @@ urlpatterns = [
     url(r'^api/users/', include('umichuser.urls')),
 
     url(r'^$', hashredirect.views.login_or_serve, {
-        'document_root': 'sespa/app',
+        'document_root': document_root,
         'path': 'index.html'
     }, name='app-root'),
 
@@ -34,11 +41,17 @@ urlpatterns = [
         name='hashredirect-login-redirect'),
     url(r'^logout/$', hashredirect.views.logout_redirect,
         name='hashredirect-logout-redirect'),
+]
 
-    url(r'^bower_components/(?P<path>.*)$', serve, {
-        'document_root': 'sespa/bower_components',
-    }),
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^bower_components/(?P<path>.*)$', serve, {
+            'document_root': 'sespa/bower_components',
+        }),
+    ]
+
+urlpatterns += [
     url(r'^(?P<path>.*)$', serve, {
-        'document_root': 'sespa/app',
+        'document_root': document_root,
     }),
 ]

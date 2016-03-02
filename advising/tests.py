@@ -65,7 +65,7 @@ class AdvisingModelsTestCase(TestCase):
 
         self.assertEqual('Math 101 Lab', str(w[0].class_site))
         self.assertEqual('grace', str(w[0].student))
-        self.assertEqual('Yellow', str(w[0].status))
+        self.assertEqual('Not Applicable', str(w[0].status))
         self.assertEqual('2015-09-12', str(w[0].week_end_date))
 
     def test_SourceSystem(self):
