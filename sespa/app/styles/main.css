@@ -244,29 +244,14 @@ a.class-site-status-link {
 
 /* For progress bar */
 .progress {
-  width: 60%;
-  overflow: visible;
-}
-
-.progress-flat {
-  -webkit-box-shadow: none;
-  background-color: transparent;
-  border-radius: 0;
-  box-shadow: none;
-  margin-bottom: 0;
-  width: 60%;
+  width: 200px;
   overflow: visible;
 }
 
 .progress-bar {
   text-align: left;
   padding-left: 5px;
-  min-width: .5em;
-}
-
-.progress-bar-flat {
-  box-shadow: none;
-  -webkit-box-shadow: none;
+  min-width: 5em;
 }
 
 .progress-label {
@@ -279,18 +264,6 @@ a.class-site-status-link {
     margin-left: 6px;
 }
 
-.progress-text-outside {
-  color: black;
-  display: inline-block;
-  padding-left: 5px;
-  position: absolute;
-  right: 0;
-  transform: translateX(100%);
-  -webkit-transform: translateX(100%);
-  -ms-transform: translateX(100%);
-  -o-transform: translateX(100%);
-  transform: translateX(100%);
-}
 
 /* For student and class average legend */
 
@@ -320,16 +293,54 @@ a.class-site-status-link {
 }
 
 /* For student grade progress bar*/
+.average-bar-container {
+  -webkit-box-shadow: none;
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  height: 20px;
+  margin-bottom: 0;
+  overflow: visible;
+  width: 60%;
+}
+
+.average-bar {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  float: left;
+  font-size: 12px;
+  height: 100%;
+  line-height: 20px;
+  min-width: .5em;
+  padding-left: 5px;
+  position: relative;
+  text-align: center;
+  text-align: left;
+  -o-transition: width .6s ease;
+  -webkit-transition: width .6s ease;
+  transition: width .6s ease;
+}
+
 .student-average-bar {
   background: #255c91;
-  position: relative;
 }
 
 .class-average-bar {
   background: #F0D654;
-  height: 20px;
-  position: relative;
-  width: 5px;
+}
+
+.average-bar-text {
+  color: black;
+  display: inline-block;
+  margin-left: 6px;
+  padding-left: 5px;
+  position: absolute;
+  right: 0;
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  -o-transform: translateX(100%);
+  transform: translateX(100%);
 }
 
 
