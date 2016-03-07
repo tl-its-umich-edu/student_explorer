@@ -15,12 +15,12 @@ angular.module('sespaApp')
     $scope.sortReverse = false;
 
     var displayStudents = function(students) {
+      $scope.progress = 100;
       $scope.students = students;
     };
 
     if (typeof $routeParams.search !== 'undefined') {
       $scope.$parent.search = $routeParams.search;
-      $scope.progress = 100;
       advisingData.searchStudents($routeParams.search).then(displayStudents, function(reason) {
         advisingUtilities.httpErrorHandler(reason, $scope);
       }, function(update) {
@@ -29,7 +29,6 @@ angular.module('sespaApp')
     } else if (typeof $routeParams.univ_id !== 'undefined') {
       // When filtering for a student, check to see if any student matches the filter terms.
       // Then redirect the user to that student's page. If no student matches, show an error.
-      $scope.progress = 100;
       advisingData.filterStudents({
         'univ_id': $routeParams.univ_id
       }).then(function(data) {
