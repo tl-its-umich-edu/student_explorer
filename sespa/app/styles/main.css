@@ -145,6 +145,12 @@ th[scope="row"] {
   }
 }
 
+@media screen and (min-width: 769px) {
+  .assignment-list {
+      display: none;
+  }
+}
+
 a.class-site-status-link {
   text-decoration: none;
 }
@@ -184,6 +190,18 @@ a.class-site-status-link {
     margin-bottom: 10px;
     width: 100%
   }
+  .assignment-table {
+      display: none;
+  }
+  .table-responsive {
+      border: none;
+  }
+}
+
+@media screen and (max-width: 736px) {
+  .navbar-fixed-bottom {
+    position: relative;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -191,15 +209,15 @@ a.class-site-status-link {
     display: none;
   }
 
-  .navbar-fixed-bottom {
-    position: relative;
-  }
-
   body {
     padding-bottom: 0;
   }
 
   .footer-block {
+    display: block;
+  }
+
+  .mobile-div {
     display: block;
   }
 }
@@ -315,7 +333,7 @@ a.class-site-status-link {
     color: #e5e5e5 !important;
 }
 .main-navbar-brand {
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .main-page-end-margin-bottom{
@@ -402,4 +420,64 @@ svg text {
 
 .nv-x .tick line {
     display: none;
+}
+
+.panel-title {
+    vertical-align: middle;
+}
+
+.assignment-title-right {
+    float: right;
+}
+
+.assignment-button {
+    width: 20px;
+    padding-bottom: 5px;
+}
+
+.assignment-title {
+    font-size: 18px;
+}
+
+.assignment-title-score {
+    margin-right: 20px;
+}
+
+.assignment-row {
+    height: 80px;
+    display: block;
+}
+
+.assignment-row-lower {
+    margin-bottom: 20px;
+}
+
+.assignment-detail {
+    width: 35%;
+    margin: 10px auto;
+    font-size: 18px;
+}
+
+.assignment-detail-bold {
+    font-weight: bold;
+}
+
+.assignment-detail-grade {
+    font-size: 25px;
+    margin-top: 10px;
+}
+
+.assignment-detail-left {
+    display: inline-block;
+    margin-left: 10%;
+}
+
+.assignment-detail-right {
+    float: right;
+    display: inline;
+    margin-right: 5%;
+}
+
+.collapsing {
+    width: 100%;
 }
