@@ -82,17 +82,32 @@ body {
   padding-bottom: 19px;
 }
 
-.student-info table tbody th,
-.student-info table tbody td {
-    border: 0;
-}
 
-.student-info table tbody td p {
-    margin: 0 0 2px;
-}
 th[scope="row"] {
   font-weight:normal;
 }
+
+/* For tables on student-class-site-list */
+.student-class-site-list-table > tbody > tr > th,
+.student-class-site-list-table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+/* For student-info on student-class-site-list view */
+.student-info {
+  background-color: #eee;
+  padding: .75em;
+  margin-bottom: 2em;
+}
+
+.student-info p {
+  display: inline;
+}
+
+.advisor-names {
+  margin-right: .4em;
+}
+
 /* Custom page footer */
 .footer {
   padding-top: 19px;
@@ -145,6 +160,12 @@ th[scope="row"] {
   }
 }
 
+@media screen and (min-width: 769px) {
+  .assignment-list {
+      display: none;
+  }
+}
+
 a.class-site-status-link {
   text-decoration: none;
 }
@@ -152,11 +173,49 @@ a.class-site-status-link {
 .class-site-status {
   height: 20pt;
   margin-right: 5px;
+  content:url("../images/Status_Icons_Not Applicable.png")
 }
+
+.status-encourage {
+  content:url("../images/Status_Icons_Green.png")
+}
+.status-explore {
+  content:url("../images/Status_Icons_Yellow.png")
+}
+.status-engage {
+  content:url("../images/Status_Icons_Red.png")
+}
+
 
 @media screen and (max-width: 768px) {
   .open > .dropdown-menu {
     color: #9d9d9d;
+  }
+  .sub-header {
+    margin-top: 0;
+  }
+  .alert-container {
+    position: inherit;
+    width: 100%;
+    top: 70px;
+    z-index: 1000;
+    padding: 10px
+  }
+  .alert-container div {
+    margin-bottom: 10px;
+    width: 100%
+  }
+  .assignment-table {
+      display: none;
+  }
+  .table-responsive {
+      border: none;
+  }
+}
+
+@media screen and (max-width: 736px) {
+  .navbar-fixed-bottom {
+    position: relative;
   }
 }
 
@@ -165,15 +224,15 @@ a.class-site-status-link {
     display: none;
   }
 
-  .navbar-fixed-bottom {
-    position: relative;
-  }
-
   body {
     padding-bottom: 0;
   }
 
   .footer-block {
+    display: block;
+  }
+
+  .mobile-div {
     display: block;
   }
 }
@@ -186,34 +245,104 @@ a.class-site-status-link {
 /* For progress bar */
 .progress {
   width: 200px;
+  overflow: visible;
 }
 
 .progress-bar {
   text-align: left;
   padding-left: 5px;
+  min-width: 5em;
 }
 
 .progress-label {
   font-weight: bold;
 }
 
+.progress-text{
+    color:#c8d6c7;
+    display: none;
+    margin-left: 6px;
+}
+
+
+/* For student and class average legend */
+
+.legend-text {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.legend-text:not(:first-of-type) {
+  margin-left: 1em;
+}
+
+.legend-key {
+  border-radius: 50%;
+  display: inline-block;
+  height: 10px;
+  margin-right: 0.4em;
+  width: 10px;
+}
+
+.student-legend-key {
+  background-color: #255c91;
+}
+
+.class-legend-key {
+  background-color: #F0D654;
+}
+
 /* For student grade progress bar*/
-.studentGradeBar {
+.average-bar-container {
+  -webkit-box-shadow: none;
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  height: 20px;
+  margin-bottom: 0;
+  overflow: visible;
+  width: 60%;
+}
+
+.average-bar {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  float: left;
+  font-size: 12px;
+  height: 100%;
+  line-height: 20px;
+  min-width: .5em;
+  padding-left: 5px;
+  position: relative;
+  text-align: center;
+  text-align: left;
+  -o-transition: width .6s ease;
+  -webkit-transition: width .6s ease;
+  transition: width .6s ease;
+}
+
+.student-average-bar {
   background: #255c91;
 }
 
-.classAveBar {
-  width: 5px;
-  height: 20px;
-  position: relative;
-  background: #dac251;
+.class-average-bar {
+  background: #F0D654;
 }
 
-.progress-text{
-    display: none;
-    color:#c8d6c7;
-    margin-left: 6px;
+.average-bar-text {
+  color: black;
+  display: inline-block;
+  margin-left: 6px;
+  padding-left: 5px;
+  position: absolute;
+  right: 0;
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  -o-transform: translateX(100%);
+  transform: translateX(100%);
 }
+
 
 .main-no-margin-top{
     margin-top: 0px;
@@ -232,7 +361,7 @@ a.class-site-status-link {
     color: #e5e5e5 !important;
 }
 .main-navbar-brand {
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .main-page-end-margin-bottom{
@@ -321,11 +450,62 @@ svg text {
     display: none;
 }
 
-.relative-to-ave-icon {
-    float: right;
-    margin-right: 30%;
+.panel-title {
+    vertical-align: middle;
 }
 
-.relative-to-ave-icon img {
-    margin-right: 0;
+.assignment-title-right {
+    float: right;
+}
+
+.assignment-button {
+    width: 20px;
+    padding-bottom: 5px;
+}
+
+.assignment-title {
+    font-size: 18px;
+}
+
+.assignment-title-score {
+    margin-right: 20px;
+}
+
+.assignment-row {
+    height: 80px;
+    display: block;
+}
+
+.assignment-row-lower {
+    margin-bottom: 20px;
+}
+
+.assignment-detail {
+    width: 35%;
+    margin: 10px auto;
+    font-size: 18px;
+}
+
+.assignment-detail-bold {
+    font-weight: bold;
+}
+
+.assignment-detail-grade {
+    font-size: 25px;
+    margin-top: 10px;
+}
+
+.assignment-detail-left {
+    display: inline-block;
+    margin-left: 10%;
+}
+
+.assignment-detail-right {
+    float: right;
+    display: inline;
+    margin-right: 5%;
+}
+
+.collapsing {
+    width: 100%;
 }

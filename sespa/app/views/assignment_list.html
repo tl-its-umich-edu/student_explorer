@@ -1,0 +1,28 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
+    <div class="panel-heading" role="tab" id="heading{{assignment.assignment.code}}">
+      <h4 class="panel-title">
+        <span class="assignment-title">{{assignment.assignment.description }}</span>
+        <span class="assignment-title-right">
+          <span class="assignment-title-score" ng-if="assignment.points_earned && assignment.points_possible > 0">{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</span>
+          <a class="assignment-button" id="{{assignment.assignment.code}}" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapse{{assignment.assignment.code}}"
+          onclick="toggleAssignment(this)" aria-expanded="true" aria-controls="collapse{{assignment.assignment.code}}">
+            <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="images/Dropdown_Plus.png" alt="Expand"/>
+          </a>
+        </span>
+      </h4>
+    </div>
+    <div id="collapse{{assignment.assignment.code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{assignment.assignment.code}}">
+      <div class="panel-body">
+        <div class="assignment-row">
+          <div class="assignment-detail assignment-detail-left"><span class="assignment-detail-bold mobile-div">Due Date:</span> {{assignment.due_date | date}}</div>
+          <div class="assignment-detail assignment-detail-right"><span class="assignment-detail-bold mobile-div">Score:</span> {{assignment.points_earned}} / {{assignment.points_possible}}</div>
+        </div>
+        <div class="assignment-row assignment-row-lower">
+          <div class="assignment-detail assignment-detail-left"><span class="assignment-detail-bold">Student's Grade</span><br><span class="assignment-detail-grade">{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</span></div>
+          <div class="assignment-detail assignment-detail-right"><span class="assignment-detail-bold">Class Average</span><br><span class="assignment-detail-grade">{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
