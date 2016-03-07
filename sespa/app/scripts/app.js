@@ -67,9 +67,3 @@ angular
         redirectTo: '/'
       });
   });
-
-/* Index nav bar*/
-$('[data-toggle="collapse"]').on('click', function() { 
-    $('li.active').removeClass('active');
-    $(this).parent('li').addClass('active'); 
-});
