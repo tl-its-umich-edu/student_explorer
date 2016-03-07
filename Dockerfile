@@ -9,7 +9,7 @@ RUN apt-get --no-install-recommends install --yes \
     nodejs npm
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
-RUN npm install -g bower
+RUN npm install -g bower grunt-cli
 
 WORKDIR /tmp/
 
@@ -30,6 +30,8 @@ COPY . /usr/src/app
 
 WORKDIR /usr/src/app/sespa
 RUN bower --allow-root install
+RUN npm install
+RUN grunt build
 WORKDIR /usr/src/app
 
 EXPOSE 8000

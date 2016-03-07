@@ -18,7 +18,6 @@ angular
     'ngTouch',
     'ui-rangeSlider',
     'nvd3ChartDirectives',
-    'sespaFilters'
   ])
   .config(function($routeProvider) {
     $routeProvider
@@ -68,15 +67,6 @@ angular
         redirectTo: '/'
       });
   });
-
-/* Remove cache */
-angular
-  .module('sespaApp')
-  .run(function($rootScope, $templateCache) {
-   $rootScope.$on('$viewContentLoaded', function() {
-      $templateCache.removeAll();
-   });
-});
 
 /* Index nav bar*/
 $('[data-toggle="collapse"]').on('click', function() { 

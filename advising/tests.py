@@ -65,7 +65,7 @@ class AdvisingModelsTestCase(TestCase):
 
         self.assertEqual('Math 101 Lab', str(w[0].class_site))
         self.assertEqual('grace', str(w[0].student))
-        self.assertEqual('Yellow', str(w[0].status))
+        self.assertEqual('Not Applicable', str(w[0].status))
         self.assertEqual('2015-09-12', str(w[0].week_end_date))
 
     def test_SourceSystem(self):
@@ -270,7 +270,7 @@ class AdvisingApiMentorTestCase(TestCase):
         data = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(data['count'], 17)
+        self.assertEqual(data['count'], 16)
 
     def test_mentors_student_list_not_exists(self):
         response = self.client.get(reverse('mentor-students-list',
