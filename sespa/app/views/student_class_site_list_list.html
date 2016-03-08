@@ -1,0 +1,24 @@
+<div class="legend-text-block">
+  <p class="legend-text"><span class="legend-key student-legend-key"></span>Student</p>
+  <p class="legend-text"><span class="legend-key class-legend-key"></span>Class Average</p>
+</div>
+<div class="card-block" ng-repeat="classSite in classSites | orderBy:sortType:sortReverse | filter:searchAdvisor">
+  <div class="card-title">
+      <a href="#/students/{{student.username}}/class_sites/{{classSite.class_site.code}}">{{ classSite.class_site.description }}</a>
+      <span class="card-class-site-status" status-tooltip status="classSite.status" tooltiptext="classSite.status | colorToStatus"></span>
+  </div>
+  <div class="average-bar-container" ng-if="classSite.current_student_score_average || classSite.current_class_score_average">
+    <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{classSite.current_student_score_average}}"
+      aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_student_score_average}}%;">
+      <p class="average-bar-text">{{classSite.current_student_score_average}}%</p>
+      <span class="sr-only">Student Percentage: {{classSite.current_student_score_average}}%</span>
+    </div>
+  </div>
+  <div class="average-bar-container class-average-bar-container" ng-if="classSite.current_student_score_average || classSite.current_class_score_average">
+    <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{classSite.current_class_score_average}}"
+      aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_class_score_average}}%;">
+      <p class="average-bar-text">{{classSite.current_class_score_average}}%</p>
+      <span class="sr-only">Class Average Percentage: {{classSite.current_class_score_average}}%</span>
+    </div>
+  </div>
+</div>
