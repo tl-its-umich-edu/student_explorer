@@ -15,6 +15,7 @@ angular.module('sespaApp')
     $scope.sortReverse = false;
 
     var displayStudents = function(students) {
+      $scope.progress = 100;
       $scope.students = students;
     };
 
@@ -22,6 +23,8 @@ angular.module('sespaApp')
       $scope.$parent.search = $routeParams.search;
       advisingData.searchStudents($routeParams.search).then(displayStudents, function(reason) {
         advisingUtilities.httpErrorHandler(reason, $scope);
+      }, function(update) {
+        advisingUtilities.updateProgress(update, $scope);
       });
     } else if (typeof $routeParams.univ_id !== 'undefined') {
       // When filtering for a student, check to see if any student matches the filter terms.
@@ -36,6 +39,8 @@ angular.module('sespaApp')
         }
       }, function(reason) {
         advisingUtilities.httpErrorHandler(reason, $scope);
+      }, function(update) {
+        advisingUtilities.updateProgress(update, $scope);
       });
     } else {
       displayStudents([]);

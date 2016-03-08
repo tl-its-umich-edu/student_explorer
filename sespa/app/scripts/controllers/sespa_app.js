@@ -25,4 +25,8 @@ angular.module('sespaApp')
       console.log(reason);
       advisingUtilities.alert('You are not logged in! <a href="login/">Login</a>', 'danger');
     });
+    
+    $scope.isActive = function (viewLocation) { 
+        return viewLocation === $location.path();
+    };
   });
