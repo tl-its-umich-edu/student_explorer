@@ -186,16 +186,6 @@ a.class-site-status-link {
   content:url("../images/Status_Icons_Red.png")
 }
 
-.status-above {
-  content:url("../images/Status_Icons_Above.png")
-}
-.status-near {
-  content:url("../images/Status_Icons_Near.png")
-}
-.status-below {
-  content:url("../images/Status_Icons_Below.png")
-}
-
 @media screen and (max-width: 768px) {
   .open > .dropdown-menu {
     color: #9d9d9d;
@@ -517,9 +507,4 @@ svg text {
 
 .collapsing {
     width: 100%;
-}
-
-.relative-to-ave-icon {
-    float: right;
-    margin-right: 30%;
 }
