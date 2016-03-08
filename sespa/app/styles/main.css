@@ -186,7 +186,6 @@ a.class-site-status-link {
   content:url("../images/Status_Icons_Red.png")
 }
 
-
 @media screen and (max-width: 768px) {
   .open > .dropdown-menu {
     color: #9d9d9d;
