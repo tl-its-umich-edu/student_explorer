@@ -1,14 +1,15 @@
 from advising.models import (Advisor, Student, Mentor, ClassSite,
                              ClassSiteScore,
                              StudentClassSiteStatus,
-                             StudentClassSiteAssignment)
+                             StudentClassSiteAssignment,
+                             StudentAdvisorRole)
 from advising.serializers import (AdvisorSerializer,
                                   MentorSerializer,
                                   ClassSiteSerializer,
                                   StudentSerializer,
                                   StudentClassSiteSerializer,
                                   StudentClassSiteAssignmentSerializer,
-                                  StudentAdvisorSerializer,
+                                  StudentAdvisorRoleSerializer,
                                   StudentMentorSerializer)
 from advising.mixins import MultipleFieldLookupMixin
 from rest_framework import generics
@@ -206,18 +207,22 @@ class StudentDetail(generics.RetrieveAPIView):
     lookup_field = 'username'
 
 
-class StudentAdvisorList(generics.ListAPIView):
+class StudentAdvisorRoleList(generics.ListAPIView):
     '''
-    API endpoint that lists a student's advisors.
+    API endpoint that lists a student's advisors and their roles.
     '''
-    serializer_class = StudentAdvisorSerializer
+    serializer_class = StudentAdvisorRoleSerializer
     lookup_field = 'username'
 
     def get_queryset(self):
-        return (
-            get_object_or_404(Student, username=self.kwargs['username'])
-            .studentadvisorrole_set.all()
-        )
+
+        student = get_object_or_404(Student, username=self.kwargs['username'])
+
+        studentAdvisors = StudentAdvisorRole.objects.filter(student=student).distinct()\
+            .values('student_id', 'advisor_id')
+        logger.debug(studentAdvisors)
+
+        return studentAdvisors
 
 
 class StudentMentorList(generics.ListAPIView):
