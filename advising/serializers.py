@@ -162,7 +162,7 @@ class StudentAdvisorRoleSerializer(serializers.ModelSerializer):
     descriptions for a specific student.
     """
     advisor = serializers.SerializerMethodField()
-    roles = serializers.SerializerMethodField()
+    roles = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = StudentAdvisorRole
