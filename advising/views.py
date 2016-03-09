@@ -215,10 +215,9 @@ class StudentAdvisorRoleList(generics.ListAPIView):
     lookup_field = 'username'
 
     def get_queryset(self):
-
         student = get_object_or_404(Student, username=self.kwargs['username'])
 
-        studentAdvisors = StudentAdvisorRole.objects.filter(student=student).distinct()\
+        studentAdvisors = StudentAdvisorRole.objects.filter(student=student).distinct() \
             .values('student_id', 'advisor_id')
         logger.debug(studentAdvisors)
 
