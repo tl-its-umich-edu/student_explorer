@@ -4,7 +4,7 @@
   <p>There is no class site data for this student.</p>
 </div>
 <div ng-if="classSites.length > 0" class="table-responsive">
-  <table class="table">
+  <table class="table student-class-site-list-table">
     <thead>
       <tr>
         <th scope="col">
@@ -36,17 +36,17 @@
           <span status-tooltip status="classSite.status" tooltiptext="classSite.status | colorToStatus"></span>
         </td>
         <td>
-          <div class="progress progress-flat" ng-if="classSite.current_student_score_average || classSite.current_class_score_average">
-            <div class="progress-bar progress-bar-flat studentGradeBar" role="progressbar" aria-valuenow="{{classSite.current_student_score_average}}"
+          <div class="average-bar-container" ng-if="classSite.current_student_score_average || classSite.current_class_score_average">
+            <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{classSite.current_student_score_average}}"
               aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_student_score_average}}%;">
-              <p class="progress-text progress-text-outside">{{classSite.current_student_score_average}}%</p>
+              <p class="average-bar-text">{{classSite.current_student_score_average}}%</p>
               <span class="sr-only">Student Percentage: {{classSite.current_student_score_average}}%</span>
             </div>
           </div>
-          <div class="progress progress-flat" ng-if="classSite.current_student_score_average || classSite.current_class_score_average">
-            <div class="progress-bar progress-bar-flat classAveBar" role="progressbar" aria-valuenow="{{classSite.current_class_score_average}}"
+          <div class="average-bar-container" ng-if="classSite.current_student_score_average || classSite.current_class_score_average">
+            <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{classSite.current_class_score_average}}"
               aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_class_score_average}}%;">
-              <p class="progress-text progress-text-outside">{{classSite.current_class_score_average}}%</p>
+              <p class="average-bar-text">{{classSite.current_class_score_average}}%</p>
               <span class="sr-only">Class Average Percentage: {{classSite.current_class_score_average}}%</span>
             </div>
           </div>
