@@ -38,7 +38,7 @@ class AdvisorRoleSerializer(AdvisorSerializer):
         :return: A tuple of descriptions of all the advisor's roles
         :rtype: tuple
         """
-        studentUsername = self.context['view'].kwargs['username']
+        studentUsername = self.context['username']
         return (StudentAdvisorRole.objects
                 .filter(student__username=studentUsername, advisor=advisor)
                 .values_list('role__description', flat=True).distinct())

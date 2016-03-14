@@ -53,6 +53,10 @@ class AdvisorList(generics.ListAPIView):
     '''
     API endpoint that lists advisors.
     '''
+    def get_serializer_context(self):
+        serializerContext = super(AdvisorList, self).get_serializer_context()
+        serializerContext.update(self.kwargs)
+        return serializerContext
 
     def get_queryset(self):
         if 'username' in self.kwargs:
