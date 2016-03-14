@@ -23,23 +23,23 @@ class AdvisorSerializer(serializers.ModelSerializer):
                   'students_url')
 
 
+class CohortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cohort
+        fields = ('code', 'description', 'group')
+
+
 class MentorSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='mentor-detail',
-                                               lookup_field='username')
+    url = serializers.HyperlinkedIdentityField(
+            view_name='mentor-detail', lookup_field='username')
     students_url = serializers.HyperlinkedIdentityField(
-        view_name='mentor-students-list', lookup_field='username')
+            view_name='mentor-students-list', lookup_field='username')
+    cohorts = CohortSerializer(many=True)
 
     class Meta:
         model = Mentor
         fields = ('username', 'univ_id', 'first_name', 'last_name', 'url',
-                  'students_url')
-
-
-class CohortSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Cohort
-        fields = ('code', 'description', 'group')
+                  'students_url', 'cohorts',)
 
 
 class ClassSiteSerializer(serializers.ModelSerializer):
