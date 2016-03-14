@@ -213,6 +213,9 @@ a.class-site-status-link {
 }
 
 @media screen and (max-width: 736px) {
+  body {
+    padding-bottom: 0;
+  }
   .navbar-fixed-bottom {
     position: relative;
   }
@@ -221,10 +224,6 @@ a.class-site-status-link {
 @media screen and (max-width: 600px) {
   .hide-small {
     display: none;
-  }
-
-  body {
-    padding-bottom: 0;
   }
 
   .footer-block {
@@ -364,7 +363,7 @@ a.class-site-status-link {
 }
 
 .main-page-end-margin-bottom{
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 svg {
