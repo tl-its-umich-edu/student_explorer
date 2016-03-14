@@ -8,7 +8,7 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('StudentDetailCtrl', function(advisingData, advisingUtilities, $scope, $routeParams) {
+  .controller('StudentDetailCtrl', function(advisingData, advisingUtilities, $scope, $routeParams, $location) {
     $scope.studentUsername = $routeParams.student;
     $scope.student = null;
     $scope.advisors = null;
@@ -20,6 +20,9 @@ angular.module('sespaApp')
     $scope.sortReverseAdvisor = false;
     $scope.sortReverseMentor = false;
     $scope.sortReverse = false;
+    $scope.goTo = function(loc) {
+      $location.path(loc);
+    };
 
     advisingData.studentDetails($scope.studentUsername).then(function(student) {
       $scope.student = student;
