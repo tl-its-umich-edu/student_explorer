@@ -67,6 +67,10 @@ class Mentor(models.Model):
     def __unicode__(self):
         return self.username
 
+    @property
+    def cohorts(self):
+        return Cohort.objects.filter(studentcohortmentor__mentor=self).distinct()
+
     class Meta:
         db_table = '"CNLYR002"."DM_MNTR"'
         managed = False
