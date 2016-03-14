@@ -253,7 +253,24 @@ class AdvisingApiMentorTestCase(TestCase):
                 u'univ_id': u'20000001',
                 u'url': u'http://testserver/api/mentors/zander/',
                 u'students_url': (u'http://testserver/api/mentors/zander/'
-                                  'students/')
+                                  'students/'),
+                u'cohorts': [
+                    {
+                        u'code': u'SPPRO-F14',
+                        u'description': u'Special Probation F14',
+                        u'group': u'CSP',
+                    },
+                    {
+                        u'code': u'SPPRO-W15',
+                        u'description': u'Special Probation W15',
+                        u'group': u'CSP',
+                    },
+                    {
+                        u'code': u'SPPRO-F15',
+                        u'description': u'Special Probation F15',
+                        u'group': u'CSP',
+                    },
+                ],
             }, data)
 
     def test_mentors_detail_not_exists(self):
