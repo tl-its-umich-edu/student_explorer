@@ -10,13 +10,6 @@
             <span class="fa fa-caret-up" ng-show="sortType == 'last_name' &amp;&amp; sortReverse"><span class="sr-only"> (ascending sort)</span></span>
           </a>
         </th>
-        <th scope="col">
-          <a href="" ng-click="sortType = 'univ_id'; sortReverse = !sortReverse">
-            Advisor ID
-            <span class="fa fa-caret-down" ng-show="sortType == 'univ_id' &amp;&amp; !sortReverse"><span class="sr-only"> (descending sort)</span></span>
-            <span class="fa fa-caret-up" ng-show="sortType == 'univ_id' &amp;&amp; sortReverse"><span class="sr-only"> (ascending sort)</span></span>
-          </a>
-        </th>
       </tr>
     </thead>
     <tbody>
@@ -25,7 +18,6 @@
           <a href="#/advisors/{{advisor.username}}">{{ advisor.first_name }}
             {{ advisor.last_name }}</a>
         </th>
-        <td>{{ advisor.univ_id }}</td>
       </tr>
     </tbody>
   </table>
