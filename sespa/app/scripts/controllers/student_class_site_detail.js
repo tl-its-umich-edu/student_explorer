@@ -8,7 +8,7 @@
  * Controller of the sespaApp
  */
 angular.module('sespaApp')
-  .controller('StudentClassSiteDetailCtrl', function(advisingData, advisingUtilities, $scope, $routeParams) {
+  .controller('StudentClassSiteDetailCtrl', function(advisingData, advisingUtilities, $scope, $routeParams, $window) {
     $scope.classSiteDetailHeader = null;
     $scope.assignments = null;
     $scope.classSiteHistory = null;
@@ -21,8 +21,6 @@ angular.module('sespaApp')
     $scope.searchStudent = '';
     $scope.progress = 0;
     // $scope.scroll = scroll;
-
-
 
     advisingData.studentClassSiteDetails($routeParams.student, $routeParams.classSiteCode).then(function(classSite) {
       $scope.classSite = classSite;
@@ -68,7 +66,7 @@ angular.module('sespaApp')
       }, {
         'key': 'Class',
         'values': classData,
-        'color': '#dac251',
+        'color': '#F0D654',
       }];
 
       $scope.activityData = [{
@@ -89,7 +87,10 @@ angular.module('sespaApp')
       };
       $scope.xTickFormat = function() {
         return function(d) {
-          return d > 0 ? 'Week ' + d : '';
+          if ($window.innerWidth >= 1000) {
+            return d > 0 ? 'Week ' + d : '';
+          }
+          return d > 0 ? d : '';
         };
       };
 
@@ -102,4 +103,14 @@ angular.module('sespaApp')
     }, function(reason) {
       advisingUtilities.httpErrorHandler(reason, $scope);
     });
+
   });
+
+function toggleAssignment(element) {
+  var code = element.id;
+  if (!$('#collapse'+code).hasClass('collapsing')) {
+    var sign = $(element).children().attr('src');
+    $('[class="assignment-button"]').attr('src', 'images/Dropdown_Plus.png');
+    $('#assignmentButton'+code).attr('src', (sign === 'images/Dropdown_Plus.png') ? 'images/Dropdown_Minus.png' : 'images/Dropdown_Plus.png');
+  }
+}

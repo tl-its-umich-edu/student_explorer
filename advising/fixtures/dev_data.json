@@ -117,6 +117,15 @@
     }
 },
 {
+    "model": "advising.status",
+    "pk": 4,
+    "fields": {
+        "code": "",
+        "description": "Not Applicable",
+        "order": null
+    }
+},
+{
     "model": "advising.student",
     "pk": 1,
     "fields": {
@@ -1679,7 +1688,7 @@
     "fields": {
         "student": 11,
         "class_site": 3,
-        "status": 3
+        "status": 4
     }
 },
 {
@@ -1778,7 +1787,7 @@
     "fields": {
         "student": 22,
         "class_site": 4,
-        "status": 2
+        "status": 4
     }
 },
 {
@@ -1841,7 +1850,7 @@
     "fields": {
         "student": 15,
         "class_site": 3,
-        "status": 2
+        "status": 4
     }
 },
 {
@@ -1931,7 +1940,7 @@
     "fields": {
         "student": 8,
         "class_site": 6,
-        "status": 3
+        "status": 4
     }
 },
 {
@@ -2446,7 +2455,7 @@
         "student": 1,
         "class_site": 2,
         "week_end_date": "2015-09-12",
-        "status": 2
+        "status": 4
     }
 },
 {

@@ -74,17 +74,36 @@ class StudentClassSiteHyperlink(serializers.HyperlinkedIdentityField):
 
 
 class StudentClassSiteStatusSummarySerializer(serializers.ModelSerializer):
-    class_site_id = serializers.ReadOnlyField(source='class_site.id')
+    code = serializers.ReadOnlyField(source='class_site.code')
     name = serializers.ReadOnlyField(source='class_site.description')
     url = StudentClassSiteHyperlink(
             read_only=True,
             view_name='student-classsite-detail'
     )
     status = serializers.ReadOnlyField(source='status.description')
+    status_trend = serializers.SerializerMethodField()
 
     class Meta:
         model = StudentClassSiteStatus
-        fields = ('class_site_id', 'name', 'url', 'status')
+        fields = ('code', 'name', 'url', 'status', 'status_trend')
+
+    def get_status_trend(self, studentClassSiteStatus):
+        try:
+            currentStatusOrder = int(studentClassSiteStatus.status.order)
+            previousStatusOrder = int(studentClassSiteStatus.class_site.weeklystudentclasssitestatus_set \
+                .filter(student=studentClassSiteStatus.student).exclude(week_end_date=None) \
+                .order_by('week_end_date').last().status.order)
+        except (AttributeError, TypeError):
+            return None
+
+        statusOrderDifference = previousStatusOrder - currentStatusOrder
+        statusOrderTrend = {
+            1: 'up',
+            0: 'steady',
+            -1: 'down',
+        }
+
+        return statusOrderTrend.get(cmp(statusOrderDifference, 0))
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -109,27 +128,71 @@ class StudentSerializer(serializers.ModelSerializer):
                   'status_weight',
                   'class_sites_url', 'advisors_url', 'mentors_url')
 
-    def get_status_weight(self, obj):
-        weight = 0
-        for status in obj.statuses.all():
-            if status.description == 'Green':
-                weight += 0
-            elif status.description == 'Yellow':
-                weight += 2
-            elif status.description == 'Red':
-                weight += 4
-        return weight
+    def get_status_weight(self, student):
+        """
+        Using the set of class site statuses for a Student, reduce them to a
+        single number representing their "weight". It's very important to
+        initialize the reduction with zero.
+
+        :param student: The Student object being serialized
+        :type student: advising.models_dev.Student | advisingumich.models.Student
+        :return: Weight of Student's class statuses
+        :rtype: int
+        """
+
+        weights = {
+            'red': 4,
+            'yellow': 2,
+            'green': 0
+            }
+
+        return reduce(
+                lambda sum, aClassStatus: sum + weights.get(
+                    aClassStatus.status.description.lower(), 0),
+                student.studentclasssitestatus_set.all(),
+                0
+        )
 
 
 # Serializations of the relationships between advisors and students.
 
-class StudentAdvisorSerializer(serializers.ModelSerializer):
-    advisor = AdvisorSerializer(read_only=True)
-    role = serializers.ReadOnlyField(source='role.description')
+class StudentAdvisorRoleSerializer(serializers.ModelSerializer):
+    """
+    Provide serialized objects that contain an Advisor object and a list of roles
+    descriptions for a specific student.
+    """
+    advisor = serializers.SerializerMethodField()
+    roles = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = StudentAdvisorRole
-        fields = ('advisor', 'role')
+        fields = ('advisor', 'roles',)
+
+    def get_advisor(self, studentAdvisor):
+        """
+        Get a representation of a student's advisor suitable for serialization.
+
+        :param studentAdvisor: Dictionary of advisors with keys: "advisor_id", "student_id"
+        :type studentAdvisor: dict
+        :return: Dictionary of serialized Advisor object
+        :rtype: rest_framework.utils.serializer_helpers.ReturnDict
+        """
+        advisor = Advisor.objects.filter(id=studentAdvisor['advisor_id']).first()
+        serializedAdvisor = AdvisorSerializer(advisor, context={'request': self.context['request']})
+        return serializedAdvisor.data
+
+    def get_roles(self, studentAdvisor):
+        """
+        Get a list of advisor's role description for a student.
+
+        :param studentAdvisor: Dictionary of advisors with keys: "advisor_id", "student_id"
+        :type studentAdvisor: dict
+        :return: A tuple of descriptions of all the advisor's roles
+        :rtype: tuple
+        """
+        return StudentAdvisorRole.objects \
+            .filter(student=studentAdvisor['student_id'], advisor=studentAdvisor['advisor_id']) \
+            .values_list('role__description', flat=True)
 
 
 class StudentMentorSerializer(serializers.ModelSerializer):

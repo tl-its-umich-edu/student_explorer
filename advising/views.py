@@ -1,14 +1,15 @@
 from advising.models import (Advisor, Student, Mentor, ClassSite,
                              ClassSiteScore,
                              StudentClassSiteStatus,
-                             StudentClassSiteAssignment)
+                             StudentClassSiteAssignment,
+                             StudentAdvisorRole)
 from advising.serializers import (AdvisorSerializer,
                                   MentorSerializer,
                                   ClassSiteSerializer,
                                   StudentSerializer,
                                   StudentClassSiteSerializer,
                                   StudentClassSiteAssignmentSerializer,
-                                  StudentAdvisorSerializer,
+                                  StudentAdvisorRoleSerializer,
                                   StudentMentorSerializer)
 from advising.mixins import MultipleFieldLookupMixin
 from rest_framework import generics
@@ -206,18 +207,21 @@ class StudentDetail(generics.RetrieveAPIView):
     lookup_field = 'username'
 
 
-class StudentAdvisorList(generics.ListAPIView):
+class StudentAdvisorRoleList(generics.ListAPIView):
     '''
-    API endpoint that lists a student's advisors.
+    API endpoint that lists a student's advisors and their roles.
     '''
-    serializer_class = StudentAdvisorSerializer
+    serializer_class = StudentAdvisorRoleSerializer
     lookup_field = 'username'
 
     def get_queryset(self):
-        return (
-            get_object_or_404(Student, username=self.kwargs['username'])
-            .studentadvisorrole_set.all()
-        )
+        student = get_object_or_404(Student, username=self.kwargs['username'])
+
+        studentAdvisors = StudentAdvisorRole.objects.filter(student=student).distinct() \
+            .values('student_id', 'advisor_id')
+        logger.debug(studentAdvisors)
+
+        return studentAdvisors
 
 
 class StudentMentorList(generics.ListAPIView):
@@ -328,7 +332,8 @@ class StudentClassSiteHistoryList(APIView):
                 # entry['status'] = None
                 pass
             else:
-                entry['status'] = str(status.status)
+                entry['status'] = str(status.status.description)
+                entry['status_order'] = status.status.order
 
             try:
                 score = class_scores.get(week_end_date=week_end_date)
@@ -340,14 +345,13 @@ class StudentClassSiteHistoryList(APIView):
 
             if week_end_date == todays_week_end_date:
                 entry['this_week'] = True
-                logger.debug(student)
                 entry['score'] = (student.studentclasssitescore_set
                                   .get(class_site=class_site)
                                   .current_score_average)
-                entry['status'] = str(student.studentclasssitestatus_set
-                                      .get(class_site=class_site)
-                                      .status)
-                # logger.debug('class_site %s (%s)' % (class_site, type(class_site)))
+
+                todaysStatus = student.studentclasssitestatus_set.get(class_site=class_site)
+                entry['status'] = str(todaysStatus.status.description)
+                entry['status_order'] = todaysStatus.status.order
 
                 class_site_score = ClassSiteScore.objects.get(class_site__code=code)
                 entry['class_score'] = class_site_score.current_score_average
