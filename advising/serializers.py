@@ -23,6 +23,30 @@ class AdvisorSerializer(serializers.ModelSerializer):
                   'students_url')
 
 
+class AdvisorRoleSerializer(AdvisorSerializer):
+    """
+    Like AdvisorSerializer, but adds the advisor's roles for a specific student
+    """
+    roles = serializers.SerializerMethodField(read_only=True)
+
+    def get_roles(self, advisor):
+        """
+        Get a list of advisor's role descriptions for a student.
+
+        :param advisor: Advisor object
+        :type advisor: Advisor
+        :return: A tuple of descriptions of all the advisor's roles
+        :rtype: tuple
+        """
+        studentUsername = self.context['username']
+        return (StudentAdvisorRole.objects
+                .filter(student__username=studentUsername, advisor=advisor)
+                .values_list('role__description', flat=True).distinct())
+
+    class Meta(AdvisorSerializer.Meta):
+        fields = AdvisorSerializer.Meta.fields + ('roles',)
+
+
 class MentorSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='mentor-detail',
                                                lookup_field='username')
@@ -156,13 +180,6 @@ class StudentSerializer(serializers.ModelSerializer):
 
 # Serializations of the relationships between advisors and students.
 
-class StudentAdvisorSerializer(serializers.ModelSerializer):
-    advisor = AdvisorSerializer(read_only=True)
-    role = serializers.ReadOnlyField(source='role.description')
-
-    class Meta:
-        model = StudentAdvisorRole
-        fields = ('advisor', 'role')
 
 
 class StudentMentorSerializer(serializers.ModelSerializer):

@@ -69,7 +69,7 @@ urlpatterns = [
         name='student-detail'),
 
     url(r'^students/(?P<username>[a-zA-Z ]*)/advisors/$',
-        views.StudentAdvisorList.as_view(),
+        views.AdvisorList.as_view(),
         name='student-advisors-list'),
 
     url(r'^students/(?P<username>[a-zA-Z ]*)/mentors/$',

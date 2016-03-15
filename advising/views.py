@@ -1,14 +1,15 @@
 from advising.models import (Advisor, Student, Mentor, ClassSite,
                              ClassSiteScore,
                              StudentClassSiteStatus,
-                             StudentClassSiteAssignment)
+                             StudentClassSiteAssignment,
+                             StudentAdvisorRole)
 from advising.serializers import (AdvisorSerializer,
+                                  AdvisorRoleSerializer,
                                   MentorSerializer,
                                   ClassSiteSerializer,
                                   StudentSerializer,
                                   StudentClassSiteSerializer,
                                   StudentClassSiteAssignmentSerializer,
-                                  StudentAdvisorSerializer,
                                   StudentMentorSerializer)
 from advising.mixins import MultipleFieldLookupMixin
 from rest_framework import generics
@@ -52,9 +53,19 @@ class AdvisorList(generics.ListAPIView):
     '''
     API endpoint that lists advisors.
     '''
-    queryset = Advisor.objects.all()
-    serializer_class = AdvisorSerializer
-    lookup_field = 'username'
+    def get_serializer_context(self):
+        serializerContext = super(AdvisorList, self).get_serializer_context()
+        serializerContext.update(self.kwargs)
+        return serializerContext
+
+    def get_queryset(self):
+        if 'username' in self.kwargs:
+            self.serializer_class = AdvisorRoleSerializer
+            return (Advisor.objects.filter(students__username=self.kwargs['username'])
+                    .distinct())
+        else:
+            self.serializer_class = AdvisorSerializer
+            return Advisor.objects.all()
 
 
 class AdvisorDetail(generics.RetrieveAPIView):
@@ -204,20 +215,6 @@ class StudentDetail(generics.RetrieveAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     lookup_field = 'username'
-
-
-class StudentAdvisorList(generics.ListAPIView):
-    '''
-    API endpoint that lists a student's advisors.
-    '''
-    serializer_class = StudentAdvisorSerializer
-    lookup_field = 'username'
-
-    def get_queryset(self):
-        return (
-            get_object_or_404(Student, username=self.kwargs['username'])
-            .studentadvisorrole_set.all()
-        )
 
 
 class StudentMentorList(generics.ListAPIView):
