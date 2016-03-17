@@ -21,7 +21,7 @@ body {
 .sub-header {
   color: brown;
   font-weight: 400;
-  margin-top: 6%;
+  margin-top: 20px;
   /*border-bottom: 1px solid #eee;*/
 }
 
@@ -41,7 +41,7 @@ body {
 }
 
 .alert-container {
-  position: absolute;
+  position: inherit;
   width: 100%;
   top: 70px;
   z-index: 1000;
