@@ -168,6 +168,9 @@ th[scope="row"] {
   .assignment-list {
       display: none;
   }
+  .student-class-site-list {
+      display: none;
+  }
 }
 
 a.class-site-status-link {
@@ -209,6 +212,9 @@ a.class-site-status-link {
     width: 100%
   }
   .assignment-table {
+      display: none;
+  }
+  .student-class-site-table {
       display: none;
   }
   .table-responsive {
@@ -303,7 +309,7 @@ a.class-site-status-link {
   height: 20px;
   margin-bottom: 0;
   overflow: visible;
-  width: 60%;
+  width: 90%;
 }
 
 .average-bar {
@@ -510,4 +516,27 @@ svg text {
 
 .collapsing {
     width: 100%;
+}
+
+.legend-text-block {
+    margin-bottom: 10px;
+    margin-left: 22px; 
+}
+
+.card-block {
+    box-shadow: 0 0 5px gray;
+    padding: 20px;
+    margin: 20px 2px;
+}
+
+.card-title {
+    height: 50px;
+}
+
+.card-title a {
+    font-size: 20px;
+}
+
+.card-class-site-status {
+    float: right;
 }
