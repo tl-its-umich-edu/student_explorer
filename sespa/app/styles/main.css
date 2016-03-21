@@ -14,6 +14,10 @@ body {
   padding-bottom: 50px;
 }
 
+a {
+  color: #3072ab;
+}
+
 .navbar-inverse {
     background-color: #1c3144;
 }
@@ -21,7 +25,7 @@ body {
 .sub-header {
   color: brown;
   font-weight: 400;
-  margin-top: 6%;
+  margin-top: 20px;
   /*border-bottom: 1px solid #eee;*/
 }
 
@@ -41,7 +45,7 @@ body {
 }
 
 .alert-container {
-  position: absolute;
+  position: inherit;
   width: 100%;
   top: 70px;
   z-index: 1000;
@@ -164,6 +168,9 @@ th[scope="row"] {
   .assignment-list {
       display: none;
   }
+  .student-class-site-list {
+      display: none;
+  }
 }
 
 a.class-site-status-link {
@@ -207,12 +214,18 @@ a.class-site-status-link {
   .assignment-table {
       display: none;
   }
+  .student-class-site-table {
+      display: none;
+  }
   .table-responsive {
       border: none;
   }
 }
 
 @media screen and (max-width: 736px) {
+  body {
+    padding-bottom: 0;
+  }
   .navbar-fixed-bottom {
     position: relative;
   }
@@ -221,10 +234,6 @@ a.class-site-status-link {
 @media screen and (max-width: 600px) {
   .hide-small {
     display: none;
-  }
-
-  body {
-    padding-bottom: 0;
   }
 
   .footer-block {
@@ -300,7 +309,7 @@ a.class-site-status-link {
   height: 20px;
   margin-bottom: 0;
   overflow: visible;
-  width: 60%;
+  width: 90%;
 }
 
 .average-bar {
@@ -331,8 +340,7 @@ a.class-site-status-link {
 .average-bar-text {
   color: black;
   display: inline-block;
-  margin-left: 6px;
-  padding-left: 5px;
+  padding-left: 15px;
   position: absolute;
   right: 0;
   transform: translateX(100%);
@@ -364,7 +372,7 @@ a.class-site-status-link {
 }
 
 .main-page-end-margin-bottom{
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 svg {
@@ -507,4 +515,33 @@ svg text {
 
 .collapsing {
     width: 100%;
+}
+
+.legend-text-block {
+    margin-bottom: 10px;
+    margin-left: 22px; 
+}
+
+.card-block {
+    box-shadow: 0 0 5px gray;
+    padding: 20px;
+    margin: 20px 2px;
+}
+
+.card-title {
+    height: 50px;
+}
+
+.card-title a {
+    font-size: 20px;
+}
+
+.card-class-site-status {
+    float: right;
+}
+
+.class-site-title {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    font-size: 20px;
 }

@@ -1,5 +1,8 @@
+import logging
+
 from django.db import models
-from advising import utils
+
+logger = logging.getLogger(__name__)
 
 
 # "Dimension" models
@@ -25,6 +28,10 @@ class Mentor(models.Model):
 
     def __unicode__(self):
         return self.username
+
+    @property
+    def cohorts(self):
+        return Cohort.objects.filter(studentcohortmentor__mentor=self).distinct()
 
 
 class Status(models.Model):

@@ -23,23 +23,47 @@ class AdvisorSerializer(serializers.ModelSerializer):
                   'students_url')
 
 
+class CohortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cohort
+        fields = ('code', 'description', 'group')
+
+
+class AdvisorRoleSerializer(AdvisorSerializer):
+    """
+    Like AdvisorSerializer, but adds the advisor's roles for a specific student
+    """
+    roles = serializers.SerializerMethodField(read_only=True)
+
+    def get_roles(self, advisor):
+        """
+        Get a list of advisor's role descriptions for a student.
+
+        :param advisor: Advisor object
+        :type advisor: Advisor
+        :return: A tuple of descriptions of all the advisor's roles
+        :rtype: tuple
+        """
+        studentUsername = self.context['username']
+        return (StudentAdvisorRole.objects
+                .filter(student__username=studentUsername, advisor=advisor)
+                .values_list('role__description', flat=True).distinct())
+
+    class Meta(AdvisorSerializer.Meta):
+        fields = AdvisorSerializer.Meta.fields + ('roles',)
+
+
 class MentorSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='mentor-detail',
-                                               lookup_field='username')
+    url = serializers.HyperlinkedIdentityField(
+            view_name='mentor-detail', lookup_field='username')
     students_url = serializers.HyperlinkedIdentityField(
-        view_name='mentor-students-list', lookup_field='username')
+            view_name='mentor-students-list', lookup_field='username')
+    cohorts = CohortSerializer(many=True)
 
     class Meta:
         model = Mentor
         fields = ('username', 'univ_id', 'first_name', 'last_name', 'url',
-                  'students_url')
-
-
-class CohortSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Cohort
-        fields = ('code', 'description', 'group')
+                  'students_url', 'cohorts',)
 
 
 class ClassSiteSerializer(serializers.ModelSerializer):
@@ -156,43 +180,6 @@ class StudentSerializer(serializers.ModelSerializer):
 
 # Serializations of the relationships between advisors and students.
 
-class StudentAdvisorRoleSerializer(serializers.ModelSerializer):
-    """
-    Provide serialized objects that contain an Advisor object and a list of roles
-    descriptions for a specific student.
-    """
-    advisor = serializers.SerializerMethodField()
-    roles = serializers.SerializerMethodField(read_only=True)
-
-    class Meta:
-        model = StudentAdvisorRole
-        fields = ('advisor', 'roles',)
-
-    def get_advisor(self, studentAdvisor):
-        """
-        Get a representation of a student's advisor suitable for serialization.
-
-        :param studentAdvisor: Dictionary of advisors with keys: "advisor_id", "student_id"
-        :type studentAdvisor: dict
-        :return: Dictionary of serialized Advisor object
-        :rtype: rest_framework.utils.serializer_helpers.ReturnDict
-        """
-        advisor = Advisor.objects.filter(id=studentAdvisor['advisor_id']).first()
-        serializedAdvisor = AdvisorSerializer(advisor, context={'request': self.context['request']})
-        return serializedAdvisor.data
-
-    def get_roles(self, studentAdvisor):
-        """
-        Get a list of advisor's role description for a student.
-
-        :param studentAdvisor: Dictionary of advisors with keys: "advisor_id", "student_id"
-        :type studentAdvisor: dict
-        :return: A tuple of descriptions of all the advisor's roles
-        :rtype: tuple
-        """
-        return StudentAdvisorRole.objects \
-            .filter(student=studentAdvisor['student_id'], advisor=studentAdvisor['advisor_id']) \
-            .values_list('role__description', flat=True)
 
 
 class StudentMentorSerializer(serializers.ModelSerializer):
