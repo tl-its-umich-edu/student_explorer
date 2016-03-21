@@ -25,7 +25,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="classSite in classSites | orderBy:sortType:sortReverse | filter:searchAdvisor">
-      <th scope="row" class="bold"><a href="#/students/{{student.username}}/class_sites/{{classSite.class_site.code}}">{{ classSite.class_site.description }}</a></th>
+      <th scope="row" class="class-site-title"><a href="#/students/{{student.username}}/class_sites/{{classSite.class_site.code}}">{{ classSite.class_site.description }}</a></th>
       <td>
         <span status-tooltip status="classSite.status" tooltiptext="classSite.status | colorToStatus"></span>
       </td>
