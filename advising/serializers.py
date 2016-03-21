@@ -142,6 +142,7 @@ class StudentSerializer(serializers.ModelSerializer):
     cohorts = serializers.StringRelatedField(many=True)
     mentors = serializers.StringRelatedField(many=True)
     status_weight = serializers.SerializerMethodField()
+    email_address = serializers.SerializerMethodField()
     class_site_statuses = StudentClassSiteStatusSummarySerializer(many=True, source='studentclasssitestatus_set')
 
     class Meta:
@@ -150,6 +151,7 @@ class StudentSerializer(serializers.ModelSerializer):
                   'first_name', 'last_name',
                   'mentors', 'cohorts', 'class_site_statuses',
                   'status_weight',
+                  'email_address',
                   'class_sites_url', 'advisors_url', 'mentors_url')
 
     def get_status_weight(self, student):
@@ -176,6 +178,10 @@ class StudentSerializer(serializers.ModelSerializer):
                 student.studentclasssitestatus_set.all(),
                 0
         )
+
+    def get_email_address(self, student):
+
+        return student.username + '@umich.edu'
 
 
 # Serializations of the relationships between advisors and students.
