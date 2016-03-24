@@ -2148,7 +2148,7 @@
         "event_type": 1,
         "event_count": 4,
         "cumulative_event_count": 14,
-        "percentile_rank": 0.59,
+        "percentile_rank": 0.58,
         "cumulative_percentile_rank": 0.36
     }
 },
@@ -2162,7 +2162,7 @@
         "event_type": 1,
         "event_count": 5,
         "cumulative_event_count": 19,
-        "percentile_rank": 0.45,
+        "percentile_rank": 0.28,
         "cumulative_percentile_rank": 0.32
     }
 },
