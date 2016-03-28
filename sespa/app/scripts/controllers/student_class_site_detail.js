@@ -82,7 +82,7 @@ angular.module('sespaApp')
       };
       $scope.activityYTickFormat = function() {
         return function(d) {
-          return d > 0 ? d + '%ile' : '';
+          return d > 0 ? Math.round(d) + '%ile' : '';
         };
       };
       $scope.xTickFormat = function() {
