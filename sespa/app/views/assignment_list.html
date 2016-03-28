@@ -22,6 +22,9 @@
           <div class="assignment-detail assignment-detail-left"><span class="assignment-detail-bold">Student's Grade</span><br><span class="assignment-detail-grade">{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</span></div>
           <div class="assignment-detail assignment-detail-right"><span class="assignment-detail-bold">Class Average</span><br><span class="assignment-detail-grade">{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</span></div>
         </div>
+        <div ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null">
+          <div class="assignment-detail-comment"><span class="assignment-detail-bold">Comments</span><br>{{assignment.grader_comment}}</div>
+        </div>
       </div>
     </div>
   </div>
