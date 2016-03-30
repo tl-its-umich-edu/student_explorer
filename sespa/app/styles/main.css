@@ -321,6 +321,7 @@ a.class-site-status-link {
 
 .average-bar {
   -webkit-box-shadow: none;
+  max-width: 90%;
   box-shadow: none;
   float: left;
   font-size: 12px;

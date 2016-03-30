@@ -10,7 +10,7 @@
   </div>
   <div class="average-bar-container">
     <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{classSite.current_student_score_average}}"
-      aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_student_score_average}}%;">
+      aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_student_score_average*0.9}}%;">
       <p class="average-bar-text" ng-if="classSite.current_student_score_average != null">{{classSite.current_student_score_average}}%</p>
       <p class="average-bar-text" ng-if="classSite.current_student_score_average == null">N/A</p>
       <span class="sr-only" ng-if="classSite.current_student_score_average != null">Student Percentage: {{classSite.current_student_score_average}}%</span>
@@ -19,7 +19,7 @@
   </div>
   <div class="average-bar-container">
     <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{classSite.current_class_score_average}}"
-      aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_class_score_average}}%;">
+      aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_class_score_average*0.9}}%;">
       <p class="average-bar-text" ng-if="classSite.current_class_score_average != null">{{classSite.current_class_score_average}}%</p>
       <p class="average-bar-text" ng-if="classSite.current_class_score_average == null">N/A</p>
       <span class="sr-only" ng-if="classSite.current_class_score_average != null">Class Average Percentage: {{classSite.current_class_score_average}}%</span>
