@@ -245,6 +245,12 @@ a.class-site-status-link {
   }
 }
 
+@media screen and (max-width: 430px) {
+  .assignment-detail-comment {
+    padding-top: 20px;
+  }
+}
+
 /* For ng-cloak */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
@@ -315,6 +321,7 @@ a.class-site-status-link {
 
 .average-bar {
   -webkit-box-shadow: none;
+  max-width: 90%;
   box-shadow: none;
   float: left;
   font-size: 12px;
@@ -512,6 +519,13 @@ svg text {
     float: right;
     display: inline;
     margin-right: 5%;
+}
+
+.assignment-detail-comment {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 20px;
+    font-size: 18px;
 }
 
 .collapsing {
