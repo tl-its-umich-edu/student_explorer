@@ -6,3 +6,5 @@
 /sespa/app/static
 
 /.vagrant
+
+.coverage

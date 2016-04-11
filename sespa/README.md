@@ -55,3 +55,7 @@ Run `grunt` for building and `grunt serve` for preview.
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
+
+Check the unit testing coverage
+    coverage run --source='.' manage.py test
+    coverage report
