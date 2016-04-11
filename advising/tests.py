@@ -140,10 +140,12 @@ class AdvisingApiStudentTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
 
-    def test_students(self):
+    def test_students_list(self):
         response = self.client.get(reverse('student-list'))
+        data = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(23, data['count'])
 
     def test_students_search_with_results(self):
         response = self.client.get(reverse('student-list'), {'search': 'gra'})
@@ -167,6 +169,177 @@ class AdvisingApiStudentTestCase(TestCase):
 
         self.assertEqual(1, data['count'])
         self.assertEqual('james', data['results'][0]['username'])
+
+    def test_students_detail_exists(self):
+        response = self.client.get(reverse('student-detail',
+                                           kwargs={'username': 'grace'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual('grace', data['username'])
+
+    def test_students_detail_not_exists(self):
+        response = self.client.get(reverse('student-detail',
+                                           kwargs={'username': 'asdfa'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertDictEqual({u'detail': u'Not found.'}, data)
+
+    def test_students_advisors_list_exists(self):
+        response = self.client.get(reverse('student-advisors-list',
+                                           kwargs={'username': 'grace'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['count'], 1)
+
+    def test_students_advisors_list_not_exists(self):
+        response = self.client.get(reverse('student-advisors-list',
+                                           kwargs={'username': 'afddf'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(
+            {
+                u'count': 0,
+                u'next': None,
+                u'previous': None,
+                u'results': []
+            }, data)
+
+    def test_students_mentors_list_exists(self):
+        response = self.client.get(reverse('student-mentors-list',
+                                           kwargs={'username': 'grace'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['count'], 1)
+
+    def test_students_mentors_list_not_exists(self):
+        response = self.client.get(reverse('student-mentors-list',
+                                           kwargs={'username': 'afddf'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertDictEqual({u'detail': u'Not found.'}, data)
+
+    def test_students_class_site_list_exists(self):
+        response = self.client.get(reverse('student-classsite-list',
+                                           kwargs={'username': 'grace'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['count'], 2)
+
+    def test_students_class_site_list_not_exists(self):
+        response = self.client.get(reverse('student-classsite-list',
+                                           kwargs={'username': 'afddf'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(
+            {
+                u'count': 0,
+                u'next': None,
+                u'previous': None,
+                u'results': []
+            }, data)
+
+    def test_students_class_site_detail_exists(self):
+        response = self.client.get(reverse('student-classsite-detail',
+                                           kwargs={'username': 'grace',
+                                                   'code': '1'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['status'], 'Yellow')
+
+    def test_students_class_site_detail_not_exists(self):
+        response = self.client.get(reverse('student-classsite-detail',
+                                           kwargs={'username': 'adffd',
+                                                   'code': '1'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertDictEqual({u'detail': u'Not found.'}, data)
+
+        response = self.client.get(reverse('student-classsite-detail',
+                                           kwargs={'username': 'grace',
+                                                   'code': '575'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertDictEqual({u'detail': u'Not found.'}, data)
+
+    def test_students_class_site_assignment_list_exists(self):
+        response = self.client.get(reverse('student-classsite-assignment-list',
+                                           kwargs={'username': 'grace',
+                                                   'code': '1'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['count'], 2)
+
+    def test_students_class_site_assignment_list_not_exists(self):
+        response = self.client.get(reverse('student-classsite-assignment-list',
+                                           kwargs={'username': 'adffd',
+                                                   'code': '1'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(
+            {
+                u'count': 0,
+                u'next': None,
+                u'previous': None,
+                u'results': []
+            }, data)
+
+        response = self.client.get(reverse('student-classsite-assignment-list',
+                                           kwargs={'username': 'grace',
+                                                   'code': '575'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(
+            {
+                u'count': 0,
+                u'next': None,
+                u'previous': None,
+                u'results': []
+            }, data)
+
+    def test_students_class_site_history_list_exists(self):
+        response = self.client.get(reverse('student-classsite-history-list',
+                                           kwargs={'username': 'grace',
+                                                   'code': '1'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(data[0], {
+            u'week_end_date': u'2015-09-12',
+            u'score': 0.0,
+            u'class_score': 0.0,
+            u'week_number': 1
+        })
+
+    def test_students_class_site_history_list_not_exists(self):
+        response = self.client.get(reverse('student-classsite-history-list',
+                                           kwargs={'username': 'adffd',
+                                                   'code': '1'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertDictEqual({u'detail': u'Not found.'}, data)
+
+        response = self.client.get(reverse('student-classsite-history-list',
+                                           kwargs={'username': 'grace',
+                                                   'code': '575'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertDictEqual({u'detail': u'Not found.'}, data)
 
 
 class AdvisingApiAdvisorTestCase(TestCase):
@@ -232,7 +405,7 @@ class AdvisingApiMentorTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
 
-    def test_advisors_list(self):
+    def test_mentors_list(self):
         response = self.client.get(reverse('mentor-list'))
         data = json.loads(response.content)
 
@@ -294,6 +467,91 @@ class AdvisingApiMentorTestCase(TestCase):
                                            kwargs={'username': 'asdfasdf'}))
 
         self.assertEqual(response.status_code, 404)
+
+
+class AdvisingApiClassSiteTestCase(TestCase):
+    fixtures = ['dev_data.json', 'dev_users.json']
+    client = None
+
+    def setUp(self):
+        self.client = APIClient()
+
+    def test_class_sites_list(self):
+        response = self.client.get(reverse('class-site-list'))
+        data = json.loads(response.content)
+
+        self.assertEqual(data['count'], 6)
+        self.assertEqual(response.status_code, 200)
+
+    def test_class_sites_detail_exists(self):
+        response = self.client.get(reverse('class-site-detail',
+                                           kwargs={'code': '1'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(
+            {
+                u'url': u'http://testserver/api/class_sites/1/',
+                u'code': u'1',
+                u'description': u'Math 101',
+                u'source_system': u'CTools',
+                u'students_url': u'http://testserver/api/class_sites/'
+                                 '1/students/',
+                u'terms': [
+                    u'Fall 2015'
+                ],
+            }, data)
+
+    def test_class_sites_detail_not_exists(self):
+        response = self.client.get(reverse('class-site-detail',
+                                           kwargs={'code': '8'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertDictEqual({u'detail': u'Not found.'}, data)
+
+    def test_class_sites_student_list_exists(self):
+        response = self.client.get(reverse('class-site-students-list',
+                                           kwargs={'code': '1'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['count'], 6)
+
+    def test_class_sites_student_list_not_exists(self):
+        response = self.client.get(reverse('class-site-students-list',
+                                           kwargs={'code': '8'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(
+            {
+                u'count': 0,
+                u'next': None,
+                u'previous': None,
+                u'results': []
+            }, data)
+
+    def test_class_sites_assignment_download_exists(self):
+        response = self.client.get(reverse('class-site-assignment-download',
+                                           kwargs={'code': '1'}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual('Student,Assignment,Points Possible,Points Earned,'
+                         'Class Points Possible,Class Points Earned,Grader '
+                         'Comment,Due Date\r\ngrace,Assessment,22.0,0.0,327'
+                         '36.0,0.0,,2015-09-14\r\ngrace,Exam 1,100.0,82.0,1'
+                         '41900.0,102443.0,,2015-10-14\r\nshannon,Exam 1,10'
+                         '0.0,98.0,600.0,500.0,Good!,2015-10-14\r\n',
+                         response.content)
+
+    def test_class_sites_assignment_download_not_exists(self):
+        response = self.client.get(reverse('class-site-assignment-download',
+                                           kwargs={'code': '8'}))
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertDictEqual({u'detail': u'Not found.'}, data)
 
 
 class AdvisingSerializersTestCase(TestCase):
