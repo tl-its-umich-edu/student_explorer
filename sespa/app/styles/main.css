@@ -45,7 +45,7 @@ a {
 }
 
 .alert-container {
-  position: inherit;
+  position: absolute;
   width: 100%;
   top: 70px;
   z-index: 1000;
