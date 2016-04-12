@@ -31,17 +31,20 @@
   </thead>
   <tbody>
     <tr ng-repeat="assignment in assignments | orderBy:sortTypeAssignment:sortReverse | filter:searchAdvisor">
-      <th scope="row">{{assignment.assignment.description }}</th>
+      <th scope="row">{{assignment.assignment.description}}</th>
       <td>{{assignment.due_date | date}}</td>
       <td>{{assignment.points_earned}} / {{assignment.points_possible}}</td>
       <td>{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</td>
       <td>{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</td>
-      <td></td>
-      <td>
-        <span ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null"
-            class="glyphicon glyphicon-comment" aria-hidden="true"
-            title="{{assignment.grader_comment}}"
-            data-toggle="tooltip" data-placement="bottom" tooltip></span> <span class="sr-only">{{assignment.grader_comment}}</span>
+      <td class="assignment-comment-cell">
+        <span ng-if="assignment.grader_comment != '' &amp;&amp; assignment.grader_comment != null">
+          <span ng-show="!showComment">View</span><span ng-show="showComment">Hide</span> Comment
+          <a class="assignment-button" role="button" ng-click="showComment = !showComment">
+            <img class="assignment-button" ng-show="!showComment" src="images/Dropdown_Plus.png" alt="Expand"/>
+            <img class="assignment-button" ng-show="showComment" src="images/Dropdown_Minus.png" alt="Expand"/>
+          </a>
+          <p ng-show="showComment">&quot;{{assignment.grader_comment}}&quot;</p>
+        </span>
       </td>
     </tr>
   </tbody>

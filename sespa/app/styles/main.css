@@ -604,6 +604,18 @@ svg text {
     font-size: 18px;
 }
 
+.assignment-comment-cell {
+    width: 200px;
+}
+
+.assignment-comment-cell p {
+    margin-bottom: 0;
+}
+
+.assignment-comment-cell .assignment-button {
+    padding-bottom: 0;
+}
+
 .collapsing {
     width: 100%;
 }

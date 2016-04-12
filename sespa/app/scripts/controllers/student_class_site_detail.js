@@ -20,6 +20,7 @@ angular.module('sespaApp')
     $scope.sortReverse = false;
     $scope.searchStudent = '';
     $scope.progress = 0;
+    $scope.showComment = false;
     // $scope.scroll = scroll;
 
     advisingData.studentClassSiteDetails($routeParams.student, $routeParams.classSiteCode).then(function(classSite) {
