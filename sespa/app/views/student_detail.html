@@ -1,25 +1,41 @@
-<div ng-if="student" class="col-lg-12">
-<h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
-<p><a href="mailto:{{student.email_address}}">{{student.email_address}}</a></p>
-<p><a class="unsortable">Student ID: </a>{{ student.univ_id }}</p>
-<hr class="main-no-margin-top"/>
+<div ng-if="student">
+  <div class="student-detail-mobile">
+    <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
+    <p><a href="mailto:{{student.email_address}}">{{student.email_address}}</a></p>
+    <p><a class="unsortable">Student ID: </a>{{ student.univ_id }}</p>
+    <hr class="main-no-margin-top"/>
+  </div>
 
-<div class="col-lg-12">
-    <div ng-include="'views/student_class_site_list.html'" ></div>
-</div>
+  <div class="student-detail-left-menu">
+    <div class="student-detail-left-menu-top">
+      <p class="student-detail-student-name">{{student.first_name}} {{student.last_name}}</p>
+      <p class="student-detail-student-email"><a href="mailto:{{student.email_address}}" class="student-detail-student-email-link">{{student.email_address}}</a></p>
+    </div>
+    <div class="student-detail-left-menu-count">
+      <span>COURSES</span><span></span>
+    </div>
+    <div class="student-detail-left-menu-course" ng-repeat="classSite in classSites | orderBy:sortType:sortReverse">
+      <a href="#/students/{{student.username}}/class_sites/{{classSite.class_site.code}}">{{classSite.class_site.description}}</a>
+      <span status-tooltip status="classSite.status" tooltiptext="classSite.status | colorToStatus"></span>
+    </div>
+  </div>
 
-<div class="student-info col-lg-12">
-  <a class="unsortable">Advisors: </a>
-  <p class="advisor-names" ng-repeat="advisor in advisors">
-      <a href="#/advisors/{{advisor.mentor.username}}/">
-      {{ advisor.mentor.first_name }} {{ advisor.mentor.last_name }}</a>
-      <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true"
+  <div class="student-detail-summary">
+    <h2 class="student-detail-summary-title">PERFORMANCE SUMMARY</h2>
+    <hr class="main-no-margin-top"/>
+    <div class="student-detail-summary-content" ng-include="'views/student_class_site_list.html'" ></div>
+    <div class="student-info">
+      <a class="unsortable">Advisors: </a>
+      <p class="advisor-names" ng-repeat="advisor in advisors">
+        <a href="#/advisors/{{advisor.mentor.username}}/">
+          {{ advisor.mentor.first_name }} {{ advisor.mentor.last_name }}</a>
+        <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true"
           title="{{advisor.cohort}}"
           data-toggle="tooltip" data-placement="bottom" tooltip></span>
-          <span class="sr-only">{{advisor.role}}</span>
-  </p>
-</div>
-
+        <span class="sr-only">{{advisor.role}}</span>
+      </p>
+    </div>
+  </div>
 </div>
 
 <div ng-if="notFound" class="panel panel-warning not-found">

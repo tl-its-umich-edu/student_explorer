@@ -97,7 +97,66 @@ th[scope="row"] {
   vertical-align: middle;
 }
 
-/* For student-info on student-class-site-list view */
+/* For student-info on student-detail view */
+.student-detail-left-menu {
+  width: 25%;
+  position: absolute;
+  left: 0;
+  height: 100%;
+  background-color: #F9F9F9;
+}
+
+.student-detail-left-menu .sub-header {
+    margin-top: 0;
+}
+
+.student-detail-left-menu-top {
+    background-color: #3E6C9C;
+    text-align: left;
+    width: 100%;
+}
+
+.student-detail-student-name {
+    padding-top: 20px;
+    line-height: 1.3;
+    color: white;
+    font-size: 20px;
+    word-wrap: break-word;
+    margin: 2px 5px;
+}
+
+.student-detail-student-email {
+    padding-bottom: 24px;
+    margin: 0px 5px;
+}
+
+.student-detail-student-email-link, .student-detail-student-email-link:hover {
+    color: white;
+}
+
+.student-detail-left-menu-count, .student-detail-left-menu-course {
+    height: 60px;
+    border-bottom: 1px solid #D4D4D4;
+}
+
+.student-detail-summary {
+    width: 75%;
+    position: absolute;
+    left: 0;
+    margin-left: 25%;
+}
+
+.student-detail-summary-title {
+    color: #333;
+    padding-left: 35px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.student-detail-summary-content {
+    margin-left: 30px;
+}
+
 .student-info {
   background-color: #eee;
   padding: .75em;
@@ -171,6 +230,9 @@ th[scope="row"] {
   .student-class-site-list {
       display: none;
   }
+  .student-detail-mobile {
+      display: none;
+  }
 }
 
 a.class-site-status-link {
@@ -219,6 +281,20 @@ a.class-site-status-link {
   }
   .table-responsive {
       border: none;
+  }
+  .student-detail-left-menu {
+      display: none;
+  }
+  .student-detail-summary {
+      width: 100%;
+      position: relative;
+      margin: auto 0px;
+  }
+  .student-detail-summary-title {
+      padding-left: 0px;
+  }
+  .student-detail-summary-content {
+      margin-left: 0px;
   }
 }
 
