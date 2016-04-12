@@ -48,9 +48,10 @@ a {
 .alert-container {
   position: absolute;
   width: 100%;
-  top: 70px;
+  top: 55px;
   z-index: 1000;
 }
+
 .alert-container div {
   margin: auto;
   margin-bottom: 2px;
