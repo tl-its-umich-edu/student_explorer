@@ -249,6 +249,12 @@ th[scope="row"] {
 }
 
 /* Responsive: Portrait tablets and up */
+@media screen and (min-width: 1150px) {
+    .nv-axislabel {
+        display: none;
+    }
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 100% !important;
