@@ -480,6 +480,9 @@ svg text {
 
 .assignment-title {
     font-size: 18px;
+    width: 60%;
+    word-wrap: break-word;
+    display: inline-block;
 }
 
 .assignment-title-score {
