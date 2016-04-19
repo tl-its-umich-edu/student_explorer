@@ -35,8 +35,7 @@ a {
 }
 
 .navbar-fixed-top {
-  position: relative;
-  margin-top: -50px;
+  position: fixed;
   border: 0;
 }
 
@@ -99,10 +98,10 @@ th[scope="row"] {
   vertical-align: middle;
 }
 
-/* For student-info on student-detail view */
+/* For student_detail template */
 .student-detail-left-menu {
   width: 25%;
-  position: absolute;
+  position: fixed;
   left: 0;
   height: 100%;
   background-color: #F9F9F9;
@@ -139,6 +138,10 @@ th[scope="row"] {
 .student-detail-left-menu-course-line {
     height: 60px;
     border-bottom: 1px solid #D4D4D4;
+}
+
+.student-detail-left-menu-course-line:hover {
+    cursor: pointer;
 }
 
 .student-detail-left-menu-course-line p {
@@ -193,7 +196,7 @@ th[scope="row"] {
 }
 
 .student-detail-summary-content {
-    margin-left: 30px;
+    margin-left: 10px;
 }
 
 .student-info {
@@ -208,6 +211,12 @@ th[scope="row"] {
 
 .advisor-names {
   margin-right: .4em;
+}
+
+/* For student_class_site_detail template */
+.no-margin {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 /* Custom page footer */
@@ -341,6 +350,12 @@ a.class-site-status-link {
   body {
     padding-bottom: 0;
   }
+
+  .navbar-fixed-top {
+    position: relative;
+    margin-top: -50px;
+  }
+
   .navbar-fixed-bottom {
     position: relative;
   }
@@ -393,7 +408,6 @@ a.class-site-status-link {
     display: none;
     margin-left: 6px;
 }
-
 
 /* For student and class average legend */
 
@@ -473,7 +487,6 @@ a.class-site-status-link {
   transform: translateX(100%);
 }
 
-
 .main-no-margin-top{
     margin-top: 0px;
 }
@@ -539,7 +552,6 @@ svg text {
 .backlink : hover{
     color: #1c3144;
 }
-
 
 #student-search {
     width: 22em;
@@ -668,6 +680,10 @@ svg text {
     box-shadow: 0 0 5px gray;
     padding: 20px;
     margin: 20px 2px;
+}
+
+.card-block:hover {
+    cursor: pointer;
 }
 
 .card-title {
