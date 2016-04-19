@@ -38,16 +38,16 @@ angular
         controller: 'StudentSearchCtrl',
       })
       .when('/students/:student/', {
-        templateUrl: 'views/student_detail.html',
-        controller: 'StudentDetailCtrl',
+        templateUrl: 'views/student.html',
+        controller: 'StudentCtrl',
       })
       .when('/students/:student/class_sites/', {
         templateUrl: 'views/student_class_site_list.html',
         controller: 'StudentClassSiteListCtrl',
       })
       .when('/students/:student/class_sites/:classSiteCode/', {
-        templateUrl: 'views/student_class_site_detail.html',
-        controller: 'StudentClassSiteDetailCtrl',
+        templateUrl: 'views/student.html',
+        controller: 'StudentCtrl',
       })
       .when('/students/:student/class_sites/:classSiteCode/assignments/', {
         redirectTo: '/students/:student/class_sites/:classSiteCode/',
