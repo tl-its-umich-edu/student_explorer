@@ -1,0 +1,42 @@
+<div ng-if="student">
+  <div class="student-detail-mobile">
+    <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
+    <p><a href="mailto:{{student.email_address}}">{{student.email_address}}</a></p>
+    <p><a class="unsortable">Student ID: </a>{{ student.univ_id }}</p>
+    <h2 class="sub-header" ng-if="isStudentClassSiteDetail()">
+      <a class="backlink" href="#/students/{{student.username}}">
+        &lt; Back to Course List
+      </a>
+    </h2>
+    <hr class="main-no-margin-top"/>
+  </div>
+
+  <div class="student-detail-left-menu">
+    <div class="student-detail-left-menu-top">
+      <p class="student-detail-student-name">{{student.first_name}} {{student.last_name}}</p>
+      <p class="student-detail-student-email"><a href="mailto:{{student.email_address}}" class="student-detail-student-email-link">{{student.email_address}}</a></p>
+    </div>
+    <div class="student-detail-left-menu-course-line" ng-click="goTo('/students/'+student.username+'/')">
+      <p>COURSES</p>
+    </div>
+    <div class="student-detail-left-menu-courses" ng-repeat="classSite in classSites | orderBy:sortType:sortReverse"
+      ng-click="goTo('/students/'+student.username+'/class_sites/'+classSite.class_site.code+'/')">
+      <p>{{classSite.class_site.description}}</p>
+      <span class="student-detail-left-menu-course-status" status-tooltip status="classSite.status" tooltiptext="classSite.status | colorToStatus"></span>
+    </div>
+  </div>
+
+  <div class="student-detail-summary">
+    <div class="student-detail-summary-content" ng-if="isStudentDetail()" ng-include="'views/student_detail.html'"></div>
+    <div class="student-detail-summary-content" ng-if="isStudentClassSiteDetail()" ng-include="'views/student_class_site_detail.html'"></div>
+  </div>
+</div>
+
+<div ng-if="notFound" class="panel panel-warning not-found">
+  <div class="panel-heading">
+    <h3 class="panel-title">Not Found</h3>
+  </div>
+  <div class="panel-body">
+    Student not found ({{studentUsername}}).
+  </div>
+</div>

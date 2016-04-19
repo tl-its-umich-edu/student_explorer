@@ -31,11 +31,11 @@ a {
 
 .navbar {
     vertical-align: middle;
+    margin-bottom: 0;
 }
 
 .navbar-fixed-top {
-  position: relative;
-  margin-top: -50px;
+  position: fixed;
   border: 0;
 }
 
@@ -47,9 +47,10 @@ a {
 .alert-container {
   position: absolute;
   width: 100%;
-  top: 70px;
+  top: 55px;
   z-index: 1000;
 }
+
 .alert-container div {
   margin: auto;
   margin-bottom: 2px;
@@ -97,7 +98,107 @@ th[scope="row"] {
   vertical-align: middle;
 }
 
-/* For student-info on student-class-site-list view */
+/* For student_detail template */
+.student-detail-left-menu {
+  width: 25%;
+  position: fixed;
+  left: 0;
+  height: 100%;
+  background-color: #F9F9F9;
+}
+
+.student-detail-left-menu .sub-header {
+    margin-top: 0;
+}
+
+.student-detail-left-menu-top {
+    background-color: #3E6C9C;
+    text-align: left;
+    width: 100%;
+}
+
+.student-detail-student-name {
+    line-height: 1.2;
+    color: white;
+    font-size: 20px;
+    word-wrap: break-word;
+    padding: 20px 20px 0;
+}
+
+.student-detail-student-email {
+    margin-bottom: 0;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.student-detail-student-email-link, .student-detail-student-email-link:hover {
+    color: white;
+}
+
+.student-detail-left-menu-course-line {
+    height: 60px;
+    border-bottom: 1px solid #D4D4D4;
+}
+
+.student-detail-left-menu-course-line:hover {
+    cursor: pointer;
+}
+
+.student-detail-left-menu-course-line p {
+    vertical-align: middle;
+    line-height: 60px;
+    margin-bottom: 0;
+    padding-left: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1c3144;
+}
+
+.student-detail-left-menu-courses {
+    min-height: 60px;
+    border-bottom: 1px solid #D4D4D4;
+}
+
+
+.student-detail-left-menu-courses p {
+    width: 70%;
+    margin-top: 16px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    font-size: 18px;
+    color: #1c3144;
+    display: inline-block;
+    word-wrap: break-word;
+}
+
+.student-detail-left-menu-course-status {
+    float: right;
+    padding-top: 16px;
+    padding-right: 16px;
+}
+
+.student-detail-left-menu-courses:hover {
+    cursor: pointer;
+}
+
+.student-detail-summary {
+    width: 75%;
+    position: absolute;
+    left: 0;
+    margin-left: 25%;
+}
+
+.student-detail-summary-title {
+    color: #1c3144;
+    padding-left: 35px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.student-detail-summary-content {
+    margin-left: 10px;
+}
+
 .student-info {
   background-color: #eee;
   padding: .75em;
@@ -110,6 +211,12 @@ th[scope="row"] {
 
 .advisor-names {
   margin-right: .4em;
+}
+
+/* For student_class_site_detail template */
+.no-margin {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 /* Custom page footer */
@@ -171,6 +278,9 @@ th[scope="row"] {
   .student-class-site-list {
       display: none;
   }
+  .student-detail-mobile {
+      display: none;
+  }
 }
 
 a.class-site-status-link {
@@ -220,12 +330,32 @@ a.class-site-status-link {
   .table-responsive {
       border: none;
   }
+  .student-detail-left-menu {
+      display: none;
+  }
+  .student-detail-summary {
+      width: 100%;
+      position: relative;
+      margin: auto 0px;
+  }
+  .student-detail-summary-title {
+      padding-left: 0px;
+  }
+  .student-detail-summary-content {
+      margin-left: 0px;
+  }
 }
 
 @media screen and (max-width: 736px) {
   body {
     padding-bottom: 0;
   }
+
+  .navbar-fixed-top {
+    position: relative;
+    margin-top: -50px;
+  }
+
   .navbar-fixed-bottom {
     position: relative;
   }
@@ -278,7 +408,6 @@ a.class-site-status-link {
     display: none;
     margin-left: 6px;
 }
-
 
 /* For student and class average legend */
 
@@ -358,7 +487,6 @@ a.class-site-status-link {
   transform: translateX(100%);
 }
 
-
 .main-no-margin-top{
     margin-top: 0px;
 }
@@ -424,7 +552,6 @@ svg text {
 .backlink : hover{
     color: #1c3144;
 }
-
 
 #student-search {
     width: 22em;
@@ -553,6 +680,10 @@ svg text {
     box-shadow: 0 0 5px gray;
     padding: 20px;
     margin: 20px 2px;
+}
+
+.card-block:hover {
+    cursor: pointer;
 }
 
 .card-title {
