@@ -690,11 +690,14 @@ svg text {
 }
 
 .card-title {
-    height: 50px;
+    margin-bottom: 15px;
 }
 
 .card-title a {
     font-size: 20px;
+    width: 70%;
+    word-wrap: break-word;
+    display: inline-block;
 }
 
 .card-class-site-status {
