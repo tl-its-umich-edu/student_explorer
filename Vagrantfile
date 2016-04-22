@@ -13,6 +13,10 @@ Vagrant.configure(2) do |config|
     config.vm.network "forwarded_port", guest: 3306, host: 2033
     config.vm.network "forwarded_port", guest: 9000,   host: 2090
 
+    if File.directory?("../django-unizindata/unizindata/")
+        config.vm.synced_folder "../django-unizindata/unizindata/", "/usr/local/lib/python2.7/dist-packages/unizindata"
+    end
+
     config.vm.provision "shell", inline: <<-SHELL
         set -xe
 
