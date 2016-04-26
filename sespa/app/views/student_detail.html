@@ -2,7 +2,7 @@
 <hr class="main-no-margin-top"/>
 <div class="student-detail-summary-content" ng-include="'views/student_class_site_list.html'" ></div>
 <div class="student-info">
-  <a class="unsortable">Advisors: </a>
+  <strong><a class="unsortable">Advisors: </a></strong>
   <p class="advisor-names" ng-repeat="advisor in advisors">
     <a href="#/advisors/{{advisor.mentor.username}}/">
       {{ advisor.mentor.first_name }} {{ advisor.mentor.last_name }}</a>
