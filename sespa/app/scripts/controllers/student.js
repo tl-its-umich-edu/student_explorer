@@ -45,7 +45,6 @@ angular.module('sespaApp')
 
     $scope.isStudentClassSiteDetail = function() {
       var strings = $location.path().split('/');
-      console.log(strings);
       if (strings[3] === 'class_sites') {
         return true;
       }

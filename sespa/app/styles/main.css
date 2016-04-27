@@ -174,7 +174,8 @@ th[scope="row"] {
 .student-detail-left-menu-course-status {
     float: right;
     padding-top: 16px;
-    padding-right: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .student-detail-left-menu-courses:hover {
@@ -217,6 +218,10 @@ th[scope="row"] {
 .no-margin {
     margin-left: 0;
     margin-right: 0;
+}
+
+.student-detail-class-site-status {
+    display: inline-block;
 }
 
 /* Custom page footer */
@@ -293,9 +298,14 @@ a.class-site-status-link {
   text-decoration: none;
 }
 
+a.class-site-status-link span {
+  display: inline-block;
+}
+
 .class-site-status {
-  height: 20pt;
-  margin-right: 5px;
+  width: 20pt;
+  margin-left: 2.5px;
+  margin-right: 2.5px;
   content:url("../images/Status_Icons_Not Applicable.png")
 }
 

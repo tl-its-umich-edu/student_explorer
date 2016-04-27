@@ -16,9 +16,13 @@ angular.module('sespaApp')
     $scope.sortReverse = false;
     $scope.progress = 0;
     $scope.hasAdvisorProfile = true;
-
-    // $scope.searchAdvisor = '';
-    // $scope.scroll = scroll;
+    $scope.filterStudentCourseStatus = function(status, name) {
+      if (status === 'No data') {
+        return 'No data';
+      } else {
+        return name + ': ' + status;
+      }
+    };
 
     advisingData.userInfo().then(function(userInfo) {
       if (typeof $routeParams.advisor === 'undefined') {
