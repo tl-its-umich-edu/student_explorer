@@ -93,6 +93,10 @@ th[scope="row"] {
 }
 
 /* For tables on student-class-site-list */
+.student-class-site-list-table > tbody > tr > th {
+  width: 220px;
+}
+
 .student-class-site-list-table > tbody > tr > th,
 .student-class-site-list-table > tbody > tr > td {
   vertical-align: middle;
@@ -142,6 +146,7 @@ th[scope="row"] {
 
 .student-detail-left-menu-course-line:hover {
     cursor: pointer;
+    background-color: #CCCCCC;
 }
 
 .student-detail-left-menu-course-line p {
@@ -179,6 +184,7 @@ th[scope="row"] {
 
 .student-detail-left-menu-courses:hover {
     cursor: pointer;
+    background-color: #CCCCCC;
 }
 
 .student-detail-summary {
@@ -713,5 +719,5 @@ svg text {
 .class-site-title {
     padding-top: 20px !important;
     padding-bottom: 20px !important;
-    font-size: 20px;
+    font-size: 16px;
 }
