@@ -93,6 +93,10 @@ th[scope="row"] {
 }
 
 /* For tables on student-class-site-list */
+.student-class-site-list-table > tbody > tr > th {
+  width: 220px;
+}
+
 .student-class-site-list-table > tbody > tr > th,
 .student-class-site-list-table > tbody > tr > td {
   vertical-align: middle;
@@ -105,6 +109,9 @@ th[scope="row"] {
   left: 0;
   height: 100%;
   background-color: #F9F9F9;
+  overflow-y: scroll;
+  /* Need to fix the scroll bug here for the left nav menu */
+  margin-bottom: 100px;
 }
 
 .student-detail-left-menu .sub-header {
@@ -142,6 +149,7 @@ th[scope="row"] {
 
 .student-detail-left-menu-course-line:hover {
     cursor: pointer;
+    background-color: #CCCCCC;
 }
 
 .student-detail-left-menu-course-line p {
@@ -180,6 +188,7 @@ th[scope="row"] {
 
 .student-detail-left-menu-courses:hover {
     cursor: pointer;
+    background-color: #CCCCCC;
 }
 
 .student-detail-summary {
@@ -203,7 +212,7 @@ th[scope="row"] {
 .student-info {
   background-color: #eee;
   padding: .75em;
-  margin-bottom: 2em;
+  margin-bottom: 80px;
 }
 
 .student-info p {
@@ -359,6 +368,9 @@ a.class-site-status-link span {
   }
   .student-detail-summary-content {
       margin-left: 0px;
+  }
+  .student-info {
+    margin-bottom: 10px;
   }
 }
 
@@ -723,5 +735,5 @@ svg text {
 .class-site-title {
     padding-top: 20px !important;
     padding-bottom: 20px !important;
-    font-size: 20px;
+    font-size: 16px;
 }
