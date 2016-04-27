@@ -109,6 +109,9 @@ th[scope="row"] {
   left: 0;
   height: 100%;
   background-color: #F9F9F9;
+  overflow-y: scroll;
+  /* Need to fix the scroll bug here for the left nav menu */
+  margin-bottom: 100px;
 }
 
 .student-detail-left-menu .sub-header {
@@ -208,7 +211,7 @@ th[scope="row"] {
 .student-info {
   background-color: #eee;
   padding: .75em;
-  margin-bottom: 2em;
+  margin-bottom: 80px;
 }
 
 .student-info p {
@@ -355,6 +358,9 @@ a.class-site-status-link {
   }
   .student-detail-summary-content {
       margin-left: 0px;
+  }
+  .student-info {
+    margin-bottom: 10px;
   }
 }
 
