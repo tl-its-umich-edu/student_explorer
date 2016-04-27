@@ -93,6 +93,10 @@ th[scope="row"] {
 }
 
 /* For tables on student-class-site-list */
+.student-class-site-list-table > tbody > tr > th {
+  width: 220px;
+}
+
 .student-class-site-list-table > tbody > tr > th,
 .student-class-site-list-table > tbody > tr > td {
   vertical-align: middle;
@@ -105,6 +109,9 @@ th[scope="row"] {
   left: 0;
   height: 100%;
   background-color: #F9F9F9;
+  overflow-y: scroll;
+  /* Need to fix the scroll bug here for the left nav menu */
+  margin-bottom: 100px;
 }
 
 .student-detail-left-menu .sub-header {
@@ -142,6 +149,7 @@ th[scope="row"] {
 
 .student-detail-left-menu-course-line:hover {
     cursor: pointer;
+    background-color: #CCCCCC;
 }
 
 .student-detail-left-menu-course-line p {
@@ -174,11 +182,13 @@ th[scope="row"] {
 .student-detail-left-menu-course-status {
     float: right;
     padding-top: 16px;
-    padding-right: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .student-detail-left-menu-courses:hover {
     cursor: pointer;
+    background-color: #CCCCCC;
 }
 
 .student-detail-summary {
@@ -202,7 +212,7 @@ th[scope="row"] {
 .student-info {
   background-color: #eee;
   padding: .75em;
-  margin-bottom: 2em;
+  margin-bottom: 80px;
 }
 
 .student-info p {
@@ -217,6 +227,10 @@ th[scope="row"] {
 .no-margin {
     margin-left: 0;
     margin-right: 0;
+}
+
+.student-detail-class-site-status {
+    display: inline-block;
 }
 
 /* Custom page footer */
@@ -293,9 +307,14 @@ a.class-site-status-link {
   text-decoration: none;
 }
 
+a.class-site-status-link span {
+  display: inline-block;
+}
+
 .class-site-status {
-  height: 20pt;
-  margin-right: 5px;
+  width: 20pt;
+  margin-left: 2.5px;
+  margin-right: 2.5px;
   content:url("../images/Status_Icons_Not Applicable.png")
 }
 
@@ -349,6 +368,9 @@ a.class-site-status-link {
   }
   .student-detail-summary-content {
       margin-left: 0px;
+  }
+  .student-info {
+    margin-bottom: 10px;
   }
 }
 
@@ -713,5 +735,5 @@ svg text {
 .class-site-title {
     padding-top: 20px !important;
     padding-bottom: 20px !important;
-    font-size: 20px;
+    font-size: 16px;
 }

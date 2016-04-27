@@ -15,6 +15,7 @@ angular.module('sespaApp')
         'green': 'Encourage',
         'yellow': 'Explore',
         'red': 'Engage',
+        'not applicable': 'No data'
       }[String(status).toLowerCase()] || null);
     };
   })
