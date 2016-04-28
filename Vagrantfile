@@ -7,7 +7,7 @@ Vagrant.configure(2) do |config|
         v.memory = 2048
     end
 
-    config.vm.network "forwarded_port", guest: 8000, host: 2081
+    config.vm.network "forwarded_port", guest: 8000, host: 2082
     config.vm.network "forwarded_port", guest: 3306, host: 2034
 
     if File.directory?("../django-unizindata/unizindata/")
@@ -67,7 +67,7 @@ EOM
             cp student_explorer/settings/local_sample.py student_explorer/settings/local.py
         fi
 
-        echo "Installing Bower..."        
+        echo "Installing Bower..."
         cd /vagrant
         apt-get update
         apt-get install --yes git
