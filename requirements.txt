@@ -5,4 +5,4 @@ django-filter
 django-crispy-forms
 python-ldap
 requests
-git+https://bitbucket.org/umichdig/django-unizindata.git
+#git+https://bitbucket.org/umichdig/django-unizindata.git
