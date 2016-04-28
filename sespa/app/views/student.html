@@ -21,7 +21,7 @@
     </div>
     <div class="student-detail-left-menu-courses" ng-repeat="classSite in classSites | orderBy:sortType:sortReverse"
       ng-click="goTo('/students/'+student.username+'/class_sites/'+classSite.class_site.code+'/')">
-      <p>{{classSite.class_site.description}}dfkda;fkd s;lfkdas;lf fdak;fldks ;fkla;f;asdl;kfa</p>
+      <p>{{classSite.class_site.description}}</p>
       <span class="student-detail-left-menu-course-status" status-tooltip status="classSite.status" tooltiptext="classSite.status | colorToStatus"></span>
     </div>
   </div>
