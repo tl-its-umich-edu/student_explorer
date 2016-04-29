@@ -5,11 +5,7 @@ RUN apt-get update
 RUN apt-get --no-install-recommends install --yes \
     libaio1 libaio-dev \
     libldap2-dev libsasl2-dev \
-    build-essential libmysqlclient-dev git \
-    nodejs npm
-
-RUN ln -s /usr/bin/nodejs /usr/bin/node
-RUN npm install -g bower grunt-cli
+    build-essential libmysqlclient-dev git
 
 WORKDIR /tmp/
 
@@ -28,10 +24,6 @@ RUN mkdir -p /usr/src/app
 
 COPY . /usr/src/app
 
-WORKDIR /usr/src/app/sespa
-RUN bower --allow-root install
-RUN npm install
-RUN grunt build
 WORKDIR /usr/src/app
 
 EXPOSE 8000
