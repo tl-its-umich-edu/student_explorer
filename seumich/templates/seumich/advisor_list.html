@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+<h2 class="sub-header">All Advisors</h2>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">
+          <a href="">
+            Name
+            <span class="fa fa-caret-down"><span class="sr-only"> (descending sort)</span></span>
+            <span class="fa fa-caret-up"><span class="sr-only"> (ascending sort)</span></span>
+          </a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row" class="bold">
+          <ul class='list-group' id='advisor_handles'>
+            {% for advisor in advisors %}
+              <li class='list-group-item'><a href="/seumich/advisors/{{ advisor.username }}/">{{ advisor.first_name }}
+                {{ advisor.last_name }}</a></li>
+            {% endfor %}
+          </ul>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<dig-data-fetch-progress progress="{{progress}}" />
+
+{% endblock %}

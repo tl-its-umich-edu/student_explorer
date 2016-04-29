@@ -1,0 +1,38 @@
+<div ng-if="classSites" ng-cloak>
+<h2 class="sub-header">Class Sites</h2>
+<div ng-if="classSites.length == 0">
+  <p>There is no class site data available.</p>
+</div>
+<div ng-if="classSites.length > 0" class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">
+          <a href="" ng-click="sortType = 'description'; sortReverse = !sortReverse">
+            Course Site
+            <span class="fa fa-caret-down" ng-show="sortType == 'description' &amp;&amp; !sortReverse"><span class="sr-only"> (ascending sort)</span></span>
+            <span class="fa fa-caret-up" ng-show="sortType == 'description' &amp;&amp; sortReverse"><span class="sr-only"> (descending sort)</span></span>
+          </a>
+        </th>
+        <th scope="col">
+          <a class="unsortable">Terms</a>
+        </th>
+        <th scope="col">
+          <a class="unsortable">Source System</a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="classSite in classSites | orderBy:sortType:sortReverse">
+        <th scope="row" class="bold"><a href="#/class_sites/{{classSite.code}}">{{ classSite.description }}</a></th>
+        <td>
+          <p ng-repeat="term in classSite.terms">{{term}}</p>
+        </td>
+        <td>{{classSite.source_system}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<dig-data-fetch-progress progress="{{progress}}" />

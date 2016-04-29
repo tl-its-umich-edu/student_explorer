@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div>
+    <h2 class="sub-header">{{advisor.first_name}} {{advisor.last_name}}</h2>
+    <hr class="main-no-margin-top"/>
+    <h3>Students</h3>
+    <div class="main-page-end-margin-bottom"></div>
+</div>
+
+<div class="panel panel-warning not-found">
+  <div class="panel-heading">
+    <h3 class="panel-title">Not Found</h3>
+  </div>
+  <div class="panel-body">
+    No advisor profile found ({{advisorUsername}}).
+  </div>
+</div>
+
+{% endblock %}

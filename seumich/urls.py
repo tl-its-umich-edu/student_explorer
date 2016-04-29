@@ -13,10 +13,14 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import patterns, url
+from django.conf.urls import include, patterns, url
 from seumich import views
 
 urlpatterns = patterns(
     '',
     url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^advisors/(?P<advisor>\w+)/$', views.AdvisorView.as_view(), name='advisor'),
+    url(r'^advisors/', views.AdvisorsListView.as_view(), name='advisors_list'),
+    url(r'^students/', views.StudentsListView.as_view(), name='students_list'),
     )
