@@ -39,12 +39,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'student_explorer',
-    'advising',
-    'hashredirect',
-    'umichuser',
-    'statuscheck',
+    'seumich',
+    'watchman',
 )
 
 MIDDLEWARE_CLASSES = [
