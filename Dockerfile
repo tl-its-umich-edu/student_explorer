@@ -1,4 +1,4 @@
-FROM python:2.7
+FROM docker.io/python:2.7
 
 RUN apt-get update
 
