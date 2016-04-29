@@ -22,9 +22,10 @@ RUN pip install -r requirements.txt
 
 RUN mkdir -p /usr/src/app
 
-COPY . /usr/src/app
 
 WORKDIR /usr/src/app
 
 EXPOSE 8000
 CMD ./start.sh
+
+COPY . /usr/src/app
