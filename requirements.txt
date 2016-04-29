@@ -5,5 +5,5 @@ mysql-python
 # django-crispy-forms
 python-ldap
 requests
-watchman
+# watchman
 # git+https://bitbucket.org/umichdig/django-unizindata.git
