@@ -24,7 +24,7 @@ else:
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^check/', include('watchman.urls')),
+    # url(r'^check/', include('watchman.urls')),
 
     url(r'^', include('seumich.urls')),
 
