@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'student_explorer',
     'seumich',
-    'watchman',
+    # 'watchman',
 )
 
 MIDDLEWARE_CLASSES = [
