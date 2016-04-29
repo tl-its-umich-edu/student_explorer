@@ -1,6 +1,5 @@
 from django.db import models
-from advisingumich.mixins import AdvisingUmichDataCleanupMixin
-from advising import utils
+from seumich.mixins import SeumichDataMixin
 
 import logging
 
@@ -77,7 +76,7 @@ class Status(models.Model):
     id = models.IntegerField(primary_key=True, db_column='ACAD_PERF_KEY')
     code = models.CharField(max_length=20, db_column='ACAD_PERF_VAL')
     description = models.CharField(max_length=50, db_column='ACAD_PERF_TXT')
-    order = models.IntegerField(db_column='ACAD_PERF_ORDNL_NBR')
+    order = models.IntegerField(db_column='ACAD_PERF_ORDNL_NBR', null=True)
 
     def __unicode__(self):
         return self.description
@@ -87,7 +86,7 @@ class Status(models.Model):
         db_table = '"CNLYR002"."DM_ACAD_PERF"'
 
 
-class Student(models.Model):
+class Student(models.Model, SeumichDataMixin):
     id = models.IntegerField(primary_key=True, db_column='STDNT_KEY')
     username = UsernameField(max_length=16, db_column='STDNT_UM_UNQNM')
     univ_id = models.CharField(max_length=11, db_column='STDNT_UM_ID')
@@ -103,8 +102,8 @@ class Student(models.Model):
 
     @property
     def advisors(self):
-        return utils.aggrate_relationships(self.studentadvisorrole_set.all(),
-                                           'advisor', 'role')
+        return self.aggrate_relationships(self.studentadvisorrole_set.all(),
+                                          'advisor', 'role')
 
     def __unicode__(self):
         return self.username
@@ -191,7 +190,8 @@ class Assignment(models.Model):
     id = models.IntegerField(primary_key=True, db_column='ASSGN_KEY')
     code = models.CharField(max_length=20, db_column='ASSGN_CD')
     description = models.CharField(max_length=50, db_column='ASSGN_DES')
-    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
+    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY',
+                                      null=True)
 
     def __unicode__(self):
         return self.description
@@ -205,7 +205,8 @@ class ClassSite(models.Model):
     code = models.CharField(max_length=20, db_column='CLASS_SITE_CD')
     description = models.CharField(max_length=50, db_column='CLASS_SITE_DES')
     terms = models.ManyToManyField('Term', through='ClassSiteTerm')
-    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
+    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY',
+                                      null=True)
 
     def __unicode__(self):
         return self.description
@@ -219,7 +220,8 @@ class Cohort(models.Model):
     code = models.CharField(max_length=20, db_column='CHRT_CD')
     description = models.CharField(max_length=50, db_column='CHRT_DES')
     group = models.CharField(max_length=100, db_column='CHRT_GRP_NM')
-    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
+    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY',
+                                      null=True)
 
     def __unicode__(self):
         return self.description
@@ -230,7 +232,8 @@ class Cohort(models.Model):
 
 class EventType(models.Model):
     id = models.IntegerField(primary_key=True, db_column='EVENT_TYP_KEY')
-    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY')
+    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY',
+                                      null=True)
     description = models.CharField(max_length=50, db_column='EVENT_TYP_NM')
 
     def __unicode__(self):
@@ -314,7 +317,7 @@ class StudentClassSiteScore(models.Model):
         db_table = '"CNLYR002"."FC_STDNT_CLASS_SCR"'
 
 
-class StudentClassSiteAssignment(models.Model, AdvisingUmichDataCleanupMixin):
+class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
     student = models.ForeignKey(Student, db_column='STDNT_KEY',
                                 primary_key=True)
     class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
