@@ -31,6 +31,7 @@ urlpatterns = [
 
     url(r'^api/', include('advising.urls')),
     url(r'^api/users/', include('umichuser.urls')),
+    url(r'^seumich/', include('seumich.urls')),
 
     url(r'^$', hashredirect.views.login_or_serve, {
         'document_root': document_root,
