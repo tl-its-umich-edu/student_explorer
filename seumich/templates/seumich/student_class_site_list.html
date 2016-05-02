@@ -1,0 +1,10 @@
+<div ng-if="classSites" ng-cloak>
+<h2 ng-if="classSiteListHeader" class="sub-header class-site-list-header">{{classSiteListHeader}}</h2>
+<div ng-if="classSites.length == 0">
+  <p>There is no class site data for this student.</p>
+</div>
+<div ng-if="classSites.length > 0" class="table-responsive">
+  <div class="student-class-site-table" ng-include src="'views/student_class_site_list_table.html'"></div>
+  <div class="student-class-site-list" ng-include src="'views/student_class_site_list_list.html'"></div>
+</div>
+</div>
