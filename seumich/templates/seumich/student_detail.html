@@ -3,12 +3,14 @@
 <div class="student-detail-summary-content" ng-include="'views/student_class_site_list.html'" ></div>
 <div class="student-info">
   <strong><a class="unsortable">Advisors: </a></strong>
-  <p class="advisor-names" ng-repeat="advisor in advisors">
-    <a href="#/advisors/{{advisor.mentor.username}}/">
-      {{ advisor.mentor.first_name }} {{ advisor.mentor.last_name }}</a>
+  {% for advisor in advisors %}
+  <p class="advisor-names">
+    <a href="/advisors/{{advisor.username}}/">
+      {{ advisor.first_name }} {{ advisor.last_name }}</a>
     <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true"
       title="{{advisor.cohort}}"
       data-toggle="tooltip" data-placement="bottom" tooltip></span>
     <span class="sr-only">{{advisor.role}}</span>
   </p>
+  {% endfor %}
 </div>

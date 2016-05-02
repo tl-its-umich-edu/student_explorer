@@ -22,5 +22,6 @@ urlpatterns = patterns(
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^advisors/(?P<advisor>\w+)/$', views.AdvisorView.as_view(), name='advisor'),
     url(r'^advisors/', views.AdvisorsListView.as_view(), name='advisors_list'),
+    url(r'^students/(?P<student>\w+)/$', views.StudentView.as_view(), name='student'),
     url(r'^students/', views.StudentsListView.as_view(), name='students_list'),
     )
