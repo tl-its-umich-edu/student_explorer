@@ -20,7 +20,8 @@
 1. Initialize and start app server
     - `cd /vagrant`
     - `python manage.py migrate` (updates your repo if anything as changed)
-    - `python manage.py loaddata seumich/fixtures/dev_data.json student_explorer/fixtures/dev_users.json` (loads some test student data)
+    - `python manage.py loaddata student_explorer/fixtures/dev_users.json` (loads some test user data)
+    - `mysql -h 127.0.0.1 -u student_explorer -pstudent_explorer student_explorer < seumich/fixtures/dev_data_drop_create_and_insert.sql` (loads some test advising data)
     - `python manage.py runserver`
 2. Browse to [http://localhost:2080/login/](http://localhost:2080/login/)
     - Login as individual advisors using their lower-case first name as username/password (e.g.: burl/burl)
