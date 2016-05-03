@@ -2,7 +2,9 @@
 
 {% block content %}
 
-<h2 class="sub-header">Burl Chandler</h2>
+<h2 class="sub-header">{{ studentListHeader }}</h2>
+<hr class="main-no-margin-top"/>
+<h3>Students</h3>
 {% if students.length == 0 %}
 <div class="panel panel-warning">
   <div class="panel-heading">
@@ -49,27 +51,32 @@
     </tr>
   </thead>
   <tbody>
+    {% for student in students %}
     <tr>
       <th scope="row" class="bold">
-        {% for student in students %}
-        <ul class='list-group' id='student_handles'>
-            <li class='list-group-item'><a href="/seumich/students/{{ student.username }}/">{{ student.first_name }}
-              {{ student.last_name }}</a></li>
-        </ul>
-        {% endfor %}
+        <a href="/students/{{ student.username }}/">{{ student.first_name }}
+              {{ student.last_name }}</a>
       </th>
       <td class="hide-small">{{ student.univ_id }}</td>
       <td>
+        {% for status in student.statuses.all %}
+        {% load static %}
         <a href="#/students/{{ student.username }}/class_sites/{{ class_site_status.code }}/" class="class-site-status-link">
+          {% static "" as baseUrl %}
+          <span><img src="{{ baseUrl }}/images/Status_Icons_{{status}}.png" width='25%'></img></span>
           <span status-tooltip status="class_site_status.status"
             tooltiptext="filterStudentCourseStatus((class_site_status.status | colorToStatus), class_site_status.name)">
           </span>
         </a>
+        {% endfor %}
       </td>
       <td class="hide-small">
-          <div>{{ student.cohort }}</div>
+        {% for cohort in student.cohorts.all %}
+          <div>{{ cohort }}</div>
+        {% endfor %}
       </td>
     </tr>
+    {% endfor %}
   </tbody>
 </table>
 </div>

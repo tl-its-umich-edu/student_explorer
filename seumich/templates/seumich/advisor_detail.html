@@ -1,14 +1,21 @@
 {% extends 'index.html' %}
 
+{% block head %}
+  {% load staticfiles %}
+  <script src='{% static 'seumich/advisor_detail.js' %}'></script>
+{% endblock %}
+
+
 {% block content %}
 
+
 <div>
-    <h2 class="sub-header">{{advisor.first_name}} {{advisor.last_name}}</h2>
-    <hr class="main-no-margin-top"/>
-    <h3>Students</h3>
-    <div class="main-page-end-margin-bottom"></div>
+    <div class="main-page-end-margin-bottom" id="load-advisor-detail"></div>
+    <input type="hidden" id="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <input type="hidden" id="selected-advisor" value="{{ advisor }}">
 </div>
 
+{% if not advisor %}
 <div class="panel panel-warning not-found">
   <div class="panel-heading">
     <h3 class="panel-title">Not Found</h3>
@@ -17,5 +24,6 @@
     No advisor profile found ({{advisorUsername}}).
   </div>
 </div>
+{% endif %}
 
 {% endblock %}

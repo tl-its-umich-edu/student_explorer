@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'student_explorer',
     'seumich',
+    'django_extensions',
     # 'watchman',
 )
 
@@ -107,6 +108,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_URL = '/api/api-auth/login/'
+LOGIN_REDIRECT_URL = '/students/'
 
 REST_FRAMEWORK = {
     'PAGE_SIZE': 100,

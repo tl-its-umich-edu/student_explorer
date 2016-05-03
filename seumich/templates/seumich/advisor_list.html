@@ -18,16 +18,14 @@
       </tr>
     </thead>
     <tbody>
+      {% for advisor in advisors %}
       <tr>
         <th scope="row" class="bold">
-          <ul class='list-group' id='advisor_handles'>
-            {% for advisor in advisors %}
-              <li class='list-group-item'><a href="/seumich/advisors/{{ advisor.username }}/">{{ advisor.first_name }}
-                {{ advisor.last_name }}</a></li>
-            {% endfor %}
-          </ul>
+          <a href="/advisors/{{ advisor.username }}/">{{ advisor.first_name }}
+                {{ advisor.last_name }}</a>
         </th>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
 </div>
