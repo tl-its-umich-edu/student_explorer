@@ -63,10 +63,7 @@
         {% load static %}
         <a href="#/students/{{ student.username }}/class_sites/{{ class_site_status.code }}/" class="class-site-status-link">
           {% static "" as baseUrl %}
-          <span><img src="{{ baseUrl }}/images/Status_Icons_{{status}}.png" width='25%'></img></span>
-          <span status-tooltip status="class_site_status.status"
-            tooltiptext="filterStudentCourseStatus((class_site_status.status | colorToStatus), class_site_status.name)">
-          </span>
+           <img src="{{ baseUrl }}/images/Status_Icons_{{status}}.png" width="25px" hspace="3"></img>
         </a>
         {% endfor %}
       </td>

@@ -1,18 +1,9 @@
 {% extends 'index.html' %}
 
-{% block head %}
-  {% load staticfiles %}
-  <script src='{% static 'seumich/advisor_detail.js' %}'></script>
-{% endblock %}
-
-
 {% block content %}
 
-
 <div>
-    <div class="main-page-end-margin-bottom" id="load-advisor-detail"></div>
-    <input type="hidden" id="csrfmiddlewaretoken" value="{{ csrf_token }}">
-    <input type="hidden" id="selected-advisor" value="{{ advisor }}">
+    <div class="main-page-end-margin-bottom" id="load-advisor-detail">{% include 'seumich/student_list.html' %}</div>
 </div>
 
 {% if not advisor %}

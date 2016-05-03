@@ -13,12 +13,23 @@ class AdvisorsListView(generic.ListView):
     context_object_name = 'advisors'
 
 
+def getStudents(mentor):
+    students = []
+    for row in mentor.studentcohortmentor_set.all():
+        students.append(row.student)
+    students.sort(key=lambda x: x.last_name.lower())
+    return students
+
+
 class AdvisorView(generic.TemplateView):
     template_name = 'seumich/advisor_detail.html'
 
     def get_context_data(self, advisor, **kwargs):
         context = super(AdvisorView, self).get_context_data(**kwargs)
-        context['advisor'] = Mentor.objects.get(username=advisor)
+        mentor = Mentor.objects.get(username=advisor)
+        context['students'] = getStudents(mentor)
+        context['studentListHeader'] = mentor.first_name + " " + mentor.last_name
+        context['advisor'] = mentor
         return context
 
 
@@ -27,15 +38,8 @@ class StudentsListView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(StudentsListView, self).get_context_data(**kwargs)
-        students = []
-        if 'advisor' in self.request.GET:
-            user = self.request.GET['advisor']
-        else:
-            user = self.request.user
-        mentor = Mentor.objects.get(username=user)
-        for row in mentor.studentcohortmentor_set.all():
-            students.append(row.student)
-        context['students'] = students
+        mentor = Mentor.objects.get(username=self.request.user)
+        context['students'] = getStudents(mentor)
         context['studentListHeader'] = mentor.first_name + " " + mentor.last_name
         return context
 
