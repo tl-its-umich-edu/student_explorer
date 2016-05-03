@@ -1,11 +1,13 @@
+{% load filters %}
+
 <table class="table student-class-site-list-table">
   <thead>
     <tr>
       <th scope="col">
-        <a href="" ng-click="sortType = 'class_site.description'; sortReverse = !sortReverse">
+        <a href="">
           Course Site
-          <span class="fa fa-caret-down" ng-show="sortType == 'class_site.description' &amp;&amp; !sortReverse"><span class="sr-only"> (ascending sort)</span></span>
-          <span class="fa fa-caret-up" ng-show="sortType == 'class_site.description' &amp;&amp; sortReverse"><span class="sr-only"> (descending sort)</span></span>
+          <span class="fa fa-caret-down"><span class="sr-only"> (ascending sort)</span></span>
+          <span class="fa fa-caret-up"><span class="sr-only"> (descending sort)</span></span>
         </a>
       </th>
       <th scope="col">
@@ -24,31 +26,29 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="classSite in classSites | orderBy:sortType:sortReverse | filter:searchAdvisor">
-      <th scope="row" class="class-site-title"><a href="#/students/{{student.username}}/class_sites/{{classSite.class_site.code}}">{{ classSite.class_site.description }}</a></th>
+    {% for classSite in classSites %}
+    <tr>
+      <th scope="row" class="class-site-title"><a href="#/students/{{student.username}}/class_sites/{{classSite.class_site.code}}">{{ classSite.description }}</a></th>
       <td>
-        <span class="student-detail-class-site-status" status-tooltip status="classSite.status" tooltiptext="classSite.status | colorToStatus"></span>
+        <span status-tooltip status="classSite.status" tooltiptext="classSite.status | colorToStatus"></span>
       </td>
       <td>
         <div class="average-bar-container">
-          <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{classSite.current_student_score_average}}"
-            aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_student_score_average*0.9}}%;">
-            <p class="average-bar-text" ng-if="classSite.current_student_score_average != null">{{classSite.current_student_score_average}}%</p>
-            <p class="average-bar-text" ng-if="classSite.current_student_score_average == null">N/A</p>
-            <span class="sr-only" ng-if="classSite.current_student_score_average != null">Student Percentage: {{classSite.current_student_score_average}}%</span>
-            <span class="sr-only" ng-if="classSite.current_student_score_average == null">Student Percentage: N/A</span>
+          <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{ studentScores|get_item:classSite.id }}"
+            aria-valuemin="0" aria-valuemax="100" style="width: {{ studentScores|get_item:classSite.id }}%;">
+            <p class="average-bar-text">{{ studentScores|get_item:classSite.id }}%</p>
+            <span class="sr-only">Student Percentage: {{ studentScores|get_item:classSite.id }}%</span>
           </div>
         </div>
         <div class="average-bar-container">
-          <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{classSite.current_class_score_average}}"
-            aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_class_score_average*0.9}}%;">
-            <p class="average-bar-text" ng-if="classSite.current_class_score_average != null">{{classSite.current_class_score_average}}%</p>
-            <p class="average-bar-text" ng-if="classSite.current_class_score_average == null">N/A</p>
-            <span class="sr-only" ng-if="classSite.current_class_score_average != null">Class Average Percentage: {{classSite.current_class_score_average}}%</span>
-            <span class="sr-only" ng-if="classSite.current_class_score_average == null">Class Average Percentage: N/A</span>
+          <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{ classScores|get_item:classSite.id }}"
+            aria-valuemin="0" aria-valuemax="100" style="width: {{ classScores|get_item:classSite.id }}%;">
+            <p class="average-bar-text">{{ classScores|get_item:classSite.id }}%</p>
+            <span class="sr-only">Class Average Percentage: {{ classScores|get_item:classSite.id }}%</span>
           </div>
         </div>
       </td>
     </tr>
+    {% endfor %}
   </tbody>
 </table>

@@ -1,6 +1,5 @@
 from django.views import generic
-from django.shortcuts import render
-from seumich.models import Student, Mentor, StudentCohortMentor
+from seumich.models import Student, Mentor
 
 
 class IndexView(generic.TemplateView):
@@ -13,21 +12,13 @@ class AdvisorsListView(generic.ListView):
     context_object_name = 'advisors'
 
 
-def getStudents(mentor):
-    students = []
-    for row in mentor.studentcohortmentor_set.all():
-        students.append(row.student)
-    students.sort(key=lambda x: x.last_name.lower())
-    return students
-
-
 class AdvisorView(generic.TemplateView):
     template_name = 'seumich/advisor_detail.html'
 
     def get_context_data(self, advisor, **kwargs):
         context = super(AdvisorView, self).get_context_data(**kwargs)
         mentor = Mentor.objects.get(username=advisor)
-        context['students'] = getStudents(mentor)
+        context['students'] = mentor.students.all()
         context['studentListHeader'] = mentor.first_name + " " + mentor.last_name
         context['advisor'] = mentor
         return context
@@ -39,20 +30,34 @@ class StudentsListView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(StudentsListView, self).get_context_data(**kwargs)
         mentor = Mentor.objects.get(username=self.request.user)
-        context['students'] = getStudents(mentor)
+        context['students'] = mentor.students.all()
         context['studentListHeader'] = mentor.first_name + " " + mentor.last_name
         return context
 
 
 class StudentView(generic.TemplateView):
-    template_name = 'seumich/student_detail.html'
+    template_name = 'seumich/student.html'
 
     def get_context_data(self, student, **kwargs):
         context = super(StudentView, self).get_context_data(**kwargs)
-        advisors = []
+        classScores = {}
+        studentScores = {}
         selected_student =  Student.objects.get(username=student)
-        student_mentors = selected_student.studentcohortmentor_set.all()
-        for row in student_mentors:
-            advisors.append(row.mentor)
-        context['advisors'] = advisors
+        context['student'] = selected_student
+        context['advisors'] = selected_student.mentors.all()
+        context['classSites'] = selected_student.class_sites.all()
+        for classSite in selected_student.class_sites.all():
+            classScore = classSite.classsitescore_set.all()
+            studentScore = selected_student.studentclasssitescore_set.filter(class_site=classSite)
+            if classScore:
+                classScores[classSite.id] = classScore[0].current_score_average
+            else:
+                classScores[classSite.id] = 'N/A'
+            if studentScore:
+                studentScores[classSite.id] = studentScore[0].current_score_average
+            else:
+                studentScores[classSite.id] = 'N/A'
+        context['classScores'] = classScores
+        context['studentScores'] = studentScores
+        print context
         return context

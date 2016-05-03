@@ -2,15 +2,15 @@
   <p class="legend-text"><span class="legend-key student-legend-key"></span>Student</p>
   <p class="legend-text"><span class="legend-key class-legend-key"></span>Class Average</p>
 </div>
-<div class="card-block" ng-repeat="classSite in classSites | orderBy:sortType:sortReverse | filter:searchAdvisor"
-  ng-click="goTo('/students/'+student.username+'/class_sites/'+classSite.class_site.code+'/')">
+
+<div class="card-block">
   <div class="card-title">
       <a class="unsortable">{{ classSite.class_site.description }}</a>
       <span class="card-class-site-status" status-tooltip status="classSite.status" tooltiptext="classSite.status | colorToStatus"></span>
   </div>
   <div class="average-bar-container">
     <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{classSite.current_student_score_average}}"
-      aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_student_score_average*0.9}}%;">
+      aria-valuemin="0" aria-valuemax="100">
       <p class="average-bar-text" ng-if="classSite.current_student_score_average != null">{{classSite.current_student_score_average}}%</p>
       <p class="average-bar-text" ng-if="classSite.current_student_score_average == null">N/A</p>
       <span class="sr-only" ng-if="classSite.current_student_score_average != null">Student Percentage: {{classSite.current_student_score_average}}%</span>
@@ -19,7 +19,7 @@
   </div>
   <div class="average-bar-container">
     <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{classSite.current_class_score_average}}"
-      aria-valuemin="0" aria-valuemax="100" style="width: {{classSite.current_class_score_average*0.9}}%;">
+      aria-valuemin="0" aria-valuemax="100">
       <p class="average-bar-text" ng-if="classSite.current_class_score_average != null">{{classSite.current_class_score_average}}%</p>
       <p class="average-bar-text" ng-if="classSite.current_class_score_average == null">N/A</p>
       <span class="sr-only" ng-if="classSite.current_class_score_average != null">Class Average Percentage: {{classSite.current_class_score_average}}%</span>

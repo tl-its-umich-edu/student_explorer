@@ -1,6 +1,6 @@
 <h2 class="student-detail-summary-title">STUDENT SUMMARY</h2>
 <hr class="main-no-margin-top"/>
-<div class="student-detail-summary-content" ng-include="'views/student_class_site_list.html'" ></div>
+<div class="student-detail-summary-content">{% include 'seumich/student_class_site_list.html' %}</div>
 <div class="student-info">
   <strong><a class="unsortable">Advisors: </a></strong>
   {% for advisor in advisors %}
