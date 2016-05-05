@@ -20,9 +20,12 @@ urlpatterns = patterns(
     '',
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^advisors/(?P<advisor>\w+)/$', views.AdvisorView.as_view(), name='advisor'),
+    url(r'^advisors/(?P<advisor>\w+)/$',
+        views.AdvisorView.as_view(), name='advisor'),
     url(r'^advisors/', views.AdvisorsListView.as_view(), name='advisors_list'),
-    url(r'^students/(?P<student>\w+)/class_sites/(?P<classcode>\d+)/$', views.StudentClassSiteView.as_view(), name='student_class'),
-    url(r'^students/(?P<student>\w+)/$', views.StudentView.as_view(), name='student'),
+    url(r'^students/(?P<student>\w+)/class_sites/(?P<classcode>\d+)/$',
+        views.StudentClassSiteView.as_view(), name='student_class'),
+    url(r'^students/(?P<student>\w+)/$',
+        views.StudentView.as_view(), name='student'),
     url(r'^students/', views.StudentsListView.as_view(), name='students_list'),
-    )
+)

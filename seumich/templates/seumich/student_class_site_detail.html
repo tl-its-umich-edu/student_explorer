@@ -1,102 +1,135 @@
-{% extends 'index.html' %}
-
-{% block content %}
+{% extends 'index.html' %} {% load filters %} {% block content %}
 
 <div>
-  <div class="student-detail-mobile">
-    <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
-    <hr class="main-no-margin-top"/>
-  </div>
+    <div class="student-detail-mobile">
+        <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
+        <hr class="main-no-margin-top" />
+    </div>
 
-  <div class="student-detail-left-menu" id="student-detail-menu">
-    <div class="student-detail-left-menu-top">
-      <p class="student-detail-student-name">{{student.first_name}} {{student.last_name}}</p>
-      <p class="student-detail-student-email"><a href="mailto:{{student.email_address}}" class="student-detail-student-email-link">{{student.email_address}}</a></p>
+    <div class="student-detail-left-menu" id="student-detail-menu">
+        <div class="student-detail-left-menu-top">
+            <p class="student-detail-student-name">{{student.first_name}} {{student.last_name}}</p>
+            <p class="student-detail-student-email"><a href="mailto:{{student.email_address}}" class="student-detail-student-email-link">{{student.email_address}}</a></p>
+        </div>
+        <div class="student-detail-left-menu-course-line" ng-click="goTo('/students/'+student.username+'/')">
+            <p>STUDENT SUMMARY</p>
+        </div>
+        {% for classSite in classSites %}
+        <div class="student-detail-left-menu-courses">
+            <p>{{classSite.description}}</p>
+            {% load static %} {% static "" as baseUrl %}
+            <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px"></img>
+        </div>
+        {% endfor %}
     </div>
-    <div class="student-detail-left-menu-course-line" ng-click="goTo('/students/'+student.username+'/')">
-      <p>STUDENT SUMMARY</p>
-    </div>
-    {% for classSite in classSites %}
-    <div class="student-detail-left-menu-courses">
-      <p>{{classSite.description}}</p>
-    </div>
-    {% endfor %}
-  </div>
 
-  <div class="student-detail-summary">
-    <div class="student-detail-summary-content">
-      <div class="row no-margin">
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-          <h3 class="main-h3">
+    <div class="student-detail-summary">
+        <div class="student-detail-summary-content">
+            <div class="row no-margin">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <h3 class="main-h3">
             Course Site: {{ classSite.description }}
-            <span class="student-detail-class-site-status" status-tooltip status="classSite.status" tooltiptext="classSite.status | colorToStatus"></span>
+            {% load static %} {% static "" as baseUrl %}
+            <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px"></img>
           </h3>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <div class="pull-right">
+                        <br>Data Source: <span class="label label-primary">{{classSite.source_system}}</span></div>
+                </div>
+            </div>
+
+
+            <hr class="main-no-margin-top" />
+
+
+            <div class="row charts no-margin">
+
+                <h3 class="main-less-weight">Cumulative Score</h3>
+                <div id="chart1" style="height: 100%;">
+                    <svg></svg>
+                </div>
+
+                <script>
+                    var chart = nv.models.multiBarChart()
+                        .showControls(false)
+                        .forceY([0, 100])
+                        .reduceXTicks(false)
+                        .showYAxis(true)
+                        .showXAxis(true)
+
+                    var data = {{ scoreData | jsonify }};
+                    chart.x(function(d) {
+                        return 'Week ' + d[0];
+                    });
+                    chart.y(function(d) {
+                        return d[1];
+                    });
+                    chart.yAxis.tickFormat(function(d) {
+                        return d + '%';
+
+                    });
+                    d3.select('#chart1 svg')
+                        .datum(data)
+                        .transition().duration(500).call(chart);
+                    nv.utils.windowResize(chart.update);
+                </script>
+
+                <h3 class="main-less-weight">Weekly Activity</h3>
+                <div id="chart2" style="height: 100%;">
+                    <svg></svg>
+                </div>
+
+                <script>
+                    var chart = nv.models.multiBarChart()
+                        .showControls(false)
+                        .forceY([0, 100])
+                        .reduceXTicks(false)
+                        .showYAxis(true)
+                        .showXAxis(true);
+
+                    var data = {{ eventPercentileData | jsonify }};
+
+                    chart.x(function(d) {
+                        return 'Week ' + d[0];
+                    });
+                    chart.y(function(d) {
+                        return d[1];
+                    });
+
+                    chart.yAxis.tickFormat(function(d) {
+                        return d + '%ile';
+
+                    });
+
+                    d3.select('#chart2 svg')
+                        .datum(data)
+                        .transition().duration(500).call(chart);
+                    nv.utils.windowResize(chart.update);
+                </script>
+            </div>
+
+            <div class="row assignments no-margin">
+                <h3 class="main-less-weight">Assignments</h3>
+                <p><small class="note">Note that this list may not reflect all assignments included in current score calculation. For a complete list, please refer to the source system.</small></p>
+                <!-- <a href="api/class_sites/{{classSite.class_site.code}}/student/{{student.username}}/assignments/download/"><button>Download Assignment</button></a> -->
+                <hr class="main-no-margin-top"> {% if assignments.length == 0 %}
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        No assignments found for this student.
+                    </div>
+                </div>
+            </div>
+
+            {% else %}
+
+            <div lass="table-responsive main-page-end-margin-bottom">
+                <div class="assignment-table">{% include 'seumich/assignment_list_table.html' %}</div>
+                <div class="assignment-list">{% include 'seumich/assignment_list.html' %}</div>
+            </div>
+            {% endif %}
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-          <div class="pull-right"><br>Data Source: <span class="label label-primary">{{classSite.source_system}}</span></div>
-        </div>
-      </div>
-      <hr class="main-no-margin-top" />
-
-      {{ html }}
-
-      <div class="row charts no-margin">
-        <h3 class="main-less-weight">Cumulative Score</h3>
-        <nvd3-multi-bar-chart
-          data="scoreData"
-          id="assignments-chart"
-          yAxisTickFormat="scoreYTickFormat()"
-          xAxisTickFormat="xTickFormat()"
-
-          showXAxis="true"
-          showYAxis="true"
-          xAxisLabel="Week"
-          showLegend="true"
-          showControls="false"
-          forceY="[0,100]"
-          interactive="true"
-          tooltips="true"
-          >
-            <svg />
-        </nvd3-multi-bar-chart>
-        <h3 class="main-less-weight">Weekly Activity</h3>
-        <nvd3-multi-bar-chart
-          data="activityData"
-          id="activity-chart"
-          yAxisTickFormat="activityYTickFormat()"
-          xAxisTickFormat="xTickFormat()"
-
-          showXAxis="true"
-          showYAxis="true"
-          xAxisLabel="Week"
-          showLegend="true"
-          showControls="false"
-          forceY="[0,100]"
-          interactive="true"
-          tooltips="true"
-          >
-            <svg />
-        </nvd3-multi-bar-chart>
-      </div>
-
-      <div class="row assignments no-margin">
-        <h3 class="main-less-weight">Assignments</h3>
-        <p><small class="note">Note that this list may not reflect all assignments included in current score calculation. For a complete list, please refer to the source system.</small></p>
-        <!-- <a href="api/class_sites/{{classSite.class_site.code}}/student/{{student.username}}/assignments/download/"><button>Download Assignment</button></a> -->
-        <hr class="main-no-margin-top">
-        <div ng-if="assignments.length == 0" class="panel panel-info">
-          <div class="panel-body">
-            No assignments found for this student.
-          </div>
-        </div>
-
-        <div ng-if="assignments.length > 0" class="table-responsive main-page-end-margin-bottom">
-          <div class="assignment-table" ng-include src="'views/assignment_list_table.html'"></div>
-          <div class="assignment-list" ng-include src="'views/assignment_list.html'"></div>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <dig-data-fetch-progress progress="{{progress}}"></dig-data-fetch-progress>

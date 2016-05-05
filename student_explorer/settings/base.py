@@ -42,7 +42,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'student_explorer',
     'seumich',
-    'django_extensions',
     # 'watchman',
 )
 

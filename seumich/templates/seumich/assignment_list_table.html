@@ -1,57 +1,57 @@
-{% extends 'index.html' %}
-
-{% block content %}
+{% load filters %}
 
 <table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">
-        <a href="">
+    <thead>
+        <tr>
+            <th scope="col">
+                <a href="">
       Assignment
       <span class="fa fa-caret-down"><span class="sr-only"> (ascending sort)</span></span>
       <span class="fa fa-caret-up"><span class="sr-only"> (descending sort)</span></span>
     </a>
-      </th>
-      <th scope="col">
-        <a href="">
+            </th>
+            <th scope="col">
+                <a href="">
       Due Date
       <span class="fa fa-caret-down"><span class="sr-only"> (descending sort)</span></span>
       <span class="fa fa-caret-up"><span class="sr-only"> (ascending sort)</span></span>
     </a>
-      </th>
-      <th scope="col">
-        <a class="unsortable">Points Earned/Possible</a>
-      </th>
-      <th scope="col">
-        <a class="unsortable">Student Percentage</a>
-      </th>
-      <th scope="col">
-        <a class="unsortable">Class Average</a>
-      </th>
-      <th scope="col">
-        <a class="unsortable">Grader's Comment</a>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">{{assignment.assignment.description}}</th>
-      <td>{{assignment.due_date | date}}</td>
-      <td>{{assignment.points_earned}} / {{assignment.points_possible}}</td>
-      <td>{{assignment.points_earned / assignment.points_possible * 100 | number:1}}%</td>
-      <td>{{assignment.class_points_earned / assignment.class_points_possible * 100 | number:1}}%</td>
-      <td class="assignment-comment-cell">
-        <span>
+            </th>
+            <th scope="col">
+                <a class="unsortable">Points Earned/Possible</a>
+            </th>
+            <th scope="col">
+                <a class="unsortable">Student Percentage</a>
+            </th>
+            <th scope="col">
+                <a class="unsortable">Class Average</a>
+            </th>
+            <th scope="col">
+                <a class="unsortable">Grader's Comment</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for assignment in assignments %}
+        <tr>
+            <th scope="row">{{assignment.assignment.description}}</th>
+            <td>{{assignment.due_date }}</td>
+            <td>{{assignment.points_earned|floatformat}}/{{assignment.points_possible|floatformat}}</td>
+            <td>{{assignment.points_earned|divide:assignment.points_possible|multiply:100|floatformat}}%</td>
+            <td>{{assignment.class_points_earned|divide:assignment.class_points_possible|multiply:100|floatformat}}%</td>
+            <td class="assignment-comment-cell">
+                <span>
           <span>View</span><span>Hide</span> Comment
-          <a class="assignment-button" role="button">
-            <img class="assignment-button" src="images/Dropdown_Plus.png" alt="Expand"/>
-            <img class="assignment-button" src="images/Dropdown_Minus.png" alt="Expand"/>
+                <a class="assignment-button" role="button">
+            {% load static %}
+            {% static "" as baseUrl %}
+            <img class="assignment-button" src="{{baseUrl}}/images/Dropdown_Plus.png" alt="Expand"/>
+            <img class="assignment-button" src="{{baseUrl}}/images/Dropdown_Minus.png" alt="Expand"/>
           </a>
-          <p>&quot;{{assignment.grader_comment}}&quot;</p>
-        </span>
-      </td>
-    </tr>
-  </tbody>
+                <p>&quot;{{assignment.grader_comment}}&quot;</p>
+                </span>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
-
-{% endblock %}

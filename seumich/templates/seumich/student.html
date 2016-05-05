@@ -1,31 +1,31 @@
-{% extends 'index.html' %}
-
-{% block content %}
+{% extends 'index.html' %} {% block content %} {% load filters %}
 
 <div>
-  <div class="student-detail-mobile">
-    <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
-    <hr class="main-no-margin-top"/>
-  </div>
+    <div class="student-detail-mobile">
+        <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
+        <hr class="main-no-margin-top" />
+    </div>
 
-  <div class="student-detail-left-menu" id="student-detail-menu">
-    <div class="student-detail-left-menu-top">
-      <p class="student-detail-student-name">{{student.first_name}} {{student.last_name}}</p>
-      <p class="student-detail-student-email"><a href="mailto:{{student.email_address}}" class="student-detail-student-email-link">{{student.email_address}}</a></p>
+    <div class="student-detail-left-menu" id="student-detail-menu">
+        <div class="student-detail-left-menu-top">
+            <p class="student-detail-student-name">{{student.first_name}} {{student.last_name}}</p>
+            <p class="student-detail-student-email"><a href="mailto:{{student.email_address}}" class="student-detail-student-email-link">{{student.email_address}}</a></p>
+        </div>
+        <div class="student-detail-left-menu-course-line" ng-click="goTo('/students/'+student.username+'/')">
+            <p>STUDENT SUMMARY</p>
+        </div>
+        {% for classSite in classSites %}
+        <div class="student-detail-left-menu-courses">
+            <p>{{classSite.description}}</p>
+            {% load static %} {% static "" as baseUrl %}
+            <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px"></img>
+        </div>
+        {% endfor %}
     </div>
-    <div class="student-detail-left-menu-course-line" ng-click="goTo('/students/'+student.username+'/')">
-      <p>STUDENT SUMMARY</p>
-    </div>
-    {% for classSite in classSites %}
-    <div class="student-detail-left-menu-courses">
-      <p>{{classSite.description}}</p>
-    </div>
-    {% endfor %}
-  </div>
 
-  <div class="student-detail-summary">
-    <div class="student-detail-summary-content">{% include 'seumich/student_detail.html' %}</div>
-  </div>
+    <div class="student-detail-summary">
+        <div class="student-detail-summary-content">{% include 'seumich/student_detail.html' %}</div>
+    </div>
 
 </div>
 

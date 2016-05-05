@@ -30,8 +30,7 @@
     <tr>
       <th scope="row" class="class-site-title"><a href="/students/{{student.username}}/class_sites/{{classSite.code}}/">{{ classSite.description }}</a></th>
       <td>
-         {% load static %}
-         {% static "" as baseUrl %}
+         {% load static %} {% static "" as baseUrl %}
          <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px" hspace="3"></img>
       </td>
       <td>

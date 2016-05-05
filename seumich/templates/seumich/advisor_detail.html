@@ -1,6 +1,4 @@
-{% extends 'index.html' %}
-
-{% block content %}
+{% extends 'index.html' %} {% block content %}
 
 <div>
     <div class="main-page-end-margin-bottom" id="load-advisor-detail">{% include 'seumich/student_list.html' %}</div>
@@ -8,13 +6,11 @@
 
 {% if not advisor %}
 <div class="panel panel-warning not-found">
-  <div class="panel-heading">
-    <h3 class="panel-title">Not Found</h3>
-  </div>
-  <div class="panel-body">
-    No advisor profile found ({{advisorUsername}}).
-  </div>
+    <div class="panel-heading">
+        <h3 class="panel-title">Not Found</h3>
+    </div>
+    <div class="panel-body">
+        No advisor profile found ({{advisorUsername}}).
+    </div>
 </div>
-{% endif %}
-
-{% endblock %}
+{% endif %} {% endblock %}

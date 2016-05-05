@@ -1,83 +1,76 @@
-{% extends 'index.html' %}
-
-{% block content %}
+{% extends 'index.html' %} {% block content %}
 
 <h2 class="sub-header">{{ studentListHeader }}</h2>
-<hr class="main-no-margin-top"/>
-<h3>Students</h3>
-{% if students.length == 0 %}
+<hr class="main-no-margin-top" />
+<h3>Students</h3> {% if students.length == 0 %}
 <div class="panel panel-warning">
-  <div class="panel-heading">
-    <h3 class="panel-title">No Results</h3>
-  </div>
-  <div class="panel-body">
-    No students found that match the query terms.
-  </div>
+    <div class="panel-heading">
+        <h3 class="panel-title">No Results</h3>
+    </div>
+    <div class="panel-body">
+        No students found that match the query terms.
+    </div>
 </div>
 {% endif %}
 
 <div class="table-responsive">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">
-        <a href="">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">
+                    <a href="">
           Name
           <span class="fa fa-caret-down"><span class="sr-only"> (ascending sort)</span></span>
           <span class="fa fa-caret-up"> (descending sort)</span></span>
         </a>
-      </th>
-      <th scope="col" class="hide-small">
-        <a href="">
+                </th>
+                <th scope="col" class="hide-small">
+                    <a href="">
           Student ID
           <span class="fa fa-caret-down"><span class="sr-only"> (ascending sort)</span></span>
           <span class="fa fa-caret-up"> (descending sort)</span></span>
         </a>
-      </th>
-      <th scope="col">
-        <a href="">
+                </th>
+                <th scope="col">
+                    <a href="">
           Status
           <span class="fa fa-caret-down"><span class="sr-only"> (ascending sort)</span></span>
           <span class="fa fa-caret-up"><span class="sr-only"> (descending sort)</span></span>
         </a>
-      </th>
-      <th scope="col" class="hide-small">
-        <a href="">
+                </th>
+                <th scope="col" class="hide-small">
+                    <a href="">
           Cohorts
           <span class="fa fa-caret-down"><span class="sr-only"> (ascending sort)</span></span>
           <span class="fa fa-caret-up"> (descending sort)</span></span>
         </a>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for student in students %}
-    <tr>
-      <th scope="row" class="bold">
-        <a href="/students/{{ student.username }}/">{{ student.first_name }}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <th scope="row" class="bold">
+                    <a href="/students/{{ student.username }}/">{{ student.first_name }}
               {{ student.last_name }}</a>
-      </th>
-      <td class="hide-small">{{ student.univ_id }}</td>
-      <td>
-        {% for status in student.statuses.all %}
-        {% load static %}
-        <a href="#/students/{{ student.username }}/class_sites/{{ class_site_status.code }}/" class="class-site-status-link">
+                </th>
+                <td class="hide-small">{{ student.univ_id }}</td>
+                <td>
+                    {% for status in student.statuses.all %} {% load static %}
+                    <a href="#/students/{{ student.username }}/class_sites/{{ class_site_status.code }}/" class="class-site-status-link">
           {% static "" as baseUrl %}
            <img src="{{ baseUrl }}/images/Status_Icons_{{status}}.png" width="25px" hspace="3"></img>
-        </a>
-        {% endfor %}
-      </td>
-      <td class="hide-small">
-        {% for cohort in student.cohorts.all %}
-          <div>{{ cohort }}</div>
-        {% endfor %}
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+        </a> {% endfor %}
+                </td>
+                <td class="hide-small">
+                    {% for cohort in student.cohorts.all %}
+                    <div>{{ cohort }}</div>
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
-<dig-data-fetch-progress progress="{{progress}}" />
-
-{% endblock %}
+<dig-data-fetch-progress progress="{{progress}}" /> {% endblock %}

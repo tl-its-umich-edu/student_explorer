@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     {% load staticfiles %}
     <meta charset="utf-8">
     <title>Student Explorer</title>
@@ -20,97 +21,107 @@
     <script src="{% static 'd3/d3.js' %}"></script>
     <script src="{% static 'nvd3/nv.d3.js' %}"></script>
     {% block head %}{% endblock %}
-  </head>
-  <body>
+</head>
+
+<body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="main-color-white main-navbar-brand navbar-brand">Student Explorer</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#/" data-toggle="collapse" data-target="#navbar.in">My Students</a></li>
-            <li><a href="#/advisors/" data-toggle="collapse" data-target="#navbar.in">Advisors</a></li>
-          </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li>
-                <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">Login</a>
-              </li>
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{userInfo.username}} <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><p><strong>{{userInfo.first_name}} {{userInfo.last_name}}</strong></p></li>
-                  <li role="separator" class="divider"></li>
-                  <!-- <li class="dropdown-header">Nav header</li> -->
-                  <li>
-                    <p>
-                      You accepted the
-                      <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
-                      on {{userInfo.profile.policy_accepted_date | date}}
-                    </p>
-                  </li>
-                  <li class="policy-warning">
-                    <p>
-                      You haven't accepted the
-                      <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
-                      yet.
-                    </p>
-                  </li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="logout/">Logout</a></li>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="main-color-white main-navbar-brand navbar-brand">Student Explorer</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#/" data-toggle="collapse" data-target="#navbar.in">My Students</a></li>
+                    <li><a href="#/advisors/" data-toggle="collapse" data-target="#navbar.in">Advisors</a></li>
                 </ul>
-              </li>
-            </ul>
-          <form submit="studentSearch()" class="navbar-form navbar-right">
-            <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label><input id="student-search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
-          </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">Login</a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{userInfo.username}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <p><strong>{{userInfo.first_name}} {{userInfo.last_name}}</strong></p>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <!-- <li class="dropdown-header">Nav header</li> -->
+                            <li>
+                                <p>
+                                    You accepted the
+                                    <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a> on {{userInfo.profile.policy_accepted_date | date}}
+                                </p>
+                            </li>
+                            <li class="policy-warning">
+                                <p>
+                                    You haven't accepted the
+                                    <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a> yet.
+                                </p>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="logout/">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form submit="studentSearch()" class="navbar-form navbar-right">
+                    <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label>
+                    <input id="student-search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+                </form>
+            </div>
         </div>
-      </div>
     </nav>
 
     <div class="alert-container">
-      <div ng-if="userInfo.profile.is_policy_accepted === false" class="alert alert-warning alert-dismissible" role="alert" ng-cloak>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Warning!</strong> You haven't accepted the
-          <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
-          yet.
-      </div>
-      <div ng-if="dataDown" class="alert alert-danger alert-dismissible" role="alert" ng-cloak>
-          The database appears to be down. This may be for normal maintanence, please try reloading in a few minutes.
-      </div>
-      <div class="alert alert-info alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        Help improve Student Explorer by sending us your feedback:<br />
-        <a href="mailto:student-explorer-help@umich.edu" class="alert-link">student-explorer-help@umich.edu</a>
-      </div>
+        <div ng-if="userInfo.profile.is_policy_accepted === false" class="alert alert-warning alert-dismissible" role="alert" ng-cloak>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Warning!</strong> You haven't accepted the
+            <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a> yet.
+        </div>
+        <div ng-if="dataDown" class="alert alert-danger alert-dismissible" role="alert" ng-cloak>
+            The database appears to be down. This may be for normal maintanence, please try reloading in a few minutes.
+        </div>
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            Help improve Student Explorer by sending us your feedback:
+            <br />
+            <a href="mailto:student-explorer-help@umich.edu" class="alert-link">student-explorer-help@umich.edu</a>
+        </div>
 
     </div>
 
     <div class="container content">
-      {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
     </div>
 
     <div class="footer navbar-fixed-bottom">
-      <div class="container">
-        <p class="main-color-white">Student Explorer (2.0.13) <span class="footer-block">Copyright &copy; 2015</span> <span class="footer-block">The Regents of the University of Michigan</span></p>
-      </div>
+        <div class="container">
+            <p class="main-color-white">Student Explorer (2.0.13) <span class="footer-block">Copyright &copy; 2015</span> <span class="footer-block">The Regents of the University of Michigan</span></p>
+        </div>
     </div>
 
 
     <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-      ga('create', 'UA-67092539-3', 'auto');
-      ga('send', 'pageview');
+        ga('create', 'UA-67092539-3', 'auto');
+        ga('send', 'pageview');
     </script>
-  </body>
+</body>
+
 </html>
