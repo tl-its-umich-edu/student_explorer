@@ -1,16 +1,13 @@
 <h2 class="student-detail-summary-title">STUDENT SUMMARY</h2>
-<hr class="main-no-margin-top"/>
+<hr class="main-no-margin-top" />
 <div class="student-detail-summary-content">{% include 'seumich/student_class_site_list.html' %}</div>
 <div class="student-info">
-  <strong><a class="unsortable">Advisors: </a></strong>
-  {% for advisor in advisors %}
-  <p class="advisor-names">
-    <a href="/advisors/{{advisor.username}}/">
+    <strong><a class="unsortable">Advisors: </a></strong> {% for advisor in advisors %}
+    <p class="advisor-names">
+        <a href="/advisors/{{advisor.username}}/">
       {{ advisor.first_name }} {{ advisor.last_name }}</a>
-    <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true"
-      title="{{advisor.cohort}}"
-      data-toggle="tooltip" data-placement="bottom" tooltip></span>
-    <span class="sr-only">{{advisor.role}}</span>
-  </p>
-  {% endfor %}
+        <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true" title="{{advisor.cohort}}" data-toggle="tooltip" data-placement="bottom" tooltip></span>
+        <span class="sr-only">{{advisor.role}}</span>
+    </p>
+    {% endfor %}
 </div>

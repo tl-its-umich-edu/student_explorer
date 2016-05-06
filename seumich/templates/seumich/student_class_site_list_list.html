@@ -1,29 +1,27 @@
+{% load filters %}
+
 <div class="legend-text-block">
-  <p class="legend-text"><span class="legend-key student-legend-key"></span>Student</p>
-  <p class="legend-text"><span class="legend-key class-legend-key"></span>Class Average</p>
+    <p class="legend-text"><span class="legend-key student-legend-key"></span>Student</p>
+    <p class="legend-text"><span class="legend-key class-legend-key"></span>Class Average</p>
 </div>
 
+{% for classSite in classSites %}
 <div class="card-block">
-  <div class="card-title">
-      <a class="unsortable">{{ classSite.class_site.description }}</a>
-      <span class="card-class-site-status" status-tooltip status="classSite.status" tooltiptext="classSite.status | colorToStatus"></span>
-  </div>
-  <div class="average-bar-container">
-    <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{classSite.current_student_score_average}}"
-      aria-valuemin="0" aria-valuemax="100">
-      <p class="average-bar-text" ng-if="classSite.current_student_score_average != null">{{classSite.current_student_score_average}}%</p>
-      <p class="average-bar-text" ng-if="classSite.current_student_score_average == null">N/A</p>
-      <span class="sr-only" ng-if="classSite.current_student_score_average != null">Student Percentage: {{classSite.current_student_score_average}}%</span>
-      <span class="sr-only" ng-if="classSite.current_student_score_average == null">Student Percentage: N/A</span>
+    <div class="card-title">
+        <a class="unsortable">{{ classSite.description }}</a> {% load static %} {% static "" as baseUrl %}
+        <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px" hspace="3"></img>
     </div>
-  </div>
-  <div class="average-bar-container">
-    <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{classSite.current_class_score_average}}"
-      aria-valuemin="0" aria-valuemax="100">
-      <p class="average-bar-text" ng-if="classSite.current_class_score_average != null">{{classSite.current_class_score_average}}%</p>
-      <p class="average-bar-text" ng-if="classSite.current_class_score_average == null">N/A</p>
-      <span class="sr-only" ng-if="classSite.current_class_score_average != null">Class Average Percentage: {{classSite.current_class_score_average}}%</span>
-      <span class="sr-only" ng-if="classSite.current_class_score_average == null">Class Average Percentage: N/A</span>
+    <div class="average-bar-container">
+        <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{ student.studentclasssitescore_set.all|get_student_score:classSite }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ student.studentclasssitescore_set.all|get_student_score:classSite }}%;">
+            <p class="average-bar-text">{{ student.studentclasssitescore_set.all|get_student_score:classSite }}%</p>
+            <span class="sr-only">Student Percentage: {{ student.studentclasssitescore_set.all|get_student_score:classSite }}%</span>
+        </div>
     </div>
-  </div>
+    <div class="average-bar-container">
+        <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{ classSite.classsitescore_set.all|get_class_score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ classSite.classsitescore_set.all|get_class_score }}%;">
+            <p class="average-bar-text">{{ classSite.classsitescore_set.all|get_class_score }}%</p>
+            <span class="sr-only">Class Average Percentage: {{ classSite.classsitescore_set.all|get_class_score }}%</span>
+        </div>
+    </div>
 </div>
+{% endfor %}
