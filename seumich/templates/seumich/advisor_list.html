@@ -1,19 +1,18 @@
 {% extends 'index.html' %}
 
-{% block content %}
+{% block head %}
+{% load staticfiles %}
+  <script src='{% static 'seumich/sort_table.js' %}'></script>
+{% endblock %}
 
+{% block content %}
 
 <h2 class="sub-header">All Advisors</h2>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col">
-          <a href="">
-            Name
-            <span class="fa fa-caret-down"><span class="sr-only"> (descending sort)</span></span>
-            <span class="fa fa-caret-up"><span class="sr-only"> (ascending sort)</span></span>
-</a>        </th>
+        <th scope="col" class="hide-small"><a href="#" onClick="return false;">Name</a></th>
       </tr>
     </thead>
     <tbody>

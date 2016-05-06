@@ -20,11 +20,13 @@ class AdvisorView(generic.TemplateView):
 
     def get_context_data(self, advisor, **kwargs):
         context = super(AdvisorView, self).get_context_data(**kwargs)
-        mentor = Mentor.objects.get(username=advisor)
-        context['students'] = mentor.students.order_by('last_name')
-        context['studentListHeader'] = mentor.first_name + \
-            " " + mentor.last_name
-        context['advisor'] = mentor
+        user = self.request.user
+        if user.is_authenticated():
+            mentor = Mentor.objects.get(username=advisor)
+            context['students'] = mentor.students.order_by('last_name')
+            context['studentListHeader'] = mentor.first_name + \
+                " " + mentor.last_name
+            context['advisor'] = mentor
         return context
 
 
@@ -96,7 +98,7 @@ class StudentClassSiteView(StudentView):
             except ObjectDoesNotExist:
                 pass
             else:
-                tempActivityData.append(event.percentile_rank * 100)
+                tempActivityData.append(round(event.percentile_rank * 100))
 
             try:
                 score = student_scores.get(week_end_date=week_end_date)

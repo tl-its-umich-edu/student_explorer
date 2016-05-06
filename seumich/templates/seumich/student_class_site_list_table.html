@@ -1,21 +1,16 @@
 {% load filters %}
 
+{% block head %}
+{% load staticfiles %}
+  <script src='{% static 'seumich/sort_table.js' %}'></script>
+{% endblock %}
+
 <table class="table student-class-site-list-table">
   <thead>
     <tr>
-      <th scope="col">
-        <a href="">
-          Course Site
-          <span class="fa fa-caret-down"><span class="sr-only"> (ascending sort)</span></span>
-          <span class="fa fa-caret-up"><span class="sr-only"> (descending sort)</span></span>
-        </a>
-      </th>
-      <th scope="col">
-        <a class="unsortable">Status</a>
-      </th>
-      <th scope="col">
-        <a class="unsortable">Current Percentage</a>
-      </th>
+      <th scope="col" class="hide-small"><a href="#" onClick="return false;">Course Site</a></th>
+      <th scope="col" class="hide-small"><a href="#" onClick="return false;">Status</a></th>
+      <th scope="col" class="hide-small"><a href="#" onClick="return false;">Current Percentage</a></th>
     </tr>
     <tr>
       <td colspan="2"></td>

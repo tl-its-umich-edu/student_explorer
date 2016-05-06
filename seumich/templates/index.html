@@ -20,6 +20,7 @@
     <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
     <script src="{% static 'd3/d3.js' %}"></script>
     <script src="{% static 'nvd3/nv.d3.js' %}"></script>
+    <script src="{% static 'tablesorter/jquery.tablesorter.js' %}"></script>
     {% block head %}{% endblock %}
 </head>
 
@@ -37,18 +38,21 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#/" data-toggle="collapse" data-target="#navbar.in">My Students</a></li>
-                    <li><a href="#/advisors/" data-toggle="collapse" data-target="#navbar.in">Advisors</a></li>
+                    <li><a href="/students/" data-toggle="collapse" data-target="#navbar.in">My Students</a></li>
+                    <li><a href="/advisors/" data-toggle="collapse" data-target="#navbar.in">Advisors</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">Login</a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">{{user.first_name}}</a> {% else %}
+                        <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">Login</a> {% endif %}
                     </li>
+                    {% if user.is_authenticated %}
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{userInfo.username}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <p><strong>{{userInfo.first_name}} {{userInfo.last_name}}</strong></p>
+                                <p><strong>{{user.first_name}} {{user.last_name}}</strong></p>
                             </li>
                             <li role="separator" class="divider"></li>
                             <!-- <li class="dropdown-header">Nav header</li> -->
@@ -65,13 +69,15 @@
                                 </p>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="logout/">Logout</a></li>
+                            <li><a href="{% url 'auth_logout' %}">Logout</a></li>
                         </ul>
                     </li>
+                    {% endif %}
                 </ul>
-                <form submit="studentSearch()" class="navbar-form navbar-right">
+                <form action="/students/" method="post" class="navbar-form navbar-right">
+                    {% csrf_token %}
                     <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label>
-                    <input id="student-search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+                    <input name="student-search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
                 </form>
             </div>
         </div>
