@@ -9,3 +9,4 @@ requests
 # git+https://bitbucket.org/umichdig/django-unizindata.git
 django-registration-redux
 django-extensions
+whitenoise
