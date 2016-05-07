@@ -79,6 +79,7 @@ TEMPLATES = [
         },
     },
 ]
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 WSGI_APPLICATION = 'student_explorer.wsgi.application'
 
