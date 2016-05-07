@@ -79,6 +79,7 @@ TEMPLATES = [
         },
     },
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WSGI_APPLICATION = 'student_explorer.wsgi.application'
 
