@@ -26,7 +26,8 @@
         <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
             <p>{{classSite.description}}</p>
             {% load static %} {% static "" as baseUrl %}
-            <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px"></img>
+            <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
+            <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px"></img></span>
         </div>
         {% endfor %}
     </div>

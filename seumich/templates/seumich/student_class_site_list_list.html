@@ -9,7 +9,8 @@
 <div class="card-block">
     <div class="card-title">
         <a class="unsortable">{{ classSite.description }}</a> {% load static %} {% static "" as baseUrl %}
-        <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px" hspace="3"></img>
+        <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
+        <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px" hspace="3"></img></span>
     </div>
     <div class="average-bar-container">
         <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{ student.studentclasssitescore_set.all|get_student_score:classSite }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ student.studentclasssitescore_set.all|get_student_score:classSite }}%;">

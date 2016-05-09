@@ -25,7 +25,8 @@
         {% for classSite in classSites %}
         <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
             <p>{{classSite.description}}</p>
-            <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px"></img>
+            <a href="#" data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
+            <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px"></img></a>
         </div>
         {% endfor %}
     </div>
@@ -35,7 +36,8 @@
             <div class="row no-margin">
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                     <h3 class="main-h3">Course Site: {{ classSite.description }}
-                      <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px"></img>
+                      <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
+                      <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px"></img></span>
                     </h3>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 
 <head>
     {% load staticfiles %}
@@ -21,6 +21,7 @@
     <script src="{% static 'd3/d3.js' %}"></script>
     <script src="{% static 'nvd3/nv.d3.js' %}"></script>
     <script src="{% static 'tablesorter/jquery.tablesorter.js' %}"></script>
+    <script src="{% static 'seumich/index.js' %}"></script>
     {% block head %}{% endblock %}
 </head>
 
@@ -44,7 +45,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         {% if user.is_authenticated %}
-                        <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">{{user.first_name}}</a> {% else %}
+                        <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a> {% else %}
                         <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">Login</a> {% endif %}
                     </li>
                     {% if user.is_authenticated %}
@@ -76,7 +77,7 @@
                 </ul>
                 <form action="/students/" method="get" class="navbar-form navbar-right">
                     <label for="search" class="sr-only">Search student name, uniqname, or UMID...</label>
-                    <input name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+                    <input id="student-search" name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
                 </form>
             </div>
         </div>

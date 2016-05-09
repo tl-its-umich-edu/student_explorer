@@ -1,4 +1,4 @@
-{% extends 'index.html' %} {% block content %}
+{% extends 'index.html' %} {% block content %} {% load filters %}
 
 {% block head %}
 {% load staticfiles %}
@@ -40,10 +40,11 @@
                 </th>
                 <td class="hide-small">{{ student.univ_id }}</td>
                 <td>
-                    {% for status in student.statuses.all %} {% load static %}
-                    <a href="#/students/{{ student.username }}/class_sites/{{ class_site_status.code }}/" class="class-site-status-link">
+                    {% for classSite in student.class_sites.all %} {% load static %}
+                    <a href="/students/{{student.username}}/class_sites/{{classSite.code}}/" class="class-site-status-link">
                       {% static "" as baseUrl %}
-                      <img src="{{ baseUrl }}/images/Status_Icons_{{status}}.png" width="25px" hspace="3"></img>
+                      <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text:classSite }}" data-placement="bottom">
+                      <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px" hspace="3"></img></span>
                     </a>
                     {% endfor %}
                 </td>

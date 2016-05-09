@@ -46,3 +46,29 @@ def multiply(value, arg):
         return value * arg
     except:
         return None
+
+
+@register.filter
+def get_student_cohort(qs, obj):
+    if qs.filter(student=obj).exists():
+        return qs.filter(student=obj)[0].cohort
+    else:
+        return ''
+
+
+@register.filter
+def status_to_text(value, arg=None):
+    result = ''
+    value = str(value)
+    if arg:
+        result = str(arg) + ': ' + result
+    if value == 'Green':
+        return result + 'Encourage'
+    elif value == 'Yellow':
+        return result + 'Explore'
+    elif value == 'Red':
+        return result + 'Engage'
+    elif value == 'Not Applicable':
+        return result + 'No data'
+    else:
+        return result + ''
