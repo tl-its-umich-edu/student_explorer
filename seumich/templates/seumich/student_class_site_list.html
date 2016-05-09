@@ -1,4 +1,12 @@
-<div class="table-responsive">
-    <div class="student-class-site-table">{% include 'seumich/student_class_site_list_table.html' %}</div>
-    <div class="student-class-site-list">{% include 'seumich/student_class_site_list_list.html' %}</div>
+<div>
+    {% if not classSites %}
+    <div>
+        <p>There is no class site data for this student.</p>
+    </div>
+    {% else %}
+    <div class="table-responsive">
+        <div class="student-class-site-table">{% include 'seumich/student_class_site_list_table.html' %}</div>
+        <div class="student-class-site-list">{% include 'seumich/student_class_site_list_list.html' %}</div>
+    </div>
+    {% endif %}
 </div>

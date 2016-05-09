@@ -1,15 +1,17 @@
-{% extends 'index.html' %} {% load filters %}
-
-{% block head %}
-{% load staticfiles %}
-  <script src='{% static 'seumich/student.js' %}'></script>
-{% endblock %}
-
-{% block content %} {% load static %} {% static "" as baseUrl %}
+{% extends 'index.html' %} {% load filters %} {% block head %} {% load staticfiles %}
+<script src='{% static 'seumich/student.js' %}'></script>
+{% endblock %} {% block content %} {% load static %} {% static "" as baseUrl %}
 
 <div>
     <div class="student-detail-mobile">
         <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
+        <p><a href="mailto:{{student.email_address}}">{{student.email_address}}</a></p>
+        <p><a class="unsortable">Student ID: </a>{{ student.univ_id }}</p>
+        <h2 class="sub-header">
+        <a class="backlink" href="/students/{{student.username}}/">
+          &lt; Back to Course List
+        </a>
+      </h2>
         <hr class="main-no-margin-top" />
     </div>
 
@@ -26,7 +28,8 @@
         <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
             <p>{{classSite.description}}</p>
             <a href="#" data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
-            <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px"></img></a>
+                <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px"></img>
+            </a>
         </div>
         {% endfor %}
     </div>
@@ -62,9 +65,9 @@
 
                     var data = {{ scoreData|jsonify }}
 
-                        chart.x(function(d) {
-                            return d[0];
-                        });
+                    chart.x(function(d) {
+                        return d[0];
+                    });
                     chart.y(function(d) {
                         return d[1];
                     });
@@ -129,8 +132,7 @@
                 <h3 class="main-less-weight">Assignments</h3>
                 <p><small class="note">Note that this list may not reflect all assignments included in current score calculation. For a complete list, please refer to the source system.</small></p>
                 <!-- <a href="api/class_sites/{{classSite.class_site.code}}/student/{{student.username}}/assignments/download/"><button>Download Assignment</button></a> -->
-                <hr class="main-no-margin-top">
-                {% if not assignments %}
+                <hr class="main-no-margin-top"> {% if not assignments %}
                 <div class="panel panel-info main-page-end-margin-bottom">
                     <div class="panel-body">
                         No assignments found for this student.

@@ -104,6 +104,9 @@ class Student(models.Model, SeumichDataMixin):
     def advisors(self):
         return self.aggrate_relationships(self.studentadvisorrole_set.all(),
                                           'advisor', 'role')
+    @property
+    def email_address(self):
+        return self.username + '@umich.edu'
 
     def __unicode__(self):
         return self.username

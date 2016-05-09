@@ -10,6 +10,8 @@
 <div>
     <div class="student-detail-mobile">
         <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
+        <p><a href="mailto:{{student.email_address}}">{{student.email_address}}</a></p>
+        <p><a class="unsortable">Student ID: </a>{{ student.univ_id }}</p>
         <hr class="main-no-margin-top" />
     </div>
 

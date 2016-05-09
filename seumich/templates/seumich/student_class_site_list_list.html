@@ -1,12 +1,18 @@
 {% load filters %}
 
+{% block head %}
+{% load staticfiles %}
+  <script src='{% static 'seumich/student.js' %}'></script>
+{% endblock %}
+
 <div class="legend-text-block">
     <p class="legend-text"><span class="legend-key student-legend-key"></span>Student</p>
     <p class="legend-text"><span class="legend-key class-legend-key"></span>Class Average</p>
+    <input type="hidden" id="student-username" value="{{ student.username }}">
 </div>
 
 {% for classSite in classSites %}
-<div class="card-block">
+<div class="card-block" id="student-list-{{ classSite.code }}">
     <div class="card-title">
         <a class="unsortable">{{ classSite.description }}</a> {% load static %} {% static "" as baseUrl %}
         <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">

@@ -46,7 +46,7 @@ class StudentsListView(generic.TemplateView):
         if query_user:
             context['students'] = Student.objects.filter(Q(username__icontains=query_user) | Q(univ_id__icontains=query_user) | Q(
                 first_name__icontains=query_user) | Q(last_name__icontains=query_user)).order_by('last_name')
-            context['studentListHeader'] = None
+            context['studentListHeader'] = 'Search Students'
         return context
 
 
