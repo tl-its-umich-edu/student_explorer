@@ -5,8 +5,10 @@
   <script src='{% static 'seumich/sort_table.js' %}'></script>
 {% endblock %}
 
+{% if studentListHeader %}
 <h2 class="sub-header">{{ studentListHeader }}</h2>
 <hr class="main-no-margin-top" />
+{% endif %}
 <h3>Students</h3>
 
 {% if not students %}

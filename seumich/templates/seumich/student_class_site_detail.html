@@ -128,8 +128,8 @@
                 <p><small class="note">Note that this list may not reflect all assignments included in current score calculation. For a complete list, please refer to the source system.</small></p>
                 <!-- <a href="api/class_sites/{{classSite.class_site.code}}/student/{{student.username}}/assignments/download/"><button>Download Assignment</button></a> -->
                 <hr class="main-no-margin-top">
-                {% if assignments.length == 0 %}
-                <div class="panel panel-info">
+                {% if not assignments %}
+                <div class="panel panel-info main-page-end-margin-bottom">
                     <div class="panel-body">
                         No assignments found for this student.
                     </div>
@@ -137,10 +137,12 @@
                 {% endif %}
             </div>
 
+            {% if assignments %}
             <div class="table-responsive main-page-end-margin-bottom">
                 <div class="assignment-table">{% include 'seumich/assignment_list_table.html' %}</div>
                 <div class="assignment-list">{% include 'seumich/assignment_list.html' %}</div>
             </div>
+            {% endif %}
 
         </div>
     </div>

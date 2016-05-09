@@ -3,6 +3,7 @@ from seumich.models import Student, Mentor, ClassSite
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 
 
 class IndexView(generic.TemplateView):
@@ -36,11 +37,16 @@ class StudentsListView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(StudentsListView, self).get_context_data(**kwargs)
         user = self.request.user
+        query_user = self.request.GET.get('search', None)
         if user.is_authenticated():
             mentor = Mentor.objects.get(username=user)
             context['students'] = mentor.students.order_by('last_name')
             context['studentListHeader'] = mentor.first_name + \
                 " " + mentor.last_name
+        if query_user:
+            context['students'] = Student.objects.filter(Q(username__icontains=query_user) | Q(univ_id__icontains=query_user) | Q(
+                first_name__icontains=query_user) | Q(last_name__icontains=query_user)).order_by('last_name')
+            context['studentListHeader'] = None
         return context
 
 
@@ -60,33 +66,29 @@ class StudentClassSiteView(StudentView):
     template_name = 'seumich/student_class_site_detail.html'
 
     def get_class_history(self, student, class_site, format=None):
-        try:
-            term = class_site.terms.get()
-        except ObjectDoesNotExist:
-            raise Http404()
-
-        events = class_site.weeklystudentclasssiteevent_set.filter(
-            student=student)
-
-        student_scores = class_site.weeklystudentclasssitescore_set.filter(
-            student=student)
-        student_statuses = class_site.weeklystudentclasssitestatus_set.filter(
-            student=student)
-
-        class_scores = class_site.weeklyclasssitescore_set.all()
-
-        todays_week_end_date = term.todays_week_end_date()
 
         studentData = []
         classData = []
         activityData = []
+
+        try:
+            term = class_site.terms.get()
+        except:
+            return studentData, classData, activityData
+
+        events = class_site.weeklystudentclasssiteevent_set.filter(
+            student=student)
+        student_scores = class_site.weeklystudentclasssitescore_set.filter(
+            student=student)
+        class_scores = class_site.weeklyclasssitescore_set.all()
+        todays_week_end_date = term.todays_week_end_date()
+
         week_number = 0
 
         for week_end_date in term.week_end_dates():
             tempStudentData = []
             tempClassData = []
             tempActivityData = []
-
             week_number += 1
 
             tempStudentData.append(week_number)

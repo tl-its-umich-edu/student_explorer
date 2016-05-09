@@ -74,10 +74,9 @@
                     </li>
                     {% endif %}
                 </ul>
-                <form action="/students/" method="post" class="navbar-form navbar-right">
-                    {% csrf_token %}
-                    <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label>
-                    <input name="student-search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+                <form action="/students/" method="get" class="navbar-form navbar-right">
+                    <label for="search" class="sr-only">Search student name, uniqname, or UMID...</label>
+                    <input name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
                 </form>
             </div>
         </div>
