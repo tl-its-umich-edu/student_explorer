@@ -76,7 +76,7 @@ USE_X_FORWARDED_HOST = bool(getenv('DJANGO_USE_X_FORWARDED_HOST', False))
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 STATIC_URL = getenv('DJANGO_STATIC_URL', '/static/')
-STATIC_ROOT = getenv('DJANGO_STATIC_ROOT', None)
+STATIC_ROOT = getenv('DJANGO_STATIC_ROOT', os.path.join(BASE_DIR, 'staticfiles'))
 
 
 LOGGING = {
