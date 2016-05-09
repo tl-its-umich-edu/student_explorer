@@ -114,13 +114,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-<<<<<<< HEAD
-LOGIN_URL = '/accounts/login/'
-=======
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 LOGIN_URL = '/api/api-auth/login/'
->>>>>>> 794057905479425aba84248b97e8feb030d2ffc2
+
 LOGIN_REDIRECT_URL = '/students/'
 
 REST_FRAMEWORK = {
