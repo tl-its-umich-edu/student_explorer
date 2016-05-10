@@ -10,44 +10,27 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def convert_to_pages(request, student_list):
     paginator = Paginator(student_list, 5)
     page = request.GET.get('page')
+
     try:
         students = paginator.page(page)
     except PageNotAnInteger:
         students = paginator.page(1)
     except EmptyPage:
         students = paginator.page(paginator.num_pages)
-    return students
+
+    if students.paginator.num_pages <= 5 or not page:
+        initial = 1
+    else:
+        initial = int(page)
+    final = initial + 5
+
+    return students, range(initial, final)
 
 
 class AdvisorsListView(generic.ListView):
     template_name = 'seumich/advisor_list.html'
     queryset = Mentor.objects.order_by('last_name')
     context_object_name = 'advisors'
-
-
-class AdvisorView(generic.TemplateView):
-    template_name = 'seumich/advisor_detail.html'
-
-    def get_context_data(self, advisor, **kwargs):
-        context = super(AdvisorView, self).get_context_data(**kwargs)
-        user = self.request.user
-        student_list = []
-
-        # Fetching data from database
-        if user.is_authenticated():
-            mentor = Mentor.objects.get(username=advisor)
-            student_list = mentor.students.order_by('last_name')
-            context['studentListHeader'] = mentor.first_name + \
-                " " + mentor.last_name
-            context['advisor'] = mentor
-
-        # Pagination to break list into multiple pieces
-        initial = int(self.request.GET.get('page')
-                      ) if self.request.GET.get('page') else 1
-        final = initial + 5
-        context['students'] = convert_to_pages(self.request, student_list)
-        context['loop_times'] = range(initial, final)
-        return context
 
 
 class StudentsListView(generic.TemplateView):
@@ -71,11 +54,33 @@ class StudentsListView(generic.TemplateView):
             context['studentListHeader'] = 'Search Students'
 
         # Pagination to break list into multiple pieces
-        initial = int(self.request.GET.get('page')
-                      ) if self.request.GET.get('page') else 1
-        final = initial + 5
-        context['students'] = convert_to_pages(self.request, student_list)
-        context['loop_times'] = range(initial, final)
+        pages, ranges = convert_to_pages(self.request, student_list)
+        context['students'] = pages
+        context['loop_times'] = ranges
+        context['query_user'] = query_user
+        return context
+
+
+class AdvisorView(StudentsListView):
+    template_name = 'seumich/advisor_detail.html'
+
+    def get_context_data(self, advisor, **kwargs):
+        context = super(AdvisorView, self).get_context_data(**kwargs)
+        user = self.request.user
+        student_list = []
+
+        # Fetching data from database
+        if user.is_authenticated():
+            mentor = Mentor.objects.get(username=advisor)
+            student_list = mentor.students.order_by('last_name')
+            context['studentListHeader'] = mentor.first_name + \
+                " " + mentor.last_name
+            context['advisor'] = mentor
+
+        # Pagination to break list into multiple pieces
+        pages, ranges = convert_to_pages(self.request, student_list)
+        context['students'] = pages
+        context['loop_times'] = ranges
         return context
 
 
