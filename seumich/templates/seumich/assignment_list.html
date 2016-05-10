@@ -20,8 +20,8 @@
         <div id="collapse{{assignment.assignment.code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{assignment.assignment.code}}">
             <div class="panel-body">
                 <div class="assignment-row">
-                    <div class="assignment-detail assignment-detail-left"><span class="assignment-detail-bold mobile-div">Due Date:</span> {{assignment.due_date }}</div>
-                    <div class="assignment-detail assignment-detail-right"><span class="assignment-detail-bold mobile-div">Score:</span> {{assignment.points_earned}} / {{assignment.points_possible}}</div>
+                    <div class="assignment-detail assignment-detail-left"><span class="assignment-detail-bold mobile-div">Due Date:</span>{% if assignment.due_date %}{{assignment.due_date.date}}{% endif %}</div>
+                    <div class="assignment-detail assignment-detail-right"><span class="assignment-detail-bold mobile-div">Score:</span>{{assignment.points_earned|floatformat}}/{{assignment.points_possible|floatformat}}</div>
                 </div>
                 <div class="assignment-row assignment-row-lower">
                     <div class="assignment-detail assignment-detail-left"><span class="assignment-detail-bold">Student's Grade</span>
