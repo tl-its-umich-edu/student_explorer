@@ -6,10 +6,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 
 
-class IndexView(generic.TemplateView):
-    template_name = 'index.html'
-
-
 class AdvisorsListView(generic.ListView):
     template_name = 'seumich/advisor_list.html'
     queryset = Mentor.objects.order_by('last_name')

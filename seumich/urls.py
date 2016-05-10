@@ -18,7 +18,7 @@ from seumich import views
 
 urlpatterns = patterns(
     '',
-    url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^$', views.StudentsListView.as_view(), name='index'),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^advisors/(?P<advisor>\w+)/$',
         views.AdvisorView.as_view(), name='advisor'),

@@ -6,10 +6,13 @@
 {% endblock %}
 
 <h2 class="sub-header">{{ studentListHeader }}</h2>
+{% if students %}
 <hr class="main-no-margin-top" />
 <h3>Students</h3>
+{% endif %}
 
 {% if not students %}
+{% if user.is_authenticated %}
 <div class="panel panel-warning">
     <div class="panel-heading">
         <h3 class="panel-title">No Results</h3>
@@ -18,6 +21,7 @@
         No students found that match the query terms.
     </div>
 </div>
+{% endif %}
 
 {% else %}
 <div class="table-responsive">
