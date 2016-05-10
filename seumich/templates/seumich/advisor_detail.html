@@ -1,8 +1,80 @@
-{% extends 'index.html' %} {% block content %}
-
-{% if advisor %}
+{% extends 'index.html' %} {% load filters %}{% block content %} {% if advisor %}
 <div>
-    <div class="main-page-end-margin-bottom" id="load-advisor-detail">{% include 'seumich/student_list.html' %}</div>
+    <div class="main-page-end-margin-bottom" id="load-advisor-detail">
+        <h2 class="sub-header">{{ studentListHeader }}</h2> {% if students %}
+        <hr class="main-no-margin-top" />
+        <h3>Students</h3> {% endif %} {% if not students %} {% if user.is_authenticated %}
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">No Results</h3>
+            </div>
+            <div class="panel-body">
+                No students found that match the query terms.
+            </div>
+        </div>
+        {% endif %} {% else %}
+        <div class="table-responsive">
+            <table class="table table-striped tabelsorter">
+                <thead>
+                    <tr>
+                        <th scope="col" class="hide-small"><a href="#" onClick="return false;">Name</a></th>
+                        <th scope="col" class="hide-small"><a href="#" onClick="return false;">Student ID</a></th>
+                        <th scope="col" class="hide-small"><a href="#" onClick="return false;">Status</a></th>
+                        <th scope="col" class="hide-small"><a href="#" onClick="return false;">Cohorts</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <th scope="row" class="bold">
+                            <a href="/students/{{ student.username }}/">{{ student.first_name }} {{ student.last_name }}</a>
+                        </th>
+                        <td class="hide-small">{{ student.univ_id }}</td>
+                        <td>
+                            {% for classSite in student.class_sites.all %} {% load static %}
+                            <a href="/students/{{student.username}}/class_sites/{{classSite.code}}/" class="class-site-status-link">
+                            {% static "" as baseUrl %}
+                            <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text:classSite }}" data-placement="bottom">
+                            <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px" hspace="3"></img></span>
+                          </a> {% endfor %}
+                        </td>
+                        <td class="hide-small">
+                            {% for cohort in student.cohorts.all %}
+                            <div>{{ cohort }}</div>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center">
+          <ul class="pagination">
+              <li class="page-item">
+                  {% if students.has_previous %}
+                  <a class="page-link" href='?page={{students.previous_page_number}}' aria-label="Previous">Previous</a>
+                  {% endif %}
+              </li>
+              {% for page_num in loop_times %}
+                {% if page_num == students.number %}
+                  <li class="page-item active"><a class="page-link" href='?page={{page_num}}'>{{page_num}}</a></li>
+                {% else %}
+                  {% if page_num <= students.paginator.num_pages %}
+                    <li class="page-item"><a class="page-link" href='?page={{page_num}}'>{{page_num}}</a></li>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              <li class="page-item">
+                {% if students.has_next %}
+                  <a class="page-link" href='?page={{students.next_page_number}}' aria-label="Next">Next</a>
+                {% endif %}
+             </li>
+          </ul>
+        </div>
+
+        {% endif %}
+    </div>
 </div>
 
 {% else %}

@@ -1,18 +1,8 @@
 {% extends 'index.html' %} {% block content %} {% load filters %}
 
-{% block head %}
-{% load staticfiles %}
-  <script src='{% static 'seumich/sort_table.js' %}'></script>
-{% endblock %}
-
-<h2 class="sub-header">{{ studentListHeader }}</h2>
-{% if students %}
+<h2 class="sub-header">{{ studentListHeader }}</h2> {% if students %}
 <hr class="main-no-margin-top" />
-<h3>Students</h3>
-{% endif %}
-
-{% if not students %}
-{% if user.is_authenticated %}
+<h3>Students</h3> {% endif %} {% if not students %} {% if user.is_authenticated %}
 <div class="panel panel-warning">
     <div class="panel-heading">
         <h3 class="panel-title">No Results</h3>
@@ -21,9 +11,7 @@
         No students found that match the query terms.
     </div>
 </div>
-{% endif %}
-
-{% else %}
+{% endif %} {% else %}
 <div class="table-responsive">
     <table class="table table-striped tabelsorter">
         <thead>
@@ -47,8 +35,7 @@
                       {% static "" as baseUrl %}
                       <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text:classSite }}" data-placement="bottom">
                       <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px" hspace="3"></img></span>
-                    </a>
-                    {% endfor %}
+                    </a> {% endfor %}
                 </td>
                 <td class="hide-small">
                     {% for cohort in student.cohorts.all %}
@@ -61,8 +48,28 @@
     </table>
 </div>
 
-{% endif %}
+<div class="text-center">
+  <ul class="pagination">
+      <li class="page-item">
+          {% if students.has_previous %}
+          <a class="page-link" href='?page={{students.previous_page_number}}' aria-label="Previous">Previous</a>
+          {% endif %}
+      </li>
+      {% for page_num in loop_times %}
+        {% if page_num == students.number %}
+          <li class="page-item active"><a class="page-link" href='?page={{page_num}}'>{{page_num}}</a></li>
+        {% else %}
+          {% if page_num <= students.paginator.num_pages %}
+            <li class="page-item"><a class="page-link" href='?page={{page_num}}'>{{page_num}}</a></li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      <li class="page-item">
+        {% if students.has_next %}
+          <a class="page-link" href='?page={{students.next_page_number}}' aria-label="Next">Next</a>
+        {% endif %}
+     </li>
+  </ul>
+</div>
 
-<dig-data-fetch-progress progress="{{progress}}" />
-
-{% endblock %}
+{% endif %} {% endblock %}

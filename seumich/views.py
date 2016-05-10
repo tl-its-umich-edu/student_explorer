@@ -4,6 +4,19 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
+def convert_to_pages(request, student_list):
+    paginator = Paginator(student_list, 5)
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        students = paginator.page(1)
+    except EmptyPage:
+        students = paginator.page(paginator.num_pages)
+    return students
 
 
 class AdvisorsListView(generic.ListView):
@@ -18,12 +31,22 @@ class AdvisorView(generic.TemplateView):
     def get_context_data(self, advisor, **kwargs):
         context = super(AdvisorView, self).get_context_data(**kwargs)
         user = self.request.user
+        student_list = []
+
+        # Fetching data from database
         if user.is_authenticated():
             mentor = Mentor.objects.get(username=advisor)
-            context['students'] = mentor.students.order_by('last_name')
+            student_list = mentor.students.order_by('last_name')
             context['studentListHeader'] = mentor.first_name + \
                 " " + mentor.last_name
             context['advisor'] = mentor
+
+        # Pagination to break list into multiple pieces
+        initial = int(self.request.GET.get('page')
+                      ) if self.request.GET.get('page') else 1
+        final = initial + 5
+        context['students'] = convert_to_pages(self.request, student_list)
+        context['loop_times'] = range(initial, final)
         return context
 
 
@@ -34,15 +57,25 @@ class StudentsListView(generic.TemplateView):
         context = super(StudentsListView, self).get_context_data(**kwargs)
         user = self.request.user
         query_user = self.request.GET.get('search', None)
+        student_list = []
+
+        # Fetching data from database
         if user.is_authenticated():
             mentor = Mentor.objects.get(username=user)
-            context['students'] = mentor.students.order_by('last_name')
+            student_list = mentor.students.order_by('last_name')
             context['studentListHeader'] = mentor.first_name + \
                 " " + mentor.last_name
         if query_user:
-            context['students'] = Student.objects.filter(Q(username__icontains=query_user) | Q(univ_id__icontains=query_user) | Q(
+            student_list = Student.objects.filter(Q(username__icontains=query_user) | Q(univ_id__icontains=query_user) | Q(
                 first_name__icontains=query_user) | Q(last_name__icontains=query_user)).order_by('last_name')
             context['studentListHeader'] = 'Search Students'
+
+        # Pagination to break list into multiple pieces
+        initial = int(self.request.GET.get('page')
+                      ) if self.request.GET.get('page') else 1
+        final = initial + 5
+        context['students'] = convert_to_pages(self.request, student_list)
+        context['loop_times'] = range(initial, final)
         return context
 
 
