@@ -7,8 +7,8 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-def convert_to_pages(request, student_list):
-    paginator = Paginator(student_list, 5)
+def convert_to_pages(request, student_list, num_records, num_page_links):
+    paginator = Paginator(student_list, num_records)
     page = request.GET.get('page')
 
     try:
@@ -18,11 +18,17 @@ def convert_to_pages(request, student_list):
     except EmptyPage:
         students = paginator.page(paginator.num_pages)
 
-    if students.paginator.num_pages <= 5 or not page:
+    if paginator.num_pages <= num_page_links or not page:
         initial = 1
+        final = 1 + num_page_links
     else:
         initial = int(page)
-    final = initial + 5
+        if paginator.num_pages - initial >= num_page_links:
+            initial = int(page)
+            final = initial + num_page_links
+        else:
+            initial = paginator.num_pages - (num_page_links - 1)
+            final = 1 + paginator.num_pages
 
     return students, range(initial, final)
 
@@ -54,14 +60,14 @@ class StudentsListView(generic.TemplateView):
             context['studentListHeader'] = 'Search Students'
 
         # Pagination to break list into multiple pieces
-        pages, ranges = convert_to_pages(self.request, student_list)
+        pages, ranges = convert_to_pages(self.request, student_list, 5, 5)
         context['students'] = pages
         context['loop_times'] = ranges
         context['query_user'] = query_user
         return context
 
 
-class AdvisorView(StudentsListView):
+class AdvisorView(generic.TemplateView):
     template_name = 'seumich/advisor_detail.html'
 
     def get_context_data(self, advisor, **kwargs):
@@ -78,7 +84,7 @@ class AdvisorView(StudentsListView):
             context['advisor'] = mentor
 
         # Pagination to break list into multiple pieces
-        pages, ranges = convert_to_pages(self.request, student_list)
+        pages, ranges = convert_to_pages(self.request, student_list, 5, 5)
         context['students'] = pages
         context['loop_times'] = ranges
         return context
