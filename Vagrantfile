@@ -7,11 +7,12 @@ Vagrant.configure(2) do |config|
         v.memory = 2048
     end
 
-    config.vm.network "forwarded_port", guest: 22,   host: 2022
-    config.vm.network "forwarded_port", guest: 8000, host: 2080
-    config.vm.network "forwarded_port", guest: 80,   host: 2081
-    config.vm.network "forwarded_port", guest: 3306, host: 2033
-    config.vm.network "forwarded_port", guest: 9000,   host: 2090
+    config.vm.network "forwarded_port", guest: 8000, host: 2082
+    config.vm.network "forwarded_port", guest: 3306, host: 2034
+
+    if File.directory?("../django-unizindata/unizindata/")
+        config.vm.synced_folder "../django-unizindata/unizindata/", "/usr/local/lib/python2.7/dist-packages/unizindata"
+    end
 
     config.vm.provision "shell", inline: <<-SHELL
         set -xe
@@ -66,7 +67,7 @@ EOM
             cp student_explorer/settings/local_sample.py student_explorer/settings/local.py
         fi
 
-        echo "Installing Bower..."        
+        echo "Installing Bower..."
         cd /vagrant
         apt-get update
         apt-get install --yes git
