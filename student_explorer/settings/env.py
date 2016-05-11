@@ -1,16 +1,22 @@
 from student_explorer.settings.base import *
 from os import getenv
 
-DEBUG = getenv('DJANGO_DEBUG', False)
+
+def getenv_bool(var, default='0'):
+    return getenv(var, default).lower() in ('yes', 'on', 'true', '1', )
+
+DEBUG = getenv_bool('DJANGO_DEBUG')
 ALLOWED_HOSTS += getenv('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
 
 SECRET_KEY = getenv('DJANGO_SECRET_KEY', 'I need to be changed!')
 
-HASHREDIRECT_ENABLED = bool(int(getenv('DJANGO_HASHREDIRECT_ENABLED', '0')))
+HASHREDIRECT_ENABLED = getenv_bool('DJANGO_HASHREDIRECT_ENABLED')
 HASHREDIRECT_LOGOUT_REDIRECT = getenv(
     'DJANGO_HASHREDIRECT_LOGOUT_REDIRECT', '0')
 
 LOGIN_URL = getenv('DJANGO_LOGIN_URL', None)
+
+DATABASE_ROUTERS = []
 
 DATABASES = {
     'default': {
@@ -36,9 +42,33 @@ DATABASES = {
     },
 }
 
+DATABASES['seumich'] = {
+    'ENGINE': getenv('DJANGO_SEUMICH_DB_ENGINE'),
+    'NAME': getenv('DJANGO_SEUMICH_DB_NAME'),
+    'USER': getenv('DJANGO_SEUMICH_DB_USER'),
+    'PASSWORD': getenv('DJANGO_SEUMICH_DB_PASSWORD'),
+    'HOST': getenv('DJANGO_SEUMICH_DB_HOST'),
+    'PORT': getenv('DJANGO_SEUMICH_DB_PORT'),
+}
+DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
+
+#     'ENGINE': 'django.db.backends.oracle',
+#     'NAME': 'pa07',
+#     'USER': 'steinhof',
+#     'PASSWORD': 'rise217(hook',
+#     'HOST': 'crow.dsc.umich.edu',
+#     'PORT': '1521',
+#     'TEST': {
+#         'MIRROR': 'default'
+#     },
+# }
+# DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
+
+
+
 REST_FRAMEWORK['PAGE_SIZE'] = int(getenv('DJANGO_REST_FRAMEWORK_PAGE_SIZE', 0))
 
-USE_ADVISING_DATABASE = bool(int(getenv('DJANGO_USE_LTDATA_DATABASE', False)))
+USE_ADVISING_DATABASE = getenv_bool('DJANGO_USE_LTDATA_DATABASE')
 
 if USE_ADVISING_DATABASE:
     ADVISING_DATABASE = 'lt_dataset'
@@ -72,11 +102,11 @@ if REMOTE_USER_HEADER:
     }
 
 # STATIC_ROOT = '/var/www/student_explorer/static'
-USE_X_FORWARDED_HOST = bool(getenv('DJANGO_USE_X_FORWARDED_HOST', False))
+USE_X_FORWARDED_HOST = getenv_bool('DJANGO_USE_X_FORWARDED_HOST')
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 STATIC_URL = getenv('DJANGO_STATIC_URL', '/static/')
-STATIC_ROOT = getenv('DJANGO_STATIC_ROOT', None)
+STATIC_ROOT = getenv('DJANGO_STATIC_ROOT', os.path.join(BASE_DIR, 'staticfiles'))
 
 
 LOGGING = {

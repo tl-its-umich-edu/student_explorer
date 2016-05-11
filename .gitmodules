@@ -1,9 +1,0 @@
-[submodule "hashredirect"]
-	path = hashredirect
-	url = git@bitbucket.org:umichdig/hashredirect.git
-[submodule "umichuser"]
-	path = umichuser
-	url = git@bitbucket.org:umichdig/umichuser.git
-[submodule "statuscheck"]
-	path = statuscheck
-	url = git@bitbucket.org:umichdig/statuscheck.git

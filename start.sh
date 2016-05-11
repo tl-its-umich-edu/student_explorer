@@ -5,7 +5,7 @@ if [ -z "${DJANGO_SETTINGS_MODULE}" ]; then
 fi
 
 if [ -z "${GUNICORN_WORKERS}" ]; then
-    GUNICORN_WORKERS=2
+    GUNICORN_WORKERS=4
 fi
 
 if [ -z "${GUNICORN_PORT}" ]; then
