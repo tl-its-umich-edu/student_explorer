@@ -206,7 +206,6 @@ th[scope="row"] {
 
 .student-detail-left-menu-courses:hover {
     cursor: pointer;
-    background-color: #CCCCCC;
 }
 
 .student-detail-summary {
@@ -247,6 +246,10 @@ th[scope="row"] {
 
 .advisor-names {
   margin-right: .4em;
+}
+
+.assignment-table {
+    margin-left: 10px;
 }
 
 /* For student_class_site_detail template */
