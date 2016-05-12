@@ -639,6 +639,10 @@ svg text {
     color: #337ab7;
 }
 
+.table-column-name {
+    color: #337ab7; 
+}
+
 .not-found {
     margin-top: 6%;
 }
