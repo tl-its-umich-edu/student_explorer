@@ -50,7 +50,7 @@ class StudentsListView(generic.TemplateView):
 
         # Fetching data from database
         if user.is_authenticated():
-            mentor = Mentor.objects.get(username=user)
+            mentor = get_object_or_404(Mentor, username=user)
             student_list = mentor.students.order_by('last_name')
             context['studentListHeader'] = mentor.first_name + \
                 " " + mentor.last_name
@@ -77,7 +77,7 @@ class AdvisorView(generic.TemplateView):
 
         # Fetching data from database
         if user.is_authenticated():
-            mentor = Mentor.objects.get(username=advisor)
+            mentor = get_object_or_404(Mentor, username=advisor)
             student_list = mentor.students.order_by('last_name')
             context['studentListHeader'] = mentor.first_name + \
                 " " + mentor.last_name
@@ -95,7 +95,7 @@ class StudentView(generic.TemplateView):
 
     def get_context_data(self, student, **kwargs):
         context = super(StudentView, self).get_context_data(**kwargs)
-        selected_student = Student.objects.get(username=student)
+        selected_student = get_object_or_404(Student, username=student)
         context['student'] = selected_student
         context['advisors'] = selected_student.mentors.all()
         context['classSites'] = selected_student.class_sites.all()
