@@ -92,6 +92,13 @@ th[scope="row"] {
   font-weight:normal;
 }
 
+.row {
+  margin-bottom: 10px;
+}
+.student-desc {
+  margin-bottom: 20px;
+}
+
 /* For tables on student-class-site-list */
 .student-class-site-list-table > tbody > tr > th {
   width: 220px;
@@ -371,6 +378,26 @@ a.class-site-status-link span {
   }
   .student-info {
     margin-bottom: 10px;
+  }
+}
+
+/* For student detail page (max-width corresponds to col-md-*) */
+@media screen and (max-width: 992px) {
+  .student-desc {
+    box-shadow: 0 0 5px gray;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  .col-md-2 {
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  .hide-small-grid {
+    display: none;
+  }
+  .status-icon {
+    float: right;
   }
 }
 
