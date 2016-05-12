@@ -124,6 +124,18 @@ th[scope="row"] {
     width: 100%;
 }
 
+.student-detail-main-menu {
+    width: 100%;
+    position: absolute;;
+    left: 0;
+}
+
+.student-detail-main-menu-top {
+    width: 100%;
+    background-color: #3E6C9C;
+    padding-left: 20px;
+}
+
 .student-detail-student-name {
     line-height: 1.2;
     color: white;
@@ -138,7 +150,13 @@ th[scope="row"] {
     padding-bottom: 20px;
 }
 
-.student-detail-student-email-link, .student-detail-student-email-link:hover {
+.student-detail-student-id {
+    margin-bottom: 0;
+    color: white;
+    padding-left: 20px;
+}
+
+.student-detail-student-email-link, .student-detail-student-email-link:hover, .student-detail-student-name-link,  .student-detail-student-name-link:hover{
     color: white;
 }
 
@@ -188,7 +206,6 @@ th[scope="row"] {
 
 .student-detail-left-menu-courses:hover {
     cursor: pointer;
-    background-color: #CCCCCC;
 }
 
 .student-detail-summary {
@@ -198,11 +215,19 @@ th[scope="row"] {
     margin-left: 25%;
 }
 
+.student-detail-main {
+    width: 75%;
+    position: absolute;
+    left: 0;
+    margin-top: 125px;
+    padding-left: 20px;
+}
+
 .student-detail-summary-title {
     color: #1c3144;
-    padding-left: 35px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    padding-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .student-detail-summary-content {
@@ -221,6 +246,10 @@ th[scope="row"] {
 
 .advisor-names {
   margin-right: .4em;
+}
+
+.assignment-table {
+    margin-left: 10px;
 }
 
 /* For student_class_site_detail template */
@@ -358,10 +387,19 @@ a.class-site-status-link span {
   .student-detail-left-menu {
       display: none;
   }
+  .student-detail-main-menu {
+      display: none;
+  }
   .student-detail-summary {
       width: 100%;
       position: relative;
       margin: auto 0px;
+  }
+  .student-detail-main {
+      width: 100%;
+      position: relative;
+      margin: auto 0px;
+      padding-left: 0px;
   }
   .student-detail-summary-title {
       padding-left: 0px;
