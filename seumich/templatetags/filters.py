@@ -24,7 +24,7 @@ def get_class_score(qs):
 
 @register.filter
 def get_student_class_status(qs, obj):
-    return qs.filter(class_site=obj)[0].status
+    return str(qs.filter(class_site=obj)[0].status)
 
 
 @register.filter

@@ -30,11 +30,21 @@
                 </th>
                 <td class="hide-small">{{ student.univ_id }}</td>
                 <td>
-                    {% for classSite in student.class_sites.all %} {% load static %}
+                    {% for classSite in student.class_sites.all %}
                     <a href="/students/{{student.username}}/class_sites/{{classSite.code}}/" class="class-site-status-link">
-                      {% static "" as baseUrl %}
                       <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text:classSite }}" data-placement="bottom">
-                      <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px" hspace="3"></img></span>
+                        {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                        {% if status == 'Green' %}
+                          <img src="{{ baseUrl }}images/Status_Icons_Green.png" width="25px" hspace="3"></img>
+                        {% elif status == 'Yellow' %}
+                          <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" width="25px" hspace="3"></img>
+                        {% elif status == 'Red' %}
+                          <img src="{{ baseUrl }}images/Status_Icons_Red.png" width="25px" hspace="3"></img>
+                        {% elif status == 'Not Applicable' %}
+                          <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" width="25px" hspace="3"></img>
+                        {% endif %}
+                        {% endwith %}
+                      </span>
                     </a> {% endfor %}
                 </td>
                 <td class="hide-small">

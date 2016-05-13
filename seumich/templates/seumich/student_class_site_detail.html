@@ -1,6 +1,6 @@
 {% extends 'student_explorer/index.html' %} {% load filters %} {% block head %} {% load staticfiles %}
 <script src='{% static 'seumich/student.js' %}'></script>
-{% endblock %} {% block content %} {% load static %} {% static "" as baseUrl %}
+{% endblock %} {% block content %}
 
 <div>
     <div class="student-detail-mobile">
@@ -29,7 +29,17 @@
         <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
             <p>{{classSite.description}}</p>
             <a href="#" data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
-                <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px"></img>
+              {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+              {% if status == 'Green' %}
+                <img src="{{ baseUrl }}images/Status_Icons_Green.png" width="25px"></img>
+              {% elif status == 'Yellow' %}
+                <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" width="25px"></img>
+              {% elif status == 'Red' %}
+                <img src="{{ baseUrl }}images/Status_Icons_Red.png" width="25px"></img>
+              {% elif status == 'Not Applicable' %}
+                <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" width="25px"></img>
+              {% endif %}
+              {% endwith %}
             </a>
         </div>
         {% endfor %}
@@ -42,7 +52,18 @@
                     <h3 class="main-h3">Course Site: {{ classSite.description }}
                     <input type="hidden" id="current-classsite-code" value="{{ classSite.code }}">
                       <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
-                      <img src="{{ baseUrl }}/images/Status_Icons_{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite }}.png" width="25px" hspace="10"></img></span>
+                        {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                        {% if status == 'Green' %}
+                          <img src="{{ baseUrl }}images/Status_Icons_Green.png" width="25px" hspace="10"></img>
+                        {% elif status == 'Yellow' %}
+                          <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" width="25px" hspace="10"></img>
+                        {% elif status == 'Red' %}
+                          <img src="{{ baseUrl }}images/Status_Icons_Red.png" width="25px" hspace="10"></img>
+                        {% elif status == 'Not Applicable' %}
+                          <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" width="25px" hspace="10"></img>
+                        {% endif %}
+                        {% endwith %}
+                      </span>
                     </h3>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
