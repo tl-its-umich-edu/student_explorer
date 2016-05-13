@@ -15,17 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.conf import settings
-
-if settings.DEBUG:
-    document_root = 'sespa/app'
-else:
-    document_root = 'sespa/dist'
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    # url(r'^check/', include('watchman.urls')),
-
     url(r'^', include('seumich.urls')),
-
 ]
