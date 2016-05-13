@@ -10,9 +10,7 @@
           <span class="assignment-title-score">{{assignment.points_earned|divide:assignment.points_possible|multiply:100|floatformat}}%</span>
           <a class="assignment-button" id="{{assignment.assignment.code}}" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapse{{assignment.assignment.code}}"
           onclick="toggleAssignment(this)" aria-expanded="true" aria-controls="collapse{{assignment.assignment.code}}">
-            {% load static %}
-            {% static "" as baseUrl %}
-            <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{{baseUrl}}/images/Dropdown_Plus.png" alt="Expand"/>
+            <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
           </a>
         </span>
       </h4>

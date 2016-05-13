@@ -10,3 +10,4 @@ requests
 django-registration-redux
 django-extensions
 whitenoise
+djangosaml2

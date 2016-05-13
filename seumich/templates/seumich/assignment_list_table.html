@@ -28,10 +28,8 @@
                 <span>
                   <span id="comment-title-{{assignment.assignment.id}}">View Comment</span>
                   <a class="assignment-button" role="button">
-                    {% load static %}
-                    {% static "" as baseUrl %}
-                    <img id="plus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}/images/Dropdown_Plus.png" alt="Expand"/>
-                    <img id="minus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}/images/Dropdown_Minus.png" alt="Expand"/>
+                    <img id="plus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
+                    <img id="minus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Minus.png" alt="Expand"/>
                   </a>
                   <p id="assignment-grader-comment-{{assignment.assignment.id}}">&quot;{{assignment.grader_comment}}&quot;</p>
                 </span>
