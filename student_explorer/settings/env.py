@@ -93,7 +93,9 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
           'sp': {
               'valid_for': 48,
               'name': 'Student Explorer',
-              'name_id_format': saml2.NAMEID_FORMAT_EMAILADDRESS,
+              'name_id_format': getenv(
+                'STUDENT_EXPLORER_SAML_NAME_ID_FORMAT',
+                'urn:oasis:names:tc:SAML:2.0:nameid-format:transient'),
               'authn_requests_signed': 'true',
               'allow_unsolicited': True,
               'endpoints': {
