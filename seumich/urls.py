@@ -13,8 +13,9 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
+from django.conf.urls import include, url, handler400, handler403, handler404, handler500
 from seumich import views
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     url(r'^$', views.StudentsListView.as_view(), name='index'),
@@ -28,3 +29,8 @@ urlpatterns = [
         views.StudentView.as_view(), name='student'),
     url(r'^students/', views.StudentsListView.as_view(), name='students_list'),
 ]
+
+handler400 = TemplateView.as_view(template_name="404.html")
+handler403 = TemplateView.as_view(template_name="403.html")
+handler404 = TemplateView.as_view(template_name="400.html")
+handler500 = TemplateView.as_view(template_name="500.html")
