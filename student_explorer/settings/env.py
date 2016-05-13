@@ -42,29 +42,15 @@ DATABASES = {
     },
 }
 
-DATABASES['seumich'] = {
-    'ENGINE': getenv('DJANGO_SEUMICH_DB_ENGINE'),
-    'NAME': getenv('DJANGO_SEUMICH_DB_NAME'),
-    'USER': getenv('DJANGO_SEUMICH_DB_USER'),
-    'PASSWORD': getenv('DJANGO_SEUMICH_DB_PASSWORD'),
-    'HOST': getenv('DJANGO_SEUMICH_DB_HOST'),
-    'PORT': getenv('DJANGO_SEUMICH_DB_PORT'),
-}
-DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
-
-#     'ENGINE': 'django.db.backends.oracle',
-#     'NAME': 'pa07',
-#     'USER': 'steinhof',
-#     'PASSWORD': 'rise217(hook',
-#     'HOST': 'crow.dsc.umich.edu',
-#     'PORT': '1521',
-#     'TEST': {
-#         'MIRROR': 'default'
-#     },
+# DATABASES['seumich'] = {
+#     'ENGINE': getenv('DJANGO_SEUMICH_DB_ENGINE'),
+#     'NAME': getenv('DJANGO_SEUMICH_DB_NAME'),
+#     'USER': getenv('DJANGO_SEUMICH_DB_USER'),
+#     'PASSWORD': getenv('DJANGO_SEUMICH_DB_PASSWORD'),
+#     'HOST': getenv('DJANGO_SEUMICH_DB_HOST'),
+#     'PORT': getenv('DJANGO_SEUMICH_DB_PORT'),
 # }
 # DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
-
-
 
 REST_FRAMEWORK['PAGE_SIZE'] = int(getenv('DJANGO_REST_FRAMEWORK_PAGE_SIZE', 0))
 
@@ -75,6 +61,80 @@ if USE_ADVISING_DATABASE:
     ADVISING_PACKAGE = 'advisingumich'
     INSTALLED_APPS += ('advisingumich',)
     DATABASE_ROUTERS = ['advisingumich.routers.DataWarehouseRouter']
+
+if getenv_bool('STUDENT_EXPLORER_SAML'):
+    SAML2_URL_PATH = getenv('STUDENT_EXPLORER_SAML_URL_PATH', '/saml2/')
+    SAML2_URL_BASE = getenv('STUDENT_EXPLORER_SAML_URL_BASE',
+                            'http://localhost:2082/saml2/')
+
+    INSTALLED_APPS += ('djangosaml2',)
+    AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+        'djangosaml2.backends.Saml2Backend',
+    )
+    LOGIN_URL = '%slogin/' % SAML2_URL_PATH
+    SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+    from os import path
+    import saml2
+    BASEDIR = path.dirname(path.abspath(__file__))
+    SAML_CONFIG = {
+      'xmlsec_binary': '/usr/bin/xmlsec1',
+      'entityid': '%smetadata/' % SAML2_URL_BASE,
+
+      # directory with attribute mapping
+      # 'attribute_map_dir': path.join(BASEDIR, 'attribute-maps'),
+      'name': getenv('STUDENT_EXPLORER_SAML_SERVICE_NAME', 'Student Explorer'),
+      'valid_for': 48,
+
+      # this block states what services we provide
+      'service': {
+          # we are just a lonely SP
+          'sp': {
+              'valid_for': 48,
+              'name': 'Student Explorer',
+              'name_id_format': saml2.NAMEID_FORMAT_EMAILADDRESS,
+              'authn_requests_signed': 'true',
+              'allow_unsolicited': True,
+              'endpoints': {
+                  # url and binding to the assetion consumer service view
+                  # do not change the binding or service name
+                  'assertion_consumer_service': [
+                      ('%sacs/' % SAML2_URL_BASE,
+                       saml2.BINDING_HTTP_POST),
+                      ],
+                  # url and binding to the single logout service view
+                  # do not change the binding or service name
+                  'single_logout_service': [
+                      ('%sls/' % SAML2_URL_BASE,
+                       saml2.BINDING_HTTP_REDIRECT),
+                      ('%sls/post' % SAML2_URL_BASE,
+                       saml2.BINDING_HTTP_POST),
+                      ],
+                  },
+
+              # attributes that this project need to identify a user
+              'required_attributes': ['uid'],
+
+              # attributes that may be useful to have but not required
+              'optional_attributes': ['eduPersonAffiliation'],
+              },
+          },
+
+      # where the remote metadata is stored
+      'metadata': {
+          'local': [path.join(BASEDIR, '../saml/remote_metadata.xml')],
+          },
+
+      # set to 1 to output debugging information
+      'debug': 1,
+
+      # certificate
+      'key_file': path.join(BASEDIR, '../saml/key.pem'),  # private part
+      'cert_file': path.join(BASEDIR, '../saml/cert.pem'),  # public part
+
+      'valid_for': 24,  # how long is our metadata valid
+      }
 
 
 REMOTE_USER_HEADER = getenv('DJANGO_REMOTE_USER_HEADER', None)
