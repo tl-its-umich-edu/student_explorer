@@ -1,15 +1,28 @@
 from django import template
 from django.utils.safestring import mark_safe
 import json
-
+import decimal
 
 register = template.Library()
+
+# Source:
+# http://stackoverflow.com/questions/16957275/python-to-json-serialization-fails-on-decimal
+
+
+def decimal_default(obj):
+    if isinstance(obj, decimal.Decimal):
+        return float(obj)
+    raise TypeError
 
 
 @register.filter
 def get_student_score(qs, obj):
     if qs.filter(class_site=obj).exists():
-        return qs.filter(class_site=obj)[0].current_score_average
+        avg_score = qs.filter(class_site=obj)[0].current_score_average
+        if avg_score is None:
+            return 'N/A'
+        else:
+            return avg_score
     else:
         return 'N/A'
 
@@ -17,7 +30,11 @@ def get_student_score(qs, obj):
 @register.filter
 def get_class_score(qs):
     if qs.exists():
-        return qs[0].current_score_average
+        avg_score = qs[0].current_score_average
+        if avg_score is None:
+            return 'N/A'
+        else:
+            return avg_score
     else:
         return 'N/A'
 
@@ -29,14 +46,14 @@ def get_student_class_status(qs, obj):
 
 @register.filter
 def jsonify(list):
-    return mark_safe(json.dumps(list))
+    return mark_safe(json.dumps(list, default=decimal_default))
 
 
 @register.filter
 def divide(value, arg):
     try:
         return float(value) / float(arg)
-    except (ValueError, ZeroDivisionError):
+    except:
         return None
 
 
