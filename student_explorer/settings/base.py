@@ -30,11 +30,7 @@ ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = getenv('DJANGO_SECRET_KEY', 'I need to be changed!')
 
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
-
+SILENCED_SYSTEM_CHECKS = []
 
 # Application definition
 
@@ -62,8 +58,6 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'student_explorer.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -80,13 +74,12 @@ TEMPLATES = [
     },
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+ROOT_URLCONF = 'student_explorer.urls'
 
 WSGI_APPLICATION = 'student_explorer.wsgi.application'
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = getenv('DJANGO_LANGUAGE_CODE', 'en-us')
 
@@ -100,13 +93,23 @@ USE_TZ = getenv_bool('DJANGO_USE_TZ', 'yes')
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = getenv('DJANGO_STATIC_URL', '/static/')
-STATIC_ROOT = getenv('DJANGO_STATIC_ROOT', os.path.join(BASE_DIR, 'staticfiles'))
+STATIC_ROOT = getenv('DJANGO_STATIC_ROOT',
+                     os.path.join(BASE_DIR, 'staticfiles'))
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 
 LOGIN_URL = getenv('DJANGO_LOGIN_URL', '/accounts/login/')
 LOGIN_REDIRECT_URL = '/'
+
+
+# Databases
 
 DATABASES = {}
 DATABASE_ROUTERS = []
@@ -129,6 +132,9 @@ DATABASES['seumich'] = {
     'PORT': getenv('DJANGO_SEUMICH_DB_PORT', ''),
 }
 DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
+
+
+# SAML Auth
 
 if getenv_bool('STUDENT_EXPLORER_SAML'):
     SAML2_URL_PATH = getenv('STUDENT_EXPLORER_SAML_URL_PATH', '/saml2/')
@@ -205,6 +211,9 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
 
       'valid_for': 24,  # how long is our metadata valid
       }
+
+
+# Logging
 
 LOGGING = {
     'version': 1,
