@@ -23,7 +23,6 @@ urlpatterns = [
 ]
 
 if 'djangosaml2' in settings.INSTALLED_APPS:
-    print 'got SAML'
     urlpatterns += (
         url(r'^saml2/', include('djangosaml2.urls')),
     )
