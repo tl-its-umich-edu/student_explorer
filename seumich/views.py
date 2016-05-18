@@ -5,6 +5,7 @@ from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def convert_to_pages(request, student_list, num_records, num_page_links):
@@ -33,27 +34,20 @@ def convert_to_pages(request, student_list, num_records, num_page_links):
     return students, range(initial, final)
 
 
-class AdvisorsListView(generic.ListView):
+class AdvisorsListView(LoginRequiredMixin, generic.ListView):
     template_name = 'seumich/advisor_list.html'
     queryset = Mentor.objects.order_by('last_name')
     context_object_name = 'advisors'
 
 
-class StudentsListView(generic.TemplateView):
+class StudentsListView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'seumich/student_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(StudentsListView, self).get_context_data(**kwargs)
-        user = self.request.user
         query_user = self.request.GET.get('search', None)
         student_list = []
 
-        # Fetching data from database
-        if user.is_authenticated():
-            mentor = get_object_or_404(Mentor, username=user)
-            student_list = mentor.students.order_by('last_name')
-            context['studentListHeader'] = mentor.first_name + \
-                " " + mentor.last_name
         if query_user:
             student_list = Student.objects.filter(Q(username__icontains=query_user) | Q(univ_id__icontains=query_user) | Q(
                 first_name__icontains=query_user) | Q(last_name__icontains=query_user)).order_by('last_name')
@@ -67,21 +61,17 @@ class StudentsListView(generic.TemplateView):
         return context
 
 
-class AdvisorView(generic.TemplateView):
+class AdvisorView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'seumich/advisor_detail.html'
 
     def get_context_data(self, advisor, **kwargs):
         context = super(AdvisorView, self).get_context_data(**kwargs)
-        user = self.request.user
-        student_list = []
 
-        # Fetching data from database
-        if user.is_authenticated():
-            mentor = get_object_or_404(Mentor, username=advisor)
-            student_list = mentor.students.order_by('last_name')
-            context['studentListHeader'] = mentor.first_name + \
-                " " + mentor.last_name
-            context['advisor'] = mentor
+        mentor = get_object_or_404(Mentor, username=advisor)
+        student_list = mentor.students.order_by('last_name')
+        context['studentListHeader'] = mentor.first_name + \
+            " " + mentor.last_name
+        context['advisor'] = mentor
 
         # Pagination to break list into multiple pieces
         pages, ranges = convert_to_pages(self.request, student_list, 5, 5)
@@ -90,7 +80,7 @@ class AdvisorView(generic.TemplateView):
         return context
 
 
-class StudentView(generic.TemplateView):
+class StudentView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'seumich/student.html'
 
     def get_context_data(self, student, **kwargs):
