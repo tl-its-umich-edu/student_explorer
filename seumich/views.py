@@ -1,7 +1,6 @@
 from django.views import generic
 from seumich.models import Student, Mentor, ClassSite, ClassSiteScore
 from django.shortcuts import get_object_or_404
-from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
