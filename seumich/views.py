@@ -1,5 +1,5 @@
 from django.views import generic
-from seumich.models import Student, Mentor, ClassSite
+from seumich.models import Student, Mentor, ClassSite, ClassSiteScore
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
@@ -162,7 +162,7 @@ class StudentClassSiteView(StudentView):
                                        .current_score_average)
 
                 class_site_score = ClassSiteScore.objects.get(
-                    class_site__code=code)
+                    class_site__code=class_site.code)
                 tempClassData.append(class_site_score.current_score_average)
 
             studentData.append(tempStudentData)
