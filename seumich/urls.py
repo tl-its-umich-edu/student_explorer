@@ -15,17 +15,33 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from seumich import views
-from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    url(r'^$', views.StudentsListView.as_view(), name='index'),
-    url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^advisors/(?P<advisor>\w+)/$',
-        views.AdvisorView.as_view(), name='advisor'),
-    url(r'^advisors/$', views.AdvisorsListView.as_view(), name='advisors_list'),
-    url(r'^students/(?P<student>\w+)/class_sites/(?P<classcode>\d+)/$',
-        views.StudentClassSiteView.as_view(), name='student_class'),
+    url(
+        r'^$',
+        views.StudentsListView.as_view(),
+        name='index'),
+
+    url(
+        r'^accounts/',
+        include('registration.backends.default.urls')),
+
+    url(
+        r'^advisors/$',
+        views.AdvisorsListView.as_view(),
+        name='advisors_list'),
+    url(
+        r'^advisors/(?P<advisor>\w+)/$',
+        views.AdvisorView.as_view(),
+        name='advisor'),
+
+    url(r'^students/$',
+        views.StudentsListView.as_view(),
+        name='students_list'),
     url(r'^students/(?P<student>\w+)/$',
-        views.StudentView.as_view(), name='student'),
-    url(r'^students/$', views.StudentsListView.as_view(), name='students_list'),
+        views.StudentView.as_view(),
+        name='student'),
+    url(r'^students/(?P<student>\w+)/class_sites/(?P<classcode>\d+)/$',
+        views.StudentClassSiteView.as_view(),
+        name='student_class'),
 ]
