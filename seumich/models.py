@@ -345,7 +345,7 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
                                   null=True)
 
     def __unicode__(self):
-        return '%s has assignemnt %s in %s' % (self.student, self.assignment,
+        return '%s has assignment %s in %s' % (self.student, self.assignment,
                                                self.class_site)
 
     @property
