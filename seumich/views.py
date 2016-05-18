@@ -48,9 +48,12 @@ class StudentsListView(LoginRequiredMixin, generic.TemplateView):
         student_list = []
 
         if query_user:
-            student_list = Student.objects.filter(Q(username__icontains=query_user) | Q(univ_id__icontains=query_user) | Q(
-                first_name__icontains=query_user) | Q(last_name__icontains=query_user)).order_by('last_name')
-            context['studentListHeader'] = 'Search Students'
+            student_list = Student.objects.filter(
+                Q(username__icontains=query_user) |
+                Q(univ_id__icontains=query_user) |
+                Q(first_name__icontains=query_user) |
+                Q(last_name__icontains=query_user)
+            ).order_by('last_name')
 
         # Pagination to break list into multiple pieces
         pages, ranges = convert_to_pages(self.request, student_list, 5, 5)
@@ -175,7 +178,10 @@ class StudentClassSiteView(StudentView):
         scoreData.append(
             {'key': 'Class', 'values': classData, 'color': '#F0D654'})
         eventPercentileData.append(
-            {'key': 'Course Site Engagement', 'values': activityData, 'color': '#a9bdab'})
+            {
+                'key': 'Course Site Engagement',
+                'values': activityData, 'color': '#a9bdab'
+            })
 
         context['classSite'] = class_site
         context['scoreData'] = scoreData
