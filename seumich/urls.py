@@ -23,10 +23,6 @@ urlpatterns = [
         name='index'),
 
     url(
-        r'^accounts/',
-        include('registration.backends.default.urls')),
-
-    url(
         r'^advisors/$',
         views.AdvisorsListView.as_view(),
         name='advisors_list'),
