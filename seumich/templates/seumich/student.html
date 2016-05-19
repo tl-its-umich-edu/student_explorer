@@ -1,0 +1,32 @@
+{% extends 'student_explorer/index.html' %}
+
+{% block head %}
+{% load staticfiles %}
+  <script src='{% static 'seumich/student.js' %}'></script>
+{% endblock %}
+
+{% block content %} {% load filters %}
+
+<div>
+    <div class="student-detail-mobile">
+        <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
+        <p><a href="mailto:{{student.email_address}}">{{student.email_address}}</a></p>
+        <p><a class="unsortable">Student ID: </a>{{ student.univ_id }}</p>
+        <hr class="main-no-margin-top" />
+    </div>
+
+    <div class="student-detail-main-menu">
+        <div class="student-detail-main-menu-top">
+            <p class="student-detail-student-name">{{student.first_name}} {{student.last_name}}</p>
+            <p class="student-detail-student-id">Student ID: {{ student.univ_id }}</p>
+            <p class="student-detail-student-email"><a href="mailto:{{student.email_address}}" class="student-detail-student-email-link">{{student.email_address}}</a></p>
+        </div>
+    </div>
+
+    <div class="student-detail-main">
+        <div>{% include 'seumich/student_detail.html' %}</div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -12,42 +12,44 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from os import getenv
+
+
+def getenv_bool(var, default='0'):
+    return getenv(var, default).lower() in ('yes', 'on', 'true', '1', )
 
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 )
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = getenv_bool('DJANGO_DEBUG')
+ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'mb5bp^9f!f)z^s0%3np*be@c2b5vkq4te-psk0b=7!5)sjl5gr'
+SECRET_KEY = getenv('DJANGO_SECRET_KEY', 'I need to be changed!')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+SILENCED_SYSTEM_CHECKS = []
 
 # Application definition
 
 INSTALLED_APPS = (
     'django.contrib.admin',
+    'registration',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
+    'watchman',
     'student_explorer',
-    'advising',
-    'hashredirect',
-    'umichuser',
-    'statuscheck',
+    'seumich',
 )
 
 MIDDLEWARE_CLASSES = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,10 +57,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
 ]
-
-ROOT_URLCONF = 'student_explorer.urls'
 
 TEMPLATES = [
     {
@@ -76,44 +75,176 @@ TEMPLATES = [
     },
 ]
 
+ROOT_URLCONF = 'student_explorer.urls'
+
 WSGI_APPLICATION = 'student_explorer.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+WATCHMAN_TOKEN = getenv('DJANGO_WATCHMAN_TOKEN', None)
+WATCHMAN_TOKEN_NAME = getenv('DJANGO_WATCHMAN_TOKEN_NAME', 'token')
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = getenv('DJANGO_LANGUAGE_CODE', 'en-us')
 
-TIME_ZONE = 'America/Detroit'
+TIME_ZONE = getenv('DJANGO_TIME_ZONE', 'America/Detroit')
 
-USE_I18N = True
+USE_I18N = getenv_bool('DJANGO_USE_I18N', 'yes')
 
-USE_L10N = True
+USE_L10N = getenv_bool('DJANGO_USE_L10N', 'yes')
 
-USE_TZ = True
+USE_TZ = getenv_bool('DJANGO_USE_TZ', 'yes')
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/static/'
-LOGIN_URL = '/api/api-auth/login/'
+STATIC_URL = getenv('DJANGO_STATIC_URL', '/static/')
+STATIC_ROOT = getenv('DJANGO_STATIC_ROOT',
+                     os.path.join(BASE_DIR, 'staticfiles'))
 
-REST_FRAMEWORK = {
-    'PAGE_SIZE': 100,
-    'DEFAULT_FILTER_BACKENDS': (
-        'rest_framework.filters.SearchFilter',
-        'rest_framework.filters.DjangoFilterBackend',
-    ),
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+LOGIN_URL = getenv('DJANGO_LOGIN_URL', '/accounts/login/')
+LOGIN_REDIRECT_URL = '/'
+
+
+# Databases
+
+DATABASES = {}
+DATABASE_ROUTERS = []
+
+DATABASES['default'] = {
+    'ENGINE': getenv('DJANGO_DB_ENGINE', 'django.db.backends.mysql'),
+    'NAME': getenv('DJANGO_DB_NAME', 'student_explorer'),
+    'USER': getenv('DJANGO_DB_USER', 'student_explorer'),
+    'PASSWORD': getenv('DJANGO_DB_PASSWORD', 'student_explorer'),
+    'HOST': getenv('DJANGO_DB_HOST', ''),
+    'PORT': getenv('DJANGO_DB_PORT', ''),
+}
+
+DATABASES['seumich'] = {
+    'ENGINE': getenv('DJANGO_SEUMICH_DB_ENGINE', 'django.db.backends.mysql'),
+    'NAME': getenv('DJANGO_SEUMICH_DB_NAME', 'student_explorer'),
+    'USER': getenv('DJANGO_SEUMICH_DB_USER', 'student_explorer'),
+    'PASSWORD': getenv('DJANGO_SEUMICH_DB_PASSWORD', 'student_explorer'),
+    'HOST': getenv('DJANGO_SEUMICH_DB_HOST', ''),
+    'PORT': getenv('DJANGO_SEUMICH_DB_PORT', ''),
+}
+DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
+
+
+# SAML Auth
+
+if getenv_bool('STUDENT_EXPLORER_SAML'):
+    SAML2_URL_PATH = getenv('STUDENT_EXPLORER_SAML_URL_PATH', '/saml2/')
+    SAML2_URL_BASE = getenv('STUDENT_EXPLORER_SAML_URL_BASE',
+                            'http://localhost:2082/saml2/')
+
+    INSTALLED_APPS += ('djangosaml2',)
+    AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+        'djangosaml2.backends.Saml2Backend',
+    )
+    LOGIN_URL = '%slogin/' % SAML2_URL_PATH
+    SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+    from os import path
+    import saml2
+    BASEDIR = path.dirname(path.abspath(__file__))
+    SAML_CONFIG = {
+      'xmlsec_binary': '/usr/bin/xmlsec1',
+      'entityid': '%smetadata/' % SAML2_URL_BASE,
+
+      # directory with attribute mapping
+      # 'attribute_map_dir': path.join(BASEDIR, 'attribute-maps'),
+      'name': getenv('STUDENT_EXPLORER_SAML_SERVICE_NAME', 'Student Explorer'),
+      'valid_for': 48,
+
+      # this block states what services we provide
+      'service': {
+          # we are just a lonely SP
+          'sp': {
+              'valid_for': 48,
+              'name': 'Student Explorer',
+              'name_id_format': getenv(
+                'STUDENT_EXPLORER_SAML_NAME_ID_FORMAT',
+                'urn:oasis:names:tc:SAML:2.0:nameid-format:transient'),
+              'authn_requests_signed': 'true',
+              'allow_unsolicited': True,
+              'endpoints': {
+                  # url and binding to the assetion consumer service view
+                  # do not change the binding or service name
+                  'assertion_consumer_service': [
+                      ('%sacs/' % SAML2_URL_BASE,
+                       saml2.BINDING_HTTP_POST),
+                      ],
+                  # url and binding to the single logout service view
+                  # do not change the binding or service name
+                  'single_logout_service': [
+                      ('%sls/' % SAML2_URL_BASE,
+                       saml2.BINDING_HTTP_REDIRECT),
+                      ('%sls/post' % SAML2_URL_BASE,
+                       saml2.BINDING_HTTP_POST),
+                      ],
+                  },
+
+              # attributes that this project need to identify a user
+              'required_attributes': ['uid'],
+
+              # attributes that may be useful to have but not required
+              'optional_attributes': ['eduPersonAffiliation'],
+              },
+          },
+
+      # where the remote metadata is stored
+      'metadata': {
+          'local': [path.join(BASEDIR, '../saml/remote_metadata.xml')],
+          },
+
+      # set to 1 to output debugging information
+      'debug': 1,
+
+      # certificate
+      'key_file': path.join(BASEDIR, '../saml/key.pem'),  # private part
+      'cert_file': path.join(BASEDIR, '../saml/cert.pem'),  # public part
+
+      'valid_for': 24,  # how long is our metadata valid
+      }
+
+
+# Logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'all': {
+            'format': ('%(levelname)s %(asctime)s %(module)s %(process)d '
+                       '%(thread)d %(message)s'),
+        },
+        'debug': {
+            'format': ('%(asctime)s %(levelname)s %(message)s '
+                       '%(pathname)s:%(lineno)d'),
+        },
+        'simple': {
+            'format': '%(levelname)s %(name)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': getenv('DJANGO_LOGGING_LEVEL', 'WARNING'),
+        },
+    },
 }

@@ -15,43 +15,20 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.views.static import serve
 from django.conf import settings
-
-import hashredirect.views
-
-if settings.DEBUG:
-    document_root = 'sespa/app'
-else:
-    document_root = 'sespa/dist'
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^check/', include('statuscheck.urls')),
-
-    url(r'^api/', include('advising.urls')),
-    url(r'^api/users/', include('umichuser.urls')),
-
-    url(r'^$', hashredirect.views.login_or_serve, {
-        'document_root': document_root,
-        'path': 'index.html'
-    }, name='app-root'),
-
-    url(r'^login/$', hashredirect.views.login_redirect,
-        name='hashredirect-login-redirect'),
-    url(r'^logout/$', hashredirect.views.logout_redirect,
-        name='hashredirect-logout-redirect'),
+    url(r'^', include('seumich.urls')),
+    url(r'^status/', include('watchman.urls')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += [
-        url(r'^bower_components/(?P<path>.*)$', serve, {
-            'document_root': 'sespa/bower_components',
-        }),
-    ]
+if 'djangosaml2' in settings.INSTALLED_APPS:
+    urlpatterns += (
+        url(r'^saml2/', include('djangosaml2.urls')),
+    )
 
-urlpatterns += [
-    url(r'^(?P<path>.*)$', serve, {
-        'document_root': document_root,
-    }),
-]
+if 'registration' in settings.INSTALLED_APPS:
+    urlpatterns += (
+        url(r'^accounts/', include('registration.backends.default.urls')),
+    )
