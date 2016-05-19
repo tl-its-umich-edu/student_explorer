@@ -20,7 +20,7 @@ from django.conf import settings
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('seumich.urls')),
-    url(r'^watchman/', include('watchman.urls')),
+    url(r'^status/', include('watchman.urls')),
 ]
 
 if 'djangosaml2' in settings.INSTALLED_APPS:
