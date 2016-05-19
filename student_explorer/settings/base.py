@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'watchman',
     'student_explorer',
     'seumich',
 )
@@ -77,6 +78,9 @@ TEMPLATES = [
 ROOT_URLCONF = 'student_explorer.urls'
 
 WSGI_APPLICATION = 'student_explorer.wsgi.application'
+
+WATCHMAN_TOKEN = getenv('DJANGO_WATCHMAN_TOKEN', None)
+WATCHMAN_TOKEN_NAME = getenv('DJANGO_WATCHMAN_TOKEN_NAME', 'token')
 
 
 # Internationalization
