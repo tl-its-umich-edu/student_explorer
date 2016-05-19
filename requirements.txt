@@ -2,6 +2,7 @@ Django==1.9
 mysql-python
 python-ldap
 requests
+django-watchman
 django-registration-redux
 django-extensions
 whitenoise
