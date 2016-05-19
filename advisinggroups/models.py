@@ -5,12 +5,7 @@ from django.db import models
 
 class Advisor(models.Model):
     id = models.IntegerField(primary_key=True, db_column='ADVR_KEY')
-    username = models.CharField(
-        min_length=3, max_length=8, db_column='ADVR_UM_UNQNM')
-    univ_id = models.CharField(max_length=11, db_column='ADVR_UM_ID')
-    first_name = models.CharField(max_length=500,
-                                  db_column='ADVR_FIRST_NM')
-    last_name = models.CharField(max_length=500, db_column='ADVR_SR_NM')
+    username = models.CharField(max_length=8, db_column='ADVR_UM_UNQNM')
     students = models.ManyToManyField('Student', through='StudentGroupAdvisor')
 
     def __unicode__(self):
@@ -22,12 +17,8 @@ class Advisor(models.Model):
 
 class Student(models.Model):
     id = models.IntegerField(primary_key=True, db_column='STDNT_KEY')
-    username = models.CharField(
-        min_length=3, max_length=8, db_column='STDNT_UM_UNQNM')
+    username = models.CharField(max_length=8, db_column='STDNT_UM_UNQNM')
     univ_id = models.CharField(max_length=11, db_column='STDNT_UM_ID')
-    first_name = models.CharField(max_length=500,
-                                  db_column='STDNT_FIRST_NM')
-    last_name = models.CharField(max_length=500, db_column='STDNT_SUR_NM')
     advisors = models.ManyToManyField('Advisor', through='StudentGroupAdvisor')
     groups = models.ManyToManyField('Group', through='StudentGroupAdvisor')
 
@@ -44,8 +35,6 @@ class Student(models.Model):
 
 class Group(models.Model):
     id = models.IntegerField(primary_key=True, db_column='GRP_KEY')
-    code = models.CharField(max_length=20, db_column='GRP_CD')
-    name = models.CharField(max_length=100, db_column='GRP_NM')
     description = models.CharField(max_length=50, db_column='GRP_DES')
 
     def __unicode__(self):
