@@ -1,12 +1,8 @@
 Django==1.9
 mysql-python
-# djangorestframework
-# django-filter
-# django-crispy-forms
 python-ldap
 requests
-#  watchman
-# git+https://bitbucket.org/umichdig/django-unizindata.git
+django-watchman
 django-registration-redux
 django-extensions
 whitenoise
