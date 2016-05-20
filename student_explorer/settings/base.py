@@ -32,6 +32,11 @@ SECRET_KEY = getenv('DJANGO_SECRET_KEY', 'I need to be changed!')
 
 SILENCED_SYSTEM_CHECKS = []
 
+ADMINS = [('', getenv('DJANGO_ERROR_EMAIL', 'vagrant@localhost'))]
+
+EMAIL_HOST = getenv('DJANGO_EMAIL_HOST', 'localhost')
+
+
 # Application definition
 
 INSTALLED_APPS = (
