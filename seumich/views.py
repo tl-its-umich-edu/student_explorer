@@ -46,6 +46,7 @@ class StudentsListView(LoginRequiredMixin, generic.TemplateView):
         context = super(StudentsListView, self).get_context_data(**kwargs)
         query_user = self.request.GET.get('search', None)
         student_list = []
+        context['studentListHeader'] = 'Search Students'
 
         if query_user:
             student_list = Student.objects.filter(
