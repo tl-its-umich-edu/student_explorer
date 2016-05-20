@@ -28,7 +28,7 @@
         {% for classSite in classSites %}
         <hr class="main-no-margin-top hide-small-grid" />
         <div class="row student-desc">
-            <div class="col-md-2"><a class="class-site-title" href="/students/{{student.username}}/class_sites/{{classSite.code}}/">{{ classSite.description }}</a></div>
+            <div class="col-md-2"><a class="class-site-title" href="/students/{{student.username}}/class_sites/{{classSite.code}}/"><h3 class="student-course-list">{{ classSite.description }}</h3></a></div>
             <div class="col-md-2 status-icon">
               <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
                 {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}

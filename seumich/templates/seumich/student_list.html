@@ -1,8 +1,8 @@
 {% extends 'student_explorer/index.html' %} {% block content %} {% load filters %}
 {% load static from staticfiles %}
-<h2 class="sub-header">{{ studentListHeader }}</h2> {% if students %}
+<h1 class="sub-header">{{ studentListHeader }}</h1> {% if students %}
 <hr class="main-no-margin-top" />
-<h3>Students</h3> {% endif %} {% if not students %} {% if user.is_authenticated %}
+<h2>Students</h2> {% endif %} {% if not students %} {% if user.is_authenticated %}
 <div class="panel panel-warning">
     <div class="panel-heading">
         <h3 class="panel-title">No Results</h3>
