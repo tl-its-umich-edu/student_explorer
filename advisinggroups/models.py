@@ -4,7 +4,6 @@ from django.db import models
 
 
 class Advisor(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='ADVR_KEY')
     username = models.CharField(max_length=8, db_column='ADVR_UM_UNQNM')
     students = models.ManyToManyField('Student', through='StudentGroupAdvisor')
 
@@ -16,7 +15,6 @@ class Advisor(models.Model):
 
 
 class Student(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='STDNT_KEY')
     username = models.CharField(max_length=8, db_column='STDNT_UM_UNQNM')
     univ_id = models.CharField(max_length=11, db_column='STDNT_UM_ID')
     advisors = models.ManyToManyField('Advisor', through='StudentGroupAdvisor')
@@ -34,7 +32,6 @@ class Student(models.Model):
 
 
 class Group(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='GRP_KEY')
     description = models.CharField(max_length=50, db_column='GRP_DES')
 
     def __unicode__(self):
@@ -45,8 +42,7 @@ class Group(models.Model):
 
 
 class StudentGroupAdvisor(models.Model):
-    student = models.ForeignKey(Student, db_column='STDNT_KEY',
-                                primary_key=True)
+    student = models.ForeignKey(Student, db_column='STDNT_KEY')
     advisor = models.ForeignKey(Advisor, db_column='ADVR_KEY')
     group = models.ForeignKey(Group, db_column='GRP_KEY')
 

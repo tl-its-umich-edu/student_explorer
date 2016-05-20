@@ -2,15 +2,15 @@
 <html lang="en" class="no-js">
 
 <head>
-    {% load static from staticfiles %} {% static "" as baseUrl %}
+    {% load static from staticfiles %}{% static "" as baseUrl %}
     <meta charset="utf-8">
     <title>Student Explorer</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/dist/css/bootstrap.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "components-font-awesome/css/font-awesome.css" %}">
-    <script src="{% static "jquery/dist/jquery.js" %}"></script>
-    <script src="{% static "bootstrap/dist/js/bootstrap.js" %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'components-font-awesome/css/font-awesome.css' %}">
+    <script src="{% static 'jquery/dist/jquery.js' %}"></script>
+    <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
     <script src="{% static 'advisinggroups/index.js' %}"></script>
     {% block head %}{% endblock %}
 </head>
@@ -18,28 +18,33 @@
 <body>
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="page-header">
-                <h1>Student Explorer Tool</h1>
-            </div>
-            <form method="post">{% csrf_token %}
-                <div class="well">
-                    <legend>Import CSV</legend>
-                    <div class="form-group {% if form.errors.input_file %} has-error {% endif %}">
-                        {% for error in form.errors.input_file %}
-                        <label class="control-label" for="{{ form.input_file.id_for_label }}">
-                            {{ error }}
-                        </label>
-                        {% endfor %}
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="{{ form.input_file.name }}" id="id_input_file" value="" placeholder="Please load a file" />
-                            <input type="file" id="open-dialog" style="display:none">
-                            <span class="input-group-addon"><a href="#" id="upload-file" title="Browse" data-toggle="tooltip" data-placement="bottom"><span class="glyphicon glyphicon-upload"></span></a></span>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-success">Import</button>
-                    <button type="button" class="btn btn-danger" id="clear_text">Clear</button>
+            <div class="col-md-5 col-md-offset-3">
+                <div class="page-header">
+                    <h1>Student Explorer Tool</h1>
                 </div>
-            </form>
+                <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="well">
+                        <legend>Import CSV</legend>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="id_input_file" value="" placeholder="Please upload a file" />
+                                <input type="file" id="open-dialog" name="input-file" />
+                                <span class="input-group-addon"><a href="#" id="upload-file" title="Browse" data-toggle="tooltip" data-placement="bottom"><span class="glyphicon glyphicon-upload"></span></a>
+                                </span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Import</button>
+                        <img src='{% static 'advisinggroups/images/loading.gif' %}' alt='Searching' />
+                        <button type="button" class="btn btn-danger" id="clear_text">Clear</button>
+                    </div>
+                </form>
+                <div class="alert alert-success" id="alert-success">
+                    Import was successfully completed!
+                </div>
+                <div class="alert alert-danger" id="alert-danger">
+                    There was an error in import!
+                </div>
+            </div>
         </div>
     </div>
 </body>
