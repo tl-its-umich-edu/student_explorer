@@ -4,19 +4,16 @@ from django.db import models
 
 
 class Advisor(models.Model):
-    username = models.CharField(max_length=8, db_column='ADVR_UM_UNQNM')
+    username = models.CharField(max_length=8)
     students = models.ManyToManyField('Student', through='StudentGroupAdvisor')
 
     def __unicode__(self):
         return self.username
 
-    class Meta:
-        db_table = 'advisor'
-
 
 class Student(models.Model):
-    username = models.CharField(max_length=8, db_column='STDNT_UM_UNQNM')
-    univ_id = models.CharField(max_length=11, db_column='STDNT_UM_ID')
+    username = models.CharField(max_length=8)
+    univ_id = models.CharField(max_length=11)
     advisors = models.ManyToManyField('Advisor', through='StudentGroupAdvisor')
     groups = models.ManyToManyField('Group', through='StudentGroupAdvisor')
 
@@ -27,24 +24,18 @@ class Student(models.Model):
     def __unicode__(self):
         return self.username
 
-    class Meta:
-        db_table = 'student'
-
 
 class Group(models.Model):
-    description = models.CharField(max_length=50, db_column='GRP_DES')
+    description = models.CharField(max_length=50)
 
     def __unicode__(self):
         return self.description
 
-    class Meta:
-        db_table = 'group'
-
 
 class StudentGroupAdvisor(models.Model):
-    student = models.ForeignKey(Student, db_column='STDNT_KEY')
-    advisor = models.ForeignKey(Advisor, db_column='ADVR_KEY')
-    group = models.ForeignKey(Group, db_column='GRP_KEY')
+    student = models.ForeignKey(Student)
+    advisor = models.ForeignKey(Advisor)
+    group = models.ForeignKey(Group)
 
     def __unicode__(self):
         return '%s"s advisor is %s and is in the %s group' % (self.student,
@@ -54,4 +45,3 @@ class StudentGroupAdvisor(models.Model):
 
     class Meta:
         unique_together = ('student', 'advisor', 'group')
-        db_table = 'student_advisor_group'

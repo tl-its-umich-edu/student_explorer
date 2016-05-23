@@ -25,25 +25,13 @@ class ExcelFormview(generic.TemplateView):
                 advisor_uniqname = row[2].value
                 cohort_name = row[3].value
 
-                student_qs = Student.objects.filter(univ_id=student_umid)
-                advisor_qs = Advisor.objects.filter(
+                student, created = Student.objects.get_or_create(
+                    univ_id=student_umid,
+                    username=student_uniqname)
+                advisor, created = Advisor.objects.get_or_create(
                     username=advisor_uniqname)
-                group_qs = Group.objects.filter(description=cohort_name)
-
-                if not student_qs.exists():
-                    student = Student.objects.create(univ_id=student_umid,
-                                                     username=student_uniqname)
-                else:
-                    student = student_qs[0]
-                if not advisor_qs.exists():
-                    advisor = Advisor.objects.create(
-                        username=advisor_uniqname)
-                else:
-                    advisor = advisor_qs[0]
-                if not group_qs.exists():
-                    group = Group.objects.create(description=cohort_name)
-                else:
-                    group = group_qs[0]
+                group, created = Group.objects.get_or_create(
+                    description=cohort_name)
 
                 StudentGroupAdvisor.objects.get_or_create(
                     student=student, advisor=advisor, group=group)
