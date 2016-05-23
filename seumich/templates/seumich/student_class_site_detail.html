@@ -4,7 +4,7 @@
 
 <div>
     <div class="student-detail-mobile">
-        <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
+        <h1 class="sub-header">{{student.first_name}} {{student.last_name}}</h1>
         <p><a href="mailto:{{student.email_address}}">{{student.email_address}}</a></p>
         <p><a class="unsortable">Student ID: </a>{{ student.univ_id }}</p>
         <h2 class="sub-header">
@@ -17,27 +17,27 @@
 
     <div class="student-detail-left-menu" id="student-detail-menu">
         <div class="student-detail-left-menu-top">
-            <p class="student-detail-student-name"><a class="student-detail-student-name-link" href="/students/{{student.username}}/">{{student.first_name}} {{student.last_name}}</a></p>
+            <a class="student-detail-student-name-link" href="/students/{{student.username}}/"><h1 class="student-detail-student-name">{{student.first_name}} {{student.last_name}}</h1></a>
             <p class="student-detail-student-id">Student ID: {{ student.univ_id }}</p>
             <p class="student-detail-student-email"><a href="mailto:{{student.email_address}}" class="student-detail-student-email-link">{{student.email_address}}</a></p>
-        </div>
+    </div>
+      <h2>Course List:</h2>
         <div class="student-detail-left-menu-course-line">
-            <p>Course List:</p>
             <input type="hidden" id="student-username" value="{{ student.username }}">
         </div>
         {% for classSite in classSites %}
         <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
-            <p>{{classSite.description}}</p>
+            <h3>{{classSite.description}}</h3>
             <a href="#" data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
               {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
               {% if status == 'Green' %}
-                <img src="{{ baseUrl }}images/Status_Icons_Green.png" width="25px"></img>
+                <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px"></img>
               {% elif status == 'Yellow' %}
-                <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" width="25px"></img>
+                <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px"></img>
               {% elif status == 'Red' %}
-                <img src="{{ baseUrl }}images/Status_Icons_Red.png" width="25px"></img>
+                <img src="{{ baseUrl }}images/Status_Icons_Red.png" alt="Red engage status icon" width="25px"></img>
               {% elif status == 'Not Applicable' %}
-                <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" width="25px"></img>
+                <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px"></img>
               {% endif %}
               {% endwith %}
             </a>
@@ -54,13 +54,13 @@
                       <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
                         {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
                         {% if status == 'Green' %}
-                          <img src="{{ baseUrl }}images/Status_Icons_Green.png" width="25px" hspace="10"></img>
+                          <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="10"></img>
                         {% elif status == 'Yellow' %}
-                          <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" width="25px" hspace="10"></img>
+                          <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px" hspace="10"></img>
                         {% elif status == 'Red' %}
-                          <img src="{{ baseUrl }}images/Status_Icons_Red.png" width="25px" hspace="10"></img>
+                          <img src="{{ baseUrl }}images/Status_Icons_Red.png" alt="Red engage status icon" width="25px" hspace="10"></img>
                         {% elif status == 'Not Applicable' %}
-                          <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" width="25px" hspace="10"></img>
+                          <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px" hspace="10"></img>
                         {% endif %}
                         {% endwith %}
                       </span>
@@ -74,7 +74,7 @@
             <hr class="main-no-margin-top" />
 
             <div class="row charts no-margin">
-                <h3 class="main-less-weight">Cumulative Score</h3>
+                <h4>Cumulative Score</h4>
                 <div id="chart1" style="height: 100%;">
                     <svg></svg>
                 </div>
@@ -112,7 +112,7 @@
                     nv.utils.windowResize(chart.update);
                 </script>
 
-                <h3 class="main-less-weight">Weekly Activity</h3>
+                <h4>Weekly Activity</h4>
                 <div id="chart2" style="height: 100%;">
                     <svg></svg>
                 </div>
@@ -152,7 +152,7 @@
             </div>
 
             <div class="row assignments no-margin">
-                <h3 class="main-less-weight">Assignments</h3>
+                <h4>Assignments</h4>
                 <p><small class="note">Note that this list may not reflect all assignments included in current score calculation. For a complete list, please refer to the source system.</small></p>
                 <!-- <a href="api/class_sites/{{classSite.class_site.code}}/student/{{student.username}}/assignments/download/"><button>Download Assignment</button></a> -->
                 <hr class="main-no-margin-top"> {% if not assignments %}
