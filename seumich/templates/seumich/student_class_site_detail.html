@@ -27,15 +27,15 @@
         </div>
         {% for classSite in classSites %}
         <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
-            <p>{{classSite.description}}</p>
+            <h3>{{classSite.description}}</h3>
             <a href="#" data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
               {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
               {% if status == 'Green' %}
-                <img src="{{ baseUrl }}images/Status_Icons_Green.png" width="25px"></img>
+                <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px"></img>
               {% elif status == 'Yellow' %}
-                <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" width="25px"></img>
+                <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px"></img>
               {% elif status == 'Red' %}
-                <img src="{{ baseUrl }}images/Status_Icons_Red.png" width="25px"></img>
+                <img src="{{ baseUrl }}images/Status_Icons_Red.png" alt="Red engage status icon" width="25px"></img>
               {% elif status == 'Not Applicable' %}
                 <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" width="25px"></img>
               {% endif %}
@@ -54,11 +54,11 @@
                       <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
                         {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
                         {% if status == 'Green' %}
-                          <img src="{{ baseUrl }}images/Status_Icons_Green.png" width="25px" hspace="10"></img>
+                          <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="10"></img>
                         {% elif status == 'Yellow' %}
-                          <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" width="25px" hspace="10"></img>
+                          <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px" hspace="10"></img>
                         {% elif status == 'Red' %}
-                          <img src="{{ baseUrl }}images/Status_Icons_Red.png" width="25px" hspace="10"></img>
+                          <img src="{{ baseUrl }}images/Status_Icons_Red.png" alt="Red engage status icon" width="25px" hspace="10"></img>
                         {% elif status == 'Not Applicable' %}
                           <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" width="25px" hspace="10"></img>
                         {% endif %}
