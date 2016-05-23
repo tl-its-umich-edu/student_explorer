@@ -396,8 +396,9 @@ a.class-site-status-link span {
   }
   .student-detail-main-menu {
       position: relative;
-      top: -20px;
+      margin-top: -20px;
       left: -15px;
+      margin-bottom: -10px;
   }
   .student-detail-main-menu-top {
       padding-left: 0px;
