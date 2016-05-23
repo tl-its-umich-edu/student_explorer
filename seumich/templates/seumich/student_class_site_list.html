@@ -33,13 +33,13 @@
               <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
                 {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
                 {% if status == 'Green' %}
-                  <img src="{{ baseUrl }}images/Status_Icons_Green.png" width="25px" hspace="3"></img>
+                  <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="3"></img>
                 {% elif status == 'Yellow' %}
-                  <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" width="25px" hspace="3"></img>
+                  <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px" hspace="3"></img>
                 {% elif status == 'Red' %}
-                  <img src="{{ baseUrl }}images/Status_Icons_Red.png" width="25px" hspace="3"></img>
+                  <img src="{{ baseUrl }}images/Status_Icons_Red.png" alt="Red engage status icon" width="25px" hspace="3"></img>
                 {% elif status == 'Not Applicable' %}
-                  <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" width="25px" hspace="3"></img>
+                  <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px" hspace="3"></img>
                 {% endif %}
                 {% endwith %}
               </span>
