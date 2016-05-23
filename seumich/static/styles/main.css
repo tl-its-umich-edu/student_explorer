@@ -395,7 +395,12 @@ a.class-site-status-link span {
       display: none;
   }
   .student-detail-main-menu {
-      display: none;
+      position: relative;
+      top: -20px;
+      left: -15px;
+  }
+  .student-detail-main-menu-top {
+      padding-left: 0px;
   }
   .student-detail-summary {
       width: 100%;

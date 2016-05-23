@@ -8,13 +8,6 @@
 {% block content %} {% load filters %}
 
 <div>
-    <div class="student-detail-mobile">
-        <h1 class="sub-header">{{student.first_name}} {{student.last_name}}</h1>
-        <p><a href="mailto:{{student.email_address}}">{{student.email_address}}</a></p>
-        <p><a class="unsortable">Student ID: </a>{{ student.univ_id }}</p>
-        <hr class="main-no-margin-top" />
-    </div>
-
     <div class="student-detail-main-menu">
         <div class="student-detail-main-menu-top">
             <h1 class="student-detail-student-name">{{student.first_name}} {{student.last_name}}</h1>
