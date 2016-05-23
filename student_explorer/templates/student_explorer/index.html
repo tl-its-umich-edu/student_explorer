@@ -51,7 +51,7 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{userInfo.username}} <span class="caret"></span></a>
+                        <a class="dropdown-toggle" aria-label="expand for links to compliance policy and logout" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{userInfo.username}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <p><strong>{{user.first_name}} {{user.last_name}}</strong></p>
@@ -77,8 +77,8 @@
                     {% endif %}
                 </ul>
                 <form action="/students/" method="get" class="navbar-form navbar-right">
-                    <label for="search" class="sr-only">Search student name, uniqname, or UMID...</label>
-                    <input id="student-search" name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+                    <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label>
+                    <input id="student-search" name="student-search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
                 </form>
             </div>
         </div>

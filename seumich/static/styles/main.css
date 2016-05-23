@@ -79,14 +79,52 @@ a {
   border-bottom: 1px solid #e5e5e5;
   margin-bottom: 10px;
 }
-/* Make the masthead heading the same height as the navigation */
+
+/* Heading Styles */
+h1.student-detail-student-name{
+  margin-top:0px;
+  line-height: 1.2;
+  color: white;
+  font-size: 28px;
+  word-wrap: break-word;
+  padding: 20px 20px 0;
+  font-weight:400;
+}
+h2{
+    padding-left: 20px;
+    margin:30px 0px 10px;
+    font-size:24px;
+}
+
+h3.student-course-list{
+  font-size: 18px;
+  margin:0px;
+  margin-top:5px;
+  font-weight:500;
+}
+
+.student-detail-left-menu-courses h3 {
+    width: 70%;
+    margin-top: 16px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    font-size: 18px;
+    color: #1c3144;
+    display: inline-block;
+    word-wrap: break-word;
+}
+
+ /* Make the masthead heading the same height as the navigation */
 .header h3 {
   margin-top: 0;
   margin-bottom: 0;
   line-height: 40px;
   padding-bottom: 19px;
 }
-
+h4{
+    font-size:20px;
+    margin-left:10px;
+}
 
 th[scope="row"] {
   font-weight:normal;
@@ -143,18 +181,15 @@ th[scope="row"] {
     padding-left: 20px;
 }
 
-.student-detail-student-name {
-    line-height: 1.2;
-    color: white;
-    font-size: 20px;
-    word-wrap: break-word;
-    padding: 20px 20px 0;
+.student-detail-student-id, .student-detail-student-email{
+  font-weight:300;
 }
 
 .student-detail-student-email {
     margin-bottom: 0;
     padding-left: 20px;
     padding-bottom: 20px;
+    text-decoration: underline;
 }
 
 .student-detail-student-id {
@@ -165,16 +200,6 @@ th[scope="row"] {
 
 .student-detail-student-email-link, .student-detail-student-email-link:hover, .student-detail-student-name-link,  .student-detail-student-name-link:hover{
     color: white;
-}
-
-.student-detail-left-menu-course-line {
-    height: 60px;
-    border-bottom: 1px solid #D4D4D4;
-}
-
-.student-detail-left-menu-course-line:hover {
-    cursor: pointer;
-    background-color: #CCCCCC;
 }
 
 .student-detail-left-menu-course-line p {
@@ -192,27 +217,9 @@ th[scope="row"] {
     border-bottom: 1px solid #D4D4D4;
 }
 
-
-.student-detail-left-menu-courses p {
-    width: 70%;
-    margin-top: 16px;
-    margin-bottom: 10px;
-    padding-left: 20px;
-    font-size: 18px;
-    color: #1c3144;
-    display: inline-block;
-    word-wrap: break-word;
-}
-
-.student-detail-left-menu-course-status {
-    float: right;
-    padding-top: 16px;
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
 .student-detail-left-menu-courses:hover {
     cursor: pointer;
+    background-color:#E5E5E5;
 }
 
 .student-detail-summary {
@@ -228,13 +235,6 @@ th[scope="row"] {
     left: 0;
     margin-top: 125px;
     padding-left: 20px;
-}
-
-.student-detail-summary-title {
-    color: #1c3144;
-    padding-left: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 .student-detail-summary-content {
@@ -584,11 +584,6 @@ a.class-site-status-link span {
     margin-top: 0px;
 }
 
-.main-less-weight{
-    margin-top: 10px;
-    font-weight: 300;
-}
-
 .main-h3{
     color: #1c3144;
 }
@@ -678,7 +673,7 @@ svg text {
 }
 
 .table-column-name {
-    color: #337ab7; 
+    color: #337ab7;
 }
 
 .not-found {
@@ -799,10 +794,4 @@ svg text {
 
 .card-class-site-status {
     float: right;
-}
-
-.class-site-title {
-    padding-top: 20px !important;
-    padding-bottom: 20px !important;
-    font-size: 16px;
 }
