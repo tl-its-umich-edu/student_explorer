@@ -26,7 +26,24 @@ from seumich.models import (UsernameField,
                             WeeklyStudentClassSiteScore)
 
 
-class UsernameFieldTest(TestCase):
+class SeumichTest(TestCase):
+
+    student = Student.objects.get(id=1)
+    mentor = Mentor.objects.get(id=2)
+    class_site = ClassSite.objects.get(id=2)
+    week_end_date = Date.objects.get(id=2088)
+    cohort = Cohort.objects.get(id=1)
+    assignment = Assignment.objects.get(id=13)
+    _due_date = Date.objects.get(id=2098)
+    status = Status.objects.get(id=1)
+    term = Term.objects.get(id=1)
+
+    def setUp(self):
+        os.system((
+            'mysql -h 127.0.0.1 -u student_explorer -pstudent_explorer ' +
+            'test_student_explorer < ' +
+            'seumich/fixtures/dev_data_drop_create_and_insert.sql'
+        ))
 
     def test_from_db_value(self):
         obj = UsernameField()
@@ -38,16 +55,6 @@ class UsernameFieldTest(TestCase):
         self.assertEqual('GRACE', obj.get_db_prep_value('Grace', None, None))
         self.assertEqual('JAMES', obj.get_db_prep_value('james', None, None))
 
-
-class AdvisorTest(TestCase):
-
-    def setUp(self):
-        os.system((
-            'mysql -h 127.0.0.1 -u student_explorer -pstudent_explorer ' +
-            'test_student_explorer < ' +
-            'seumich/fixtures/dev_data_drop_create_and_insert.sql'
-        ))
-
     def test_advisor_creation(self):
         """
         Testing whether the advisor's fetched description
@@ -55,9 +62,6 @@ class AdvisorTest(TestCase):
         """
         advisor = Advisor.objects.get(id=1)
         self.assertEqual(str(advisor), 'zander')
-
-
-class DateTest(TestCase):
 
     def test_date_creation(self):
         """
@@ -67,16 +71,12 @@ class DateTest(TestCase):
         date = Date.objects.get(id=2016)
         self.assertEqual(str(date), '2015-07-09')
 
-
-class MentorTest(TestCase):
-
     def test_cohorts(self):
         """
         Testing the 'cohorts' property of Model 'Mentor'
         """
-        mentor = Mentor.objects.get(id=2)
         self.assertQuerysetEqual(
-            list(mentor.cohorts),
+            list(self.mentor.cohorts),
             ['<Cohort: Special Probation F14>',
                 '<Cohort: Special Probation W15>',
                 '<Cohort: Special Probation F15>']
@@ -87,11 +87,7 @@ class MentorTest(TestCase):
         Testing whether the mentor's fetched username
         matches the expected username
         """
-        mentor = Mentor.objects.get(id=2)
-        self.assertEqual(str(mentor), 'burl')
-
-
-class StatusTest(TestCase):
+        self.assertEqual(str(self.mentor), 'burl')
 
     def test_status_creation(self):
         """
@@ -100,9 +96,6 @@ class StatusTest(TestCase):
         """
         status = Status.objects.get(id=3)
         self.assertEqual(str(status), 'Red')
-
-
-class StudentTest(TestCase):
 
     def test_student_email(self):
         """
@@ -117,34 +110,29 @@ class StudentTest(TestCase):
         Testing whether the student's fetched description
         matches the expected description
         """
-        student = Student.objects.get(id=1)
-        self.assertEqual(str(student), 'grace')
-
-
-class TermTest(TestCase):
+        self.assertEqual(str(self.student), 'grace')
 
     def test_begin_date(self):
         """
         Testing whether the term's fetched begin date
         matches the expected begin date
         """
-        term = Term.objects.get(id=1)
-        self.assertEqual(term.begin_date, Date.objects.get(date="2015-09-08"))
+        self.assertEqual(self.term.begin_date,
+                         Date.objects.get(date="2015-09-08"))
 
     def test_end_date(self):
         """
         Testing whether the term's fetched end date
         matches the expected end date
         """
-        term = Term.objects.get(id=1)
-        self.assertEqual(term.end_date, Date.objects.get(date="2015-12-14"))
+        self.assertEqual(self.term.end_date,
+                         Date.objects.get(date="2015-12-14"))
 
     def test_week_end_dates(self):
         """
         Testing whether the term's fetched week end dates
         match the expected week end dates
         """
-        term = Term.objects.get(id=1)
         dates_list = [Date.objects.get(date='2015-09-12'),
                       Date.objects.get(date='2015-09-19'),
                       Date.objects.get(date='2015-09-26'),
@@ -159,18 +147,14 @@ class TermTest(TestCase):
                       Date.objects.get(date='2015-11-28'),
                       Date.objects.get(date='2015-12-05'),
                       Date.objects.get(date='2015-12-12')]
-        self.assertEqual(term.week_end_dates(), dates_list)
+        self.assertEqual(self.term.week_end_dates(), dates_list)
 
     def test_term_creation(self):
         """
         Testing whether the term's fetched description
         matches the expected description
         """
-        term = Term.objects.get(id=1)
-        self.assertEqual(str(term), 'Fall 2015')
-
-
-class SourceSystemTest(TestCase):
+        self.assertEqual(str(self.term), 'Fall 2015')
 
     def test_sourcesystem_creation(self):
         """
@@ -180,9 +164,6 @@ class SourceSystemTest(TestCase):
         source_system = SourceSystem.objects.get(code='CNVS')
         self.assertEqual(str(source_system), 'Canvas')
 
-
-class AdvisorRoleTest(TestCase):
-
     def test_advisor_role_creation(self):
         """
         Testing whether the advisor role's fetched description
@@ -190,9 +171,6 @@ class AdvisorRoleTest(TestCase):
         """
         advisor_role = AdvisorRole.objects.get(id=1)
         self.assertEqual(str(advisor_role), 'Department Advisor')
-
-
-class AssignmentTest(TestCase):
 
     def test_assignment_creation(self):
         """
@@ -202,9 +180,6 @@ class AssignmentTest(TestCase):
         assignment = Assignment.objects.get(id=15)
         self.assertEqual(str(assignment), 'Quiz extra 2')
 
-
-class ClassSiteTest(TestCase):
-
     def test_class_site_creation(self):
         """
         Testing whether the class site's fetched description
@@ -212,9 +187,6 @@ class ClassSiteTest(TestCase):
         """
         class_site = ClassSite.objects.get(id=1)
         self.assertEqual(str(class_site), 'Math 101')
-
-
-class CohortTest(TestCase):
 
     def test_cohort_creation(self):
         """
@@ -224,9 +196,6 @@ class CohortTest(TestCase):
         cohort = Cohort.objects.get(id=3)
         self.assertEqual(str(cohort), 'Special Probation F15')
 
-
-class EventTypeTest(TestCase):
-
     def test_event_type_creation(self):
         """
         Testing whether the event type's fetched description
@@ -235,43 +204,30 @@ class EventTypeTest(TestCase):
         event_type = EventType.objects.get(id=1)
         self.assertEqual(str(event_type), 'session start')
 
-
-class ClassSiteTermTest(TestCase):
-
     def test_class_site_term_creation(self):
         """
         Testing whether the class site term's fetched description
         matches the expected description
         """
-        class_site = ClassSite.objects.get(id=2)
-        term = Term.objects.get(id=1)
         class_site_term = ClassSiteTerm.objects. \
-            filter(class_site=class_site, term=term)
+            filter(class_site=self.class_site, term=self.term)
         self.assertEqual(
             str(class_site_term[0]),
             'Math 101 Lab was held in Fall 2015')
-
-
-class StudentAdvisorRoleTest(TestCase):
-    student = Student.objects.get(id=4)
-    advisor = Advisor.objects.get(id=1)
-    role = AdvisorRole.objects.get(id=3)
 
     def test_student_advisor_role_creation(self):
         """
         Testing whether the student advisor role's fetched description
         matches the expected description
         """
+        student = Student.objects.get(id=4)
+        advisor = Advisor.objects.get(id=1)
+        role = AdvisorRole.objects.get(id=3)
+
         student_advisor_role = StudentAdvisorRole.objects. \
-            filter(student=self.student, advisor=self.advisor, role=self.role)
+            filter(student=student, advisor=advisor, role=role)
         self.assertEqual(str(student_advisor_role[0]),
                          'zander advises may as Honors Advisor')
-
-
-class StudentCohortMentorTest(TestCase):
-    student = Student.objects.get(id=1)
-    mentor = Mentor.objects.get(id=2)
-    cohort = Cohort.objects.get(id=1)
 
     def test_student_cohort_mentor_creation(self):
         """
@@ -284,24 +240,15 @@ class StudentCohortMentorTest(TestCase):
         self.assertEqual(str(student_cohort_mentor[0]),
                          'grace is in the Special Probation F14 cohort')
 
-
-class ClassSiteScoreTest(TestCase):
-
     def test_class_site_score_creation(self):
         """
         Testing whether the class site score's fetched description
         matches the expected description
         """
-        class_site = ClassSite.objects.get(id=2)
         class_site_score = ClassSiteScore.objects. \
-            filter(class_site=class_site)
+            filter(class_site=self.class_site)
         self.assertEqual(str(class_site_score[0]),
                          'Math 101 Lab has an average score of 81.9')
-
-
-class StudentClassSiteScoreTest(TestCase):
-    student = Student.objects.get(id=1)
-    class_site = ClassSite.objects.get(id=2)
 
     def test_student_class_site_score_creation(self):
         """
@@ -312,13 +259,6 @@ class StudentClassSiteScoreTest(TestCase):
             filter(student=self.student, class_site=self.class_site)
         self.assertEqual(str(student_class_site_score[0]),
                          'grace has an average score of 86.3 in Math 101 Lab')
-
-
-class StudentClassSiteAssignmentTest(TestCase):
-    student = Student.objects.get(id=1)
-    class_site = ClassSite.objects.get(id=2)
-    assignment = Assignment.objects.get(id=13)
-    _due_date = Date.objects.get(id=2098)
 
     def test_studentclasssiteassignment_creation(self):
         """
@@ -389,12 +329,6 @@ class StudentClassSiteAssignmentTest(TestCase):
         self.assertEqual(None, obj._percentage(None, 10))
         self.assertEqual(None, obj._percentage(None, None))
 
-
-class StudentClassSiteStatusTest(TestCase):
-    student = Student.objects.get(id=1)
-    class_site = ClassSite.objects.get(id=2)
-    status = Status.objects.get(id=1)
-
     def test_studentclasssitestatus_creation(self):
         """
         Testing whether the student class site status's fetched
@@ -407,11 +341,6 @@ class StudentClassSiteStatusTest(TestCase):
         self.assertEqual(
             str(student_class_site_status[0]),
             'grace has status Green in Math 101 Lab')
-
-
-class WeeklyClassSiteScoreTest(TestCase):
-    class_site = ClassSite.objects.get(id=2)
-    week_end_date = Date.objects.get(id=2088)
 
     def test_weeklyclasssitescore_creation(self):
         """
@@ -446,12 +375,6 @@ class WeeklyClassSiteScoreTest(TestCase):
 
         self.assertEqual(8, len(w))
 
-
-class WeeklyStudentClassSiteEventTest(TestCase):
-    student = Student.objects.get(id=1)
-    class_site = ClassSite.objects.get(id=2)
-    week_end_date = Date.objects.get(id=2088)
-
     def test_weeklystudentclasssiteevent_creation(self):
         """
         Testing whether the weekly student class site event's fetched
@@ -474,12 +397,6 @@ class WeeklyStudentClassSiteEventTest(TestCase):
         self.assertEqual(3, int(events[1].event_count))
         self.assertEqual('2015-09-19', str(events[1].week_end_date))
 
-
-class WeeklyStudentClassSiteScoreTest(TestCase):
-    student = Student.objects.get(id=1)
-    class_site = ClassSite.objects.get(id=2)
-    week_end_date = Date.objects.get(id=2088)
-
     def test_weeklystudentclasssitescore_creation(self):
         """
         Testing whether the weekly student class site score's fetched
@@ -501,23 +418,17 @@ class WeeklyStudentClassSiteScoreTest(TestCase):
         self.assertEqual('62', str(w[0].score))
         self.assertEqual('2015-09-12', str(w[0].week_end_date))
 
-
-class WeeklyStudentClassSiteStatusTest(TestCase):
-    student = Student.objects.get(id=1)
-    class_site = ClassSite.objects.get(id=2)
-    week_end_date = Date.objects.get(id=2088)
-    status = Status.objects.get(id=2)
-
     def test_weeklystudentclasssitestatus_creation(self):
         """
         Testing whether the weekly student class site status's fetched
         description matches the expected description
         """
+        status = Status.objects.get(id=2)
         weekly_student_class_site_status = WeeklyStudentClassSiteStatus. \
             objects.filter(student=self.student,
                            class_site=self.class_site,
                            week_end_date=self.week_end_date,
-                           status=self.status)
+                           status=status)
         self.assertEqual(
             str(weekly_student_class_site_status[0]),
             'grace has status Yellow in Math 101 Lab on 2015-09-19')
