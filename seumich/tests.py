@@ -55,7 +55,7 @@ class SeumichTest(TestCase):
         self.assertEqual('GRACE', obj.get_db_prep_value('Grace', None, None))
         self.assertEqual('JAMES', obj.get_db_prep_value('james', None, None))
 
-    def test_advisor_creation(self):
+    def test_advisor_string_representation(self):
         """
         Testing whether the advisor's fetched description
         matches the expected description
@@ -63,7 +63,7 @@ class SeumichTest(TestCase):
         advisor = Advisor.objects.get(id=1)
         self.assertEqual(str(advisor), 'zander')
 
-    def test_date_creation(self):
+    def test_date_string_representation(self):
         """
         Testing whether the date's fetched description
         matches the expected description
@@ -82,14 +82,14 @@ class SeumichTest(TestCase):
              '<Cohort: Special Probation F15>']
         )
 
-    def test_mentor_creation(self):
+    def test_mentor_string_representation(self):
         """
         Testing whether the mentor's fetched username
         matches the expected username
         """
         self.assertEqual(str(self.mentor), 'burl')
 
-    def test_status_creation(self):
+    def test_status_string_representation(self):
         """
         Testing whether the status's fetched description
         matches the expected description
@@ -105,7 +105,7 @@ class SeumichTest(TestCase):
         student = Student.objects.get(id=21)
         self.assertEqual(student.email_address, 'james@umich.edu')
 
-    def test_student_creation(self):
+    def test_student_string_representation(self):
         """
         Testing whether the student's fetched description
         matches the expected description
@@ -149,14 +149,14 @@ class SeumichTest(TestCase):
                       Date.objects.get(date='2015-12-12')]
         self.assertEqual(self.term.week_end_dates(), dates_list)
 
-    def test_term_creation(self):
+    def test_term_string_representation(self):
         """
         Testing whether the term's fetched description
         matches the expected description
         """
         self.assertEqual(str(self.term), 'Fall 2015')
 
-    def test_sourcesystem_creation(self):
+    def test_sourcesystem_string_representation(self):
         """
         Testing whether the source system's fetched description
         matches the expected description
@@ -164,7 +164,7 @@ class SeumichTest(TestCase):
         source_system = SourceSystem.objects.get(code='CNVS')
         self.assertEqual(str(source_system), 'Canvas')
 
-    def test_advisor_role_creation(self):
+    def test_advisor_role_string_representation(self):
         """
         Testing whether the advisor role's fetched description
         matches the expected description
@@ -172,7 +172,7 @@ class SeumichTest(TestCase):
         advisor_role = AdvisorRole.objects.get(id=1)
         self.assertEqual(str(advisor_role), 'Department Advisor')
 
-    def test_assignment_creation(self):
+    def test_assignment_string_representation(self):
         """
         Testing whether the assignment's fetched description
         matches the expected description
@@ -180,7 +180,7 @@ class SeumichTest(TestCase):
         assignment = Assignment.objects.get(id=15)
         self.assertEqual(str(assignment), 'Quiz extra 2')
 
-    def test_class_site_creation(self):
+    def test_class_site_string_representation(self):
         """
         Testing whether the class site's fetched description
         matches the expected description
@@ -188,7 +188,7 @@ class SeumichTest(TestCase):
         class_site = ClassSite.objects.get(id=1)
         self.assertEqual(str(class_site), 'Math 101')
 
-    def test_cohort_creation(self):
+    def test_cohort_string_representation(self):
         """
         Testing whether the cohort's fetched description
         matches the expected description
@@ -196,7 +196,7 @@ class SeumichTest(TestCase):
         cohort = Cohort.objects.get(id=3)
         self.assertEqual(str(cohort), 'Special Probation F15')
 
-    def test_event_type_creation(self):
+    def test_event_type_string_representation(self):
         """
         Testing whether the event type's fetched description
         matches the expected description
@@ -204,7 +204,7 @@ class SeumichTest(TestCase):
         event_type = EventType.objects.get(id=1)
         self.assertEqual(str(event_type), 'session start')
 
-    def test_class_site_term_creation(self):
+    def test_class_site_term_string_representation(self):
         """
         Testing whether the class site term's fetched description
         matches the expected description
@@ -215,7 +215,7 @@ class SeumichTest(TestCase):
             str(class_site_term[0]),
             'Math 101 Lab was held in Fall 2015')
 
-    def test_student_advisor_role_creation(self):
+    def test_student_advisor_role_string_representation(self):
         """
         Testing whether the student advisor role's fetched description
         matches the expected description
@@ -230,7 +230,7 @@ class SeumichTest(TestCase):
         self.assertEqual(str(student_advisor_role[0]),
                          'zander advises may as Honors Advisor')
 
-    def test_student_cohort_mentor_creation(self):
+    def test_student_cohort_mentor_string_representation(self):
         """
         Testing whether the student cohort mentor's fetched description
         matches the expected description
@@ -242,7 +242,7 @@ class SeumichTest(TestCase):
         self.assertEqual(str(student_cohort_mentor[0]),
                          'grace is in the Special Probation F14 cohort')
 
-    def test_class_site_score_creation(self):
+    def test_class_site_score_string_representation(self):
         """
         Testing whether the class site score's fetched description
         matches the expected description
@@ -252,7 +252,7 @@ class SeumichTest(TestCase):
         self.assertEqual(str(class_site_score[0]),
                          'Math 101 Lab has an average score of 81.9')
 
-    def test_student_class_site_score_creation(self):
+    def test_student_class_site_score_string_representation(self):
         """
         Testing whether the student class site score's fetched description
         matches the expected description
@@ -263,7 +263,7 @@ class SeumichTest(TestCase):
         self.assertEqual(str(student_class_site_score[0]),
                          'grace has an average score of 86.3 in Math 101 Lab')
 
-    def test_studentclasssiteassignment_creation(self):
+    def test_studentclasssiteassignment_string_representation(self):
         """
         Testing whether the student class site assignment's fetched description
         matches the expected description
@@ -336,7 +336,7 @@ class SeumichTest(TestCase):
         self.assertEqual(None, obj._percentage(None, 10))
         self.assertEqual(None, obj._percentage(None, None))
 
-    def test_studentclasssitestatus_creation(self):
+    def test_studentclasssitestatus_string_representation(self):
         """
         Testing whether the student class site status's fetched
         description matches the expected description
@@ -349,7 +349,7 @@ class SeumichTest(TestCase):
             str(student_class_site_status[0]),
             'grace has status Green in Math 101 Lab')
 
-    def test_weeklyclasssitescore_creation(self):
+    def test_weeklyclasssitescore_string_representation(self):
         """
         Testing whether the weekly class site score's fetched description
         matches the expected description
@@ -382,7 +382,7 @@ class SeumichTest(TestCase):
 
         self.assertEqual(8, len(w))
 
-    def test_weeklystudentclasssiteevent_creation(self):
+    def test_weeklystudentclasssiteevent_string_representation(self):
         """
         Testing whether the weekly student class site event's fetched
         description matches the expected description
@@ -408,7 +408,7 @@ class SeumichTest(TestCase):
         self.assertEqual(3, int(events[1].event_count))
         self.assertEqual('2015-09-19', str(events[1].week_end_date))
 
-    def test_weeklystudentclasssitescore_creation(self):
+    def test_weeklystudentclasssitescore_string_representation(self):
         """
         Testing whether the weekly student class site score's fetched
         description matches the expected description
@@ -433,7 +433,7 @@ class SeumichTest(TestCase):
         self.assertEqual('62', str(w[0].score))
         self.assertEqual('2015-09-12', str(w[0].week_end_date))
 
-    def test_weeklystudentclasssitestatus_creation(self):
+    def test_weeklystudentclasssitestatus_string_representation(self):
         """
         Testing whether the weekly student class site status's fetched
         description matches the expected description
