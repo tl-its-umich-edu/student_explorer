@@ -40,8 +40,8 @@ class SeumichTest(TestCase):
 
     def setUp(self):
         os.system((
-            'mysql -h 127.0.0.1 -u student_explorer -pstudent_explorer ' +
-            'test_student_explorer < ' +
+            'mysql -h 127.0.0.1 -u student_explorer -pstudent_explorer '
+            'test_student_explorer < '
             'seumich/fixtures/dev_data_drop_create_and_insert.sql'
         ))
 
@@ -78,8 +78,8 @@ class SeumichTest(TestCase):
         self.assertQuerysetEqual(
             list(self.mentor.cohorts),
             ['<Cohort: Special Probation F14>',
-                '<Cohort: Special Probation W15>',
-                '<Cohort: Special Probation F15>']
+             '<Cohort: Special Probation W15>',
+             '<Cohort: Special Probation F15>']
         )
 
     def test_mentor_creation(self):
@@ -209,8 +209,8 @@ class SeumichTest(TestCase):
         Testing whether the class site term's fetched description
         matches the expected description
         """
-        class_site_term = ClassSiteTerm.objects. \
-            filter(class_site=self.class_site, term=self.term)
+        class_site_term = (ClassSiteTerm.objects.
+                           filter(class_site=self.class_site, term=self.term))
         self.assertEqual(
             str(class_site_term[0]),
             'Math 101 Lab was held in Fall 2015')
@@ -224,8 +224,9 @@ class SeumichTest(TestCase):
         advisor = Advisor.objects.get(id=1)
         role = AdvisorRole.objects.get(id=3)
 
-        student_advisor_role = StudentAdvisorRole.objects. \
-            filter(student=student, advisor=advisor, role=role)
+        student_advisor_role = (StudentAdvisorRole.objects.
+                                filter(student=student, advisor=advisor,
+                                       role=role))
         self.assertEqual(str(student_advisor_role[0]),
                          'zander advises may as Honors Advisor')
 
@@ -234,9 +235,10 @@ class SeumichTest(TestCase):
         Testing whether the student cohort mentor's fetched description
         matches the expected description
         """
-        student_cohort_mentor = StudentCohortMentor.objects. \
-            filter(student=self.student, mentor=self.mentor,
-                   cohort=self.cohort)
+        student_cohort_mentor = (StudentCohortMentor.objects.
+                                 filter(student=self.student,
+                                        mentor=self.mentor,
+                                        cohort=self.cohort))
         self.assertEqual(str(student_cohort_mentor[0]),
                          'grace is in the Special Probation F14 cohort')
 
@@ -245,8 +247,8 @@ class SeumichTest(TestCase):
         Testing whether the class site score's fetched description
         matches the expected description
         """
-        class_site_score = ClassSiteScore.objects. \
-            filter(class_site=self.class_site)
+        class_site_score = (ClassSiteScore.objects.
+                            filter(class_site=self.class_site))
         self.assertEqual(str(class_site_score[0]),
                          'Math 101 Lab has an average score of 81.9')
 
@@ -255,8 +257,9 @@ class SeumichTest(TestCase):
         Testing whether the student class site score's fetched description
         matches the expected description
         """
-        student_class_site_score = StudentClassSiteScore.objects. \
-            filter(student=self.student, class_site=self.class_site)
+        student_class_site_score = (StudentClassSiteScore.objects.
+                                    filter(student=self.student,
+                                           class_site=self.class_site))
         self.assertEqual(str(student_class_site_score[0]),
                          'grace has an average score of 86.3 in Math 101 Lab')
 
@@ -265,9 +268,10 @@ class SeumichTest(TestCase):
         Testing whether the student class site assignment's fetched description
         matches the expected description
         """
-        student_class_site_assignment = StudentClassSiteAssignment.objects. \
-            filter(student=self.student, class_site=self.class_site,
-                   assignment=self.assignment)
+        student_class_site_assignment = (StudentClassSiteAssignment.objects.
+                                         filter(student=self.student,
+                                                class_site=self.class_site,
+                                                assignment=self.assignment))
         self.assertEqual(
             str(student_class_site_assignment[0]),
             'grace has assignment Quiz extra 1 in Math 101 Lab')
@@ -277,13 +281,13 @@ class SeumichTest(TestCase):
         Testing whether the student class site assignment's due date
         matches the expected due date
         """
-        student_class_site_assignment = StudentClassSiteAssignment.objects. \
-            filter(_due_date=self._due_date)
+        student_class_site_assignment = (StudentClassSiteAssignment.objects.
+                                         filter(_due_date=self._due_date))
         self.assertEqual(
             student_class_site_assignment[0].due_date,
             Date.objects.get(date="2015-09-29"))
-        student_class_site_assignment = StudentClassSiteAssignment.objects. \
-            filter(_due_date=None)
+        student_class_site_assignment = (StudentClassSiteAssignment.objects.
+                                         filter(_due_date=None))
         self.assertEqual(student_class_site_assignment[0].due_date, None)
 
     def test_studentclasssiteassignment_percentage(self):
@@ -291,9 +295,10 @@ class SeumichTest(TestCase):
         Testing whether the student's percentage
         matches the expected percentage
         """
-        student_class_site_assignment = StudentClassSiteAssignment.objects. \
-            filter(student=self.student, class_site=self.class_site,
-                   assignment=self.assignment)
+        student_class_site_assignment = (StudentClassSiteAssignment.objects.
+                                         filter(student=self.student,
+                                                class_site=self.class_site,
+                                                assignment=self.assignment))
         self.assertEqual(student_class_site_assignment[0].percentage, 82.0)
 
     def test_studentclasssiteassignment_class_percentage(self):
@@ -301,9 +306,10 @@ class SeumichTest(TestCase):
         Testing whether the class's percentage
         matches the expected percentage
         """
-        student_class_site_assignment = StudentClassSiteAssignment.objects. \
-            filter(student=self.student, class_site=self.class_site,
-                   assignment=self.assignment)
+        student_class_site_assignment = (StudentClassSiteAssignment.objects.
+                                         filter(student=self.student,
+                                                class_site=self.class_site,
+                                                assignment=self.assignment))
         self.assertEqual(
             round(student_class_site_assignment[0].class_percentage, 2), 84.76)
 
@@ -312,9 +318,10 @@ class SeumichTest(TestCase):
         Testing whether the student's relative to average
         matches the expected relative to average
         """
-        student_class_site_assignment = StudentClassSiteAssignment.objects. \
-            filter(student=self.student, class_site=self.class_site,
-                   assignment=self.assignment)
+        student_class_site_assignment = (StudentClassSiteAssignment.objects.
+                                         filter(student=self.student,
+                                                class_site=self.class_site,
+                                                assignment=self.assignment))
         self.assertEqual(
             student_class_site_assignment[0].relative_to_average, 'near')
 
@@ -334,10 +341,10 @@ class SeumichTest(TestCase):
         Testing whether the student class site status's fetched
         description matches the expected description
         """
-        student_class_site_status = StudentClassSiteStatus. \
-            objects.filter(student=self.student,
-                           class_site=self.class_site,
-                           status=self.status)
+        student_class_site_status = (StudentClassSiteStatus.
+                                     objects.filter(student=self.student,
+                                                    class_site=self.class_site,
+                                                    status=self.status))
         self.assertEqual(
             str(student_class_site_status[0]),
             'grace has status Green in Math 101 Lab')
@@ -347,9 +354,9 @@ class SeumichTest(TestCase):
         Testing whether the weekly class site score's fetched description
         matches the expected description
         """
-        weekly_class_site_score = WeeklyClassSiteScore.objects. \
-            filter(class_site=self.class_site,
-                   week_end_date=self.week_end_date)
+        weekly_class_site_score = (WeeklyClassSiteScore.objects.
+                                   filter(class_site=self.class_site,
+                                          week_end_date=self.week_end_date))
         self.assertEqual(
             str(weekly_class_site_score[0]),
             'Average score is 81 in Math 101 Lab on 2015-09-19')
@@ -380,9 +387,13 @@ class SeumichTest(TestCase):
         Testing whether the weekly student class site event's fetched
         description matches the expected description
         """
-        weekly_student_class_site_event = WeeklyStudentClassSiteEvent. \
-            objects.filter(student=self.student, class_site=self.class_site,
-                           week_end_date=self.week_end_date)
+        weekly_student_class_site_event = (WeeklyStudentClassSiteEvent.
+                                           objects.filter(student=self.
+                                                          student,
+                                                          class_site=self.
+                                                          class_site,
+                                                          week_end_date=self.
+                                                          week_end_date))
         self.assertEqual(
             str(weekly_student_class_site_event[0]),
             'grace in Math 101 Lab on 2015-09-19 had 3 events (0.68 %ile)')
@@ -402,9 +413,13 @@ class SeumichTest(TestCase):
         Testing whether the weekly student class site score's fetched
         description matches the expected description
         """
-        weekly_student_class_site_score = WeeklyStudentClassSiteScore. \
-            objects.filter(student=self.student, class_site=self.class_site,
-                           week_end_date=self.week_end_date)
+        weekly_student_class_site_score = (WeeklyStudentClassSiteScore.
+                                           objects.filter(student=self.
+                                                          student,
+                                                          class_site=self.
+                                                          class_site,
+                                                          week_end_date=self.
+                                                          week_end_date))
         self.assertEqual(
             str(weekly_student_class_site_score[0]),
             'grace has score 62 in Math 101 Lab on 2015-09-19')
@@ -424,11 +439,14 @@ class SeumichTest(TestCase):
         description matches the expected description
         """
         status = Status.objects.get(id=2)
-        weekly_student_class_site_status = WeeklyStudentClassSiteStatus. \
-            objects.filter(student=self.student,
-                           class_site=self.class_site,
-                           week_end_date=self.week_end_date,
-                           status=status)
+        weekly_student_class_site_status = (WeeklyStudentClassSiteStatus.
+                                            objects.filter(student=self.
+                                                           student,
+                                                           class_site=self.
+                                                           class_site,
+                                                           week_end_date=self.
+                                                           week_end_date,
+                                                           status=status))
         self.assertEqual(
             str(weekly_student_class_site_status[0]),
             'grace has status Yellow in Math 101 Lab on 2015-09-19')
