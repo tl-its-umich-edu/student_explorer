@@ -3,32 +3,29 @@
 {% endblock %} {% block content %}
 
 <div>
-    <div class="student-detail-mobile">
-        <h1 class="sub-header">{{student.first_name}} {{student.last_name}}</h1>
-        <p><a href="mailto:{{student.email_address}}">{{student.email_address}}</a></p>
-        <p><a class="unsortable">Student ID: </a>{{ student.univ_id }}</p>
-        <h2 class="sub-header">
-        <a class="backlink" href="/students/{{student.username}}/">
-          &lt; Back to Course List
-        </a>
-      </h2>
-        <hr class="main-no-margin-top" />
-    </div>
 
     <div class="student-detail-left-menu" id="student-detail-menu">
         <div class="student-detail-left-menu-top">
             <a class="student-detail-student-name-link" href="/students/{{student.username}}/"><h1 class="student-detail-student-name">{{student.first_name}} {{student.last_name}}</h1></a>
             <p class="student-detail-student-id">Student ID: {{ student.univ_id }}</p>
             <p class="student-detail-student-email"><a href="mailto:{{student.email_address}}" class="student-detail-student-email-link">{{student.email_address}}</a></p>
-    </div>
-      <h2>Course List:</h2>
-        <div class="student-detail-left-menu-course-line">
-            <input type="hidden" id="student-username" value="{{ student.username }}">
         </div>
-        {% for classSite in classSites %}
-        <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
-            <h3>{{classSite.description}}</h3>
-            <a href="#" data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
+
+        <h2 class="sub-header-backlink">
+          <a class="backlink" href="/students/{{student.username}}/">
+            &lt; Back to Course List
+          </a>
+        </h2>
+
+        <div class="student-detail-left-menu-detail">
+            <h2>Course List:</h2>
+            <div class="student-detail-left-menu-course-line">
+                <input type="hidden" id="student-username" value="{{ student.username }}">
+            </div>
+            {% for classSite in classSites %}
+            <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
+              <h3>{{classSite.description}}</h3>
+              <a href="#" data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
               {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
               {% if status == 'Green' %}
                 <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px"></img>
@@ -40,9 +37,10 @@
                 <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px"></img>
               {% endif %}
               {% endwith %}
-            </a>
+              </a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 
     <div class="student-detail-summary">
