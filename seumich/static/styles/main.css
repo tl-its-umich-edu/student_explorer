@@ -22,11 +22,15 @@ a {
     background-color: #1c3144;
 }
 
-.sub-header {
+.sub-header, .sub-header-backlink {
   color: brown;
   font-weight: 400;
   margin-top: 20px;
   /*border-bottom: 1px solid #eee;*/
+}
+
+.sub-header-backlink {
+    display: none;
 }
 
 .navbar {
@@ -157,10 +161,6 @@ th[scope="row"] {
   overflow-y: scroll;
   /* Need to fix the scroll bug here for the left nav menu */
   margin-bottom: 100px;
-}
-
-.student-detail-left-menu .sub-header {
-    margin-top: 0;
 }
 
 .student-detail-left-menu-top {
@@ -391,14 +391,18 @@ a.class-site-status-link span {
   .table-responsive {
       border: none;
   }
-  .student-detail-left-menu {
+  .student-detail-left-menu-detail {
       display: none;
   }
-  .student-detail-main-menu {
+  .student-detail-main-menu, .student-detail-left-menu {
       position: relative;
       margin-top: -20px;
       left: -15px;
       margin-bottom: -10px;
+  }
+  .sub-header-backlink {
+      margin-top: 0;
+      display: block;
   }
   .student-detail-main-menu-top {
       padding-left: 0px;
