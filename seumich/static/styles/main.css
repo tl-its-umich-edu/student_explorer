@@ -394,7 +394,7 @@ a.class-site-status-link span {
   }
   .student-detail-main-menu, .student-detail-left-menu {
       position: relative;
-      width: 768px;
+      width: 100vw;
       margin-top: -20px;
       left: -15px;
       margin-bottom: -10px;
@@ -451,6 +451,9 @@ a.class-site-status-link span {
   }
   .assignment-table {
     margin-left: 0px;
+  }
+  .container-fluid {
+    padding: 0;
   }
 }
 
@@ -701,6 +704,10 @@ svg text {
 
 .panel-title {
     vertical-align: middle;
+}
+
+.panel-warning {
+    margin-top: 20px;
 }
 
 .assignment-title-right {
