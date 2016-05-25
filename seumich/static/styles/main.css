@@ -452,7 +452,7 @@ a.class-site-status-link span {
   .assignment-table {
     margin-left: 0px;
   }
-  .container-fluid {
+  .assignment-table > .container-fluid {
     padding: 0;
   }
 }
