@@ -259,6 +259,10 @@ th[scope="row"] {
     margin-left: 10px;
 }
 
+.panel-default {
+    display: none;
+}
+
 /* For student_class_site_detail template */
 .no-margin {
     margin-left: 0;
@@ -328,9 +332,6 @@ th[scope="row"] {
 }
 
 @media screen and (min-width: 769px) {
-  .assignment-list {
-      display: none;
-  }
   .student-class-site-list {
       display: none;
   }
@@ -382,9 +383,6 @@ a.class-site-status-link span {
     margin-bottom: 10px;
     width: 100%
   }
-  .assignment-table {
-      display: none;
-  }
   .student-class-site-table {
       display: none;
   }
@@ -396,6 +394,7 @@ a.class-site-status-link span {
   }
   .student-detail-main-menu, .student-detail-left-menu {
       position: relative;
+      width: 768px;
       margin-top: -20px;
       left: -15px;
       margin-bottom: -10px;
@@ -437,7 +436,7 @@ a.class-site-status-link span {
     padding-bottom: 20px;
     margin-bottom: 20px;
   }
-  .col-md-2 {
+  .mobile-inline {
     margin-bottom: 10px;
     display: inline-block;
   }
@@ -446,6 +445,12 @@ a.class-site-status-link span {
   }
   .status-icon {
     float: right;
+  }
+  .panel-default {
+    display: block;
+  }
+  .assignment-table {
+    margin-left: 0px;
   }
 }
 

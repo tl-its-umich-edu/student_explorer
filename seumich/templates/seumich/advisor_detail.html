@@ -1,1 +1,16 @@
- {% if advisor %} {% include 'seumich/student_list.html' %} {% else %} {% include 'seumich/advisor_error.html' %} {% endif %}
+{% extends 'seumich/advisor.html' %}
+
+{% block advisor_detail %}
+    {% if advisor %}
+        {% include 'seumich/student_list_partial.html' %}
+    {% else %}
+        <div class="panel panel-warning not-found">
+            <div class="panel-heading">
+                <h3 class="panel-title">Not Found</h3>
+            </div>
+            <div class="panel-body">
+                No advisor profile found.
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

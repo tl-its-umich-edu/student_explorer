@@ -1,101 +1,67 @@
-{% extends 'student_explorer/index.html' %} {% block content %} {% load filters %}
-{% load static from staticfiles %}
-<h1 class="sub-header">{{ studentListHeader }}</h1> {% if students %}
-<hr class="main-no-margin-top" />
-<h2>Students</h2> {% endif %} {% if not students %} {% if user.is_authenticated %}
-<div class="panel panel-warning">
-    <div class="panel-heading">
-        <h3 class="panel-title">No Results</h3>
-    </div>
-    <div class="panel-body">
-        No students found that match the query terms.
-    </div>
-</div>
-{% endif %} {% else %}
-<div class="table-responsive">
-    <table class="table table-striped tabelsorter">
-        <thead>
-            <tr>
-                <th scope="col" class="hide-small"><a href="#" onClick="return false;">Name</a></th>
-                <th scope="col" class="hide-small"><a href="#" onClick="return false;">Student ID</a></th>
-                <th scope="col" class="hide-small"><a href="#" onClick="return false;">Status</a></th>
-                <th scope="col" class="hide-small"><a href="#" onClick="return false;">Cohorts</a></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for student in students %}
-            <tr>
-                <th scope="row" class="bold">
-                    <a href="/students/{{ student.username }}/">{{ student.first_name }} {{ student.last_name }}</a>
-                </th>
-                <td class="hide-small">{{ student.univ_id }}</td>
-                <td>
-                    {% for classSite in student.class_sites.all %}
-                    <a href="/students/{{student.username}}/class_sites/{{classSite.code}}/" class="class-site-status-link">
-                      <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text:classSite }}" data-placement="bottom">
-                        {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
-                        {% if status == 'Green' %}
-                          <img src="{% static 'images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
-                        {% elif status == 'Yellow' %}
-                          <img src="{% static 'images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
-                        {% elif status == 'Red' %}
-                          <img src="{% static 'images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
-                        {% elif status == 'Not Applicable' %}
-                          <img src="{% static 'images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
+{% extends 'seumich/student.html' %}
+
+{% block student_list %}
+    {% if not students %}
+        {% if user.is_authenticated %}
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">No Results</h3>
+                </div>
+                <div class="panel-body">
+                    No students found that match the query terms.
+                </div>
+            </div>
+        {% endif %}
+    {% else %}
+        {% include 'seumich/student_list_partial.html' %}
+
+        <div class="text-center">
+            <ul class="pagination">
+                <li class="page-item">
+                    {% if students.has_previous %}
+                        {% if query_user %}
+                            <a class="page-link" href='?search={{query_user}}&amp;page={{students.previous_page_number}}' aria-label="Previous">Previous</a>
+                        {% else %}
+                            <a class="page-link" href='?page={{students.previous_page_number}}' aria-label="Previous">Previous</a>
                         {% endif %}
-                        {% endwith %}
-                      </span>
-                    </a> {% endfor %}
-                </td>
-                <td class="hide-small">
-                    {% for cohort in student.cohorts.all %}
-                    <div>{{ cohort }}</div>
-                    {% endfor %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+                    {% endif %}
+                </li>
+                {% for page_num in loop_times %}
+                    {% if page_num == students.number %}
+                        {% if query_user %}
+                            <li class="page-item active">
+                                <a class="page-link" href='?search={{query_user}}&amp;page={{page_num}}'>{{page_num}}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item active">
+                                <a class="page-link" href='?page={{page_num}}'>{{page_num}}</a>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                        {% if page_num <= students.paginator.num_pages %}
+                            {% if query_user %}
+                                <li class="page-item">
+                                    <a class="page-link" href='?search={{query_user}}&amp;page={{page_num}}'>{{page_num}}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href='?page={{page_num}}'>{{page_num}}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item">
+                    {% if students.has_next %}
+                        {% if query_user %}
+                            <a class="page-link" href='?search={{query_user}}&amp;page={{students.next_page_number}}' aria-label="Next">Next</a>
+                        {% else %}
+                            <a class="page-link" href='?page={{students.next_page_number}}' aria-label="Next">Next</a>
+                        {% endif %}
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
 
-<div class="text-center">
-  <ul class="pagination">
-      <li class="page-item">
-          {% if students.has_previous %}
-            {% if query_user %}
-              <a class="page-link" href='?search={{query_user}}&amp;page={{students.previous_page_number}}' aria-label="Previous">Previous</a>
-            {% else %}
-              <a class="page-link" href='?page={{students.previous_page_number}}' aria-label="Previous">Previous</a>
-            {% endif %}
-          {% endif %}
-      </li>
-      {% for page_num in loop_times %}
-        {% if page_num == students.number %}
-          {% if query_user %}
-            <li class="page-item active"><a class="page-link" href='?search={{query_user}}&amp;page={{page_num}}'>{{page_num}}</a></li>
-          {% else %}
-            <li class="page-item active"><a class="page-link" href='?page={{page_num}}'>{{page_num}}</a></li>
-          {% endif %}
-        {% else %}
-          {% if page_num <= students.paginator.num_pages %}
-            {% if query_user %}
-              <li class="page-item"><a class="page-link" href='?search={{query_user}}&amp;page={{page_num}}'>{{page_num}}</a></li>
-            {% else %}
-              <li class="page-item"><a class="page-link" href='?page={{page_num}}'>{{page_num}}</a></li>
-            {% endif %}
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-      <li class="page-item">
-        {% if students.has_next %}
-          {% if query_user %}
-            <a class="page-link" href='?search={{query_user}}&amp;page={{students.next_page_number}}' aria-label="Next">Next</a>
-          {% else %}
-            <a class="page-link" href='?page={{students.next_page_number}}' aria-label="Next">Next</a>
-          {% endif %}
-        {% endif %}
-     </li>
-  </ul>
-</div>
-
-{% endif %} {% endblock %}
+    {% endif %}
+{% endblock %}
