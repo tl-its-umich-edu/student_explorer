@@ -393,11 +393,10 @@ a.class-site-status-link span {
       display: none;
   }
   .student-detail-main-menu, .student-detail-left-menu {
-      position: relative;
-      width: 100vw;
-      margin-top: -20px;
-      left: -15px;
-      margin-bottom: -10px;
+      position: static;
+      left: auto;
+      width: auto;
+      margin: -20px -15px 0;
   }
   .sub-header-backlink {
       margin-top: 0;
