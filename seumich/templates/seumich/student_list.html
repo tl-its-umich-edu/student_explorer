@@ -1,6 +1,6 @@
 {% extends 'seumich/student.html' %}
 
-{% block student_list %}
+{% block content %}
     {% if not students %}
         {% if user.is_authenticated %}
             <div class="panel panel-warning">

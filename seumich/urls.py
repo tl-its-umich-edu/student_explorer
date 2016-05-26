@@ -37,7 +37,7 @@ urlpatterns = [
     url(r'^students/(?P<student>\w+)/$',
         views.StudentView.as_view(),
         name='student'),
-    url(r'^students/(?P<student>\w+)/class_sites/(?P<classcode>\d+)/$',
+    url(r'^students/(?P<student>\w+)/class_sites/(?P<classcode>[\w-]+)/$',
         views.StudentClassSiteView.as_view(),
         name='student_class'),
 ]

@@ -239,6 +239,7 @@ th[scope="row"] {
 
 .student-detail-summary-content {
     margin-left: 10px;
+    margin-right: 10px;
 }
 
 .student-info {
@@ -421,6 +422,7 @@ a.class-site-status-link span {
   }
   .student-detail-summary-content {
       margin-left: 0px;
+      margin-right: 0px;
   }
   .student-info {
     margin-bottom: 10px;
