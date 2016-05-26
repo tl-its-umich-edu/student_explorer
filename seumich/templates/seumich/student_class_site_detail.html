@@ -1,180 +1,274 @@
-{% extends 'student_explorer/index.html' %} {% load filters %} {% block head %} {% load staticfiles %}
-<script src='{% static 'seumich/student.js' %}'></script>
-{% endblock %} {% block content %}
+{% extends 'seumich/student.html' %}
+{% load filters %}
+{% block head %}
+    {% load staticfiles %}
+    <script src='{% static "seumich/student.js" %}'></script>
+    <script src='{% static "seumich/assignment_list_table.js" %}'></script>
+{% endblock %}
+{% block content %}
 
-<div>
-    <div class="student-detail-mobile">
-        <h2 class="sub-header">{{student.first_name}} {{student.last_name}}</h2>
-        <p><a href="mailto:{{student.email_address}}">{{student.email_address}}</a></p>
-        <p><a class="unsortable">Student ID: </a>{{ student.univ_id }}</p>
-        <h2 class="sub-header">
-        <a class="backlink" href="/students/{{student.username}}/">
-          &lt; Back to Course List
-        </a>
-      </h2>
-        <hr class="main-no-margin-top" />
-    </div>
-
-    <div class="student-detail-left-menu" id="student-detail-menu">
-        <div class="student-detail-left-menu-top">
-            <p class="student-detail-student-name"><a class="student-detail-student-name-link" href="/students/{{student.username}}/">{{student.first_name}} {{student.last_name}}</a></p>
-            <p class="student-detail-student-id">Student ID: {{ student.univ_id }}</p>
-            <p class="student-detail-student-email"><a href="mailto:{{student.email_address}}" class="student-detail-student-email-link">{{student.email_address}}</a></p>
-        </div>
-        <div class="student-detail-left-menu-course-line">
-            <p>Course List:</p>
-            <input type="hidden" id="student-username" value="{{ student.username }}">
-        </div>
-        {% for classSite in classSites %}
-        <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
-            <p>{{classSite.description}}</p>
-            <a href="#" data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
-              {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
-              {% if status == 'Green' %}
-                <img src="{{ baseUrl }}images/Status_Icons_Green.png" width="25px"></img>
-              {% elif status == 'Yellow' %}
-                <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" width="25px"></img>
-              {% elif status == 'Red' %}
-                <img src="{{ baseUrl }}images/Status_Icons_Red.png" width="25px"></img>
-              {% elif status == 'Not Applicable' %}
-                <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" width="25px"></img>
-              {% endif %}
-              {% endwith %}
-            </a>
-        </div>
-        {% endfor %}
-    </div>
-
-    <div class="student-detail-summary">
-        <div class="student-detail-summary-content">
-            <div class="row no-margin">
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                    <h3 class="main-h3">Course Site: {{ classSite.description }}
-                    <input type="hidden" id="current-classsite-code" value="{{ classSite.code }}">
-                      <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
-                        {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
-                        {% if status == 'Green' %}
-                          <img src="{{ baseUrl }}images/Status_Icons_Green.png" width="25px" hspace="10"></img>
-                        {% elif status == 'Yellow' %}
-                          <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" width="25px" hspace="10"></img>
-                        {% elif status == 'Red' %}
-                          <img src="{{ baseUrl }}images/Status_Icons_Red.png" width="25px" hspace="10"></img>
-                        {% elif status == 'Not Applicable' %}
-                          <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" width="25px" hspace="10"></img>
-                        {% endif %}
-                        {% endwith %}
-                      </span>
-                    </h3>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="pull-right">
-                        <br>Data Source: <span class="label label-primary">{{classSite.source_system}}</span></div>
-                </div>
-            </div>
-            <hr class="main-no-margin-top" />
-
-            <div class="row charts no-margin">
-                <h3 class="main-less-weight">Cumulative Score</h3>
-                <div id="chart1" style="height: 100%;">
-                    <svg></svg>
-                </div>
-                <script>
-                    var chart = nv.models.multiBarChart()
-                        .showControls(false)
-                        .forceY([0, 100])
-                        .reduceXTicks(false)
-                        .showYAxis(true)
-                        .showXAxis(true)
-
-                    var data = {{ scoreData|jsonify }}
-
-                    chart.x(function(d) {
-                        return d[0];
-                    });
-                    chart.y(function(d) {
-                        return d[1];
-                    });
-                    chart.xAxis.axisLabel('Week').tickFormat(function(d) {
-                        if (window.innerWidth >= 1150) {
-                            return 'Week ' + d;
-                        } else {
-                            return d;
-                        }
-
-                    });
-                    chart.yAxis.tickFormat(function(d) {
-                        return d + '%';
-
-                    });
-                    d3.select('#chart1 svg')
-                        .datum(data)
-                        .transition().duration(500).call(chart);
-                    nv.utils.windowResize(chart.update);
-                </script>
-
-                <h3 class="main-less-weight">Weekly Activity</h3>
-                <div id="chart2" style="height: 100%;">
-                    <svg></svg>
-                </div>
-                <script>
-                    var chart = nv.models.multiBarChart()
-                        .showControls(false)
-                        .forceY([0, 100])
-                        .reduceXTicks(false)
-                        .showYAxis(true)
-                        .showXAxis(true)
-
-                    var data = {{ eventPercentileData|jsonify }}
-
-                    chart.x(function(d) {
-                        return d[0];
-                    });
-                    chart.y(function(d) {
-                        return d[1];
-                    });
-                    chart.xAxis.axisLabel('Week').tickFormat(function(d) {
-                        if (window.innerWidth >= 1150) {
-                            return 'Week ' + d;
-                        } else {
-                            return d;
-                        }
-
-                    });
-                    chart.yAxis.tickFormat(function(d) {
-                        return d + '%ile';
-
-                    });
-                    d3.select('#chart2 svg')
-                        .datum(data)
-                        .transition().duration(500).call(chart);
-                    nv.utils.windowResize(chart.update);
-                </script>
+    <div>
+        <div class="student-detail-left-menu" id="student-detail-menu">
+            <div class="student-detail-left-menu-top">
+                {% include 'seumich/student_info_partial.html' with link_present=True %}
             </div>
 
-            <div class="row assignments no-margin">
-                <h3 class="main-less-weight">Assignments</h3>
-                <p><small class="note">Note that this list may not reflect all assignments included in current score calculation. For a complete list, please refer to the source system.</small></p>
-                <!-- <a href="api/class_sites/{{classSite.class_site.code}}/student/{{student.username}}/assignments/download/"><button>Download Assignment</button></a> -->
-                <hr class="main-no-margin-top"> {% if not assignments %}
-                <div class="panel panel-info main-page-end-margin-bottom">
-                    <div class="panel-body">
-                        No assignments found for this student.
+            <h2 class="sub-header-backlink">
+                <a class="backlink" href="/students/{{student.username}}/">
+                    &lt; Back to Course List
+                </a>
+            </h2>
+
+            <div class="student-detail-left-menu-detail">
+                <h2>Course List:</h2>
+                <div class="student-detail-left-menu-course-line">
+                    <input type="hidden" id="student-username" value="{{ student.username }}">
+                </div>
+                {% for classSite in classSites %}
+                    <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
+                        <h3>{{classSite.description}}</h3>
+                        <a href="#" data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
+                            {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                            {% if status == 'Green' %}
+                                <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px"></img>
+                            {% elif status == 'Yellow' %}
+                                <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px"></img>
+                            {% elif status == 'Red' %}
+                                <img src="{{ baseUrl }}images/Status_Icons_Red.png" alt="Red engage status icon" width="25px"></img>
+                            {% elif status == 'Not Applicable' %}
+                                <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px"></img>
+                            {% endif %}
+                            {% endwith %}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="student-detail-summary">
+            <div class="student-detail-summary-content">
+                <div class="row no-margin">
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <h3 class="main-h3">Course Site:
+                            {{ classSite.description }}
+                            <input type="hidden" id="current-classsite-code" value="{{ classSite.code }}">
+                            <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
+                                {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                                {% if status == 'Green' %}
+                                    <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="10"></img>
+                                {% elif status == 'Yellow' %}
+                                    <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px" hspace="10"></img>
+                                {% elif status == 'Red' %}
+                                    <img src="{{ baseUrl }}images/Status_Icons_Red.png" alt="Red engage status icon" width="25px" hspace="10"></img>
+                                {% elif status == 'Not Applicable' %}
+                                    <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px" hspace="10"></img>
+                                {% endif %}
+                                {% endwith %}
+                            </span>
+                        </h3>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="pull-right">
+                            <br>Data Source:
+                            <span class="label label-primary">{{classSite.source_system}}</span>
+                        </div>
                     </div>
                 </div>
+                <hr class="main-no-margin-top"/>
+
+                <div class="row charts no-margin">
+                    <h4>Cumulative Score</h4>
+                    <div id="chart1" style="height: 100%;">
+                        <svg></svg>
+                    </div>
+                    <script>
+                        var chart = nv.models.multiBarChart().showControls(false).forceY([0, 100]).reduceXTicks(false).showYAxis(true).showXAxis(true)
+
+                        var data = {{ scoreData|jsonify }}
+
+                        chart.x(function (d) {
+                            return d[0];
+                        });
+                        chart.y(function (d) {
+                            return d[1];
+                        });
+                        chart.xAxis.axisLabel('Week').tickFormat(function (d) {
+                            if (window.innerWidth >= 1150) {
+                                return 'Week ' + d;
+                            } else {
+                                return d;
+                            }
+
+                        });
+                        chart.yAxis.tickFormat(function (d) {
+                            return d + '%';
+
+                        });
+                        d3.select('#chart1 svg').datum(data).transition().duration(500).call(chart);
+                        nv.utils.windowResize(chart.update);
+                    </script>
+
+                    <h4>Weekly Activity</h4>
+                    <div id="chart2" style="height: 100%;">
+                        <svg></svg>
+                    </div>
+                    <script>
+                        var chart = nv.models.multiBarChart().showControls(false).forceY([0, 100]).reduceXTicks(false).showYAxis(true).showXAxis(true)
+
+                        var data = {{ eventPercentileData|jsonify }}
+
+                        chart.x(function (d) {
+                            return d[0];
+                        });
+                        chart.y(function (d) {
+                            return d[1];
+                        });
+                        chart.xAxis.axisLabel('Week').tickFormat(function (d) {
+                            if (window.innerWidth >= 1150) {
+                                return 'Week ' + d;
+                            } else {
+                                return d;
+                            }
+
+                        });
+                        chart.yAxis.tickFormat(function (d) {
+                            return d + '%ile';
+
+                        });
+                        d3.select('#chart2 svg').datum(data).transition().duration(500).call(chart);
+                        nv.utils.windowResize(chart.update);
+                    </script>
+                </div>
+
+                <div class="row assignments no-margin">
+                    <h4>Assignments</h4>
+                    <p>
+                        <small class="note">Note that this list may not reflect all assignments included in current score calculation. For a complete list, please refer to the source system.</small>
+                    </p>
+                    <!-- <a href="api/class_sites/{{classSite.class_site.code}}/student/{{student.username}}/assignments/download/"><button>Download Assignment</button></a> -->
+                    <hr class="main-no-margin-top">
+                    {% if not assignments %}
+                        <div class="panel panel-info main-page-end-margin-bottom">
+                            <div class="panel-body">
+                                No assignments found for this student.
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% if assignments %}
+                    <div class="main-page-end-margin-bottom">
+                        <div class="assignment-table">
+                            <div class="container-fluid">
+                                <div class="row hide-small-grid">
+                                    <div class="col-md-2">
+                                        <strong class="table-column-name">Assignment</strong>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <strong class="table-column-name">Due Date</strong>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <strong class="table-column-name">Points Earned/Possible</strong>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <strong class="table-column-name">Student Percentage</strong>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <strong class="table-column-name">Class Average</strong>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <strong class="table-column-name">Grader's Comment</strong>
+                                    </div>
+                                </div>
+                                <hr class="main-no-margin-top hide-small-grid"/>
+                            </div>
+
+                            <div class="container-fluid">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    {% for assignment in assignments %}
+                                        <div class="row hide-small-grid">
+                                            <div class="col-md-2">{{assignment.assignment.description}}</div>
+                                            <div class="col-md-2">
+                                                {% if assignment.due_date %}{{assignment.due_date.date}}{% endif %}
+                                            </div>
+                                            <div class="col-md-2 text-center">{{assignment.points_earned|floatformat}}/{{assignment.points_possible|floatformat}}</div>
+                                            <div class="col-md-2 text-center">{{assignment.points_earned|divide:assignment.points_possible|multiply:100|floatformat}}%</div>
+                                            <div class="col-md-2 text-center">{{assignment.class_points_earned|divide:assignment.class_points_possible|multiply:100|floatformat}}%</div>
+                                            <div class="col-md-2">
+                                                {% if assignment.grader_comment %}
+                                                    <span>
+                                                        <span id="comment-title-{{assignment.assignment.id}}">View Comment</span>
+                                                        <a class="assignment-button" role="button">
+                                                            <img id="plus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
+                                                            <img id="minus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Minus.png" alt="Expand"/>
+                                                        </a>
+                                                        <p id="assignment-grader-comment-{{assignment.assignment.id}}">&quot;{{assignment.grader_comment}}&quot;</p>
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading{{assignment.assignment.code}}">
+                                                <h4 class="panel-title">
+                                                    <span class="assignment-title">{{assignment.assignment.description }}</span>
+                                                    <span class="assignment-title-right">
+                                                        <span class="assignment-title-score">{{assignment.points_earned|divide:assignment.points_possible|multiply:100|floatformat}}%</span>
+                                                        <a
+                                                            class="assignment-button"
+                                                            id="{{assignment.assignment.code}}"
+                                                            role="button"
+                                                            data-toggle="collapse"
+                                                            data-parent="#accordion"
+                                                            data-target="#collapse{{assignment.assignment.code}}"
+                                                            onclick="toggleAssignment(this)"
+                                                            aria-expanded="true"
+                                                            aria-controls="collapse{{assignment.assignment.code}}">
+                                                            <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
+                                                        </a>
+                                                    </span>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse{{assignment.assignment.code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{assignment.assignment.code}}">
+                                                <div class="panel-body">
+                                                    <div class="assignment-row">
+                                                        <div class="assignment-detail assignment-detail-left">
+                                                            <span class="assignment-detail-bold mobile-div">Due Date:</span>
+                                                            {% if assignment.due_date %}{{assignment.due_date.date}}{% endif %}
+                                                        </div>
+                                                        <div class="assignment-detail assignment-detail-right">
+                                                            <span class="assignment-detail-bold mobile-div">Score:</span>{{assignment.points_earned|floatformat}}/{{assignment.points_possible|floatformat}}</div>
+                                                    </div>
+                                                    <div class="assignment-row assignment-row-lower">
+                                                        <div class="assignment-detail assignment-detail-left">
+                                                            <span class="assignment-detail-bold">Student's Grade</span>
+                                                            <br>
+                                                            <span class="assignment-detail-grade">{{assignment.points_earned|divide:assignment.points_possible|multiply:100|floatformat}}%</span>
+                                                        </div>
+                                                        <div class="assignment-detail assignment-detail-right">
+                                                            <span class="assignment-detail-bold">Class Average</span>
+                                                            <br>
+                                                            <span class="assignment-detail-grade">{{assignment.class_points_earned|divide:assignment.class_points_possible|multiply:100|floatformat}}%</span>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="assignment-detail-comment">
+                                                            <span class="assignment-detail-bold">Comments</span>
+                                                            <br>{{assignment.grader_comment}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="main-no-margin-top hide-small-grid"/>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 {% endif %}
             </div>
-
-            {% if assignments %}
-            <div class="table-responsive main-page-end-margin-bottom">
-                <div class="assignment-table">{% include 'seumich/assignment_list_table.html' %}</div>
-                <div class="assignment-list">{% include 'seumich/assignment_list.html' %}</div>
-            </div>
-            {% endif %}
-
         </div>
     </div>
-</div>
 
-<dig-data-fetch-progress progress="{{progress}}"></dig-data-fetch-progress>
+    <dig-data-fetch-progress progress="{{progress}}"></dig-data-fetch-progress>
 
 {% endblock %}

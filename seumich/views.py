@@ -84,7 +84,7 @@ class AdvisorView(LoginRequiredMixin, generic.TemplateView):
 
 
 class StudentView(LoginRequiredMixin, generic.TemplateView):
-    template_name = 'seumich/student.html'
+    template_name = 'seumich/student_detail.html'
 
     def get_context_data(self, student, **kwargs):
         context = super(StudentView, self).get_context_data(**kwargs)
