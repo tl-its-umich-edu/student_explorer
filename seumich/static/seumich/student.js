@@ -12,25 +12,4 @@ $(function() {
         location.href = '/students/' + student + '/class_sites/' + code + '/';
 
     });
-
-    var winWidth = 0; /* Window width */
-    setContainerDims();
-
-    function setContainerDims() {
-        winWidth = parseInt($(window).width());
-
-        if (winWidth <= 768) {
-            $(".student-detail-left-menu").css({
-                "width": winWidth,
-            });
-        } else {
-            $(".student-detail-left-menu").css({
-                "width": "25%",
-            });
-        }
-    }
-
-    $(window).resize(function() {
-        setContainerDims();
-    })
 });

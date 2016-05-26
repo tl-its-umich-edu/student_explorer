@@ -239,6 +239,7 @@ th[scope="row"] {
 
 .student-detail-summary-content {
     margin-left: 10px;
+    margin-right: 10px;
 }
 
 .student-info {
@@ -257,6 +258,10 @@ th[scope="row"] {
 
 .assignment-table {
     margin-left: 10px;
+}
+
+.panel-default {
+    display: none;
 }
 
 /* For student_class_site_detail template */
@@ -328,9 +333,6 @@ th[scope="row"] {
 }
 
 @media screen and (min-width: 769px) {
-  .assignment-list {
-      display: none;
-  }
   .student-class-site-list {
       display: none;
   }
@@ -382,9 +384,6 @@ a.class-site-status-link span {
     margin-bottom: 10px;
     width: 100%
   }
-  .assignment-table {
-      display: none;
-  }
   .student-class-site-table {
       display: none;
   }
@@ -395,10 +394,10 @@ a.class-site-status-link span {
       display: none;
   }
   .student-detail-main-menu, .student-detail-left-menu {
-      position: relative;
-      margin-top: -20px;
-      left: -15px;
-      margin-bottom: -10px;
+      position: static;
+      left: auto;
+      width: auto;
+      margin: -20px -15px 0;
   }
   .sub-header-backlink {
       margin-top: 0;
@@ -423,6 +422,7 @@ a.class-site-status-link span {
   }
   .student-detail-summary-content {
       margin-left: 0px;
+      margin-right: 0px;
   }
   .student-info {
     margin-bottom: 10px;
@@ -437,7 +437,7 @@ a.class-site-status-link span {
     padding-bottom: 20px;
     margin-bottom: 20px;
   }
-  .col-md-2 {
+  .mobile-inline {
     margin-bottom: 10px;
     display: inline-block;
   }
@@ -446,6 +446,15 @@ a.class-site-status-link span {
   }
   .status-icon {
     float: right;
+  }
+  .panel-default {
+    display: block;
+  }
+  .assignment-table {
+    margin-left: 0px;
+  }
+  .assignment-table > .container-fluid {
+    padding: 0;
   }
 }
 
@@ -696,6 +705,10 @@ svg text {
 
 .panel-title {
     vertical-align: middle;
+}
+
+.panel-warning {
+    margin-top: 20px;
 }
 
 .assignment-title-right {
