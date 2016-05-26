@@ -26,8 +26,13 @@
                             </span>
                         </div>
                     </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="field-names" value="" checked>
+                            First line contains field names
+                        </label>
+                    </div>
                     <button type="submit" class="btn btn-success">Import</button>
-                    <img src='{% static "advisinggroups/images/loading.gif" %}' alt='Searching'/>
                     <button type="button" class="btn btn-danger" id="clear_text">Clear</button>
                 </div>
             </form>
@@ -38,5 +43,72 @@
                 There was an error in import!
             </div>
         </div>
+        <p class="text-primary">Processing...
+            <img src='{% static "advisinggroups/images/loading.gif" %}' alt='Searching'/>
+        </p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Excel Fields</th>
+                    <th>Table Name</th>
+                    <th>Column Name</th>
+                    <th>Change Mapping</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="col1row1"></td>
+                    <td>advisinggroups_student</td>
+                    <td>univ_id</td>
+                    <td>
+                        <button type="button" class="btn btn-warning btn-sm up">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                        </button>
+                        <button type="button" class="btn btn-warning btn-sm down">
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="col1row2"></td>
+                    <td>advisinggroups_student</td>
+                    <td>username</td>
+                    <td>
+                        <button type="button" class="btn btn-warning btn-sm up">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                        </button>
+                        <button type="button" class="btn btn-warning btn-sm down">
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="col1row3"></td>
+                    <td>advisinggroups_advisor</td>
+                    <td>username</td>
+                    <td>
+                        <button type="button" class="btn btn-warning btn-sm up">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                        </button>
+                        <button type="button" class="btn btn-warning btn-sm down">
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="col1row4"></td>
+                    <td>advisinggroups_group</td>
+                    <td>description</td>
+                    <td>
+                        <button type="button" class="btn btn-warning btn-sm up">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                        </button>
+                        <button type="button" class="btn btn-warning btn-sm down">
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 {% endblock %}
