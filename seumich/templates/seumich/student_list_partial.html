@@ -1,0 +1,64 @@
+{% load filters %}
+{% load static from staticfiles %}
+
+<h1 class="sub-header">{{ studentListHeader }}</h1>
+{% if students %}
+    <hr class="main-no-margin-top"/>
+    <h2>Students</h2>
+{% endif %}
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Name</strong>
+                </th>
+                <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Student ID</strong>
+                </th>
+                <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Status</strong>
+                </th>
+                <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Cohorts</strong>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <th scope="row" class="bold">
+                        <a href="/students/{{ student.username }}/">{{ student.first_name }}
+                            {{ student.last_name }}</a>
+                    </th>
+                    <td class="hide-small">{{ student.univ_id }}</td>
+                    <td>
+                        {% for classSite in student.class_sites.all %}
+                            <a href="/students/{{student.username}}/class_sites/{{classSite.code}}/" class="class-site-status-link">
+                                <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text:classSite }}" data-placement="bottom">
+                                    {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                                    {% if status == 'Green' %}
+                                        <img src="{% static 'images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
+                                    {% elif status == 'Yellow' %}
+                                        <img src="{% static 'images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
+                                    {% elif status == 'Red' %}
+                                        <img src="{% static 'images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
+                                    {% elif status == 'Not Applicable' %}
+                                        <img src="{% static 'images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
+                                    {% endif %}
+                                    {% endwith %}
+                                </span>
+                            </a>
+                        {% endfor %}
+                    </td>
+                    <td class="hide-small">
+                        {% for cohort in student.cohorts.all %}
+                            <div>{{ cohort }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

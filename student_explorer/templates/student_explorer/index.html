@@ -1,128 +1,151 @@
 <!doctype html>
 <html lang="en" class="no-js">
 
-<head>
-    {% load static from staticfiles %}
-    {% static "" as baseUrl %}
-    <meta charset="utf-8">
-    <title>Student Explorer</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <link rel="icon" href="{% static 'images/icon.png' %}" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/icon-52.png' %}">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <head>
+        {% load static from staticfiles %}
+        {% static "" as baseUrl %}
+        <meta charset="utf-8">
+        <title>Student Explorer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+        <link rel="icon" href="{% static 'images/icon.png' %}" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/icon-52.png' %}">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'nvd3/src/nv.d3.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'components-font-awesome/css/font-awesome.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}">
-    <script src="{% static 'jquery/dist/jquery.js' %}"></script>
-    <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
-    <script src="{% static 'd3/d3.js' %}"></script>
-    <script src="{% static 'nvd3/nv.d3.js' %}"></script>
-    <script src="{% static 'tablesorter/jquery.tablesorter.js' %}"></script>
-    <script src="{% static 'seumich/index.js' %}"></script>
-    {% block head %}{% endblock %}
-</head>
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'nvd3/src/nv.d3.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'components-font-awesome/css/font-awesome.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}">
+        <script src="{% static 'jquery/dist/jquery.js' %}"></script>
+        <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
+        <script src="{% static 'd3/d3.js' %}"></script>
+        <script src="{% static 'nvd3/nv.d3.js' %}"></script>
+        <script src="{% static 'tablesorter/jquery.tablesorter.js' %}"></script>
+        <script src="{% static 'seumich/index.js' %}"></script>
+        {% block head %}{% endblock %}
+    </head>
 
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="main-color-white main-navbar-brand navbar-brand">Student Explorer</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/students/" data-toggle="collapse" data-target="#navbar.in">My Students</a></li>
-                    <li><a href="/advisors/" data-toggle="collapse" data-target="#navbar.in">Advisors</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="main-color-white main-navbar-brand navbar-brand">Student Explorer</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/students/" data-toggle="collapse" data-target="#navbar.in">Students</a>
+                        </li>
+                        <li>
+                            <a href="/advisors/" data-toggle="collapse" data-target="#navbar.in">Advisors</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
+                            {% else %}
+                                <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">Login</a>
+                            {% endif %}
+                        </li>
                         {% if user.is_authenticated %}
-                        <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a> {% else %}
-                        <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">Login</a> {% endif %}
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{userInfo.username}} <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <p><strong>{{user.first_name}} {{user.last_name}}</strong></p>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" aria-label="expand for links to compliance policy and logout" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{userInfo.username}}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <p>
+                                            <strong>{{user.first_name}}
+                                                {{user.last_name}}</strong>
+                                        </p>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <!-- <li class="dropdown-header">Nav header</li> -->
+                                    <li>
+                                        <p>
+                                            You accepted the
+                                            <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
+                                            on
+                                            {{userInfo.profile.policy_accepted_date | date}}
+                                        </p>
+                                    </li>
+                                    <li class="policy-warning">
+                                        <p>
+                                            You haven't accepted the
+                                            <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
+                                            yet.
+                                        </p>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="{% url 'auth_logout' %}">Logout</a>
+                                    </li>
+                                </ul>
                             </li>
-                            <li role="separator" class="divider"></li>
-                            <!-- <li class="dropdown-header">Nav header</li> -->
-                            <li>
-                                <p>
-                                    You accepted the
-                                    <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a> on {{userInfo.profile.policy_accepted_date | date}}
-                                </p>
-                            </li>
-                            <li class="policy-warning">
-                                <p>
-                                    You haven't accepted the
-                                    <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a> yet.
-                                </p>
-                            </li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="{% url 'auth_logout' %}">Logout</a></li>
-                        </ul>
-                    </li>
-                    {% endif %}
-                </ul>
-                <form action="/students/" method="get" class="navbar-form navbar-right">
-                    <label for="search" class="sr-only">Search student name, uniqname, or UMID...</label>
-                    <input id="student-search" name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
-                </form>
+                        {% endif %}
+                    </ul>
+                    <form action="/students/" method="get" class="navbar-form navbar-right">
+                        <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label>
+                        <input id="student-search" name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="alert-container">
+            <div ng-if="userInfo.profile.is_policy_accepted === false" class="alert alert-warning alert-dismissible" role="alert" ng-cloak>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Warning!</strong>
+                You haven't accepted the
+                <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
+                yet.
+            </div>
+            <div ng-if="dataDown" class="alert alert-danger alert-dismissible" role="alert" ng-cloak>
+                The database appears to be down. This may be for normal maintanence, please try reloading in a few minutes.
+            </div>
+
+        </div>
+
+        <div class="container content">
+            {% block content %}{% endblock %}
+        </div>
+
+        <div class="footer navbar-fixed-bottom">
+            <div class="container">
+                <p class="main-color-white">Student Explorer (2.0.13)
+                    <span class="footer-block">Copyright &copy; 2015</span>
+                    <span class="footer-block">The Regents of the University of Michigan</span>
+                </p>
             </div>
         </div>
-    </nav>
 
-    <div class="alert-container">
-        <div ng-if="userInfo.profile.is_policy_accepted === false" class="alert alert-warning alert-dismissible" role="alert" ng-cloak>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Warning!</strong> You haven't accepted the
-            <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a> yet.
-        </div>
-        <div ng-if="dataDown" class="alert alert-danger alert-dismissible" role="alert" ng-cloak>
-            The database appears to be down. This may be for normal maintanence, please try reloading in a few minutes.
-        </div>
-
-    </div>
-
-    <div class="container content">
-        {% block content %}{% endblock %}
-    </div>
-
-    <div class="footer navbar-fixed-bottom">
-        <div class="container">
-            <p class="main-color-white">Student Explorer (2.0.13) <span class="footer-block">Copyright &copy; 2015</span> <span class="footer-block">The Regents of the University of Michigan</span></p>
-        </div>
-    </div>
-
-
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                },
+                i[r].l = 1 * new Date();
+                a = s.createElement(o),
                 m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', 'UA-67092539-3', 'auto');
-        ga('send', 'pageview');
-    </script>
-</body>
+            ga('create', 'UA-67092539-3', 'auto');
+            ga('send', 'pageview');
+        </script>
+    </body>
 
 </html>
