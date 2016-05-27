@@ -40,19 +40,41 @@ $(function() {
             success: function(data) {
                 $('.text-primary').hide();
                 $('table').hide();
-                if (data['completed'] === 'Done') {
+
+                if (data['completed'] === 'Success') {
                     $('table').show();
-                    if (data['heading_row'].length > 0) {
-                        $('#col1row1').html("<p>" + data['heading_row'][0] + " (ex: " + data['data_row'][0] + ")</p>");
-                        $('#col1row2').html("<p>" + data['heading_row'][1] + " (ex: " + data['data_row'][1] + ")</p>");
-                        $('#col1row3').html("<p>" + data['heading_row'][2] + " (ex: " + data['data_row'][2] + ")</p>");
-                        $('#col1row4').html("<p>" + data['heading_row'][3] + " (ex: " + data['data_row'][3] + ")</p>");
-                    } else {
-                        $('#col1row1').html(data['data_row'][0]);
-                        $('#col1row2').html(data['data_row'][1]);
-                        $('#col1row3').html(data['data_row'][2]);
-                        $('#col1row4').html(data['data_row'][3]);
-                    }
+
+                    var dataDict = data['excel_data'];
+                    var colOrder = data['cols_order']
+
+                    var select_list = []
+
+                    select_list.push("#options1");
+                    select_list.push("#options2");
+                    select_list.push("#options3");
+                    select_list.push("#options4");
+
+                    $.each(select_list, function(index, options) {
+                        var selected = options.split('#options')[1];
+                        $("#col2row" + selected).html(dataDict[colOrder[selected - 1]]);
+
+                        $.each(Object.keys(dataDict), function(index, value) {
+                            if (value == colOrder[selected - 1]) {
+                                $(options).append("<option selected>" + value + "</option>");
+                            } else {
+                                $(options).append("<option>" + value + "</option>");
+                            }
+
+                        });
+
+                    });
+
+                    $('select').change(function() {
+                        var myid = $(this).attr('id');
+                        var selected = myid.split('options')[1];
+                        $("#col2row" + selected).html(dataDict[$(this).val()]);
+                    });
+
                     $('<button type="button" class="btn btn-info pull-right">Confirm</button>').insertAfter('.text-primary');
 
                 } else if (data['completed'] === 'Error') {
@@ -62,32 +84,28 @@ $(function() {
         });
 
         $('body').on('click', 'button:contains("Confirm")', function() {
+            var myTableArray = [];
+
+            $("table tr").each(function() {
+                var arrayOfThisRow = [];
+                var tableData = $(this).find('td');
+                tableData[0] = $(this).find('select');
+                if (tableData.length > 0) {
+                    tableData.each(function() {
+                        arrayOfThisRow.push($(this).text());
+                    });
+                    arrayOfThisRow[0] = tableData[0].val();
+                    myTableArray.push(arrayOfThisRow);
+                }
+            });
+
             $.ajax({
                 method: 'GET',
                 url: '/advising_groups/',
-                data: formData,
-                success: function(data) {
-                    $('.text-primary').hide();
-                    $('table').hide();
-                    if (data['completed'] === 'Done') {
-                        $('table').show();
-                        if (data['heading_row'].length > 0) {
-                            $('#col1row1').html("<p>" + data['heading_row'][0] + " (ex: " + data['data_row'][0] + ")</p>");
-                            $('#col1row2').html("<p>" + data['heading_row'][1] + " (ex: " + data['data_row'][1] + ")</p>");
-                            $('#col1row3').html("<p>" + data['heading_row'][2] + " (ex: " + data['data_row'][2] + ")</p>");
-                            $('#col1row4').html("<p>" + data['heading_row'][3] + " (ex: " + data['data_row'][3] + ")</p>");
-                        } else {
-                            $('#col1row1').html(data['data_row'][0]);
-                            $('#col1row2').html(data['data_row'][1]);
-                            $('#col1row3').html(data['data_row'][2]);
-                            $('#col1row4').html(data['data_row'][3]);
-                        }
-                        $('<button type="button" class="btn btn-info pull-right">Confirm</button>').insertAfter('.text-primary');
-
-                    } else if (data['completed'] === 'Error') {
-                        $('#alert-danger').show();
-                    }
-                }
+                data: {
+                    tabledata: JSON.stringify(myTableArray)
+                },
+                success: function(d) {}
             });
         });
     });
@@ -99,23 +117,6 @@ $(function() {
         $('#alert-danger').hide();
         $('#id_input_file').val('');
         $('#open-dialog').val('');
-    });
-
-    $(".up,.down").click(function() {
-        var row = $(this).parents("tr:first");
-        if ($(this).is(".up")) {
-            var currentTr = row.children(':first');
-            var previousTr = row.prev().children(':first');
-            var temp = currentTr.contents();
-            currentTr.append(previousTr.contents());
-            previousTr.append(temp);
-        } else {
-            var currentTr = row.children(':first');
-            var previousTr = row.next().children(':first');
-            var temp = currentTr.contents();
-            currentTr.append(previousTr.contents());
-            previousTr.append(temp);
-        }
     });
 
 });

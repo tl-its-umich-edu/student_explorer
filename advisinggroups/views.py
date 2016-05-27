@@ -1,7 +1,10 @@
 from django.http import JsonResponse
 from django.views import generic
-from openpyxl import load_workbook
+from django.shortcuts import render
 from advisinggroups.models import Student, Advisor, Group, StudentGroupAdvisor
+from django.core.cache import cache
+import pandas as pd
+import json
 
 
 class ExcelFormview(generic.TemplateView):
@@ -11,35 +14,45 @@ class ExcelFormview(generic.TemplateView):
         status = {}
         try:
             myfile = request.FILES['input-file']
-            wb = load_workbook(filename=myfile, read_only=True)
-            sheet_name = wb.get_sheet_names()[0]
-            ws = wb[sheet_name]  # ws is now an IterableWorksheet
-            heading_row = []
-            data_row = []
-            if 'field-names' in request.POST:
-                for cell in list(ws.rows)[0]:
-                    heading_row.append(cell.value)
-            for cell in list(ws.rows)[1]:
-                data_row.append(cell.value)
-            #
-            # student_umid = row[0].value
-            # student_uniqname = row[1].value
-            # advisor_uniqname = row[2].value
-            # cohort_name = row[3].value
-            #
-            # student, created = Student.objects.get_or_create(
-            #     univ_id=student_umid,
-            #     username=student_uniqname)
-            # advisor, created = Advisor.objects.get_or_create(
-            #     username=advisor_uniqname)
-            # #group, created = Group.objects.get_or_create(
-            #     description=cohort_name)
-            #
-            # #StudentGroupAdvisor.objects.get_or_create(
-            #     student=student, advisor=advisor, group=group)
-            status['completed'] = 'Done'
-            status['heading_row'] = heading_row
-            status['data_row'] = data_row
+            df = pd.read_excel(myfile)
+
+            cache.set('data', df, 60 * 10)
+            excel_data = df[:1].to_dict(orient='records')
+            cols = list(df.columns.values)
+            cols_ind = {cols.index(val): val for val in cols}
+
+            status['completed'] = 'Success'
+            status['excel_data'] = excel_data[0]
+            status['cols_order'] = cols_ind
         except:
-            status['completed'] = 'Error'
+            status['completed'] = 'Fail'
         return JsonResponse(status)
+
+    def get(self, request, *args, **kwargs):
+        mapping_data = request.GET.get('tabledata')
+
+        #
+        # student_umid = row[0].value
+        # student_uniqname = row[1].value
+        # advisor_uniqname = row[2].value
+        # cohort_name = row[3].value
+        #
+        # student, created = Student.objects.get_or_create(
+        #     univ_id=student_umid,
+        #     username=student_uniqname)
+        # advisor, created = Advisor.objects.get_or_create(
+        #     username=advisor_uniqname)
+        # #group, created = Group.objects.get_or_create(
+        #     description=cohort_name)
+        #
+        # #StudentGroupAdvisor.objects.get_or_create(
+        #     student=student, advisor=advisor, group=group)
+
+        my_mapping = {}
+        my_mapping['advisinggroups_student'] = Student
+        my_mapping['advisinggroups_advisor'] = Advisor
+        my_mapping['advisinggroups_group'] = Group
+        df = cache.get('data')
+        if mapping_data:
+            mapping_data = json.loads(mapping_data)
+        return render(request, self.template_name)
