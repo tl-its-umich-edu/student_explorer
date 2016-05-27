@@ -221,6 +221,15 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
       'valid_for': 24,  # how long is our metadata valid
       }
 
+SAML_CREATE_UNKNOWN_USER = False
+
+SAML_ATTRIBUTE_MAPPING = {
+    'uid': ('username', ),
+    'mail': ('email', ),
+    'givenName': ('first_name', ),
+    'sn': ('last_name', ),
+}
+
 
 # Logging
 
