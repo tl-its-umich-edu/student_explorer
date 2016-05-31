@@ -17,6 +17,7 @@ $(function() {
         $('table').hide();
         $('#confirm-button').remove();
         $('#back-button').remove();
+        $('#undo-button').remove();
         $('select[id^=options]').empty();
 
         var formData = new FormData($(this)[0]);
@@ -84,12 +85,13 @@ $(function() {
                     dataTable[tab + col] = selectedCol;
                 });
 
-                $('body').on('click', 'button:contains("Confirm")', function() {
+                $('.container-fluid').off('click', 'button:contains("Confirm")').on('click', 'button:contains("Confirm")', function() {
 
                     $('#processing-text').hide();
                     $('#importing-text').show();
                     $('.alert').hide();
                     $('#confirm-button').remove();
+                    $('#undo-button').remove();
                     $('#back-button').hide();
 
                     $.ajax({
@@ -107,19 +109,53 @@ $(function() {
                                 $('#importing-text').hide();
                                 $('#alert-success').show();
                                 $('#back-button').show();
+                                $('<button type="button" class="btn btn-danger pull-right" id="undo-button">Undo</button>').insertBefore('table');
                             } else if (response['completed'] === 'Fail') {
                                 $('#importing-text').hide();
                                 $('#alert-danger').show();
                                 $('#back-button').show();
                             }
+
+                            $('.container-fluid').off('click', 'button:contains("Undo")').on('click', 'button:contains("Undo")', function() {
+                                $('.alert').hide();
+                                $('#back-button').remove();
+                                $('#undo-button').remove();
+                                $('#processing-text').show();
+
+                                $.ajax({
+                                        method: 'POST',
+                                        url: '/advising_groups/undo/',
+                                        beforeSend: function(xhr, settings) {
+                                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                        },
+                                        data: {
+                                            id: response['current_id']
+                                        },
+                                    })
+                                    .done(function(resp) {
+                                        if (resp['completed'] === 'Success') {
+                                            $('#clear_text').click();
+                                            $('form').show();
+                                            $('#alert-success').text('Import was successfully undone!')
+                                            $('#alert-success').show();
+                                        } else if (resp['completed'] === 'Fail') {
+                                            $('#clear_text').click();
+                                            $('form').show();
+                                            $('#alert-danger').text('Import could not be undone!');
+                                            $('#alert-danger').show();
+                                        }
+                                    });
+
+                            });
                         });
                 });
 
-                $('body').on('click', 'button:contains("Back")', function() {
+                $('.container-fluid').off('click', 'button:contains("Back")').on('click', 'button:contains("Back")', function() {
                     $('form').show();
                     $('table').hide();
                     $('#confirm-button').remove();
                     $('#back-button').remove();
+                    $('#undo-button').remove();
                 });
             });
     });
@@ -133,6 +169,7 @@ $(function() {
         $('#open-dialog').val('');
         $('#confirm-button').remove();
         $('#back-button').remove();
+        $('#undo-button').remove();
     });
 
 });

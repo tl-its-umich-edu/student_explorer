@@ -32,10 +32,15 @@ class Group(models.Model):
         return self.description
 
 
+class Import(models.Model):
+    pass
+
+
 class StudentGroupAdvisor(models.Model):
     student = models.ForeignKey(Student)
     advisor = models.ForeignKey(Advisor)
     group = models.ForeignKey(Group)
+    imp = models.ForeignKey(Import)
 
     def __unicode__(self):
         return '%s"s advisor is %s and is in the %s group' % (self.student,
@@ -44,4 +49,4 @@ class StudentGroupAdvisor(models.Model):
                                                               )
 
     class Meta:
-        unique_together = ('student', 'advisor', 'group')
+        unique_together = ('imp', 'student', 'advisor', 'group')

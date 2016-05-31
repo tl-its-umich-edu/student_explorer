@@ -1,9 +1,14 @@
-from django.http import JsonResponse
-from django.views import generic
-from advisinggroups.models import Student, Advisor, Group, StudentGroupAdvisor
 from django.core.cache import cache
 import pandas as pd
 import json
+from django.http import JsonResponse
+from django.views import generic
+from advisinggroups.models import (Student,
+                                   Advisor,
+                                   Group,
+                                   Import,
+                                   StudentGroupAdvisor
+                                   )
 
 
 class ExcelFormView(generic.TemplateView):
@@ -33,10 +38,10 @@ def confirmTable(request):
         status = {}
         try:
             mapping_data = request.POST['tabledata']
-
             if mapping_data:
                 mapping_data = json.loads(mapping_data)
                 df = cache.get('data')
+                imp = Import.objects.create()
 
                 for index, row in df.iterrows():
                     student_umid = row[mapping_data[
@@ -56,9 +61,25 @@ def confirmTable(request):
                     group, created = Group.objects.get_or_create(
                         description=cohort_name)
 
-                    StudentGroupAdvisor.objects.get_or_create(
-                        student=student, advisor=advisor, group=group)
+                    StudentGroupAdvisor.objects.get_or_create(imp=imp,
+                                                              student=student,
+                                                              advisor=advisor,
+                                                              group=group)
+                status['completed'] = 'Success'
+                status['current_id'] = imp.id
+        except:
+            status['completed'] = 'Fail'
+        return JsonResponse(status)
 
+
+def undoTable(request):
+    if request.method == 'POST':
+        status = {}
+        try:
+            current_id = request.POST['id']
+            if current_id:
+                imp = Import.objects.get(id=current_id)
+                imp.delete()
                 status['completed'] = 'Success'
         except:
             status['completed'] = 'Fail'
