@@ -1,10 +1,4 @@
 $(function() {
-    $('[data-toggle="tooltip"]').tooltip();
-    $('#open-dialog').hide();
-    $('#alert-success').hide();
-    $('#alert-danger').hide();
-    $('.text-primary').hide();
-    $('table').hide();
 
     $('#upload-file').on('click', function() {
         event.preventDefault();
@@ -18,105 +12,127 @@ $(function() {
     $('form').submit(function(event) {
         event.preventDefault();
 
-        $('.text-primary').show();
-        $('#alert-danger').hide();
-        $('#alert-success').hide();
+        $('#processing-text').show();
+        $('.alert').hide();
+        $('table').hide();
+        $('#confirm-button').remove();
+        $('#back-button').remove();
+        $('select[id^=options]').empty();
 
         var formData = new FormData($(this)[0]);
         var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
 
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        });
-
         $.ajax({
-            method: 'POST',
-            url: '/advising_groups/',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(data) {
-                $('.text-primary').hide();
-                $('table').hide();
+                method: 'POST',
+                url: '/advising_groups/',
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                },
+                data: formData,
+                processData: false,
+                contentType: false,
+            })
+            .done(function(data) {
+
+                $('#processing-text').hide();
 
                 if (data['completed'] === 'Success') {
+
+                    $('form').hide();
                     $('table').show();
 
                     var dataDict = data['excel_data'];
                     var colOrder = data['cols_order']
-
-                    var select_list = []
-
-                    select_list.push("#options1");
-                    select_list.push("#options2");
-                    select_list.push("#options3");
-                    select_list.push("#options4");
+                    var select_list = $('select[id^=options]');
+                    var dataTable = {}
 
                     $.each(select_list, function(index, options) {
-                        var selected = options.split('#options')[1];
-                        $("#col2row" + selected).html(dataDict[colOrder[selected - 1]]);
+                        var myid = $(this).attr('id');
+                        var selected = myid.split('options')[1];
+                        var selectedCol = colOrder[selected - 1]
+
+                        $("#col2row" + selected).html(dataDict[selectedCol]);
+
+                        var tab = $("#col3row" + selected).html();
+                        var col = $("#col4row" + selected).html();
+                        dataTable[tab + col] = selectedCol;
 
                         $.each(Object.keys(dataDict), function(index, value) {
-                            if (value == colOrder[selected - 1]) {
+                            if (value == selectedCol) {
                                 $(options).append("<option selected>" + value + "</option>");
                             } else {
                                 $(options).append("<option>" + value + "</option>");
                             }
-
                         });
-
                     });
 
-                    $('select').change(function() {
-                        var myid = $(this).attr('id');
-                        var selected = myid.split('options')[1];
-                        $("#col2row" + selected).html(dataDict[$(this).val()]);
-                    });
-
-                    $('<button type="button" class="btn btn-info pull-right">Confirm</button>').insertAfter('.text-primary');
-
-                } else if (data['completed'] === 'Error') {
+                    $('<button type="button" class="btn btn-warning pull-left" id="back-button">Back</button>').insertBefore('table');
+                    $('<button type="button" class="btn btn-info pull-right" id="confirm-button">Confirm</button>').insertBefore('table');
+                } else if (data['completed'] === 'Fail') {
                     $('#alert-danger').show();
                 }
-            }
-        });
 
-        $('body').on('click', 'button:contains("Confirm")', function() {
-            var myTableArray = [];
+                $('select[id^=options]').change(function() {
+                    var myid = $(this).attr('id');
+                    var selected = myid.split('options')[1];
+                    var selectedCol = $(this).val();
 
-            $("table tr").each(function() {
-                var arrayOfThisRow = [];
-                var tableData = $(this).find('td');
-                tableData[0] = $(this).find('select');
-                if (tableData.length > 0) {
-                    tableData.each(function() {
-                        arrayOfThisRow.push($(this).text());
-                    });
-                    arrayOfThisRow[0] = tableData[0].val();
-                    myTableArray.push(arrayOfThisRow);
-                }
+                    $("#col2row" + selected).html(dataDict[selectedCol]);
+
+                    var tab = $("#col3row" + selected).html();
+                    var col = $("#col4row" + selected).html();
+                    dataTable[tab + col] = selectedCol;
+                });
+
+                $('body').on('click', 'button:contains("Confirm")', function() {
+
+                    $('#processing-text').hide();
+                    $('#importing-text').show();
+                    $('.alert').hide();
+                    $('#confirm-button').remove();
+                    $('#back-button').hide();
+
+                    $.ajax({
+                            method: 'POST',
+                            url: '/advising_groups/confirm/',
+                            beforeSend: function(xhr, settings) {
+                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                            },
+                            data: {
+                                tabledata: JSON.stringify(dataTable)
+                            },
+                        })
+                        .done(function(response) {
+                            if (response['completed'] === 'Success') {
+                                $('#importing-text').hide();
+                                $('#alert-success').show();
+                                $('#back-button').show();
+                            } else if (response['completed'] === 'Fail') {
+                                $('#importing-text').hide();
+                                $('#alert-danger').show();
+                                $('#back-button').show();
+                            }
+                        });
+                });
+
+                $('body').on('click', 'button:contains("Back")', function() {
+                    $('form').show();
+                    $('table').hide();
+                    $('#confirm-button').remove();
+                    $('#back-button').remove();
+                });
             });
-
-            $.ajax({
-                method: 'GET',
-                url: '/advising_groups/',
-                data: {
-                    tabledata: JSON.stringify(myTableArray)
-                },
-                success: function(d) {}
-            });
-        });
     });
 
     $('#clear_text').on('click', function() {
-        $('.text-primary').hide();
+        $('#processing-text').hide();
+        $('#importing-text').hide();
         $('table').hide();
-        $('#alert-success').hide();
-        $('#alert-danger').hide();
+        $('.alert').hide();
         $('#id_input_file').val('');
         $('#open-dialog').val('');
+        $('#confirm-button').remove();
+        $('#back-button').remove();
     });
 
 });
