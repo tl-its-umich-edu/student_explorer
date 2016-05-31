@@ -169,13 +169,10 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
       # directory with attribute mapping
       # 'attribute_map_dir': path.join(BASEDIR, 'attribute-maps'),
       'name': getenv('STUDENT_EXPLORER_SAML_SERVICE_NAME', 'Student Explorer'),
-      'valid_for': 48,
-
       # this block states what services we provide
       'service': {
           # we are just a lonely SP
           'sp': {
-              'valid_for': 48,
               'name': 'Student Explorer',
               'name_id_format': getenv(
                 'STUDENT_EXPLORER_SAML_NAME_ID_FORMAT',
@@ -218,9 +215,16 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
       # certificate
       'key_file': path.join(BASEDIR, '../saml/key.pem'),  # private part
       'cert_file': path.join(BASEDIR, '../saml/cert.pem'),  # public part
-
-      'valid_for': 24,  # how long is our metadata valid
       }
+
+SAML_CREATE_UNKNOWN_USER = False
+
+SAML_ATTRIBUTE_MAPPING = {
+    'uid': ('username', ),
+    'mail': ('email', ),
+    'givenName': ('first_name', ),
+    'sn': ('last_name', ),
+}
 
 
 # Logging
