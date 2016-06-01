@@ -12,7 +12,11 @@ $(function() {
     $('form').submit(function(event) {
         event.preventDefault();
 
+        // Reset
         $('#processing-text').show();
+        $('#importing-text').hide();
+        $('#alert-success').text('Import was successfully completed!');
+        $('#alert-danger').text('There was an error in import!');
         $('.alert').hide();
         $('table').hide();
         $('#confirm-button').remove();
@@ -69,21 +73,20 @@ $(function() {
 
                     $('<button type="button" class="btn btn-warning pull-left" id="back-button">Back</button>').insertBefore('table');
                     $('<button type="button" class="btn btn-info pull-right" id="confirm-button">Confirm</button>').insertBefore('table');
+                    $('select[id^=options]').change(function() {
+                        var myid = $(this).attr('id');
+                        var selected = myid.split('options')[1];
+                        var selectedCol = $(this).val();
+
+                        $("#col2row" + selected).html(dataDict[selectedCol]);
+
+                        var tab = $("#col3row" + selected).html();
+                        var col = $("#col4row" + selected).html();
+                        dataTable[tab + col] = selectedCol;
+                    });
                 } else if (data['completed'] === 'Fail') {
                     $('#alert-danger').show();
                 }
-
-                $('select[id^=options]').change(function() {
-                    var myid = $(this).attr('id');
-                    var selected = myid.split('options')[1];
-                    var selectedCol = $(this).val();
-
-                    $("#col2row" + selected).html(dataDict[selectedCol]);
-
-                    var tab = $("#col3row" + selected).html();
-                    var col = $("#col4row" + selected).html();
-                    dataTable[tab + col] = selectedCol;
-                });
 
                 $('.container-fluid').off('click', 'button:contains("Confirm")').on('click', 'button:contains("Confirm")', function() {
 
@@ -92,7 +95,7 @@ $(function() {
                     $('.alert').hide();
                     $('#confirm-button').remove();
                     $('#undo-button').remove();
-                    $('#back-button').hide();
+                    $('#back-button').remove();
 
                     $.ajax({
                             method: 'POST',
@@ -107,13 +110,15 @@ $(function() {
                         .done(function(response) {
                             if (response['completed'] === 'Success') {
                                 $('#importing-text').hide();
+                                $('#alert-success').text('Import was successfully completed!');
                                 $('#alert-success').show();
-                                $('#back-button').show();
+                                $('<button type="button" class="btn btn-warning pull-left" id="back-button">Back</button>').insertBefore('table');
                                 $('<button type="button" class="btn btn-danger pull-right" id="undo-button">Undo</button>').insertBefore('table');
                             } else if (response['completed'] === 'Fail') {
                                 $('#importing-text').hide();
+                                $('#alert-danger').text('There was an error in import!');
                                 $('#alert-danger').show();
-                                $('#back-button').show();
+                                $('<button type="button" class="btn btn-warning pull-left" id="back-button">Back</button>').insertBefore('table');
                             }
 
                             $('.container-fluid').off('click', 'button:contains("Undo")').on('click', 'button:contains("Undo")', function() {

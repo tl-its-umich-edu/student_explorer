@@ -1,9 +1,9 @@
 from django.conf.urls import url
-from views import ExcelFormView, confirmTable, undoTable
+from views import ExcelFormView, ConfirmImport, UndoImport
 
 
 urlpatterns = [
     url(r'^$', ExcelFormView.as_view(), name='index'),
-    url(r'^confirm/$', confirmTable, name='confirm'),
-    url(r'^undo/$', undoTable, name='undo'),
+    url(r'^confirm/$', ConfirmImport.as_view(), name='confirm'),
+    url(r'^undo/$', UndoImport.as_view(), name='undo'),
 ]

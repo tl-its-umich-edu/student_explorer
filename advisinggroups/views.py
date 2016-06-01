@@ -33,8 +33,9 @@ class ExcelFormView(generic.TemplateView):
         return JsonResponse(status)
 
 
-def confirmTable(request):
-    if request.method == 'POST':
+class ConfirmImport(generic.View):
+
+    def post(self, request, *args, **kwargs):
         status = {}
         try:
             mapping_data = request.POST['tabledata']
@@ -72,8 +73,9 @@ def confirmTable(request):
         return JsonResponse(status)
 
 
-def undoTable(request):
-    if request.method == 'POST':
+class UndoImport(generic.View):
+
+    def post(self, request, *args, **kwargs):
         status = {}
         try:
             current_id = request.POST['id']
