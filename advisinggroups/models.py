@@ -1,17 +1,19 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django_extensions.db.models import TimeStampedModel
 
 
-class Advisor(models.Model):
+class Advisor(TimeStampedModel):
     username = models.CharField(max_length=8)
     students = models.ManyToManyField('Student', through='StudentGroupAdvisor')
+    groups = models.ManyToManyField('Group', through='StudentGroupAdvisor')
 
     def __unicode__(self):
         return self.username
 
 
-class Student(models.Model):
+class Student(TimeStampedModel):
     username = models.CharField(max_length=8)
     univ_id = models.CharField(max_length=11)
     advisors = models.ManyToManyField('Advisor', through='StudentGroupAdvisor')
@@ -25,18 +27,18 @@ class Student(models.Model):
         return self.username
 
 
-class Group(models.Model):
+class Group(TimeStampedModel):
     description = models.CharField(max_length=50)
 
     def __unicode__(self):
         return self.description
 
 
-class Import(models.Model):
+class Import(TimeStampedModel):
     pass
 
 
-class StudentGroupAdvisor(models.Model):
+class StudentGroupAdvisor(TimeStampedModel):
     student = models.ForeignKey(Student)
     advisor = models.ForeignKey(Advisor)
     group = models.ForeignKey(Group)
