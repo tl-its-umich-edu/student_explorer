@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
 
 
 def convert_to_pages(request, student_list, num_records, num_page_links):
@@ -57,7 +58,10 @@ class StudentsListView(LoginRequiredMixin, generic.TemplateView):
             ).order_by('last_name')
 
         # Pagination to break list into multiple pieces
-        pages, ranges = convert_to_pages(self.request, student_list, 5, 5)
+        records = getattr(settings, 'RECORDS_PER_PAGE', 5)
+        links = getattr(settings, 'NUM_PAGE_LINKS', 5)
+        pages, ranges = convert_to_pages(
+            self.request, student_list, records, links)
         context['students'] = pages
         context['loop_times'] = ranges
         context['query_user'] = query_user
@@ -77,7 +81,10 @@ class AdvisorView(LoginRequiredMixin, generic.TemplateView):
         context['advisor'] = mentor
 
         # Pagination to break list into multiple pieces
-        pages, ranges = convert_to_pages(self.request, student_list, 5, 5)
+        records = getattr(settings, 'RECORDS_PER_PAGE', 5)
+        links = getattr(settings, 'NUM_PAGE_LINKS', 5)
+        pages, ranges = convert_to_pages(
+            self.request, student_list, records, links)
         context['students'] = pages
         context['loop_times'] = ranges
         return context

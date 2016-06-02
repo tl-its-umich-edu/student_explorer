@@ -257,3 +257,7 @@ LOGGING = {
         },
     },
 }
+
+RECORDS_PER_PAGE = 100
+
+NUM_PAGE_LINKS = 10
