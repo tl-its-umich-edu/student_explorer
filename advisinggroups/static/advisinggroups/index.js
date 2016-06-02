@@ -1,28 +1,15 @@
 $(function() {
 
-    $('#upload-file').on('click', function() {
-        event.preventDefault();
-        $('#open-dialog').click();
-    });
-
-    $('#open-dialog').change(function() {
-        $('#id_input_file').val($(this).val());
-    });
+    var reset = function() {
+        $('#processing-text, #importing-text, .alert, table, #confirm-button, #back-button, #undo-button').hide();
+    };
 
     $('form').submit(function(event) {
         event.preventDefault();
 
-        // Reset
-        $('#processing-text').show();
-        $('#importing-text').hide();
-        $('#alert-success').text('Import was successfully completed!');
-        $('#alert-danger').text('There was an error in import!');
-        $('.alert').hide();
-        $('table').hide();
-        $('#confirm-button').remove();
-        $('#back-button').remove();
-        $('#undo-button').remove();
+        reset();
         $('select[id^=options]').empty();
+        $('#processing-text').show();
 
         var formData = new FormData($(this)[0]);
         var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
@@ -71,8 +58,8 @@ $(function() {
                         });
                     });
 
-                    $('<button type="button" class="btn btn-warning pull-left" id="back-button">Back</button>').insertBefore('table');
-                    $('<button type="button" class="btn btn-info pull-right" id="confirm-button">Confirm</button>').insertBefore('table');
+                    $('#confirm-button, #back-button').show();
+
                     $('select[id^=options]').change(function() {
                         var myid = $(this).attr('id');
                         var selected = myid.split('options')[1];
@@ -85,17 +72,12 @@ $(function() {
                         dataTable[tab + col] = selectedCol;
                     });
                 } else if (data['completed'] === 'Fail') {
-                    $('#alert-danger').show();
+                    $('#alert-import-danger').show();
                 }
 
                 $('.container-fluid').off('click', 'button:contains("Confirm")').on('click', 'button:contains("Confirm")', function() {
-
-                    $('#processing-text').hide();
+                    $('#processing-text, .alert, #confirm-button, #undo-button, #back-button').hide();
                     $('#importing-text').show();
-                    $('.alert').hide();
-                    $('#confirm-button').remove();
-                    $('#undo-button').remove();
-                    $('#back-button').remove();
 
                     $.ajax({
                             method: 'POST',
@@ -110,21 +92,14 @@ $(function() {
                         .done(function(response) {
                             if (response['completed'] === 'Success') {
                                 $('#importing-text').hide();
-                                $('#alert-success').text('Import was successfully completed!');
-                                $('#alert-success').show();
-                                $('<button type="button" class="btn btn-warning pull-left" id="back-button">Back</button>').insertBefore('table');
-                                $('<button type="button" class="btn btn-danger pull-right" id="undo-button">Undo</button>').insertBefore('table');
+                                $('#alert-import-success, #back-button, #undo-button').show();
                             } else if (response['completed'] === 'Fail') {
                                 $('#importing-text').hide();
-                                $('#alert-danger').text('There was an error in import!');
-                                $('#alert-danger').show();
-                                $('<button type="button" class="btn btn-warning pull-left" id="back-button">Back</button>').insertBefore('table');
+                                $('#alert-import-danger, #back-button').show();
                             }
 
                             $('.container-fluid').off('click', 'button:contains("Undo")').on('click', 'button:contains("Undo")', function() {
-                                $('.alert').hide();
-                                $('#back-button').remove();
-                                $('#undo-button').remove();
+                                $('.alert, #confirm-button, #back-button, #undo-button').hide();
                                 $('#processing-text').show();
 
                                 $.ajax({
@@ -138,16 +113,11 @@ $(function() {
                                         },
                                     })
                                     .done(function(resp) {
+                                        reset();
                                         if (resp['completed'] === 'Success') {
-                                            $('#clear_text').click();
-                                            $('form').show();
-                                            $('#alert-success').text('Import was successfully undone!')
-                                            $('#alert-success').show();
+                                            $('form, #alert-undo-success').show();
                                         } else if (resp['completed'] === 'Fail') {
-                                            $('#clear_text').click();
-                                            $('form').show();
-                                            $('#alert-danger').text('Import could not be undone!');
-                                            $('#alert-danger').show();
+                                            $('form, #alert-undo-danger').show();
                                         }
                                     });
 
@@ -156,25 +126,10 @@ $(function() {
                 });
 
                 $('.container-fluid').off('click', 'button:contains("Back")').on('click', 'button:contains("Back")', function() {
+                    reset();
                     $('form').show();
-                    $('table').hide();
-                    $('#confirm-button').remove();
-                    $('#back-button').remove();
-                    $('#undo-button').remove();
                 });
             });
-    });
-
-    $('#clear_text').on('click', function() {
-        $('#processing-text').hide();
-        $('#importing-text').hide();
-        $('table').hide();
-        $('.alert').hide();
-        $('#id_input_file').val('');
-        $('#open-dialog').val('');
-        $('#confirm-button').remove();
-        $('#back-button').remove();
-        $('#undo-button').remove();
     });
 
 });
