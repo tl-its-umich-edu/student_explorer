@@ -8,3 +8,4 @@ django-extensions
 whitenoise
 djangosaml2
 pandas
+xlrd
