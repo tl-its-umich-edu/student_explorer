@@ -34,7 +34,7 @@ class ExcelFormView(generic.TemplateView):
             status['cols_order'] = cols_ind
         except Exception as e:
             status['completed'] = 'Fail'
-            logger.error(e.message)
+            logger.exception(e.message)
         return JsonResponse(status)
 
 
@@ -75,7 +75,7 @@ class ConfirmImport(generic.View):
                 status['current_id'] = imp.id
         except Exception as e:
             status['completed'] = 'Fail'
-            logger.error(e.message)
+            logger.exception(e.message)
         return JsonResponse(status)
 
 
@@ -91,5 +91,5 @@ class UndoImport(generic.View):
                 status['completed'] = 'Success'
         except Exception as e:
             status['completed'] = 'Fail'
-            logger.error(e.message)
+            logger.exception(e.message)
         return JsonResponse(status)
