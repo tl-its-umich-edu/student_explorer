@@ -1,6 +1,7 @@
 from django.core.cache import cache
 import pandas as pd
 import json
+import logging
 from django.http import JsonResponse
 from django.views import generic
 from advisinggroups.models import (Student,
@@ -9,6 +10,9 @@ from advisinggroups.models import (Student,
                                    Import,
                                    StudentGroupAdvisor
                                    )
+
+
+logger = logging.getLogger(__name__)
 
 
 class ExcelFormView(generic.TemplateView):
@@ -28,8 +32,9 @@ class ExcelFormView(generic.TemplateView):
             status['completed'] = 'Success'
             status['excel_data'] = excel_data[0]
             status['cols_order'] = cols_ind
-        except:
+        except Exception as e:
             status['completed'] = 'Fail'
+            logger.error(e.message)
         return JsonResponse(status)
 
 
@@ -68,8 +73,9 @@ class ConfirmImport(generic.View):
                                                               group=group)
                 status['completed'] = 'Success'
                 status['current_id'] = imp.id
-        except:
+        except Exception as e:
             status['completed'] = 'Fail'
+            logger.error(e.message)
         return JsonResponse(status)
 
 
@@ -83,6 +89,7 @@ class UndoImport(generic.View):
                 imp = Import.objects.get(id=current_id)
                 imp.delete()
                 status['completed'] = 'Success'
-        except:
+        except Exception as e:
             status['completed'] = 'Fail'
+            logger.error(e.message)
         return JsonResponse(status)
