@@ -146,9 +146,9 @@ DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
 # SAML Auth
 
 if getenv_bool('STUDENT_EXPLORER_SAML'):
-    SAML2_URL_PATH = getenv('STUDENT_EXPLORER_SAML_URL_PATH', '/saml2/')
+    SAML2_URL_PATH = getenv('STUDENT_EXPLORER_SAML_URL_PATH', '/accounts/')
     SAML2_URL_BASE = getenv('STUDENT_EXPLORER_SAML_URL_BASE',
-                            'http://localhost:2082/saml2/')
+                            'http://localhost:2082/accounts/')
 
     INSTALLED_APPS += ('djangosaml2',)
     AUTHENTICATION_BACKENDS = (
@@ -205,15 +205,15 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
 
       # where the remote metadata is stored
       'metadata': {
-          'local': [path.join(BASEDIR, '../saml/remote_metadata.xml')],
+          'local': [path.join(BASEDIR, '../extras/remote_metadata.xml')],
           },
 
       # set to 1 to output debugging information
       'debug': 1,
 
       # certificate
-      'key_file': path.join(BASEDIR, '../saml/key.pem'),  # private part
-      'cert_file': path.join(BASEDIR, '../saml/cert.pem'),  # public part
+      'key_file': path.join(BASEDIR, '../extras/student_explorer_saml.key'),  # private part
+      'cert_file': path.join(BASEDIR, '../extras/student_explorer_saml.pem'),  # public part
       }
 
 SAML_CREATE_UNKNOWN_USER = False

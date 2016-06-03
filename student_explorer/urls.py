@@ -25,7 +25,7 @@ urlpatterns = [
 
 if 'djangosaml2' in settings.INSTALLED_APPS:
     urlpatterns += (
-        url(r'^saml2/', include('djangosaml2.urls')),
+        url(r'^accounts/', include('djangosaml2.urls')),
     )
 
 if 'registration' in settings.INSTALLED_APPS:
