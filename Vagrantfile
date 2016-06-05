@@ -64,8 +64,30 @@ EOM
         pip install coverage
         pip install -r requirements.txt
 
-        if [ ! -e student_explorer/settings/local.py ]; then
-            cp student_explorer/settings/local_sample.py student_explorer/settings/local.py
+        if [ ! student_explorer/local/settings/development.py ]; then
+            cat <<EOM > student_explorer/local/settings/development.py
+from student_explorer.settings import *
+
+DEBUG = True
+
+SILENCED_SYSTEM_CHECKS += ['fields.W342']
+
+INSTALLED_APPS += ('django_extensions',)
+
+# DATABASES['seumich'] = {
+#     'ENGINE': 'django.db.backends.mysql',
+#     'NAME': 'student_explorer',
+#     'USER': 'student_explorer',
+#     'PASSWORD': 'student_explorer',
+#     'HOST': None,
+#     'PORT': None,
+# }
+#
+LOGGING['loggers'][''] = {
+    'handlers': ['console'],
+    'level': 'INFO',
+}
+EOM
         fi
 
         echo "Installing Bower..."
