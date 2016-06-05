@@ -19,9 +19,8 @@ def getenv_bool(var, default='0'):
     return getenv(var, default).lower() in ('yes', 'on', 'true', '1', )
 
 BASE_DIR = os.path.dirname(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    os.path.dirname(os.path.abspath(__file__))
 )
-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = getenv_bool('DJANGO_DEBUG')
@@ -158,15 +157,13 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
     LOGIN_URL = '%slogin/' % SAML2_URL_PATH
     SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-    from os import path
     import saml2
-    BASEDIR = path.dirname(path.abspath(__file__))
     SAML_CONFIG = {
       'xmlsec_binary': '/usr/bin/xmlsec1',
       'entityid': '%smetadata/' % SAML2_URL_BASE,
 
       # directory with attribute mapping
-      # 'attribute_map_dir': path.join(BASEDIR, 'attribute-maps'),
+      # 'attribute_map_dir': os.path.join(BASE_DIR, 'attribute-maps'),
       'name': getenv('STUDENT_EXPLORER_SAML_SERVICE_NAME', 'Student Explorer'),
       # this block states what services we provide
       'service': {
@@ -205,15 +202,18 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
 
       # where the remote metadata is stored
       'metadata': {
-          'local': [path.join(BASEDIR, '../extras/remote_metadata.xml')],
+          'local': [os.path.join(
+            BASE_DIR, 'student_explorer/local/saml/remote_metadata.xml')],
           },
 
       # set to 1 to output debugging information
       'debug': 1,
 
       # certificate
-      'key_file': path.join(BASEDIR, '../extras/student_explorer_saml.key'),
-      'cert_file': path.join(BASEDIR, '../extras/student_explorer_saml.pem'),
+      'key_file': os.path.join(
+        BASE_DIR, 'student_explorer/local/saml/student_explorer_saml.key'),
+      'cert_file': os.path.join(
+        BASE_DIR, 'student_explorer/local/saml/student_explorer_saml.pem'),
       }
 
 SAML_CREATE_UNKNOWN_USER = False
