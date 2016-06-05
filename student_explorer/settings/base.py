@@ -212,8 +212,8 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
       'debug': 1,
 
       # certificate
-      'key_file': path.join(BASEDIR, '../extras/student_explorer_saml.key'),  # private part
-      'cert_file': path.join(BASEDIR, '../extras/student_explorer_saml.pem'),  # public part
+      'key_file': path.join(BASEDIR, '../extras/student_explorer_saml.key'),
+      'cert_file': path.join(BASEDIR, '../extras/student_explorer_saml.pem'),
       }
 
 SAML_CREATE_UNKNOWN_USER = False
