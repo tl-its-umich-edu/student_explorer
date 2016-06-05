@@ -83,6 +83,8 @@ ROOT_URLCONF = 'student_explorer.urls'
 
 WSGI_APPLICATION = 'student_explorer.wsgi.application'
 
+FORCE_SCRIPT_NAME = getenv('DJANGO_FORCE_SCRIPT_NAME', None)
+
 WATCHMAN_TOKEN = getenv('DJANGO_WATCHMAN_TOKEN', None)
 WATCHMAN_TOKEN_NAME = getenv('DJANGO_WATCHMAN_TOKEN_NAME', 'token')
 

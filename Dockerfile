@@ -29,4 +29,4 @@ EXPOSE 8000
 CMD ./start.sh
 
 COPY . /usr/src/app
-RUN python manage.py collectstatic --settings=student_explorer.settings.base --noinput
+RUN python manage.py collectstatic --settings=student_explorer.settings --noinput
