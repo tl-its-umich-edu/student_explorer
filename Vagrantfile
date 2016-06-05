@@ -77,8 +77,8 @@ EOM
         npm install --global npm@latest
         npm install --global bower
 
-        if [ -d /vagrant/student_explorer/extras ]; then
-            cd /vagrant/student_explorer/extras
+        if [ -d /vagrant/student_explorer/dependencies ]; then
+            cd /vagrant/student_explorer/dependencies
             ls *.deb; if [ $? -eq 0 ]; then
                 apt-get --no-install-recommends install --yes libaio1 libaio-dev
                 dpkg -i *.deb
