@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-if [ -z "${DJANGO_SETTINGS_MODULE}" ]; then
-    export DJANGO_SETTINGS_MODULE=student_explorer.settings
-fi
-
 if [ -z "${GUNICORN_WORKERS}" ]; then
     GUNICORN_WORKERS=4
 fi
