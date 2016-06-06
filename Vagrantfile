@@ -64,41 +64,6 @@ EOM
         pip install coverage
         pip install -r requirements.txt
 
-        if [ ! student_explorer/local/settings/development.py ]; then
-            cat <<EOM > student_explorer/local/settings/development.py
-from student_explorer.settings import *
-
-DEBUG = True
-
-SILENCED_SYSTEM_CHECKS += ['fields.W342']
-
-INSTALLED_APPS += ('django_extensions',)
-
-# DATABASES['seumich'] = {
-#     'ENGINE': 'django.db.backends.mysql',
-#     'NAME': 'student_explorer',
-#     'USER': 'student_explorer',
-#     'PASSWORD': 'student_explorer',
-#     'HOST': None,
-#     'PORT': None,
-# }
-#
-LOGGING['loggers'][''] = {
-    'handlers': ['console'],
-    'level': 'INFO',
-}
-EOM
-        fi
-
-        echo "Installing Bower..."
-        cd /vagrant
-        apt-get update
-        apt-get install --yes git
-        curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
-        apt-get install --yes nodejs
-        npm install --global npm@latest
-        npm install --global bower
-
         if [ -d /vagrant/student_explorer/dependencies ]; then
             cd /vagrant/student_explorer/dependencies
             ls *.deb; if [ $? -eq 0 ]; then
