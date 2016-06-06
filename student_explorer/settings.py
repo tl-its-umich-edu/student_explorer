@@ -83,10 +83,9 @@ ROOT_URLCONF = 'student_explorer.urls'
 
 WSGI_APPLICATION = 'student_explorer.wsgi.application'
 
-USE_X_FORWARDED_HOST = getenv('DJANGO_USE_X_FORWARDED_HOST', 'no')
+USE_X_FORWARDED_HOST = getenv_bool('DJANGO_USE_X_FORWARDED_HOST', 'no')
 
 FORCE_SCRIPT_NAME = getenv('DJANGO_FORCE_SCRIPT_NAME', None)
-
 
 WATCHMAN_TOKEN = getenv('DJANGO_WATCHMAN_TOKEN', None)
 WATCHMAN_TOKEN_NAME = getenv('DJANGO_WATCHMAN_TOKEN_NAME', 'token')
