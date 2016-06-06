@@ -11,7 +11,7 @@
   - `cd /vagrant`
 3. Setup development environment
   - `touch student_explorer/local/__init__.py`
-  - `echo 'from student_explorer.settings import *' > student_explorer/local/development.py`
+  - `echo 'from student_explorer.settings import *' > student_explorer/local/settings.py`
 4. Setup database
   - `python manage.py migrate` (updates your repo if anything as changed)
   - `python manage.py loaddata student_explorer/fixtures/dev_users.json` (loads some test user data)

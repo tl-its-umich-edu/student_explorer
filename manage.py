@@ -4,7 +4,7 @@ import sys
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                          "student_explorer.local.development")
+                          "student_explorer.local.settings")
 
     from django.core.management import execute_from_command_line
 

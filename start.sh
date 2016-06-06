@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+if [ ! -e student_explorer/local/settings.py ] && [ -z "${DJANGO_SETTINGS_MODULE}" ]; then
+    # If the local settings module doesn't exists and the environment doesn't
+    # define a settings module, we will use the base settings.
+    export DJANGO_SETTINGS_MODULE=student_explorer.settings
+fi
+
+echo $DJANGO_SETTINGS_MODULE
+
 if [ -z "${GUNICORN_WORKERS}" ]; then
     GUNICORN_WORKERS=4
 fi
