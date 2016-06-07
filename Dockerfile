@@ -9,7 +9,7 @@ RUN apt-get --no-install-recommends install --yes \
 
 WORKDIR /tmp/
 
-COPY student_explorer/extras/oracle-instantclient12.1-*.deb /tmp/
+COPY student_explorer/dependencies/oracle-instantclient12.1-*.deb /tmp/
 RUN dpkg -i oracle-instantclient12.1-*.deb
 ENV ORACLE_HOME /usr/lib/oracle/12.1/client64
 ENV LD_LIBRARY_PATH /usr/lib/oracle/12.1/client64/lib
@@ -29,4 +29,4 @@ EXPOSE 8000
 CMD ./start.sh
 
 COPY . /usr/src/app
-RUN python manage.py collectstatic --settings=student_explorer.settings.base --noinput
+RUN python manage.py collectstatic --settings=student_explorer.settings --noinput

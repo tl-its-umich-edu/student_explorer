@@ -1,48 +1,24 @@
-# student explorer #
-
-## Set up submodules ##
-1. git submodule init
-2. git submodule update
+# Student Explorer #
 
 ## Development Environment ##
 
-### First Time Setup ###
-1. Install Vagrant (https://www.vagrantup.com/)
+### Setup ###
+1. Install [Vagrant](https://www.vagrantup.com/)
 2. Start Vagrant
-   - `cd student_explorer`
-   - `vagrant up`
-   - `vagrant ssh`
-3. Install bower
-   - `cd /vagrant/sespa`
-   - `bower install`
+  - `cd student_explorer`
+  - `vagrant up`
+  - `vagrant ssh`
+  - `cd /vagrant`
+3. Setup development environment
+  - `touch student_explorer/local/__init__.py`
+  - `echo 'from student_explorer.settings import *' > student_explorer/local/settings.py`
+4. Setup database
+  - `python manage.py migrate` (updates your repo if anything as changed)
+  - `python manage.py loaddata student_explorer/fixtures/dev_users.json` (loads some test user data)
+  - `mysql -h 127.0.0.1 -u student_explorer -pstudent_explorer student_explorer < seumich/fixtures/dev_data_drop_create_and_insert.sql` (loads some test advising data)
 
-### Regular Use ###
-1. Initialize and start app server
-    - `cd /vagrant`
-    - `python manage.py migrate` (updates your repo if anything as changed)
-    - `python manage.py loaddata student_explorer/fixtures/dev_users.json` (loads some test user data)
-    - `mysql -h 127.0.0.1 -u student_explorer -pstudent_explorer student_explorer < seumich/fixtures/dev_data_drop_create_and_insert.sql` (loads some test advising data)
-    - `python manage.py runserver`
-2. Browse to [http://localhost:2080/login/](http://localhost:2080/login/)
-    - Login as individual advisors using their lower-case first name as username/password (e.g.: burl/burl)
-    - Student with useful data: [http://localhost:2080/#/students/grace/](http://localhost:2080/#/students/grace/)
-
-## Configuring an external database ##
-- Add an database to the DATABASES setting ('lt_dataset' in this example).
-- Add any database routers to DATABASE_ROUTERS.
-- Use ADVISING_DATABASE to specify the database name.
-- If custom models are needed:
-    - Add the package to the INSTALLED_APPS
-    - Use ADVISING_PACKAGE to specify the package name.
-
-## Update Data Fixtures ##
-
-This is the procedure to add dummy data to the fixture files.
-
-- Connect to the database in the Vagrant VM. (This can be done from your host system via the port defined in the Vagrant file, 2033)
-- Delete all tables.
-- Run the migrations to recreate the tables: `python manage.py migrate`
-- Run the loaddata command to load existing fixtures: `python manage.py loaddata */fixtures/*.json`
-- Make changes to the database.
-- Save the changes to a fixture file: `python manage.py dumpdata --indent 4 advising > advising/fixtures/dev_data.json`
-- Commit the changes to the updated fixture file.
+### Run development server ###
+  - `python manage.py runserver`
+  - Browse to [http://localhost:2082/](http://localhost:2082/)
+  - Login as individual advisors using their lower-case first name as username/password (e.g.: burl/burl)
+  - Student with useful data: [http://localhost:2082/students/grace/](http://localhost:2082/students/grace/)
