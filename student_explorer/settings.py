@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'watchman',
     'student_explorer',
     'seumich',
+    'advisinggroups',
 )
 
 MIDDLEWARE_CLASSES = [
