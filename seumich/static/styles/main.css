@@ -84,6 +84,12 @@ a {
   margin-bottom: 10px;
 }
 
+img#student-explorer-logo{
+  float:left;
+  width:25px;
+  margin:13px 8px 0px 0px;
+}
+
 /* Heading Styles */
 h1.student-detail-student-name{
   margin-top:0px;
@@ -470,6 +476,12 @@ a.class-site-status-link span {
 
   .navbar-fixed-bottom {
     position: relative;
+  }
+
+  img#student-explorer-logo{
+    float:left;
+    width:30px;
+    margin:10px 0px 0px 10px;
   }
 }
 
