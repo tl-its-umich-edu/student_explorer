@@ -1,7 +1,7 @@
 *.pyc
 
-/student_explorer/settings/local.py
-/student_explorer/extras/
+/student_explorer/local/
+!/student_explorer/local/README.md
 
 /sespa/app/static
 

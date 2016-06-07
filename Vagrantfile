@@ -34,6 +34,7 @@ Vagrant.configure(2) do |config|
         apt-get --no-install-recommends install --yes apache2 apache2-utils
         apt-get --no-install-recommends install --yes libldap2-dev libsasl2-dev
         apt-get --no-install-recommends install --yes libfontconfig
+        apt-get --no-install-recommends install --yes xmlsec1
 
         echo -e "[mysqld]\nbind-address = 0.0.0.0" > /tmp/mysqld_bind_vagrant.cnf
         mv -f /tmp/mysqld_bind_vagrant.cnf /etc/mysql/conf.d/
@@ -63,21 +64,8 @@ EOM
         pip install coverage
         pip install -r requirements.txt
 
-        if [ ! -e student_explorer/settings/local.py ]; then
-            cp student_explorer/settings/local_sample.py student_explorer/settings/local.py
-        fi
-
-        echo "Installing Bower..."
-        cd /vagrant
-        apt-get update
-        apt-get install --yes git
-        curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
-        apt-get install --yes nodejs
-        npm install --global npm@latest
-        npm install --global bower
-
-        if [ -d /vagrant/student_explorer/extras ]; then
-            cd /vagrant/student_explorer/extras
+        if [ -d /vagrant/student_explorer/dependencies ]; then
+            cd /vagrant/student_explorer/dependencies
             ls *.deb; if [ $? -eq 0 ]; then
                 apt-get --no-install-recommends install --yes libaio1 libaio-dev
                 dpkg -i *.deb
