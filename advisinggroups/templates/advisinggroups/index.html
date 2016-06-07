@@ -1,0 +1,100 @@
+{% extends 'student_explorer/index.html' %}
+{% load static from staticfiles %}
+
+{% block head %}
+    {% load staticfiles %}
+    <script src='{% static "advisinggroups/index.js" %}'></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="page-header">
+                <h1 class="sub-header">Student Explorer Tool</h1>
+            </div>
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                <div class="well">
+                    <legend>Import Excel</legend>
+                    <div class="form-group">
+                        <input type="file" name="input-file"/>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-md">Import</button>
+                </div>
+            </form>
+            <div class="alert alert-success" id="alert-import-success">
+                Import was successfully completed!
+            </div>
+            <div class="alert alert-danger" id="alert-import-danger">
+                There was an error in import!
+            </div>
+            <p class="text-primary" id="processing-text">Processing...
+                <img src='{% static "advisinggroups/images/loading.gif" %}' alt='Searching'/>
+            </p>
+            <table class="table table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th>Excel Fields</th>
+                        <th>Example Data</th>
+                        <th>Table Name</th>
+                        <th>Column Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="col1row1">
+                            <div class="form-group">
+                                <select class="form-control" id="options1"></select>
+                            </div>
+                        </td>
+                        <td id="col2row1"></td>
+                        <td id="col3row1">advisinggroups_student</td>
+                        <td id="col4row1">univ_id</td>
+                    </tr>
+                    <tr>
+                        <td id="col1row2">
+                            <div class="form-group">
+                                <select class="form-control" id="options2"></select>
+                            </div>
+                        </td>
+                        <td id="col2row2"></td>
+                        <td id="col3row2">advisinggroups_student</td>
+                        <td id="col4row2">username</td>
+                    </tr>
+                    <tr>
+                        <td id="col1row3">
+                            <div class="form-group">
+                                <select class="form-control" id="options3"></select>
+                            </div>
+                        </td>
+                        <td id="col2row3"></td>
+                        <td id="col3row3">advisinggroups_advisor</td>
+                        <td id="col4row3">username</td>
+                    </tr>
+                    <tr>
+                        <td id="col1row4">
+                            <div class="form-group">
+                                <select class="form-control" id="options4"></select>
+                            </div>
+                        </td>
+                        <td id="col2row4"></td>
+                        <td id="col3row4">advisinggroups_group</td>
+                        <td id="col4row4">description</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-info pull-right" id="confirm-button">Confirm</button>
+            <button type="button" class="btn btn-warning pull-left" id="back-button">Back</button>
+            <button type="button" class="btn btn-danger pull-right" id="undo-button">Undo</button>
+            <div class="alert alert-success" id="alert-undo-success">
+                Import was successfully undone!
+            </div>
+            <div class="alert alert-danger" id="alert-undo-danger">
+                Import could not be undone!
+            </div>
+            <p class="text-primary" id="importing-text">Importing...
+                <img src='{% static "advisinggroups/images/loading.gif" %}' alt='Searching'/>
+            </p>
+        </div>
+    </div>
+{% endblock %}
