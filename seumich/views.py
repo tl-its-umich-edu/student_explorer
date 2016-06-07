@@ -63,7 +63,7 @@ class StudentsListView(LoginRequiredMixin, generic.TemplateView):
             ).order_by('last_name')
 
         # Pagination to break list into multiple pieces
-        records = settings.PAGINAITON_RECORDS_PER_PAGE
+        records = settings.PAGINATION_RECORDS_PER_PAGE
         links = settings.PAGINATION_NUM_PAGE_LINKS
         pages, ranges = convert_to_pages(
             self.request, student_list, records, links)
@@ -86,7 +86,7 @@ class AdvisorView(LoginRequiredMixin, generic.TemplateView):
         context['advisor'] = mentor
 
         # Pagination to break list into multiple pieces
-        records = settings.PAGINAITON_RECORDS_PER_PAGE
+        records = settings.PAGINATION_RECORDS_PER_PAGE
         links = settings.PAGINATION_NUM_PAGE_LINKS
         pages, ranges = convert_to_pages(
             self.request, student_list, records, links)
