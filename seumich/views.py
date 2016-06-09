@@ -5,11 +5,17 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
 
 
-def convert_to_pages(request, student_list, num_records, num_page_links):
+def convert_to_pages(student_list, page, num_records=None,
+                     num_page_links=None):
+    if not num_records:
+        num_records = settings.PAGINATION_RECORDS_PER_PAGE
+    if not num_page_links:
+        num_page_links = settings.PAGINATION_NUM_PAGE_LINKS
+
     paginator = Paginator(student_list, num_records)
-    page = request.GET.get('page')
 
     try:
         students = paginator.page(page)
@@ -18,15 +24,20 @@ def convert_to_pages(request, student_list, num_records, num_page_links):
     except EmptyPage:
         students = paginator.page(paginator.num_pages)
 
-    if paginator.num_pages <= num_page_links or not page:
+    if not page:
         initial = 1
         final = 1 + num_page_links
+    elif paginator.num_pages <= num_page_links:
+        initial = 1
+        final = 1 + paginator.num_pages
     else:
-        initial = int(page)
-        if paginator.num_pages - initial >= num_page_links:
-            initial = int(page)
+        current = int(page)
+        initial = current - 2
+        final = 1 + (current + 2)
+        if current <= 2:
+            initial = 1
             final = initial + num_page_links
-        else:
+        elif current + 2 >= paginator.num_pages:
             initial = paginator.num_pages - (num_page_links - 1)
             final = 1 + paginator.num_pages
 
@@ -57,7 +68,8 @@ class StudentsListView(LoginRequiredMixin, generic.TemplateView):
             ).order_by('last_name')
 
         # Pagination to break list into multiple pieces
-        pages, ranges = convert_to_pages(self.request, student_list, 5, 5)
+        pages, ranges = convert_to_pages(
+            student_list, self.request.GET.get('page'))
         context['students'] = pages
         context['loop_times'] = ranges
         context['query_user'] = query_user
@@ -77,7 +89,8 @@ class AdvisorView(LoginRequiredMixin, generic.TemplateView):
         context['advisor'] = mentor
 
         # Pagination to break list into multiple pieces
-        pages, ranges = convert_to_pages(self.request, student_list, 5, 5)
+        pages, ranges = convert_to_pages(
+            student_list, self.request.GET.get('page'))
         context['students'] = pages
         context['loop_times'] = ranges
         return context
