@@ -8,9 +8,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 
 
-def convert_to_pages(request, student_list, num_records, num_page_links):
+def convert_to_pages(student_list, page, num_records=None,
+                     num_page_links=None):
+    if not num_records:
+        num_records = settings.PAGINATION_RECORDS_PER_PAGE
+    if not num_page_links:
+        num_page_links = settings.PAGINATION_NUM_PAGE_LINKS
+
     paginator = Paginator(student_list, num_records)
-    page = request.GET.get('page')
 
     try:
         students = paginator.page(page)
@@ -64,10 +69,7 @@ class StudentsListView(LoginRequiredMixin, generic.TemplateView):
 
         # Pagination to break list into multiple pieces
         pages, ranges = convert_to_pages(
-            self.request,
-            student_list,
-            settings.PAGINATION_RECORDS_PER_PAGE,
-            settings.PAGINATION_NUM_PAGE_LINKS)
+            student_list, self.request.GET.get('page'))
         context['students'] = pages
         context['loop_times'] = ranges
         context['query_user'] = query_user
@@ -88,10 +90,7 @@ class AdvisorView(LoginRequiredMixin, generic.TemplateView):
 
         # Pagination to break list into multiple pieces
         pages, ranges = convert_to_pages(
-            self.request,
-            student_list,
-            settings.PAGINATION_RECORDS_PER_PAGE,
-            settings.PAGINATION_NUM_PAGE_LINKS)
+            student_list, self.request.GET.get('page'))
         context['students'] = pages
         context['loop_times'] = ranges
         return context
