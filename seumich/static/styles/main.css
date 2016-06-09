@@ -136,6 +136,11 @@ h4{
     margin-left:10px;
 }
 
+.note {
+    display: inline-block;
+    margin-left: 10px;
+}
+
 th[scope="row"] {
   font-weight:normal;
 }

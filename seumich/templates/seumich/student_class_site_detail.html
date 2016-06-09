@@ -78,6 +78,7 @@
 
                 <div class="row charts no-margin">
                     <h4>Cumulative Score</h4>
+                    <small class="note">This graph compares the student's cumulative score to the class' average cumulative score during each week of the semester.</small>
                     <div id="chart1" style="height: 100%;">
                         <svg></svg>
                     </div>
@@ -109,6 +110,7 @@
                     </script>
 
                     <h4>Weekly Activity</h4>
+                    <small class="note">This graph shows the percentile ranking of the student's page views (Canvas) or log-ins (CTools).</small>
                     <div id="chart2" style="height: 100%;">
                         <svg></svg>
                     </div>
@@ -142,9 +144,7 @@
 
                 <div class="row assignments no-margin">
                     <h4>Assignments</h4>
-                    <p>
-                        <small class="note">Note that this list may not reflect all assignments included in current score calculation. For a complete list, please refer to the source system.</small>
-                    </p>
+                    <small class="note">This list may not reflect all assignments included in current score calculation. For a complete list, please refer to the source system.</small>
                     <!-- <a href="api/class_sites/{{classSite.class_site.code}}/student/{{student.username}}/assignments/download/"><button>Download Assignment</button></a> -->
                     <hr class="main-no-margin-top">
                     {% if not assignments %}
