@@ -1,4 +1,4 @@
-from django.views import generic
+from django.views.generic import ListView, TemplateView
 from seumich.models import Student, Mentor, ClassSite, ClassSiteScore
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
+from tracking.utils import UserLogPageViewMixin
 
 
 def convert_to_pages(student_list, page, num_records=None,
@@ -44,13 +45,13 @@ def convert_to_pages(student_list, page, num_records=None,
     return students, range(initial, final)
 
 
-class AdvisorsListView(LoginRequiredMixin, generic.ListView):
+class AdvisorsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     template_name = 'seumich/advisor_list.html'
     queryset = Mentor.objects.order_by('last_name')
     context_object_name = 'advisors'
 
 
-class StudentsListView(LoginRequiredMixin, generic.TemplateView):
+class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
     template_name = 'seumich/student_list.html'
 
     def get_context_data(self, **kwargs):
@@ -76,7 +77,7 @@ class StudentsListView(LoginRequiredMixin, generic.TemplateView):
         return context
 
 
-class AdvisorView(LoginRequiredMixin, generic.TemplateView):
+class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
     template_name = 'seumich/advisor_detail.html'
 
     def get_context_data(self, advisor, **kwargs):
@@ -96,7 +97,7 @@ class AdvisorView(LoginRequiredMixin, generic.TemplateView):
         return context
 
 
-class StudentView(LoginRequiredMixin, generic.TemplateView):
+class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
     template_name = 'seumich/student_detail.html'
 
     def get_context_data(self, student, **kwargs):

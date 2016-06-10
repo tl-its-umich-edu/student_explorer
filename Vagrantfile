@@ -14,6 +14,10 @@ Vagrant.configure(2) do |config|
         config.vm.synced_folder "../django-unizindata/unizindata/", "/usr/local/lib/python2.7/dist-packages/unizindata"
     end
 
+    if File.directory?("../django-tracking/tracking/")
+        config.vm.synced_folder "../django-tracking/tracking/", "/usr/local/lib/python2.7/dist-packages/tracking"
+    end
+
     config.vm.provision "shell", inline: <<-SHELL
         set -xe
 
