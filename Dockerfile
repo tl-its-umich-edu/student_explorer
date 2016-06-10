@@ -15,7 +15,7 @@ ENV ORACLE_HOME /usr/lib/oracle/12.1/client64
 ENV LD_LIBRARY_PATH /usr/lib/oracle/12.1/client64/lib
 RUN rm oracle-instantclient12.1-*.deb
 
-RUN echo ~
+RUN ls /root/.ssh
 RUN mkdir ~/.ssh
 RUN echo 'bitbucket.org,104.192.143.1,104.192.143.2,104.192.143.3,104.192.143.6\
 5.104.192.143.66,104.192.143.67 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAubiN81eDcaf\
