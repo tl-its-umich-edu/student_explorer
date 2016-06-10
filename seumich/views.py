@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
 from tracking.utils import UserLogPageViewMixin
 
 
