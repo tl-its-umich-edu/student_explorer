@@ -1,6 +1,6 @@
-from django.views.generic import ListView, TemplateView
+from django.views.generic import View, ListView, TemplateView
 from seumich.models import Student, Mentor, ClassSite, ClassSiteScore
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -101,11 +101,9 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
         return context
 
 
-class MyStudentsView(AdvisorView):
-    def get_context_data(self, **kwargs):
-        context = super(MyStudentsView, self).get_context_data(
-            self.request.user.username, **kwargs)
-        return context
+class IndexView(LoginRequiredMixin, UserLogPageViewMixin, View):
+    def get(self, request):
+        return redirect('advisor', advisor=request.user.username)
 
 
 class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
