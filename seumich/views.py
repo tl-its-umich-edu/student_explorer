@@ -8,6 +8,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from tracking.utils import UserLogPageViewMixin
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def convert_to_pages(student_list, page, num_records=None,
                      num_page_links=None):
@@ -94,6 +98,13 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
             student_list, self.request.GET.get('page'))
         context['students'] = pages
         context['loop_times'] = ranges
+        return context
+
+
+class MyStudentsView(AdvisorView):
+    def get_context_data(self, **kwargs):
+        context = super(MyStudentsView, self).get_context_data(
+            self.request.user.username, **kwargs)
         return context
 
 
