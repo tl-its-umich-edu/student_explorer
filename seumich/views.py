@@ -1,12 +1,16 @@
-from django.views.generic import ListView, TemplateView
+from django.views.generic import View, ListView, TemplateView
 from seumich.models import Student, Mentor, ClassSite, ClassSiteScore
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from tracking.utils import UserLogPageViewMixin
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def convert_to_pages(student_list, page, num_records=None,
@@ -95,6 +99,11 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
         context['students'] = pages
         context['loop_times'] = ranges
         return context
+
+
+class IndexView(LoginRequiredMixin, UserLogPageViewMixin, View):
+    def get(self, request):
+        return redirect('advisor', advisor=request.user.username)
 
 
 class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
