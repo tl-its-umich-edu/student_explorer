@@ -57,7 +57,7 @@
                         </li>
                         {% if user.is_authenticated %}
                             <li class="dropdown">
-                                <a class="dropdown-toggle" aria-label="expand for links to compliance policy and logout" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{userInfo.username}}
+                                <a class="dropdown-toggle" aria-label="expand for logout" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{userInfo.username}}
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -65,23 +65,6 @@
                                         <p>
                                             <strong>{{user.first_name}}
                                                 {{user.last_name}}</strong>
-                                        </p>
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <!-- <li class="dropdown-header">Nav header</li> -->
-                                    <li>
-                                        <p>
-                                            You accepted the
-                                            <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
-                                            on
-                                            {{userInfo.profile.policy_accepted_date | date}}
-                                        </p>
-                                    </li>
-                                    <li class="policy-warning">
-                                        <p>
-                                            You haven't accepted the
-                                            <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
-                                            yet.
                                         </p>
                                     </li>
                                     <li role="separator" class="divider"></li>
