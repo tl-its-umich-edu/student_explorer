@@ -119,6 +119,8 @@ STATICFILES_FINDERS = (
 LOGIN_URL = getenv('DJANGO_LOGIN_URL', '/accounts/login/')
 LOGIN_REDIRECT_URL = '/'
 
+LOGOUT_REDIRECT_URL = getenv('DJANGO_LOGOUT_REDIRECT_URL', '/')
+
 
 # Databases
 

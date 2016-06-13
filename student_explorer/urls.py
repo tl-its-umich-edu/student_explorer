@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
+import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -33,3 +34,7 @@ if 'registration' in settings.INSTALLED_APPS:
     urlpatterns += (
         url(r'^accounts/', include('registration.backends.default.urls')),
     )
+
+# Override auth_logout from djangosaml2 and registration for consistant
+# behavior
+urlpatterns.append(url(r'^accounts/logout', views.logout, name='auth_logout'))

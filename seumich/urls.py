@@ -19,7 +19,7 @@ from seumich import views
 urlpatterns = [
     url(
         r'^$',
-        views.StudentsListView.as_view(),
+        views.IndexView.as_view(),
         name='index'),
 
     url(
