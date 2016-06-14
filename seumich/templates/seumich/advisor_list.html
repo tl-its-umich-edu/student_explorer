@@ -6,30 +6,33 @@
 {% endblock %}
 
 {% block content %}
+    <div class="container content">
 
-    <h2 class="sub-header">All Advisors</h2>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col" class="hide-small">
-                        <a href="#" onClick="return false;">Name</a>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for advisor in advisors %}
+        <h2 class="sub-header">All Advisors</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <th scope="row" class="bold">
-                            <a href="/advisors/{{ advisor.username }}/">{{ advisor.first_name }}
-                                {{ advisor.last_name }}</a>
+                        <th scope="col" class="hide-small">
+                            <a href="#" onClick="return false;">Name</a>
                         </th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    {% for advisor in advisors %}
+                        <tr>
+                            <th scope="row" class="bold">
+                                <a href="/advisors/{{ advisor.username }}/">{{ advisor.first_name }}
+                                    {{ advisor.last_name }}</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <dig-data-fetch-progress progress="{{progress}}"/>
+        <dig-data-fetch-progress progress="{{progress}}"/>
+
+    </div>
 
 {% endblock %}
