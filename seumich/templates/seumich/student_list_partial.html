@@ -63,7 +63,7 @@
     </table>
 
     {% if students.paginator.num_pages > 1 %}
-    <div class="text-center">
+    <div class="text-center end-padding">
         <ul class="pagination">
             <li class="page-item {% if not students.has_previous %} disabled {% endif %}">
                 {% if query_user %}
