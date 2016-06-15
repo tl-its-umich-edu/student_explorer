@@ -1,5 +1,7 @@
 import os
 from django.test import TestCase
+from django.conf import settings
+from django.test.client import Client
 from seumich.models import (UsernameField,
                             Advisor,
                             Date,
@@ -28,6 +30,7 @@ from seumich.models import (UsernameField,
 
 class SeumichTest(TestCase):
 
+    settings.DEBUG = True
     student = Student.objects.get(id=1)
     mentor = Mentor.objects.get(id=2)
     class_site = ClassSite.objects.get(id=2)
@@ -37,8 +40,10 @@ class SeumichTest(TestCase):
     _due_date = Date.objects.get(id=2098)
     status = Status.objects.get(id=1)
     term = Term.objects.get(id=1)
+    fixtures = ['dev_users.json']
 
     def setUp(self):
+        self.client = Client()
         os.system((
             'mysql -h 127.0.0.1 -u student_explorer -pstudent_explorer '
             'test_student_explorer < '
@@ -459,3 +464,94 @@ class SeumichTest(TestCase):
         self.assertEqual('grace', str(w[0].student))
         self.assertEqual('Not Applicable', str(w[0].status))
         self.assertEqual('2015-09-12', str(w[0].week_end_date))
+
+    def test_index_view(self):
+        self.client.login(username='zander', password='zander')
+        response = self.client.get('/')
+        self.assertRedirects(response, '/advisors/zander/')
+
+    def test_advisor_list_view_redirect(self):
+        response = self.client.get('/advisors/')
+        self.assertRedirects(response, '/accounts/login/?next=/advisors/')
+
+    def test_advisor_list_view(self):
+        self.client.login(username='burl', password='burl')
+        response = self.client.get('/advisors/')
+        self.assertQuerysetEqual(response.context['advisors'],
+                                 [
+                                 '<Mentor: zander>',
+                                 '<Mentor: burl>',
+                                 '<Mentor: lavera>'])
+
+    def test_student_list_view_redirect(self):
+        response = self.client.get('/students/')
+        self.assertRedirects(response, '/accounts/login/?next=/students/')
+
+    def test_student_list_view(self):
+        self.client.login(username='burl', password='burl')
+        response = self.client.get('/students/?search=grace')
+        self.assertContains(response, 'grace')
+        response = self.client.get('/students/?search=foxx')
+        self.assertContains(response, 'desmond')
+        response = self.client.get('/students/?search=10000023')
+        self.assertContains(response, 'nocourses')
+
+    def test_advisor_view_redirect(self):
+        response = self.client.get('/advisors/burl/')
+        self.assertRedirects(response, '/accounts/login/?next=/advisors/burl/')
+
+    def test_advisor_view(self):
+        self.client.login(username='burl', password='burl')
+        response = self.client.get('/advisors/lavera/')
+        self.assertContains(response, 'gianna')
+        self.assertContains(response, 'deirdre')
+        self.assertContains(response, 'gabriela')
+        self.assertContains(response, 'james')
+        self.assertNotContains(response, 'grace')
+
+    def test_student_view_redirect(self):
+        response = self.client.get('/students/james/')
+        self.assertRedirects(response,
+                             '/accounts/login/?next=/students/james/')
+
+    def test_student_view(self):
+        self.client.login(username='burl', password='burl')
+        response = self.client.get('/students/grace/')
+        self.assertQuerysetEqual(
+            response.context['advisors'], ['<Mentor: burl>'])
+        self.assertQuerysetEqual(
+            list(response.context['classSites']), [
+                '<ClassSite: Math 101>', '<ClassSite: Math 101 Lab>'])
+        self.assertContains(response, '83.8')
+        self.assertContains(response, '86.3')
+        self.assertContains(response, '88.1')
+        self.assertContains(response, '81.9')
+        self.assertNotContains(response, '87.1')
+
+    def test_student_class_site_view_redirect(self):
+        response = self.client.get('/students/grace/class_sites/1/')
+        self.assertRedirects(response,
+                             ('/accounts/login/'
+                              '?next=/students/grace/class_sites/1/'))
+
+    def test_student_class_site_view(self):
+        self.client.login(username='burl', password='burl')
+        response = self.client.get('/students/grace/class_sites/1/')
+        self.assertQuerysetEqual(response.context['advisors'],
+                                 ['<Mentor: burl>'])
+        self.assertQuerysetEqual(response.context['scoreData'],
+                                 [("{'color': '#255c91', 'values': [[1, 0L], "
+                                   "[2, 0L], [3, 0L], [4, 0L], [5, 65L], "
+                                   "[6, 68L], [7, 68L], [8, 68L], [9], [10], "
+                                   "[11], [12], [13], [14]], "
+                                   "'key': 'Student'}"),
+                                  ("{'color': '#F0D654', 'values': [[1, 0L], "
+                                   "[2, 0L], [3, 0L], [4, 0L], [5, 58L], "
+                                   "[6, 58L], [7, 58L], [8, 57L], [9], [10], "
+                                   "[11], [12], [13], [14]], 'key': 'Class'}")
+                                  ])
+        self.assertQuerysetEqual(response.context['assignments'],
+                                 [('<StudentClassSiteAssignment: grace has '
+                                   'assignment Assessment in Math 101>'),
+                                  ('<StudentClassSiteAssignment: grace has '
+                                   'assignment Exam 1 in Math 101>')])
