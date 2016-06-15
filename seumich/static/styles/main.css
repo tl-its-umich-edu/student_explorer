@@ -454,7 +454,8 @@ a.class-site-status-link span {
 /* For student detail page (max-width corresponds to col-md-*) */
 @media screen and (max-width: 992px) {
   .student-desc {
-    box-shadow: 0 0 5px gray;
+    /*box-shadow: 0 0 5px gray;*/
+    border: 1px solid #c8c8c8;
     padding-top: 20px;
     padding-bottom: 20px;
     margin-bottom: 20px;
