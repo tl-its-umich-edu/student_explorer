@@ -192,7 +192,7 @@ th[scope="row"] {
 .student-detail-main-menu-top {
     width: 100%;
     background-color: #3E6C9C;
-    padding-left: 20px;
+    padding-left: 35px;
 }
 
 .student-detail-student-id, .student-detail-student-email{
@@ -265,10 +265,6 @@ th[scope="row"] {
   margin-right: .4em;
 }
 
-.assignment-table {
-    margin-left: 10px;
-}
-
 .panel-default {
     display: none;
 }
@@ -297,9 +293,6 @@ th[scope="row"] {
   margin: 0 auto;
 }
 
-body {
-  position: relative;
-}
 /* Custom page footer */
 .footer {
   padding-top: 19px;
@@ -496,6 +489,12 @@ a.class-site-status-link span {
 
   .navbar-fixed-bottom {
     position: relative;
+  }
+
+  .feedback {
+    bottom: 95px;
+    margin-bottom: -19px;
+    margin-top: 19px;
   }
 
   img#student-explorer-logo{
