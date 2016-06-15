@@ -192,7 +192,7 @@ th[scope="row"] {
 .student-detail-main-menu-top {
     width: 100%;
     background-color: #3E6C9C;
-    padding-left: 35px;
+    padding-left: 20px;
 }
 
 .student-detail-student-id, .student-detail-student-email{
@@ -243,7 +243,6 @@ th[scope="row"] {
 
 .student-detail-main {
     width: 75%;
-    padding-left: 20px;
 }
 
 .student-detail-summary-content {
@@ -493,8 +492,8 @@ a.class-site-status-link span {
 
   .feedback {
     bottom: 95px;
-    margin-bottom: -19px;
-    margin-top: 19px;
+    margin-bottom: -25px;
+    margin-top: 20px;
   }
 
   img#student-explorer-logo{
