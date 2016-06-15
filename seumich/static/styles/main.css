@@ -149,6 +149,10 @@ h4{
     text-align: center;
 }
 
+.end-padding {
+    padding-bottom: 50px;
+}
+
 th[scope="row"] {
   font-weight:normal;
 }
@@ -482,7 +486,7 @@ a.class-site-status-link span {
 }
 
 @media screen and (max-width: 736px) {
-  body {
+  body, .end-padding {
     padding-bottom: 0;
   }
 
