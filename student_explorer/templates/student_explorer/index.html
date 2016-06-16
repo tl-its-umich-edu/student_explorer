@@ -48,16 +48,9 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            {% if user.is_authenticated %}
-                                <a href="{{ settings.LOGIN_URL }}" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
-                            {% else %}
-                                <a href="{{ settings.LOGIN_URL }}" aria-haspopup="true" aria-expanded="false">Login</a>
-                            {% endif %}
-                        </li>
                         {% if user.is_authenticated %}
                             <li class="dropdown">
-                                <a class="dropdown-toggle" aria-label="expand for logout" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{userInfo.username}}
+                                <a class="dropdown-toggle" aria-label="expand for logout" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{user.username}}
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -72,6 +65,10 @@
                                         <a href="{% url 'auth_logout' %}">Logout</a>
                                     </li>
                                 </ul>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{{ settings.LOGIN_URL }}" aria-haspopup="true" aria-expanded="false">Login</a>
                             </li>
                         {% endif %}
                     </ul>
