@@ -51,7 +51,8 @@ def convert_to_pages(student_list, page, num_records=None,
 
 class AdvisorsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     template_name = 'seumich/advisor_list.html'
-    queryset = Mentor.objects.order_by('last_name')
+    # Filtering for id >= 0 eliminates "Bad Value"-type results.
+    queryset = Mentor.objects.filter(id__gte=0).order_by('last_name')
     context_object_name = 'advisors'
 
 
@@ -65,7 +66,8 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
         context['studentListHeader'] = 'Search Students'
 
         if query_user:
-            student_list = Student.objects.filter(
+            # Filtering for id >= 0 eliminates "Bad Value"-type results.
+            student_list = Student.objects.filter(id__gte=0).filter(
                 Q(username__icontains=query_user) |
                 Q(univ_id__icontains=query_user) |
                 Q(first_name__icontains=query_user) |
