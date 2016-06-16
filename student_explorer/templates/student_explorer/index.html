@@ -77,7 +77,7 @@
                     </ul>
                     <form action="/students/" method="get" class="navbar-form navbar-right">
                         <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label>
-                        <input id="student-search" name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+                        <input id="student-search" value="{{ query_user | default_if_none:'' }}" name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
                     </form>
                 </div>
             </div>
