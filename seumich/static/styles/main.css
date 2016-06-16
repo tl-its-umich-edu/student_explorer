@@ -8,10 +8,13 @@
   padding: 0.2em 0;
 }
 
+html {height: 100%;}
+.container-index {min-height: 100%; position: relative; padding-bottom: 100px;}
+
 body {
   font-family: Lato, Helvetica;
   padding-top: 50px;
-  padding-bottom: 50px;
+  height: 100%;
 }
 
 a {
@@ -48,18 +51,6 @@ a {
   padding: 3px 20px;
 }
 
-.alert-container {
-  position: absolute;
-  width: 100%;
-  top: 55px;
-  z-index: 1000;
-}
-
-.alert-container div {
-  margin: auto;
-  margin-bottom: 2px;
-  width: 600px;
-}
 
 /* Highlight background if the user hasn't accepted the policy */
 .policy-warning {
@@ -68,8 +59,7 @@ a {
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
-.marketing,
-.footer {
+.marketing {
   background-color: #1c3144;
   font-weight: 300;
   color: white;
@@ -149,8 +139,8 @@ h4{
     text-align: center;
 }
 
-.end-padding {
-    padding-bottom: 50px;
+.pagination {
+  padding-bottom: 40px;
 }
 
 th[scope="row"] {
@@ -297,14 +287,19 @@ th[scope="row"] {
   bottom: 55px;
   left: 0;
   right: 0;
-  margin: 0 auto;
 }
 
-/* Custom page footer */
 .footer {
-  padding-top: 19px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   color: #777;
   border-top: 1px solid #e5e5e5;
+  background-color: #1c3144;
+  font-weight: 300;
+  color: white;
+  padding-top: 19px;
 }
 
 .container-narrow > hr {
@@ -399,17 +394,6 @@ a.class-site-status-link span {
   .sub-header {
     margin-top: 0;
   }
-  .alert-container {
-    position: inherit;
-    width: 100%;
-    top: 70px;
-    z-index: 1000;
-    padding: 10px
-  }
-  .alert-container div {
-    margin-bottom: 10px;
-    width: 100%
-  }
   .student-class-site-table {
       display: none;
   }
@@ -486,7 +470,7 @@ a.class-site-status-link span {
 }
 
 @media screen and (max-width: 736px) {
-  body, .end-padding {
+  body {
     padding-bottom: 0;
   }
 
@@ -501,8 +485,6 @@ a.class-site-status-link span {
 
   .feedback {
     bottom: 95px;
-    margin-bottom: -25px;
-    margin-top: 20px;
   }
 
   img#student-explorer-logo{
