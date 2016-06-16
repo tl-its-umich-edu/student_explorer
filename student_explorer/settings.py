@@ -90,6 +90,11 @@ FORCE_SCRIPT_NAME = getenv('DJANGO_FORCE_SCRIPT_NAME', None)
 WATCHMAN_TOKEN = getenv('DJANGO_WATCHMAN_TOKEN', None)
 WATCHMAN_TOKEN_NAME = getenv('DJANGO_WATCHMAN_TOKEN_NAME', 'token')
 
+PAGINATION_RECORDS_PER_PAGE = int(getenv(
+    'DJANGO_PAGINATION_RECORDS_PER_PAGE', '10'))
+PAGINATION_NUM_PAGE_LINKS = int(getenv(
+    'DJANGO_PAGINATION_NUM_PAGE_LINKS', '5'))
+
 
 # Internationalization
 
@@ -144,6 +149,8 @@ DATABASES['seumich'] = {
     'PASSWORD': getenv('DJANGO_SEUMICH_DB_PASSWORD', 'student_explorer'),
     'HOST': getenv('DJANGO_SEUMICH_DB_HOST', ''),
     'PORT': getenv('DJANGO_SEUMICH_DB_PORT', ''),
+    'MIGRATE': getenv_bool('DJANGO_SEUMICH_DB_MIGRATE', 'no'),
+
 }
 DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
 
@@ -264,8 +271,5 @@ LOGGING = {
     },
 }
 
-PAGINATION_RECORDS_PER_PAGE = 100
-
-PAGINATION_NUM_PAGE_LINKS = 5
 
 FEEDBACK_EMAIL = 'student-explorer-help@umich.edu'
