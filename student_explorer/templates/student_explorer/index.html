@@ -50,9 +50,9 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             {% if user.is_authenticated %}
-                                <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
+                                <a href="{{ settings.LOGIN_URL }}" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
                             {% else %}
-                                <a href="{% url 'auth_login' %}" aria-haspopup="true" aria-expanded="false">Login</a>
+                                <a href="{{ settings.LOGIN_URL }}" aria-haspopup="true" aria-expanded="false">Login</a>
                             {% endif %}
                         </li>
                         {% if user.is_authenticated %}
