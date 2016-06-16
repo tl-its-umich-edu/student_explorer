@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^', include('seumich.urls')),
     url(r'^status/', include('watchman.urls')),
     url(r'^advising_groups/', include('advisinggroups.urls')),
+    url(r'^feedback/', include('feedback.urls')),
 ]
 
 if 'djangosaml2' in settings.INSTALLED_APPS:

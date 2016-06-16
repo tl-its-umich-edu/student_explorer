@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'seumich',
     'advisinggroups',
     'tracking',
+    'feedback',
 )
 
 MIDDLEWARE_CLASSES = [
@@ -266,3 +267,5 @@ LOGGING = {
 PAGINATION_RECORDS_PER_PAGE = 100
 
 PAGINATION_NUM_PAGE_LINKS = 5
+
+FEEDBACK_EMAIL = 'student-explorer-help@umich.edu'
