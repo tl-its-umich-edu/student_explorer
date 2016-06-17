@@ -12,16 +12,18 @@ def submitFeedback(request):
     if request.method == 'POST':
         form = FeedbackForm(request.POST)
         if form.is_valid():
-            user_name = form.cleaned_data['user_name']
+            user = request.user
             feedback_message = form.cleaned_data['feedback_message']
-            from_address = form.cleaned_data['user_email']
-            to_address = settings.FEEDBACK_EMAIL
-            Feedback.objects.get_or_create(
-                user_name=user_name, user_email=from_address,
+
+            Feedback.objects.create(
+                user=user,
                 feedback_message=feedback_message)
-            send_mail('Feedback From: ' + from_address,
-                      feedback_message, from_address,
-                      [to_address],
+
+            feedback_message_email = "From: %s <%s>\nFeedback:\n\n%s" % (
+                user.get_full_name(), user.email, feedback_message)
+            send_mail('Feedback From: ' + user.email,
+                      feedback_message_email, settings.FEEDBACK_EMAIL,
+                      (settings.FEEDBACK_EMAIL,),
                       fail_silently=True,
                       )
             return HttpResponseRedirect('/')
