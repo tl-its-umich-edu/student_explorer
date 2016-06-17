@@ -80,27 +80,26 @@
             </div>
         </nav>
 
-        {% block content %}{% endblock %}
-
-        <div class='feedback center-align visible-md visible-lg'>
-            <img src="{% static 'images/feedback.svg' %}" alt="Feedback icon"></img>Help us improve Student Explorer by
-            <a href="/feedback/">submitting your feedback</a>
-        </div>
-
-        <div class='feedback center-align visible-sm visible-xs'>
-            <button type="button" class="btn btn-sm btn-secondary">
-                <a href="/feedback/">
-                    <img src="{% static 'images/feedback.svg' %}" alt="Feedback icon"></img>
-                    Submit Feedback</a>
-            </button>
-        </div>
-
-        <div class="footer navbar-fixed-bottom">
-            <div class="container">
-                <p class="main-color-white">Student Explorer (<a href="/about" style="text-decoration: none; color: inherit;">2.1.0</a>)
-                    <span class="footer-block">Copyright &copy; 2015 - 2016</span>
-                    <span class="footer-block">The Regents of the University of Michigan</span>
-                </p>
+        <div class="container-index">
+            {% block content %}{% endblock %}
+            <div class='feedback center-align visible-md visible-lg'>
+                <img src="{% static 'images/feedback.svg' %}" alt="Feedback icon"></img>Help us improve Student Explorer by
+                <a href="/feedback/">submitting your feedback</a>
+            </div>
+            <div class='feedback center-align visible-sm visible-xs'>
+                <button type="button" class="btn btn-sm btn-secondary">
+                    <a href="/feedback/">
+                        <img src="{% static 'images/feedback.svg' %}" alt="Feedback icon"></img>
+                        Submit Feedback</a>
+                </button>
+            </div>
+            <div class="footer">
+                <div class="container">
+                    <p class="main-color-white">Student Explorer (<a href="/about" style="text-decoration: none; color: inherit;">2.1.0</a>)
+                        <span class="footer-block">Copyright &copy; 2015 - 2016</span>
+                        <span class="footer-block">The Regents of the University of Michigan</span>
+                    </p>
+                </div>
             </div>
         </div>
 
