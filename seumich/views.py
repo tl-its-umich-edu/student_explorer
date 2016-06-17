@@ -72,7 +72,7 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
                 Q(univ_id__icontains=query_user) |
                 Q(first_name__icontains=query_user) |
                 Q(last_name__icontains=query_user)
-            ).order_by('last_name')
+            ).order_by('last_name').distinct()
 
         # Pagination to break list into multiple pieces
         pages, ranges = convert_to_pages(
@@ -90,7 +90,7 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
         context = super(AdvisorView, self).get_context_data(**kwargs)
 
         mentor = get_object_or_404(Mentor, username=advisor)
-        student_list = mentor.students.order_by('last_name')
+        student_list = mentor.students.order_by('last_name').distinct()
         context['studentListHeader'] = mentor.first_name + \
             " " + mentor.last_name
         context['advisor'] = mentor
