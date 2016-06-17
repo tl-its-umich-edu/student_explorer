@@ -24,7 +24,7 @@ def submitFeedback(request):
             send_mail('Feedback From: ' + user.email,
                       feedback_message_email, settings.FEEDBACK_EMAIL,
                       (settings.FEEDBACK_EMAIL,),
-                      fail_silently=True,
+                      fail_silently=False,
                       )
             return HttpResponseRedirect('/')
     else:
