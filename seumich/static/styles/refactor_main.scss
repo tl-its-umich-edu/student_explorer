@@ -1,0 +1,802 @@
+//colors
+$color_star_dust_approx: #9d9d9d;
+$color_pumice_approx: #c8c8c8;
+$color_celeste_approx: #ccc;
+$black: #000;
+$color_astral_approx: #3072ab;
+$color_big_stone_approx: #1c3144;
+$color_mexican_red_approx: brown;
+$color_pink_approx: rgba(255, 200, 200, 1);
+$white: white;
+$mercury: #e5e5e5;
+$color_alabaster_approx: #f9f9f9;
+$color_san_marino_approx: #3e6c9c;
+$color_quill_gray_approx: #d4d4d4;
+$color_gallery_approx: #eee;
+$color_tapa_approx: #777;
+$color_sea_mist_approx: #c8d6c7;
+$color_st_tropaz_approx: #255c91;
+$color_confetti_approx: #f0d654;
+$color_black_haze_75_approx: rgba(247, 247, 247, 0.75);
+$color_cararra_approx: #ebebeb;
+$color_denim_approx: #1f77b4;
+$color_wild_sand_approx: whitesmoke;
+$color_astronaut_blue_approx: #124465;
+$color_alto_approx: #dedede;
+$color_steel_blue_approx: #337ab7;
+$gray:  gray;
+
+//fonts
+$font_0: "Lato";
+$font_1: "Helvetica";
+$font_2: "Lato";
+$font_3: "Helvetica";
+$font_4: "Lato";
+$font_5: "Helvetica";
+
+//urls
+$url_0: url("../images/Status_Icons_Not Applicable.png");
+$url_1: url("../images/Status_Icons_Green.png");
+$url_2: url("../images/Status_Icons_Yellow.png");
+$url_3: url("../images/Status_Icons_Red.png");
+
+//@extend-elements
+//original selectors
+//.sub-header, .sub-header-backlink
+%extend_1 {
+	color: $color_mexican_red_approx;
+	font-weight: 400;
+	margin-top: 20px;
+}
+
+//original selectors
+//.header, .marketing
+%extend_2 {
+	background-color: $color_big_stone_approx;
+	font-weight: 300;
+	color: $white;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-top: 40px;
+}
+
+//original selectors
+//.student-detail-main-menu, .student-detail-left-menu
+%extend_3 {
+	position: static;
+	left: auto;
+	width: auto;
+	margin: -20px -15px 0;
+}
+
+
+@import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
+.browsehappy {
+	margin: 0.2em 0;
+	background: $color_celeste_approx;
+	color: $black;
+	padding: 0.2em 0;
+}
+html {
+	height: 100%;
+}
+.container-index {
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 100px;
+}
+body {
+	font-family: $font_0, $font_1;
+	padding-top: 50px;
+	height: 100%;
+}
+a {
+	color: $color_astral_approx;
+	&.class-site-status-link {
+		text-decoration: none;
+		span {
+			display: inline-block;
+		}
+	}
+}
+.navbar-inverse {
+	background-color: $color_big_stone_approx;
+	.navbar-nav > li {
+		> a {
+			color: $color_wild_sand_approx;
+			font-weight: 300;
+			font-size: 15px;
+			&:hover {
+				color: $color_alto_approx;
+				background-color: $color_astronaut_blue_approx;
+			}
+		}
+		&.active > a {
+			background-color: $color_astronaut_blue_approx;
+			&:hover {
+				background-color: $color_astronaut_blue_approx;
+			}
+			&:focus {
+				background-color: $color_astronaut_blue_approx;
+			}
+		}
+	}
+}
+.sub-header {
+	@extend %extend_1;
+}
+.sub-header-backlink {
+	@extend %extend_1;
+	display: none;
+}
+.navbar {
+	vertical-align: middle;
+	margin-bottom: 0;
+}
+.navbar-fixed-top {
+	position: fixed;
+	border: 0;
+}
+.policy-warning {
+	background-color: $color_pink_approx;
+}
+.header {
+	@extend %extend_2;
+	border-bottom: 1px solid $mercury;
+	margin-bottom: 10px;
+	h3 {
+		margin-top: 0;
+		margin-bottom: 0;
+		line-height: 40px;
+		padding-bottom: 19px;
+	}
+}
+.marketing {
+	@extend %extend_2;
+	margin: 40px 0;
+	p + h4 {
+		margin-top: 28px;
+	}
+}
+h2 {
+	padding-left: 20px;
+	margin: 30px 0 10px;
+	font-size: 24px;
+}
+.list-header {
+	padding-left: 0;
+}
+.student-detail-left-menu-courses {
+	min-height: 60px;
+	border-bottom: 1px solid $color_quill_gray_approx;
+	h3 {
+		width: 70%;
+		margin-top: 16px;
+		margin-bottom: 10px;
+		padding-left: 20px;
+		font-size: 18px;
+		color: $color_big_stone_approx;
+		display: inline-block;
+		word-wrap: break-word;
+	}
+	&:hover {
+		cursor: pointer;
+		background-color: $mercury;
+	}
+}
+h4 {
+	font-size: 20px;
+	margin-left: 10px;
+}
+.note {
+	display: inline-block;
+	margin-left: 10px;
+}
+.center-align {
+	text-align: center;
+}
+.pagination {
+	padding-bottom: 40px;
+}
+th[scope="row"] {
+	font-weight: normal;
+}
+.row {
+	margin-bottom: 10px;
+}
+.student-desc {
+	margin-bottom: 20px;
+}
+.student-detail-left-menu {
+	width: 25%;
+	position: fixed;
+	left: 0;
+	height: 100%;
+	background-color: $color_alabaster_approx;
+	overflow-y: scroll;
+	margin-bottom: 100px;
+}
+.student-detail-left-menu-top {
+	background-color: $color_san_marino_approx;
+	text-align: left;
+	width: 100%;
+}
+.student-detail-main-menu {
+	margin-left: -15px;
+	margin-right: -15px;
+}
+.student-detail-main-menu-top {
+	width: 100%;
+	background-color: $color_san_marino_approx;
+	padding-left: 20px;
+}
+.student-detail-student-id {
+	font-weight: 300;
+	margin-bottom: 0;
+	color: $white;
+	padding-left: 20px;
+}
+.student-detail-student-email {
+	font-weight: 300;
+	margin-bottom: 0;
+	padding-left: 20px;
+	padding-bottom: 20px;
+	text-decoration: underline;
+}
+.student-detail-student-email-link {
+	color: $white;
+	&:hover {
+		color: $white;
+	}
+}
+.student-detail-student-name-link {
+	color: $white;
+	&:hover {
+		color: $white;
+	}
+}
+.student-detail-summary {
+	width: 75%;
+	margin-left: 25%;
+}
+.student-detail-main {
+	width: 75%;
+}
+.student-detail-summary-content {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.student-info {
+	background-color: $color_gallery_approx;
+	padding: .75em;
+	margin-bottom: 80px;
+	p {
+		display: inline;
+	}
+}
+.advisor-names {
+	margin-right: .4em;
+}
+.panel-default {
+	display: none;
+}
+.no-margin {
+	margin-left: 0;
+	margin-right: 0;
+}
+.student-detail-class-site-status {
+	display: inline-block;
+}
+.feedback {
+	position: absolute;
+	bottom: 55px;
+	left: 0;
+	right: 0;
+	img {
+		width: 25px;
+		margin-right: 5px;
+		margin-left: 5px;
+	}
+}
+.footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-top: 1px solid $mercury;
+	background-color: $color_big_stone_approx;
+	font-weight: 300;
+	color: $white;
+	padding-top: 19px;
+}
+.jumbotron {
+	text-align: center;
+	border-bottom: 1px solid $mercury;
+	.btn {
+		font-size: 21px;
+		padding: 14px 24px;
+	}
+}
+@media screen and(min-width: 1150px) {
+	.nv-axislabel {
+		display: none;
+	}
+}
+@media screen and(min-width: 768px) {
+	.container {
+		max-width: 100% !important;
+	}
+	.header {
+		padding-left: 0;
+		padding-right: 0;
+		margin-bottom: 30px;
+	}
+	.marketing {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.footer {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.jumbotron {
+		border-bottom: 0;
+	}
+}
+@media screen and(min-width: 769px) {
+	.student-class-site-list {
+		display: none;
+	}
+	.student-detail-mobile {
+		display: none;
+	}
+}
+.class-site-status {
+	width: 20pt;
+	margin-left: 2.5px;
+	margin-right: 2.5px;
+	content: $url_0;
+}
+.status-encourage {
+	content: $url_1;
+}
+.status-explore {
+	content: $url_2;
+}
+.status-engage {
+	content: $url_3;
+}
+@media screen and(max-width: 768px) {
+	.sub-header {
+		margin-top: 0;
+	}
+	.student-class-site-table {
+		display: none;
+	}
+	.table-responsive {
+		border: none;
+	}
+	.student-detail-left-menu-detail {
+		display: none;
+	}
+	.student-detail-main-menu {
+    position: static;
+    left: auto;
+    width: auto;
+    margin: -20px -15px 0;
+	}
+	.student-detail-left-menu {
+    position: static;
+    left: auto;
+    width: auto;
+    margin: -20px -15px 0;
+	}
+	.sub-header-backlink {
+		margin-top: 0;
+		display: block;
+	}
+	.student-detail-main-menu-top {
+		padding-left: 0;
+	}
+	.student-detail-summary {
+		width: 100%;
+		position: relative;
+		margin: auto 0;
+	}
+	.student-detail-main {
+		width: 100%;
+		position: relative;
+		margin: auto 0;
+		padding-left: 0;
+	}
+	.student-detail-summary-title {
+		padding-left: 0;
+	}
+	.student-detail-summary-content {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.student-info {
+		margin-bottom: 10px;
+	}
+	.open > .dropdown-menu {
+		color: $color_star_dust_approx;
+	}
+}
+@media screen and(max-width: 992px) {
+	.student-desc {
+		border: 1px solid $color_pumice_approx;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+	}
+	.mobile-inline {
+		margin-bottom: 10px;
+		display: inline-block;
+	}
+	.hide-small-grid {
+		display: none;
+	}
+	.status-icon {
+		float: right;
+	}
+	.panel-default {
+		display: block;
+	}
+	.assignment-table {
+		margin-left: 0;
+		> .container-fluid {
+			padding: 0;
+		}
+	}
+}
+@media screen and(max-width: 736px) {
+	body {
+		padding-bottom: 0;
+	}
+	.navbar-fixed-top {
+		position: relative;
+		margin-top: -50px;
+	}
+	.navbar-fixed-bottom {
+		position: relative;
+	}
+	.feedback {
+		bottom: 95px;
+	}
+	img#student-explorer-logo {
+		float: left;
+		width: 30px;
+		margin: 10px 0 0 10px;
+	}
+}
+@media screen and(max-width: 600px) {
+	.hide-small {
+		display: none;
+	}
+	.footer-block {
+		display: block;
+	}
+	.mobile-div {
+		display: block;
+	}
+}
+@media screen and(max-width: 430px) {
+	.assignment-detail-comment {
+		padding-top: 20px;
+	}
+}
+[ng-cloak] {
+	display: none !important;
+}
+[data-ng-cloak] {
+	display: none !important;
+}
+[x-ng-cloak] {
+	display: none !important;
+}
+.ng-cloak {
+	display: none !important;
+}
+.x-ng-cloak {
+	display: none !important;
+}
+.progress {
+	width: 200px;
+	overflow: visible;
+}
+.progress-bar {
+	text-align: left;
+	padding-left: 5px;
+	min-width: 5em;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 4px 0 0 4px;
+}
+.progress-label {
+	font-weight: bold;
+}
+.progress-text {
+	color: $color_sea_mist_approx;
+	display: none;
+	margin-left: 6px;
+}
+.legend-text {
+	display: inline-block;
+	margin-bottom: 0;
+	&:not(:first-of-type) {
+		margin-left: 1em;
+	}
+}
+.legend-key {
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 50%;
+	display: inline-block;
+	height: 10px;
+	margin-right: 0.4em;
+	width: 10px;
+}
+.student-legend-key {
+	background-color: $color_st_tropaz_approx;
+}
+.class-legend-key {
+	background-color: $color_confetti_approx;
+}
+.average-bar-container {
+	-webkit-box-shadow: none;
+	background-color: transparent;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 0;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: none;
+	height: 20px;
+	margin-bottom: 0;
+	overflow: visible;
+	width: 90%;
+}
+.average-bar {
+	-webkit-box-shadow: none;
+	max-width: 90%;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: none;
+	float: left;
+	font-size: 12px;
+	height: 100%;
+	line-height: 20px;
+	min-width: .5em;
+	padding-left: 5px;
+	position: relative;
+	text-align: left;
+	-o-transition: width .6s ease;
+	-webkit-transition: width .6s ease;
+	//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: width .6s ease;
+}
+.student-average-bar {
+	background: $color_st_tropaz_approx;
+}
+.class-average-bar {
+	background: $color_confetti_approx;
+}
+.average-bar-text {
+	color: $black;
+	display: inline-block;
+	padding-left: 15px;
+	position: absolute;
+	right: 0;
+	-webkit-transform: translateX(100%);
+	-ms-transform: translateX(100%);
+	-o-transform: translateX(100%);
+	//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+	transform: translateX(100%);
+}
+.main-no-margin-top {
+	margin-top: 0;
+}
+.main-h3 {
+	color: $color_big_stone_approx;
+}
+.main-color-white {
+	color: $mercury !important;
+}
+.main-navbar-brand {
+	font-weight: 300;
+}
+.main-page-end-margin-bottom {
+	margin-bottom: 50px;
+}
+svg {
+	height: 350px !important;
+	margin-top: 40px;
+	text {
+		font: normal 13px $font_2, $font_3;
+	}
+}
+.nvtooltip {
+	font-family: $font_4, $font_5;
+	h3 {
+		margin: 0;
+		padding: 4px 14px;
+		font-size: 15px;
+		line-height: 18px;
+		font-weight: bold;
+		background-color: $color_black_haze_75_approx;
+		text-align: center;
+		border-bottom: 1px solid $color_cararra_approx;
+		-webkit-border-radius: 5px 5px 0 0;
+		-moz-border-radius: 5px 5px 0 0;
+		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+		border-radius: 5px 5px 0 0;
+	}
+}
+.tooltip-inner {
+	text-align: left;
+	white-space: pre-line;
+}
+.backlink {
+	font-size: 20px;
+	color: $color_denim_approx;
+	text-decoration: none !important;
+}
+#student-search {
+	width: 22em;
+}
+.graph-caption {
+	font-size: x-large;
+	font-weight: 300;
+	color: $color_mexican_red_approx;
+	text-align: center;
+}
+.table-column-name {
+	color: $color_steel_blue_approx;
+}
+.not-found {
+	margin-top: 6%;
+}
+.panel-title {
+	vertical-align: middle;
+}
+.panel-warning {
+	margin-top: 20px;
+}
+.assignment-title-right {
+	float: right;
+}
+.assignment-button {
+	width: 20px;
+	padding-bottom: 5px;
+}
+.assignment-title {
+	font-size: 18px;
+	width: 60%;
+	word-wrap: break-word;
+	display: inline-block;
+}
+.assignment-title-score {
+	margin-right: 20px;
+}
+.assignment-row {
+	height: 80px;
+	display: block;
+}
+.assignment-row-lower {
+	margin-bottom: 20px;
+}
+.assignment-detail {
+	width: 35%;
+	margin: 10px auto;
+	font-size: 18px;
+}
+.assignment-detail-bold {
+	font-weight: bold;
+}
+.assignment-detail-grade {
+	font-size: 25px;
+	margin-top: 10px;
+}
+.assignment-detail-left {
+	display: inline-block;
+	margin-left: 10%;
+}
+.assignment-detail-right {
+	float: right;
+	display: inline;
+	margin-right: 5%;
+}
+.assignment-detail-comment {
+	width: 80%;
+	margin-left: 10%;
+	margin-bottom: 20px;
+	font-size: 18px;
+}
+.assignment-comment-cell {
+	width: 200px;
+	p {
+		margin-bottom: 0;
+	}
+	.assignment-button {
+		padding-bottom: 0;
+	}
+}
+.collapsing {
+	width: 100%;
+}
+.legend-text-block {
+	margin-bottom: 10px;
+	margin-left: 22px;
+}
+.card-block {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 0 5px $gray;
+	padding: 20px;
+	margin: 20px 2px;
+	&:hover {
+		cursor: pointer;
+	}
+}
+.card-title {
+	margin-bottom: 15px;
+	a {
+		font-size: 20px;
+		width: 70%;
+		word-wrap: break-word;
+		display: inline-block;
+	}
+}
+.card-class-site-status {
+	float: right;
+}
+.dropdown-menu p {
+	padding: 3px 20px;
+}
+img#student-explorer-logo {
+	float: left;
+	width: 25px;
+	margin: 13px 8px 0 0;
+}
+h1.student-detail-student-name {
+	margin-top: 0;
+	line-height: 1.2;
+	color: $white;
+	font-size: 28px;
+	word-wrap: break-word;
+	padding: 20px 20px 0;
+	font-weight: 400;
+}
+h3.student-course-list {
+	font-size: 18px;
+	margin: 0;
+	margin-top: 5px;
+	font-weight: 500;
+}
+.student-class-site-list-table > tbody > tr {
+	> th {
+		width: 220px;
+		vertical-align: middle;
+	}
+	> td {
+		vertical-align: middle;
+	}
+}
+.student-detail-left-menu-course-line p {
+	vertical-align: middle;
+	line-height: 60px;
+	margin-bottom: 0;
+	padding-left: 20px;
+	font-size: 20px;
+	font-weight: bold;
+	color: $color_big_stone_approx;
+}
+.container-narrow > hr {
+	margin: 30px 0;
+}
+[ng\:cloak] {
+	display: none !important;
+}
+.unsortable:hover {
+	text-decoration: none;
+	color: $color_steel_blue_approx;
+}
+.nv-x .tick line {
+	display: none;
+}
