@@ -340,6 +340,9 @@ th[scope="row"] {
   .container {
     max-width: 100% !important;
   }
+  .container-feedback {
+    width: 50%;
+  }
 
   /* Remove the padding we set earlier */
   .header,
