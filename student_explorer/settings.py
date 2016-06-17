@@ -30,8 +30,6 @@ SILENCED_SYSTEM_CHECKS = []
 
 ADMINS = [('', getenv('DJANGO_ERROR_EMAIL', 'vagrant@localhost'))]
 
-EMAIL_HOST = getenv('DJANGO_EMAIL_HOST', 'localhost')
-
 
 # Application definition
 
@@ -48,6 +46,7 @@ INSTALLED_APPS = (
     'seumich',
     'advisinggroups',
     'tracking',
+    'feedback',
 )
 
 MIDDLEWARE_CLASSES = [
@@ -125,6 +124,15 @@ LOGIN_URL = getenv('DJANGO_LOGIN_URL', '/accounts/login/')
 LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = getenv('DJANGO_LOGOUT_REDIRECT_URL', '/')
+
+EMAIL_HOST = getenv('DJANGO_EMAIL_HOST', 'localhost')
+EMAIL_PORT = getenv('DJANGO_EMAIL_PORT', None)
+EMAIL_HOST_USER = getenv('DJANGO_EMAIL_HOST_USER', None)
+EMAIL_HOST_PASSWORD = getenv('DJANGO_EMAIL_HOST_PASSWORD', None)
+EMAIL_USE_TLS = getenv('DJANGO_EMAIL_USE_TLS', None)
+EMAIL_USE_SSL = getenv('DJANGO_EMAIL_USE_SSL', None)
+
+FEEDBACK_EMAIL = getenv('DJANGO_FEEDBACK_EMAIL', None)
 
 
 # Databases
