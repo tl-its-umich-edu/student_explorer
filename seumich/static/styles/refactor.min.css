@@ -1,1 +1,688 @@
-html,body{height:100%}.container-index{min-height:100%;position:relative;padding-bottom:100px}body{font-family:Lato, Helvetica;padding-top:50px}a{color:#3072ab}.navbar-inverse{background-color:#1c3144}.sub-header,.sub-header-backlink{color:brown;font-weight:400;margin-top:20px}.sub-header-backlink{display:none}.navbar{vertical-align:middle;margin-bottom:0}.navbar-fixed-top{position:fixed;border:0}.dropdown-menu p{padding:3px 20px}.policy-warning{background-color:#ffc8c8}.marketing,.header{background-color:#1c3144;font-weight:300;color:white;padding-left:15px;padding-right:15px;margin-top:40px}.header{border-bottom:1px solid #e5e5e5;margin-bottom:10px}img#student-explorer-logo{float:left;width:25px;margin:13px 8px 0 0}h1.student-detail-student-name{margin-top:0;line-height:1.2;color:white;font-size:28px;word-wrap:break-word;padding:20px 20px 0;font-weight:400}h2{padding-left:20px;margin:30px 0 10px;font-size:24px}.list-header{padding-left:0}h3.student-course-list{font-size:18px;margin:5px 0 0;font-weight:500}.student-detail-left-menu-courses h3{width:70%;margin-top:16px;margin-bottom:10px;padding-left:20px;font-size:18px;color:#1c3144;display:inline-block;word-wrap:break-word}.header h3{margin-top:0;margin-bottom:0;line-height:40px;padding-bottom:19px}h4{font-size:20px;margin-left:10px}.note{display:inline-block;margin-left:10px}.center-align{text-align:center}.pagination{padding-bottom:40px}th[scope="row"]{font-weight:normal}.row{margin-bottom:10px}.student-desc{margin-bottom:20px}.student-class-site-list-table>tbody>tr>th{width:220px;vertical-align:middle}.student-class-site-list-table>tbody>tr>td{vertical-align:middle}.student-detail-left-menu{width:25%;position:fixed;left:0;height:100%;background-color:#F9F9F9;overflow-y:scroll;margin-bottom:100px}.student-detail-left-menu-top{background-color:#3E6C9C;text-align:left;width:100%}.student-detail-main-menu{margin-left:-15px;margin-right:-15px}.student-detail-main-menu-top{width:100%;background-color:#3E6C9C;padding-left:20px}.student-detail-student-id{font-weight:300;margin-bottom:0;color:white;padding-left:20px}.student-detail-student-email{font-weight:300;margin-bottom:0;padding-left:20px;padding-bottom:20px;text-decoration:underline}.student-detail-student-email-link{color:white}.student-detail-student-email-link :hover{color:white}.student-detail-student-name-link{color:white}.student-detail-student-name-link :hover{color:white}.student-detail-left-menu-course-line p{vertical-align:middle;line-height:60px;margin-bottom:0;padding-left:20px;font-size:20px;font-weight:bold;color:#1c3144}.student-detail-left-menu-courses{min-height:60px;border-bottom:1px solid #D4D4D4}.student-detail-left-menu-courses :hover{cursor:pointer;background-color:#E5E5E5}.student-detail-summary{width:75%;margin-left:25%}.student-detail-main{width:75%}.student-detail-summary-content{margin-left:10px;margin-right:10px}.student-info{background-color:#eee;padding:0.75em;margin-bottom:80px}.student-info p{display:inline}.advisor-names{margin-right:0.4em}.panel-default{display:none}.no-margin{margin-left:0;margin-right:0}.student-detail-class-site-status{display:inline-block}.feedback{position:absolute;bottom:55px;left:0;right:0}.feedback img{width:25px;margin-right:5px;margin-left:5px}.footer{position:absolute;bottom:0;left:0;right:0;color:#777;border-top:1px solid #e5e5e5;background-color:#1c3144;font-weight:300;color:white;padding-top:19px}.container-narrow>hr{margin:30px 0}.jumbotron{text-align:center;border-bottom:1px solid #e5e5e5}.jumbotron .btn{font-size:21px;padding:14px 24px}.marketing,.header{margin:40px 0}.marketing p+h4,.header p+h4{margin-top:28px}
+@import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0
+}
+html, body {
+    height: 100%
+}
+.container-index {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 100px
+}
+body {
+    font-family: Lato, Helvetica;
+    padding-top: 50px
+}
+a {
+    color: #3072ab
+}
+.navbar-inverse {
+    background-color: #1c3144
+}
+.sub-header, .sub-header-backlink {
+    color: brown;
+    font-weight: 400;
+    margin-top: 20px
+}
+.sub-header-backlink {
+    display: none
+}
+.navbar {
+    vertical-align: middle;
+    margin-bottom: 0
+}
+.navbar-fixed-top {
+    position: fixed;
+    border: 0
+}
+.dropdown-menu p {
+    padding: 3px 20px
+}
+.policy-warning {
+    background-color: #ffc8c8
+}
+.marketing, .header {
+    background-color: #1c3144;
+    font-weight: 300;
+    color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 40px
+}
+.header {
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 10px
+}
+img#student-explorer-logo {
+    float: left;
+    width: 25px;
+    margin: 13px 8px 0 0
+}
+h1.student-detail-student-name {
+    margin-top: 0;
+    line-height: 1.2;
+    color: white;
+    font-size: 28px;
+    word-wrap: break-word;
+    padding: 20px 20px 0;
+    font-weight: 400
+}
+h2 {
+    padding-left: 20px;
+    margin: 30px 0 10px;
+    font-size: 24px
+}
+.list-header {
+    padding-left: 0
+}
+h3.student-course-list {
+    font-size: 18px;
+    margin: 5px 0 0;
+    font-weight: 500
+}
+.student-detail-left-menu-courses h3 {
+    width: 70%;
+    margin-top: 16px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    font-size: 18px;
+    color: #1c3144;
+    display: inline-block;
+    word-wrap: break-word
+}
+.header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px
+}
+h4 {
+    font-size: 20px;
+    margin-left: 10px
+}
+.note {
+    display: inline-block;
+    margin-left: 10px
+}
+.center-align {
+    text-align: center
+}
+.pagination {
+    padding-bottom: 40px
+}
+th[scope="row"] {
+    font-weight: normal
+}
+.row {
+    margin-bottom: 10px
+}
+.student-desc {
+    margin-bottom: 20px
+}
+.student-class-site-list-table>tbody>tr>th {
+    width: 220px;
+    vertical-align: middle
+}
+.student-class-site-list-table>tbody>tr>td {
+    vertical-align: middle
+}
+.student-detail-left-menu {
+    width: 25%;
+    position: fixed;
+    left: 0;
+    height: 100%;
+    background-color: #F9F9F9;
+    overflow-y: scroll;
+    margin-bottom: 100px
+}
+.student-detail-left-menu-top {
+    background-color: #3E6C9C;
+    text-align: left;
+    width: 100%
+}
+.student-detail-main-menu {
+    margin-left: -15px;
+    margin-right: -15px
+}
+.student-detail-main-menu-top {
+    width: 100%;
+    background-color: #3E6C9C;
+    padding-left: 20px
+}
+.student-detail-student-id {
+    font-weight: 300;
+    margin-bottom: 0;
+    color: white;
+    padding-left: 20px
+}
+.student-detail-student-email {
+    font-weight: 300;
+    margin-bottom: 0;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    text-decoration: underline
+}
+.student-detail-student-email-link {
+    color: white
+}
+.student-detail-student-email-link:hover {
+    color: white
+}
+.student-detail-student-name-link {
+    color: white
+}
+.student-detail-student-name-link:hover {
+    color: white
+}
+.student-detail-left-menu-course-line p {
+    vertical-align: middle;
+    line-height: 60px;
+    margin-bottom: 0;
+    padding-left: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1c3144
+}
+.student-detail-left-menu-courses {
+    min-height: 60px;
+    border-bottom: 1px solid #D4D4D4
+}
+.student-detail-left-menu-courses:hover {
+    cursor: pointer;
+    background-color: #E5E5E5
+}
+.student-detail-summary {
+    width: 75%;
+    margin-left: 25%
+}
+.student-detail-main {
+    width: 75%
+}
+.student-detail-summary-content {
+    margin-left: 10px;
+    margin-right: 10px
+}
+.student-info {
+    background-color: #eee;
+    padding: 0.75em;
+    margin-bottom: 80px
+}
+.student-info p {
+    display: inline
+}
+.advisor-names {
+    margin-right: 0.4em
+}
+.panel-default {
+    display: none
+}
+.no-margin {
+    margin-left: 0;
+    margin-right: 0
+}
+.student-detail-class-site-status {
+    display: inline-block
+}
+.feedback {
+    position: absolute;
+    bottom: 55px;
+    left: 0;
+    right: 0
+}
+.feedback img {
+    width: 25px;
+    margin-right: 5px;
+    margin-left: 5px
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+    background-color: #1c3144;
+    font-weight: 300;
+    color: white;
+    padding-top: 19px
+}
+.container-narrow>hr {
+    margin: 30px 0
+}
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5
+}
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px
+}
+.marketing, .header {
+    margin: 40px 0
+}
+.marketing p+h4, .header p+h4 {
+    margin-top: 28px
+}
+@media screen and (min-width: 1150px) {
+    .nv-axislabel {
+        display: none
+    }
+}
+@media screen and (min-width: 769px) {
+    .container {
+        max-width: 100% !important
+    }
+    .footer, .header, .marketing, .header {
+        padding-left: 0;
+        padding-right: 0
+    }
+    .header {
+        margin-bottom: 30px
+    }
+    .jumbotron {
+        border-bottom: 0
+    }
+    .student-class-site-list, .student-detail-mobile {
+        display: none
+    }
+}
+@media screen and (max-width: 768px) {
+    .open>.dropdown-menu {
+        color: #9d9d9d
+    }
+    .sub-header, .sub-header-backlink {
+        margin-top: 0
+    }
+    .student-class-site-table, .student-detail-left-menu-detail {
+        display: none
+    }
+    .table-responsive {
+        border: none
+    }
+    .student-detail-left-menu, .student-detail-main-menu {
+        position: static;
+        left: auto;
+        width: auto;
+        margin: -20px -15px 0
+    }
+    .sub-header-backlink {
+        margin-top: 0;
+        display: block
+    }
+    .student-detail-main-menu-top {
+        padding-left: 0
+    }
+    .student-detail-summary {
+        width: 100%;
+        position: relative;
+        margin: auto 0
+    }
+    .student-detail-main {
+        width: 100%;
+        position: relative;
+        margin: auto 0;
+        padding-left: 0
+    }
+    .student-detail-summary-title {
+        padding-left: 0
+    }
+    .student-detail-summary-content {
+        margin-left: 0;
+        margin-right: 0
+    }
+    .student-info {
+        margin-bottom: 10px
+    }
+    body {
+        padding-bottom: 0
+    }
+    .navbar-fixed-top {
+        position: relative;
+        margin-top: -50px
+    }
+    .navbar-fixed-bottom {
+        position: relative
+    }
+    .feedback {
+        bottom: 95px
+    }
+    img#student-explorer-logo {
+        float: left;
+        width: 30px;
+        margin: 10px 0 0 10px
+    }
+}
+@media screen and (max-width: 992px) {
+    .student-desc {
+        border: 1px solid #c8c8c8;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-bottom: 20px
+    }
+    .mobile-inline {
+        margin-bottom: 10px;
+        display: inline-block
+    }
+    .hide-small-grid {
+        display: none
+    }
+    .status-icon {
+        float: right
+    }
+    .panel-default {
+        display: block
+    }
+    .assignment-table {
+        margin-left: 0
+    }
+    .assignment-table>.container-fluid {
+        padding: 0
+    }
+}
+@media screen and (max-width: 600px) {
+    .hide-small {
+        display: none
+    }
+    .footer-block {
+        display: block
+    }
+    .mobile-div {
+        display: block
+    }
+}
+@media screen and (max-width: 430px) {
+    .assignment-detail-comment {
+        padding-top: 20px
+    }
+}
+a.class-site-status-link {
+    text-decoration: none
+}
+a.class-site-status-link span {
+    display: inline-block
+}
+.class-site-status {
+    width: 20pt;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+    content: url("../images/Status_Icons_Not Applicable.png")
+}
+.status-encourage {
+    content: url("../images/Status_Icons_Green.png")
+}
+.status-explore {
+    content: url("../images/Status_Icons_Yellow.png")
+}
+.status-engage {
+    content: url("../images/Status_Icons_Red.png")
+}
+.progress {
+    width: 200px;
+    overflow: visible
+}
+.progress-bar {
+    text-align: left;
+    padding-left: 5px;
+    min-width: 5em;
+    border-radius: 4px 0 0 4px
+}
+.progress-label {
+    font-weight: bold
+}
+.progress-text {
+    color: #c8d6c7;
+    display: none;
+    margin-left: 6px
+}
+.legend-text {
+    display: inline-block;
+    margin-bottom: 0
+}
+.legend-text:not(:first-of-type) {
+    margin-left: 1em
+}
+.legend-key {
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    margin-right: 0.4em;
+    width: 10px
+}
+.student-legend-key {
+    background-color: #255c91
+}
+.class-legend-key {
+    background-color: #F0D654
+}
+.average-bar-container {
+    -webkit-box-shadow: none;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    height: 20px;
+    margin-bottom: 0;
+    overflow: visible;
+    width: 90%
+}
+.average-bar {
+    -webkit-box-shadow: none;
+    max-width: 90%;
+    box-shadow: none;
+    float: left;
+    font-size: 12px;
+    height: 100%;
+    line-height: 20px;
+    min-width: 0.5em;
+    padding-left: 5px;
+    position: relative;
+    text-align: center;
+    text-align: left;
+    -o-transition: width 0.6s ease;
+    -webkit-transition: width 0.6s ease;
+    transition: width 0.6s ease
+}
+.student-average-bar {
+    background: #255c91
+}
+.class-average-bar {
+    background: #F0D654
+}
+.average-bar-text {
+    color: black;
+    display: inline-block;
+    padding-left: 15px;
+    position: absolute;
+    right: 0;
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+    transform: translateX(100%)
+}
+.main-no-margin-top {
+    margin-top: 0
+}
+.main-h3 {
+    color: #1c3144
+}
+.main-color-white {
+    color: #e5e5e5 !important
+}
+.main-navbar-brand {
+    font-weight: 300
+}
+.main-page-end-margin-bottom {
+    margin-bottom: 50px
+}
+svg {
+    height: 350px !important;
+    margin-top: 40px
+}
+svg text {
+    font: normal 13px Lato, Helvetica
+}
+.nvtooltip {
+    font-family: Lato, Helvetica
+}
+.nvtooltip h3 {
+    margin: 0;
+    padding: 4px 14px;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: bold;
+    background-color: rgba(247, 247, 247, 0.75);
+    text-align: center;
+    border-bottom: 1px solid #ebebeb;
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0
+}
+.tooltip-inner {
+    text-align: left;
+    white-space: pre-line
+}
+.backlink {
+    font-size: 20px;
+    color: #1F77B4;
+    text-decoration: none !important
+}
+.backlink:hover {
+    color: #1c3144
+}
+#student-search {
+    width: 22em
+}
+.graph-caption {
+    font-size: x-large;
+    font-weight: 300;
+    color: brown;
+    text-align: center
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: whitesmoke;
+    font-weight: 300;
+    font-size: 15px
+}
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #dedede;
+    background-color: #124465
+}
+.navbar-inverse .navbar-nav>li.active>a {
+    background-color: #124465
+}
+.navbar-inverse .navbar-nav>li.active>a:focus {
+    background-color: #124465
+}
+.navbar-inverse .navbar-nav>li.active>a:hover {
+    background-color: #124465
+}
+.unsortable:hover {
+    text-decoration: none;
+    color: #337ab7
+}
+.table-column-name {
+    color: #337ab7
+}
+.not-found {
+    margin-top: 6%
+}
+.nv-x .tick line {
+    display: none
+}
+.panel-title {
+    vertical-align: middle
+}
+.panel-warning {
+    margin-top: 20px
+}
+.assignment-title-right {
+    float: right
+}
+.assignment-button {
+    width: 20px;
+    padding-bottom: 5px
+}
+.assignment-title {
+    font-size: 18px;
+    width: 60%;
+    word-wrap: break-word;
+    display: inline-block
+}
+.assignment-title-score {
+    margin-right: 20px
+}
+.assignment-row {
+    height: 80px;
+    display: block
+}
+.assignment-row-lower {
+    margin-bottom: 20px
+}
+.assignment-detail {
+    width: 35%;
+    margin: 10px auto;
+    font-size: 18px
+}
+.assignment-detail-bold {
+    font-weight: bold
+}
+.assignment-detail-grade {
+    font-size: 25px;
+    margin-top: 10px
+}
+.assignment-detail-left {
+    display: inline-block;
+    margin-left: 10%
+}
+.assignment-detail-right {
+    float: right;
+    display: inline;
+    margin-right: 5%
+}
+.assignment-detail-comment {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 20px;
+    font-size: 18px
+}
+.assignment-comment-cell {
+    width: 200px
+}
+.assignment-comment-cell p {
+    margin-bottom: 0
+}
+.assignment-comment-cell .assignment-button {
+    padding-bottom: 0
+}
+.collapsing {
+    width: 100%
+}
+.legend-text-block {
+    margin-bottom: 10px;
+    margin-left: 22px
+}
+.card-block {
+    box-shadow: 0 0 5px gray;
+    padding: 20px;
+    margin: 20px 2px
+}
+.card-block:hover {
+    cursor: pointer
+}
+.card-title {
+    margin-bottom: 15px
+}
+.card-title a {
+    font-size: 20px;
+    width: 70%;
+    word-wrap: break-word;
+    display: inline-block
+}
+.card-class-site-status {
+    float: right
+}
