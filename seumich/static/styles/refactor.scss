@@ -1,9 +1,48 @@
+$color_star_dust_approx: #9d9d9d;
+$color_pumice_approx: #c8c8c8;
+$color_celeste_approx: #ccc;
+$black: #000;
+$color_astral_approx: #3072ab;
+$color_big_stone_approx: #1c3144;
+$color_mexican_red_approx: brown;
+$color_pink_approx: rgba(255, 200, 200, 1);
+$white: white;
+$mercury: #e5e5e5;
+$color_alabaster_approx: #f9f9f9;
+$color_san_marino_approx: #3e6c9c;
+$color_quill_gray_approx: #d4d4d4;
+$color_gallery_approx: #eee;
+$color_tapa_approx: #777;
+$color_sea_mist_approx: #c8d6c7;
+$color_st_tropaz_approx: #255c91;
+$color_confetti_approx: #f0d654;
+$color_black_haze_75_approx: rgba(247, 247, 247, 0.75);
+$color_cararra_approx: #ebebeb;
+$color_denim_approx: #1f77b4;
+$color_wild_sand_approx: whitesmoke;
+$color_astronaut_blue_approx: #124465;
+$color_alto_approx: #dedede;
+$color_steel_blue_approx: #337ab7;
+$gray:  gray;
+$font_Lato: Lato;
+$font_Helvetica: Helvetica;
+$primary-padding: 20px;
+$primary-margin: 20px;
+$secondary-margin: 10px;
+@mixin marheadint {
+    background-color: $color_big_stone_approx;
+    font-weight: 300;
+    color: $white;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 40px;
+}
 @import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
 .browsehappy {
     margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
+    background: $color_celeste_approx;
+    color: $black;
     padding: 0.2em 0;
 }
 html {
@@ -15,21 +54,18 @@ html {
     padding-bottom: 100px;
 }
 body {
-    font-family: Lato, Helvetica;
+    font-family: $font_Lato, $font_Helvetica;
     padding-top: 50px;
     @extend html;
 }
 a {
-    color: #3072ab;
-}
-.navbar-inverse {
-    background-color: #1c3144;
+    color: $color_astral_approx;
 }
 .sub-header {
-    color: brown;
+    color: $color_mexican_red_approx;
     font-weight: 400;
-    margin-top: 20px;
-    /*border-bottom: 1px solid #eee;*/
+    margin-top: $primary-margin;
+    /*border-bottom: 1px solid $color_gallery_approx;*/
 }
 .sub-header-backlink {
     @extend .sub-header;
@@ -44,23 +80,28 @@ a {
     border: 0;
 }
 .dropdown-menu p {
-    padding: 3px 20px;
+    padding: 3px $primary-padding;
 }
 .policy-warning {
-    background-color: rgba(255, 200, 200, 1);
+    background-color: $color_pink_approx;
 }
 .marketing {
-    background-color: #1c3144;
-    font-weight: 300;
-    color: white;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-top: 40px;
+    @include marheadint;
+    margin: 40px 0;
+    p + h4 {
+        margin-top: 28px;
+    }
 }
 .header {
     @extend .marketing;
-    border-bottom: 1px solid #e5e5e5;
-    margin-bottom: 10px;
+    border-bottom: 1px solid $mercury;
+    margin-bottom: $secondary-margin;
+    h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 40px;
+        padding-bottom: 19px;
+    }
 }
 img#student-explorer-logo {
     float: left;
@@ -70,15 +111,15 @@ img#student-explorer-logo {
 h1.student-detail-student-name {
     margin-top: 0;
     line-height: 1.2;
-    color: white;
+    color: $white;
     font-size: 28px;
     word-wrap: break-word;
-    padding: 20px 20px 0;
+    padding: $primary-padding $primary-padding 0;
     font-weight: 400;
 }
 h2 {
-    padding-left: 20px;
-    margin: 30px 0 10px;
+    padding-left: $primary-padding;
+    margin: 30px 0 $secondary-margin;
     font-size: 24px;
 }
 .list-header {
@@ -89,29 +130,13 @@ h3.student-course-list {
     margin: 5px 0 0;
     font-weight: 500;
 }
-.student-detail-left-menu-courses h3 {
-    width: 70%;
-    margin-top: 16px;
-    margin-bottom: 10px;
-    padding-left: 20px;
-    font-size: 18px;
-    color: #1c3144;
-    display: inline-block;
-    word-wrap: break-word;
-}
-.header h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-}
 h4 {
     font-size: 20px;
-    margin-left: 10px;
+    margin-left: $secondary-margin;
 }
 .note {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: $secondary-margin;
 }
 .center-align {
     text-align: center;
@@ -123,10 +148,10 @@ th[scope="row"] {
     font-weight: normal;
 }
 .row {
-    margin-bottom: 10px;
+    margin-bottom: $secondary-margin;
 }
 .student-desc {
-    margin-bottom: 20px;
+    margin-bottom: $primary-margin;
 }
 .student-class-site-list-table > tbody > tr {
     > th {
@@ -142,13 +167,13 @@ th[scope="row"] {
     position: fixed;
     left: 0;
     height: 100%;
-    background-color: #F9F9F9;
+    background-color: $color_alabaster_approx;
     overflow-y: scroll;
     /* Need to fix the scroll bug here for the left nav menu */
     margin-bottom: 100px;
 }
 .student-detail-left-menu-top {
-    background-color: #3E6C9C;
+    background-color: $color_san_marino_approx;
     text-align: left;
     width: 100%;
 }
@@ -158,49 +183,59 @@ th[scope="row"] {
 }
 .student-detail-main-menu-top {
     width: 100%;
-    background-color: #3E6C9C;
-    padding-left: 20px;
+    background-color: $color_san_marino_approx;
+    padding-left: $primary-padding;
 }
 .student-detail-student-id {
     font-weight: 300;
     margin-bottom: 0;
-    color: white;
-    padding-left: 20px;
+    color: $white;
+    padding-left: $primary-padding;
 }
 .student-detail-student-email {
     font-weight: 300;
     margin-bottom: 0;
-    padding-left: 20px;
-    padding-bottom: 20px;
+    padding-left: $primary-padding;
+    padding-bottom: $primary-padding;
     text-decoration: underline;
 }
 .student-detail-student-email-link {
-    color: white;
+    color: $white;
     :hover {
-        color: white;
+        color: $white;
     }
 }
 .student-detail-student-name-link {
-    color: white;
+    color: $white;
     :hover {
-        color: white;
+        color: $white;
     }
 }
 .student-detail-left-menu-course-line p {
     vertical-align: middle;
     line-height: 60px;
     margin-bottom: 0;
-    padding-left: 20px;
+    padding-left: $primary-padding;
     font-size: 20px;
     font-weight: bold;
-    color: #1c3144;
+    color: $color_big_stone_approx;
 }
 .student-detail-left-menu-courses {
     min-height: 60px;
-    border-bottom: 1px solid #D4D4D4;
+    border-bottom: 1px solid $color_quill_gray_approx;
     :hover {
         cursor: pointer;
-        background-color: #E5E5E5;
+        background-color: $mercury;
+    }
+    h3 {
+        width: 70%;
+        margin-top: 16px;
+        margin-bottom: $secondary-margin;
+        padding-left: $primary-padding;
+        font-size: 18px;
+        color: $color_big_stone_approx;
+        display: inline-block;
+        word-wrap: break-word;
     }
 }
 .student-detail-summary {
@@ -211,16 +246,16 @@ th[scope="row"] {
     width: 75%;
 }
 .student-detail-summary-content {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: $secondary-margin;
+    margin-right: $secondary-margin;
 }
 .student-info {
-    background-color: #eee;
+    background-color: $color_gallery_approx;
     padding: 0.75em;
     margin-bottom: 80px;
-}
-.student-info p {
-    display: inline;
+    p {
+        display: inline;
+    }
 }
 .advisor-names {
     margin-right: 0.4em;
@@ -251,11 +286,11 @@ th[scope="row"] {
     bottom: 0;
     left: 0;
     right: 0;
-    color: #777;
-    border-top: 1px solid #e5e5e5;
-    background-color: #1c3144;
+    color: $color_tapa_approx;
+    border-top: 1px solid $mercury;
+    background-color: $color_big_stone_approx;
     font-weight: 300;
-    color: white;
+    color: $white;
     padding-top: 19px;
 }
 .container-narrow > hr {
@@ -263,16 +298,10 @@ th[scope="row"] {
 }
 .jumbotron {
     text-align: center;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid $mercury;
     .btn {
         font-size: 21px;
         padding: 14px 24px;
-    }
-}
-.marketing {
-    margin: 40px 0;
-    p + h4 {
-        margin-top: 28px;
     }
 }
 @media screen and (min-width: 1150px) {
@@ -303,7 +332,7 @@ th[scope="row"] {
 }
 @media screen and (max-width: 768px) {
     .open > .dropdown-menu {
-        color: #9d9d9d;
+        color: $color_star_dust_approx;
     }
     .sub-header {
         margin-top: 0;
@@ -320,7 +349,7 @@ th[scope="row"] {
         position: static;
         left: auto;
         width: auto;
-        margin: -20px -15px 0;
+        margin: -$primary-margin -15px 0;
     }
     .sub-header-backlink {
         margin-top: 0;
@@ -348,7 +377,7 @@ th[scope="row"] {
         margin-right: 0;
     }
     .student-info {
-        margin-bottom: 10px;
+        margin-bottom: $secondary-margin;
     }
     body {
         padding-bottom: 0;
@@ -366,18 +395,18 @@ th[scope="row"] {
     img#student-explorer-logo {
         float: left;
         width: 30px;
-        margin: 10px 0 0 10px;
+        margin: $secondary-margin 0 0 $secondary-margin;
     }
 }
 @media screen and (max-width: 992px) {
     .student-desc {
-        border: 1px solid #c8c8c8;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        margin-bottom: 20px;
+        border: 1px solid $color_pumice_approx;
+        padding-top: $primary-padding;
+        padding-bottom: $primary-padding;
+        margin-bottom: $primary-margin;
     }
     .mobile-inline {
-        margin-bottom: 10px;
+        margin-bottom: $secondary-margin;
         display: inline-block;
     }
     .hide-small-grid {
@@ -409,7 +438,7 @@ th[scope="row"] {
 }
 @media screen and (max-width: 430px) {
     .assignment-detail-comment {
-        padding-top: 20px;
+        padding-top: $primary-padding;
     }
 }
 a.class-site-status-link {
@@ -447,7 +476,7 @@ a.class-site-status-link {
     font-weight: bold;
 }
 .progress-text {
-    color: #c8d6c7;
+    color: $color_sea_mist_approx;
     display: none;
     margin-left: 6px;
 }
@@ -466,10 +495,10 @@ a.class-site-status-link {
     width: 10px;
 }
 .student-legend-key {
-    background-color: #255c91;
+    background-color: $color_st_tropaz_approx;
 }
 .class-legend-key {
-    background-color: #F0D654;
+    background-color: $color_confetti_approx;
 }
 .average-bar-container {
     -webkit-box-shadow: none;
@@ -499,10 +528,10 @@ a.class-site-status-link {
     transition: width 0.6s ease;
 }
 .student-average-bar {
-    background: #255c91;
+    background: $color_st_tropaz_approx;
 }
 .class-average-bar {
-    background: #F0D654;
+    background: $color_confetti_approx;
 }
 .average-bar-text {
     color: black;
@@ -520,10 +549,10 @@ a.class-site-status-link {
     margin-top: 0;
 }
 .main-h3 {
-    color: #1c3144;
+    color: $color_big_stone_approx;
 }
-.main-color-white {
-    color: #e5e5e5 !important;
+.main-color-$white {
+    color: $mercury !important;
 }
 .main-navbar-brand {
     font-weight: 300;
@@ -535,11 +564,11 @@ svg {
     height: 350px !important;
     margin-top: 40px;
     text {
-        font: normal 13px Lato, Helvetica;
+        font: normal 13px $font_Lato, $font_Helvetica;
     }
 }
 .nvtooltip {
-    font-family: Lato, Helvetica;
+    font-family: $font_Lato, $font_Helvetica;
     h3 {
         margin: 0;
         padding: 4px 14px;
@@ -548,7 +577,7 @@ svg {
         font-weight: bold;
         background-color: rgba(247,247,247,0.75);
         text-align: center;
-        border-bottom: 1px solid #ebebeb;
+        border-bottom: 1px solid $color_cararra_approx;
         -webkit-border-radius: 5px 5px 0 0;
         -moz-border-radius: 5px 5px 0 0;
         border-radius: 5px 5px 0 0;
@@ -556,14 +585,14 @@ svg {
 }
 .tooltip-inner {
     text-align: left;
-    white-space: pre-line;
+    $white-space: pre-line;
 }
 .backlink {
     font-size: 20px;
-    color: #1F77B4;
+    color: $color_denim_approx;
     text-decoration: none !important;
     :hover {
-        color: #1c3144;
+        color: $color_big_stone_approx;
     }
 }
 #student-search {
@@ -572,35 +601,38 @@ svg {
 .graph-caption {
     font-size: x-large;
     font-weight: 300;
-    color: brown;
+    color: $color_mexican_red_approx;
     text-align: center;
 }
-.navbar-inverse .navbar-nav > li {
-    > a {
-        color: whitesmoke;
-        font-weight: 300;
-        font-size: 15px;
-        :hover {
-          color: #dedede;
-          background-color: #124465;
+.navbar-inverse {
+    background-color: $color_big_stone_approx;
+    .navbar-nav > li {
+        > a {
+            color: $color_wild_sand_approx;
+            font-weight: 300;
+            font-size: 15px;
+            :hover {
+                color: $color_alto_approx;
+                background-color: $color_astronaut_blue_approx;
+            }
         }
-    }
-    &.active > a {
-        background-color: #124465;
-        :focus {
-            background-color: #124465;
-        }
-        :hover {
-            background-color: #124465;
+        &.active > a {
+            background-color: $color_astronaut_blue_approx;
+            :focus {
+                background-color: $color_astronaut_blue_approx;
+            }
+            :hover {
+                background-color: $color_astronaut_blue_approx;
+            }
         }
     }
 }
 .unsortable:hover {
     text-decoration: none;
-    color: #337ab7;
+    color: $color_steel_blue_approx;
 }
 .table-column-name {
-    color: #337ab7;
+    color: $color_steel_blue_approx;
 }
 .not-found {
     margin-top: 6%;
@@ -612,10 +644,7 @@ svg {
     vertical-align: middle;
 }
 .panel-warning {
-    margin-top: 20px;
-}
-.assignment-title-right {
-    float: right;
+    margin-top: $primary-margin;
 }
 .assignment-button {
     width: 20px;
@@ -628,18 +657,18 @@ svg {
     display: inline-block;
 }
 .assignment-title-score {
-    margin-right: 20px;
+    margin-right: $primary-margin;
 }
 .assignment-row {
     height: 80px;
     display: block;
 }
 .assignment-row-lower {
-    margin-bottom: 20px;
+    margin-bottom: $primary-margin;
 }
 .assignment-detail {
     width: 35%;
-    margin: 10px auto;
+    margin: $secondary-margin auto;
     font-size: 18px;
 }
 .assignment-detail-bold {
@@ -647,7 +676,7 @@ svg {
 }
 .assignment-detail-grade {
     font-size: 25px;
-    margin-top: 10px;
+    margin-top: $secondary-margin;
 }
 .assignment-detail-left {
     display: inline-block;
@@ -661,7 +690,7 @@ svg {
 .assignment-detail-comment {
     width: 80%;
     margin-left: 10%;
-    margin-bottom: 20px;
+    margin-bottom: $primary-margin;
     font-size: 18px;
 }
 .assignment-comment-cell {
@@ -677,13 +706,13 @@ svg {
     width: 100%;
 }
 .legend-text-block {
-    margin-bottom: 10px;
+    margin-bottom: $secondary-margin;
     margin-left: 22px;
 }
 .card-block {
-    box-shadow: 0 0 5px gray;
-    padding: 20px;
-    margin: 20px 2px;
+    box-shadow: 0 0 5px $gray;
+    padding: $primary-padding;
+    margin: $primary-margin 2px;
     :hover {
         cursor: pointer;
     }
@@ -697,6 +726,7 @@ svg {
         display: inline-block;
     }
 }
+.assignment-title-right,
 .card-class-site-status {
     float: right;
 }

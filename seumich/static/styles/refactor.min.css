@@ -21,9 +21,6 @@ body {
 a {
     color: #3072ab
 }
-.navbar-inverse {
-    background-color: #1c3144
-}
 .sub-header, .sub-header-backlink {
     color: brown;
     font-weight: 400;
@@ -49,14 +46,24 @@ a {
 .marketing, .header {
     background-color: #1c3144;
     font-weight: 300;
-    color: white;
+    color: #fff;
     padding-left: 15px;
     padding-right: 15px;
-    margin-top: 40px
+    margin-top: 40px;
+    margin: 40px 0
+}
+.marketing p+h4, .header p+h4 {
+    margin-top: 28px
 }
 .header {
     border-bottom: 1px solid #e5e5e5;
     margin-bottom: 10px
+}
+.header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px
 }
 img#student-explorer-logo {
     float: left;
@@ -66,7 +73,7 @@ img#student-explorer-logo {
 h1.student-detail-student-name {
     margin-top: 0;
     line-height: 1.2;
-    color: white;
+    color: #fff;
     font-size: 28px;
     word-wrap: break-word;
     padding: 20px 20px 0;
@@ -84,22 +91,6 @@ h3.student-course-list {
     font-size: 18px;
     margin: 5px 0 0;
     font-weight: 500
-}
-.student-detail-left-menu-courses h3 {
-    width: 70%;
-    margin-top: 16px;
-    margin-bottom: 10px;
-    padding-left: 20px;
-    font-size: 18px;
-    color: #1c3144;
-    display: inline-block;
-    word-wrap: break-word
-}
-.header h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px
 }
 h4 {
     font-size: 20px;
@@ -136,12 +127,12 @@ th[scope="row"] {
     position: fixed;
     left: 0;
     height: 100%;
-    background-color: #F9F9F9;
+    background-color: #f9f9f9;
     overflow-y: scroll;
     margin-bottom: 100px
 }
 .student-detail-left-menu-top {
-    background-color: #3E6C9C;
+    background-color: #3e6c9c;
     text-align: left;
     width: 100%
 }
@@ -151,13 +142,13 @@ th[scope="row"] {
 }
 .student-detail-main-menu-top {
     width: 100%;
-    background-color: #3E6C9C;
+    background-color: #3e6c9c;
     padding-left: 20px
 }
 .student-detail-student-id {
     font-weight: 300;
     margin-bottom: 0;
-    color: white;
+    color: #fff;
     padding-left: 20px
 }
 .student-detail-student-email {
@@ -168,16 +159,16 @@ th[scope="row"] {
     text-decoration: underline
 }
 .student-detail-student-email-link {
-    color: white
+    color: #fff
 }
 .student-detail-student-email-link:hover {
-    color: white
+    color: #fff
 }
 .student-detail-student-name-link {
-    color: white
+    color: #fff
 }
 .student-detail-student-name-link:hover {
-    color: white
+    color: #fff
 }
 .student-detail-left-menu-course-line p {
     vertical-align: middle;
@@ -190,11 +181,21 @@ th[scope="row"] {
 }
 .student-detail-left-menu-courses {
     min-height: 60px;
-    border-bottom: 1px solid #D4D4D4
+    border-bottom: 1px solid #d4d4d4
 }
 .student-detail-left-menu-courses:hover {
     cursor: pointer;
-    background-color: #E5E5E5
+    background-color: #e5e5e5
+}
+.student-detail-left-menu-courses h3 {
+    width: 70%;
+    margin-top: 16px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    font-size: 18px;
+    color: #1c3144;
+    display: inline-block;
+    word-wrap: break-word
 }
 .student-detail-summary {
     width: 75%;
@@ -248,7 +249,7 @@ th[scope="row"] {
     border-top: 1px solid #e5e5e5;
     background-color: #1c3144;
     font-weight: 300;
-    color: white;
+    color: #fff;
     padding-top: 19px
 }
 .container-narrow>hr {
@@ -261,12 +262,6 @@ th[scope="row"] {
 .jumbotron .btn {
     font-size: 21px;
     padding: 14px 24px
-}
-.marketing, .header {
-    margin: 40px 0
-}
-.marketing p+h4, .header p+h4 {
-    margin-top: 28px
 }
 @media screen and (min-width: 1150px) {
     .nv-axislabel {
@@ -457,7 +452,7 @@ a.class-site-status-link span {
     background-color: #255c91
 }
 .class-legend-key {
-    background-color: #F0D654
+    background-color: #f0d654
 }
 .average-bar-container {
     -webkit-box-shadow: none;
@@ -490,7 +485,7 @@ a.class-site-status-link span {
     background: #255c91
 }
 .class-average-bar {
-    background: #F0D654
+    background: #f0d654
 }
 .average-bar-text {
     color: black;
@@ -510,7 +505,7 @@ a.class-site-status-link span {
 .main-h3 {
     color: #1c3144
 }
-.main-color-white {
+.main-color-$white {
     color: #e5e5e5 !important
 }
 .main-navbar-brand {
@@ -543,12 +538,11 @@ svg text {
     border-radius: 5px 5px 0 0
 }
 .tooltip-inner {
-    text-align: left;
-    white-space: pre-line
+    text-align: left
 }
 .backlink {
     font-size: 20px;
-    color: #1F77B4;
+    color: #1f77b4;
     text-decoration: none !important
 }
 .backlink:hover {
@@ -563,8 +557,11 @@ svg text {
     color: brown;
     text-align: center
 }
+.navbar-inverse {
+    background-color: #1c3144
+}
 .navbar-inverse .navbar-nav>li>a {
-    color: whitesmoke;
+    color: #f5f5f5;
     font-weight: 300;
     font-size: 15px
 }
@@ -599,9 +596,6 @@ svg text {
 }
 .panel-warning {
     margin-top: 20px
-}
-.assignment-title-right {
-    float: right
 }
 .assignment-button {
     width: 20px;
@@ -683,6 +677,6 @@ svg text {
     word-wrap: break-word;
     display: inline-block
 }
-.card-class-site-status {
+.assignment-title-right, .card-class-site-status {
     float: right
 }
