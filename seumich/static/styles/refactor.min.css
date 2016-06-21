@@ -43,7 +43,7 @@ a {
 .policy-warning {
     background-color: #ffc8c8
 }
-.marketing, .header {
+.marketing {
     background-color: #1c3144;
     font-weight: 300;
     color: #fff;
@@ -52,10 +52,16 @@ a {
     margin-top: 40px;
     margin: 40px 0
 }
-.marketing p+h4, .header p+h4 {
+.marketing p+h4 {
     margin-top: 28px
 }
 .header {
+    background-color: #1c3144;
+    font-weight: 300;
+    color: #fff;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 40px;
     border-bottom: 1px solid #e5e5e5;
     margin-bottom: 10px
 }
@@ -272,7 +278,7 @@ th[scope="row"] {
     .container {
         max-width: 100% !important
     }
-    .footer, .header, .marketing, .header {
+    .footer, .header, .marketing {
         padding-left: 0;
         padding-right: 0
     }
