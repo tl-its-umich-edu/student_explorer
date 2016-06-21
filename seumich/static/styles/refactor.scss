@@ -1,42 +1,11 @@
-$color_star_dust_approx: #9d9d9d;
-$color_pumice_approx: #c8c8c8;
-$color_celeste_approx: #ccc;
-$black: #000;
-$color_astral_approx: #3072ab;
-$color_big_stone_approx: #1c3144;
-$color_mexican_red_approx: brown;
-$color_pink_approx: rgba(255, 200, 200, 1);
-$white: white;
-$mercury: #e5e5e5;
-$color_alabaster_approx: #f9f9f9;
-$color_san_marino_approx: #3e6c9c;
-$color_quill_gray_approx: #d4d4d4;
-$color_gallery_approx: #eee;
-$color_tapa_approx: #777;
-$color_sea_mist_approx: #c8d6c7;
-$color_st_tropaz_approx: #255c91;
-$color_confetti_approx: #f0d654;
-$color_black_haze_75_approx: rgba(247, 247, 247, 0.75);
-$color_cararra_approx: #ebebeb;
-$color_denim_approx: #1f77b4;
-$color_wild_sand_approx: whitesmoke;
-$color_astronaut_blue_approx: #124465;
-$color_alto_approx: #dedede;
-$color_steel_blue_approx: #337ab7;
-$gray:  gray;
+@import 'secolor';
 $font_Lato: Lato;
 $font_Helvetica: Helvetica;
 $primary-padding: 20px;
 $primary-margin: 20px;
 $secondary-margin: 10px;
-@mixin marheadint {
-    background-color: $color_big_stone_approx;
-    font-weight: 300;
-    color: $white;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-top: 40px;
-}
+@import 'semixins';
+
 @import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
 .browsehappy {
