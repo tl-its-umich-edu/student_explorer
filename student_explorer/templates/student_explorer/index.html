@@ -15,7 +15,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'nvd3/src/nv.d3.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'components-font-awesome/css/font-awesome.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'styles/refactor.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/main.min.css' %}">
         <script src="{% static 'jquery/dist/jquery.js' %}"></script>
         <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
         <script src="{% static 'd3/d3.js' %}"></script>
@@ -73,8 +73,10 @@
                         {% endif %}
                     </ul>
                     <form action="/students/" method="get" class="navbar-form navbar-right">
+                      <div class="form-group">
                         <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label>
                         <input id="student-search" value="{{ query_user | default_if_none:'' }}" name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+                      </div>
                     </form>
                 </div>
             </div>

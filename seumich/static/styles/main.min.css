@@ -291,13 +291,13 @@ th[scope="row"] {
     .student-class-site-list, .student-detail-mobile {
         display: none
     }
+    #student-search {
+        width: 22em
+    }
 }
 @media screen and (max-width: 768px) {
     .open>.dropdown-menu {
         color: #9d9d9d
-    }
-    .sub-header, .sub-header-backlink {
-        margin-top: 0
     }
     .student-class-site-table, .student-detail-left-menu-detail {
         display: none
@@ -356,6 +356,9 @@ th[scope="row"] {
         float: left;
         width: 30px;
         margin: 10px 0 0 10px
+    }
+    h1.student-detail-student-name {
+        padding-top: 30px
     }
 }
 @media screen and (max-width: 992px) {
@@ -553,9 +556,6 @@ svg text {
 }
 .backlink:hover {
     color: #1c3144
-}
-#student-search {
-    width: 22em
 }
 .graph-caption {
     font-size: x-large;

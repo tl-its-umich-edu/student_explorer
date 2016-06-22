@@ -298,13 +298,13 @@ th[scope="row"] {
     .student-detail-mobile {
         display: none;
     }
+    #student-search {
+        width: 22em;
+    }
 }
 @media screen and (max-width: 768px) {
     .open > .dropdown-menu {
         color: $color_star_dust_approx;
-    }
-    .sub-header {
-        margin-top: 0;
     }
     .student-class-site-table,
     .student-detail-left-menu-detail {
@@ -365,6 +365,9 @@ th[scope="row"] {
         float: left;
         width: 30px;
         margin: $secondary-margin 0 0 $secondary-margin;
+    }
+    h1.student-detail-student-name {
+        padding-top: 30px;
     }
 }
 @media screen and (max-width: 992px) {
@@ -563,9 +566,6 @@ svg {
     :hover {
         color: $color_big_stone_approx;
     }
-}
-#student-search {
-    width: 22em;
 }
 .graph-caption {
     font-size: x-large;
