@@ -59,6 +59,13 @@ class AdvisorsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
 class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
     template_name = 'seumich/student_list.html'
 
+    def get(self, request):
+        univ_id = self.request.GET.get('univ_id', None)
+        if univ_id:
+            student = get_object_or_404(Student, univ_id=univ_id)
+            return redirect('student', student.username)
+        return super(StudentsListView, self).get(request)
+
     def get_context_data(self, **kwargs):
         context = super(StudentsListView, self).get_context_data(**kwargs)
         query_user = self.request.GET.get('search', None)
