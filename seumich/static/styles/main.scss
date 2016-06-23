@@ -5,7 +5,6 @@ $primary-padding: 20px;
 $primary-margin: 20px;
 $secondary-margin: 10px;
 @import 'semixins';
-
 @import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
 .browsehappy {
@@ -168,12 +167,7 @@ th[scope="row"] {
     padding-bottom: $primary-padding;
     text-decoration: underline;
 }
-.student-detail-student-email-link {
-    color: $white;
-    :hover {
-        color: $white;
-    }
-}
+.student-detail-student-email-link,
 .student-detail-student-name-link {
     color: $white;
     :hover {
@@ -281,6 +275,9 @@ th[scope="row"] {
 @media screen and (min-width: 769px) {
     .container {
         max-width: 100% !important;
+    }
+    .container-feedback {
+        width: 50%;
     }
     .footer,
     .header,
@@ -698,4 +695,10 @@ svg {
 .assignment-title-right,
 .card-class-site-status {
     float: right;
+}
+.top-buffer {
+    margin-top: $primary-margin;
+}
+.end-margin {
+    margin-bottom: 100px;
 }

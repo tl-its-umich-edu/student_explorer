@@ -7,7 +7,7 @@
     <h2 class="list-header">Students</h2>
 {% endif %}
 
-<div class="table-responsive main-page-end-margin-bottom">
+<div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>
@@ -63,7 +63,7 @@
     </table>
 
     {% if students.paginator.num_pages > 1 %}
-    <div class="text-center end-padding">
+    <div class="text-center">
         <ul class="pagination">
             <li class="page-item {% if not students.has_previous %} disabled {% endif %}">
                 {% if query_user %}
