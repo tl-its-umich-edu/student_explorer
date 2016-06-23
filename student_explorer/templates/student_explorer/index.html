@@ -15,7 +15,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'nvd3/src/nv.d3.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'components-font-awesome/css/font-awesome.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/main.min.css' %}">
         <script src="{% static 'jquery/dist/jquery.js' %}"></script>
         <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
         <script src="{% static 'd3/d3.js' %}"></script>
@@ -73,50 +73,35 @@
                         {% endif %}
                     </ul>
                     <form action="/students/" method="get" class="navbar-form navbar-right">
+                      <div class="form-group">
                         <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label>
                         <input id="student-search" value="{{ query_user | default_if_none:'' }}" name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+                      </div>
                     </form>
                 </div>
             </div>
         </nav>
 
-        <div class="alert-container">
-            <div ng-if="userInfo.profile.is_policy_accepted === false" class="alert alert-warning alert-dismissible" role="alert" ng-cloak>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+        <div class="container-index">
+            {% block content %}{% endblock %}
+            <div class='feedback center-align visible-md visible-lg'>
+                <img src="{% static 'images/feedback.svg' %}" alt="Feedback icon"></img>Help us improve Student Explorer by
+                <a href="/feedback/">submitting your feedback</a>
+            </div>
+            <div class='feedback center-align visible-sm visible-xs'>
+                <button type="button" class="btn btn-sm btn-secondary">
+                    <a href="/feedback/">
+                        <img src="{% static 'images/feedback.svg' %}" alt="Feedback icon"></img>
+                        Submit Feedback</a>
                 </button>
-                <strong>Warning!</strong>
-                You haven't accepted the
-                <a href="https://wolverineaccess.umich.edu/eac/accesscomplianceresponse.jsp">University's Access &amp; Compliance policy</a>
-                yet.
             </div>
-            <div ng-if="dataDown" class="alert alert-danger alert-dismissible" role="alert" ng-cloak>
-                The database appears to be down. This may be for normal maintanence, please try reloading in a few minutes.
-            </div>
-
-        </div>
-
-        {% block content %}{% endblock %}
-
-        <div class='feedback center-align visible-md visible-lg'>
-            <img src="{% static 'images/feedback.svg' %}" alt="Feedback icon"></img>Help us improve Student Explorer by
-            <a href="/feedback/">submitting your feedback</a>
-        </div>
-
-        <div class='feedback center-align visible-sm visible-xs'>
-            <button type="button" class="btn btn-sm btn-secondary">
-                <a href="/feedback/">
-                    <img src="{% static 'images/feedback.svg' %}" alt="Feedback icon"></img>
-                    Submit Feedback</a>
-            </button>
-        </div>
-
-        <div class="footer navbar-fixed-bottom">
-            <div class="container">
-                <p class="main-color-white">Student Explorer (<a href="/about" style="text-decoration: none; color: inherit;">2.1.1</a>)
-                    <span class="footer-block">Copyright &copy; 2015 - 2016</span>
-                    <span class="footer-block">The Regents of the University of Michigan</span>
-                </p>
+            <div class="footer">
+                <div class="container">
+                    <p class="main-color-white">Student Explorer (<a href="/about" style="text-decoration: none; color: inherit;">2.1.0</a>)
+                        <span class="footer-block">Copyright &copy; 2015 - 2016</span>
+                        <span class="footer-block">The Regents of the University of Michigan</span>
+                    </p>
+                </div>
             </div>
         </div>
 
