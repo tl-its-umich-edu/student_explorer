@@ -5,7 +5,6 @@ $primary-padding: 20px;
 $primary-margin: 20px;
 $secondary-margin: 10px;
 @import 'semixins';
-
 @import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
 .browsehappy {
@@ -75,7 +74,7 @@ a {
 img#student-explorer-logo {
     float: left;
     width: 25px;
-    margin: 13px 8px 0 0;
+    margin: 0 8px 0 0;
 }
 h1.student-detail-student-name {
     margin-top: 0;
@@ -361,11 +360,6 @@ th[scope="row"] {
     .feedback {
         bottom: 95px;
     }
-    img#student-explorer-logo {
-        float: left;
-        width: 30px;
-        margin: $secondary-margin 0 0 $secondary-margin;
-    }
     h1.student-detail-student-name {
         padding-top: 30px;
     }
@@ -523,7 +517,7 @@ a.class-site-status-link {
 .main-h3 {
     color: $color_big_stone_approx;
 }
-.main-color-$white {
+.main-color-white {
     color: $mercury !important;
 }
 .main-navbar-brand {
