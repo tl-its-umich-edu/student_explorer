@@ -20,8 +20,8 @@ def submitFeedback(request):
 
             feedback_message_email = "From: %s <%s>\nFeedback:\n\n%s" % (
                 user.get_full_name(), user.email, feedback_message)
-            send_mail('Student Explorer Feedback (%s : %s)' % (
-                feedback.id, user.email),
+            send_mail('Student Explorer Feedback (%s, id: %s)' % (
+                user.email, feedback.id),
                 feedback_message_email, settings.FEEDBACK_EMAIL,
                 (settings.FEEDBACK_EMAIL,),
                 fail_silently=False,
