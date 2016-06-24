@@ -2,14 +2,9 @@
 
 {% block content %}
 
-    <div class='container container-feedback center-block end-margin'>
+    <div class='container container-feedback center-block content'>
         <div class='row-fluid'>
             <form method="post">{% csrf_token %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class='alert alert-{{ message.tags }} top-buffer'>{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
                 <h1 class="sub-header">Feedback</h1>
                 <small>Please tell us about your experience using Student Explorer. Your feedback will help us improve the tool.</small>
                 <div class='form-group'>

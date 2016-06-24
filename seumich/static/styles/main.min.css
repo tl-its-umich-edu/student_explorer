@@ -230,10 +230,7 @@ th[scope="row"] {
     display: inline-block
 }
 .feedback {
-    position: absolute;
-    bottom: 55px;
-    left: 0;
-    right: 0
+    margin: 0.5em
 }
 .feedback img {
     width: 25px;
@@ -244,13 +241,17 @@ th[scope="row"] {
     position: absolute;
     bottom: 0;
     left: 0;
-    right: 0;
+    right: 0
+}
+.footer .container-fluid {
     color: #777;
     border-top: 1px solid #e5e5e5;
     background-color: #1c3144;
     font-weight: 300;
-    color: #fff;
-    padding-top: 19px
+    color: #fff
+}
+.footer .container-fluid p.main-color-white {
+    margin-top: 13px
 }
 .container-narrow>hr {
     margin: 30px 0
@@ -345,9 +346,6 @@ th[scope="row"] {
     }
     .navbar-fixed-bottom {
         position: relative
-    }
-    .feedback {
-        bottom: 95px
     }
     img#student-explorer-logo {
         float: left;
@@ -683,9 +681,9 @@ svg text {
 .assignment-title-right, .card-class-site-status {
     float: right
 }
-.top-buffer {
+.alert-message {
     margin-top: 20px
 }
-.end-margin {
+.content {
     margin-bottom: 100px
 }

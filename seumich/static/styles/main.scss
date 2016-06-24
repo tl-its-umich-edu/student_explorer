@@ -234,10 +234,7 @@ th[scope="row"] {
     display: inline-block;
 }
 .feedback {
-    position: absolute;
-    bottom: 55px;
-    left: 0;
-    right: 0;
+    margin: 0.5em;
     img {
         width: 25px;
         margin-right: 5px;
@@ -249,12 +246,16 @@ th[scope="row"] {
     bottom: 0;
     left: 0;
     right: 0;
-    color: $color_tapa_approx;
-    border-top: 1px solid $mercury;
-    background-color: $color_big_stone_approx;
-    font-weight: 300;
-    color: $white;
-    padding-top: 19px;
+    .container-fluid {
+        color: $color_tapa_approx;
+        border-top: 1px solid $mercury;
+        background-color: $color_big_stone_approx;
+        font-weight: 300;
+        color: $white;
+        p.main-color-white {
+            margin-top: 13px;
+        }
+    }
 }
 .container-narrow > hr {
     margin: 30px 0;
@@ -354,9 +355,6 @@ th[scope="row"] {
     }
     .navbar-fixed-bottom {
         position: relative;
-    }
-    .feedback {
-        bottom: 95px;
     }
     img#student-explorer-logo {
         float: left;
@@ -696,9 +694,9 @@ svg {
 .card-class-site-status {
     float: right;
 }
-.top-buffer {
+.alert-message {
     margin-top: $primary-margin;
 }
-.end-margin {
+.content {
     margin-bottom: 100px;
 }

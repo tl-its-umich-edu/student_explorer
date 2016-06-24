@@ -31,7 +31,7 @@ def submitFeedback(request):
                 request,
                 messages.SUCCESS,
                 'Thank you for submitting your feedback!')
-            return HttpResponseRedirect('/feedback/')
+            return HttpResponseRedirect('/')
     else:
         form = FeedbackForm()
 
