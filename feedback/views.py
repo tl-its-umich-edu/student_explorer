@@ -15,17 +15,17 @@ def submitFeedback(request):
             user = request.user
             feedback_message = form.cleaned_data['feedback_message']
 
-            Feedback.objects.create(
-                user=user,
-                feedback_message=feedback_message)
+            feedback = Feedback.objects.create(
+                user=user, feedback_message=feedback_message)
 
             feedback_message_email = "From: %s <%s>\nFeedback:\n\n%s" % (
                 user.get_full_name(), user.email, feedback_message)
-            send_mail('Student Explorer Feedback (%s))' % user.email,
-                      feedback_message_email, settings.FEEDBACK_EMAIL,
-                      (settings.FEEDBACK_EMAIL,),
-                      fail_silently=False,
-                      )
+            send_mail('Student Explorer Feedback (%s, id: %s)' % (
+                user.email, feedback.id),
+                feedback_message_email, settings.FEEDBACK_EMAIL,
+                (settings.FEEDBACK_EMAIL,),
+                fail_silently=False,
+            )
             return HttpResponseRedirect('/')
     else:
         form = FeedbackForm()
