@@ -164,16 +164,10 @@ th[scope="row"] {
     padding-bottom: 20px;
     text-decoration: underline
 }
-.student-detail-student-email-link {
+.student-detail-student-email-link, .student-detail-student-name-link {
     color: #fff
 }
-.student-detail-student-email-link:hover {
-    color: #fff
-}
-.student-detail-student-name-link {
-    color: #fff
-}
-.student-detail-student-name-link:hover {
+.student-detail-student-email-link:hover, .student-detail-student-name-link:hover {
     color: #fff
 }
 .student-detail-left-menu-course-line p {
@@ -236,10 +230,7 @@ th[scope="row"] {
     display: inline-block
 }
 .feedback {
-    position: absolute;
-    bottom: 55px;
-    left: 0;
-    right: 0
+    margin: 0.5em
 }
 .feedback img {
     width: 25px;
@@ -250,13 +241,17 @@ th[scope="row"] {
     position: absolute;
     bottom: 0;
     left: 0;
-    right: 0;
+    right: 0
+}
+.footer .container-fluid {
     color: #777;
     border-top: 1px solid #e5e5e5;
     background-color: #1c3144;
     font-weight: 300;
-    color: #fff;
-    padding-top: 19px
+    color: #fff
+}
+.footer .container-fluid p.main-color-white {
+    margin-top: 13px
 }
 .container-narrow>hr {
     margin: 30px 0
@@ -277,6 +272,9 @@ th[scope="row"] {
 @media screen and (min-width: 769px) {
     .container {
         max-width: 100% !important
+    }
+    .container-feedback {
+        width: 50%
     }
     .footer, .header, .marketing {
         padding-left: 0;
@@ -348,9 +346,6 @@ th[scope="row"] {
     }
     .navbar-fixed-bottom {
         position: relative
-    }
-    .feedback {
-        bottom: 95px
     }
     img#student-explorer-logo {
         float: left;
@@ -685,4 +680,10 @@ svg text {
 }
 .assignment-title-right, .card-class-site-status {
     float: right
+}
+.alert-message {
+    margin-top: 20px
+}
+.content {
+    margin-bottom: 100px
 }
