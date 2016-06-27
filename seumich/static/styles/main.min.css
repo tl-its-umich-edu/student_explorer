@@ -347,11 +347,6 @@ th[scope="row"] {
     .navbar-fixed-bottom {
         position: relative
     }
-    img#student-explorer-logo {
-        float: left;
-        width: 30px;
-        margin: 10px 0 0 10px
-    }
     h1.student-detail-student-name {
         padding-top: 30px
     }
