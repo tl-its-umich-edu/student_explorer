@@ -1,5 +1,5 @@
 from django.views.generic import View, ListView, TemplateView
-from seumich.models import Student, Mentor, ClassSite, ClassSiteScore
+from seumich.models import Student, Mentor, Cohort, ClassSite, ClassSiteScore
 from django.shortcuts import get_object_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db.models import Q
@@ -55,6 +55,13 @@ class AdvisorsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     # Filtering for id >= 0 eliminates "Bad Value"-type results.
     queryset = Mentor.objects.filter(id__gte=0).order_by('last_name')
     context_object_name = 'advisors'
+
+
+class CohortsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
+    template_name = 'seumich/cohort_list.html'
+    # Filtering for id >= 0 eliminates "Bad Value"-type results.
+    queryset = Cohort.objects.filter(id__gte=0)
+    context_object_name = 'cohorts'
 
 
 class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
@@ -123,7 +130,28 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
         return context
 
 
+class CohortView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
+    template_name = 'seumich/cohort_detail.html'
+
+    def get_context_data(self, code, **kwargs):
+        context = super(CohortView, self).get_context_data(**kwargs)
+
+        cohort = get_object_or_404(Cohort, code=code)
+        student_list = Student.objects.filter(
+            studentcohortmentor__cohort=cohort).distinct()
+        context['studentListHeader'] = cohort.description
+        context['cohort'] = cohort
+
+        # Pagination to break list into multiple pieces
+        pages, ranges = convert_to_pages(
+            student_list, self.request.GET.get('page'))
+        context['students'] = pages
+        context['loop_times'] = ranges
+        return context
+
+
 class IndexView(LoginRequiredMixin, UserLogPageViewMixin, View):
+
     def get(self, request):
         return redirect('advisor', advisor=request.user.username)
 
