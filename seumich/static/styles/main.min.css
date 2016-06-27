@@ -74,7 +74,7 @@ a {
 img#student-explorer-logo {
     float: left;
     width: 25px;
-    margin: 13px 8px 0 0
+    margin: 0 8px 0 0
 }
 h1.student-detail-student-name {
     margin-top: 0;
@@ -347,11 +347,6 @@ th[scope="row"] {
     .navbar-fixed-bottom {
         position: relative
     }
-    img#student-explorer-logo {
-        float: left;
-        width: 30px;
-        margin: 10px 0 0 10px
-    }
     h1.student-detail-student-name {
         padding-top: 30px
     }
@@ -509,7 +504,7 @@ a.class-site-status-link span {
 .main-h3 {
     color: #1c3144
 }
-.main-color-$white {
+.main-color-white {
     color: #e5e5e5 !important
 }
 .main-navbar-brand {
