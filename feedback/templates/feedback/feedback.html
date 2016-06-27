@@ -2,14 +2,13 @@
 
 {% block content %}
 
-    <form method="post">{% csrf_token %}
-
-        <div class='container'>
-            <div class='row-fluid'>
-               <div class="page-header">
-                  <h1 class="sub-header">Feedback</h1>
-               </div>
+    <div class='container container-feedback center-block content'>
+        <div class='row-fluid'>
+            <form method="post">{% csrf_token %}
+                <h1 class="sub-header">Feedback</h1>
+                <small>Please tell us about your experience using Student Explorer. Your feedback will help us improve the tool.</small>
                 <div class='form-group'>
+                    <label for='{{ form.user_name.id_for_label }}'>From:</label>
                     <input type='text' class='form-control' name='{{ form.user_name.name }}' id='{{ form.user_name.id_for_label }}' value='{{ user.get_full_name }} <{{ user.email }}>' placeholder='' readonly/>
                 </div>
                 <label for='{{ form.feedback_message.id_for_label }}'>Message:</label>
@@ -22,9 +21,11 @@
                     <textarea class="form-control" rows="5" name='{{ form.feedback_message.name }}' id='{{ form.feedback_message.id_for_label }}'></textarea>
                 </div>
                 <button type='submit' class='btn btn-success'>Submit</button>
-            </div>
+                <a href='{{ request.META.HTTP_REFERER }}' class='cancel-link'>
+                    <button type='button' class='btn btn-secondary'>Cancel</button>
+                </a>
+            </form>
         </div>
-
-    </form>
+    </div>
 
 {% endblock %}
