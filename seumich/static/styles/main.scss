@@ -50,6 +50,11 @@ a {
 .dropdown-menu p {
     padding: 3px $primary-padding;
 }
+.mobile-nav-right {
+    padding: 10px 15px;
+    margin-bottom: 0;
+    color: $color_star_dust_approx;
+}
 .policy-warning {
     background-color: $color_pink_approx;
 }

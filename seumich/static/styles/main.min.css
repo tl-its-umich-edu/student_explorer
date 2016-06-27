@@ -40,6 +40,11 @@ a {
 .dropdown-menu p {
     padding: 3px 20px
 }
+.mobile-nav-right {
+    padding: 10px 15px;
+    margin-bottom: 0;
+    color: #9d9d9d
+}
 .policy-warning {
     background-color: #ffc8c8
 }
