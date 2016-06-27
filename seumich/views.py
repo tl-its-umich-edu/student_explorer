@@ -1,10 +1,11 @@
 from django.views.generic import View, ListView, TemplateView
 from seumich.models import Student, Mentor, ClassSite, ClassSiteScore
 from django.shortcuts import get_object_or_404, redirect
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.conf import settings
 from tracking.utils import UserLogPageViewMixin
 
@@ -62,13 +63,18 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
     def get(self, request):
         univ_id = self.request.GET.get('univ_id', None)
         if univ_id:
-            student = get_object_or_404(Student, univ_id=univ_id)
-            return redirect('student', student.username)
+            try:
+                student = get_object_or_404(Student, univ_id=univ_id)
+                return redirect('student', student.username)
+            except MultipleObjectsReturned:
+                logger.info('Multiple students with the same univ_id (%s)'
+                            % univ_id)
         return super(StudentsListView, self).get(request)
 
     def get_context_data(self, **kwargs):
         context = super(StudentsListView, self).get_context_data(**kwargs)
         query_user = self.request.GET.get('search', None)
+        univ_id = self.request.GET.get('univ_id', None)
         student_list = []
         context['studentListHeader'] = 'Search Students'
 
@@ -80,6 +86,13 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
                 Q(first_name__icontains=query_user) |
                 Q(last_name__icontains=query_user)
             ).order_by('last_name').distinct()
+        elif univ_id:
+            student_list = Student.objects.filter(id__gte=0).filter(
+                univ_id=univ_id)
+            messages.add_message(
+                self.request,
+                messages.WARNING,
+                'Multiple students with the same univ_id (%s)' % univ_id)
 
         # Pagination to break list into multiple pieces
         pages, ranges = convert_to_pages(
