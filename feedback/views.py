@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from feedback.models import Feedback
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 @login_required
@@ -26,6 +27,10 @@ def submitFeedback(request):
                 (settings.FEEDBACK_EMAIL,),
                 fail_silently=False,
             )
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                'Thank you for submitting your feedback!')
             return HttpResponseRedirect('/')
     else:
         form = FeedbackForm()
