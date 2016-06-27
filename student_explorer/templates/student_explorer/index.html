@@ -46,8 +46,27 @@
                         <li>
                             <a href="/advisors/" data-toggle="collapse" data-target="#navbar.in">Advisors</a>
                         </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
-                            <li>
+                            <li class="dropdown visible-md visible-lg">
+                                <a class="dropdown-toggle" aria-label="expand for logout" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{user.username}}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <p>
+                                            <strong>{{user.first_name}}
+                                                {{user.last_name}}</strong>
+                                        </p>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="{% url 'auth_logout' %}">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="visible-xs visible-sm">
                                 <a href="{% url 'auth_logout' %}">Logout</a>
                             </li>
                         {% else %}
