@@ -138,7 +138,7 @@ class CohortView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
 
         cohort = get_object_or_404(Cohort, code=code)
         student_list = Student.objects.filter(
-            studentcohortmentor__cohort=cohort).distinct()
+            studentcohortmentor__cohort=cohort).filter(id__gte=0).distinct()
         context['studentListHeader'] = cohort.description
         context['cohort'] = cohort
 
