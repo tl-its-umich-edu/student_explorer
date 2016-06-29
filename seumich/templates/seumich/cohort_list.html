@@ -1,0 +1,34 @@
+{% extends 'seumich/advisor.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <script src='{% static 'seumich/sort_table.js' %}'></script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container content">
+        <h2 class="sub-header list-header">All Cohorts</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="hide-small">
+                            <a href="#" onClick="return false;">Name</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cohort in cohorts %}
+                        <tr>
+                            <th scope="row" class="bold">
+                                <a href="/cohorts/{{ cohort.code }}/">{{ cohort.description }}</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

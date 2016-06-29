@@ -27,10 +27,17 @@ urlpatterns = [
         views.AdvisorsListView.as_view(),
         name='advisors_list'),
     url(
+        r'^cohorts/$',
+        views.CohortsListView.as_view(),
+        name='cohorts_list'),
+    url(
         r'^advisors/(?P<advisor>\w+)/$',
         views.AdvisorView.as_view(),
         name='advisor'),
-
+    url(
+        r'^cohorts/(?P<code>[\w-]+)/$',
+        views.CohortView.as_view(),
+        name='cohort'),
     url(r'^students/$',
         views.StudentsListView.as_view(),
         name='students_list'),
