@@ -83,30 +83,34 @@
                         <svg></svg>
                     </div>
                     <script>
-                        var chart = nv.models.multiBarChart().showControls(false).forceY([0, 100]).reduceXTicks(false).showYAxis(true).showXAxis(true)
 
-                        var data = {{ scoreData|jsonify }}
+                        nv.addGraph(function () {
+                            var chart = nv.models.multiBarChart().showControls(false).forceY([0, 100]).reduceXTicks(false).showYAxis(true).showXAxis(true)
 
-                        chart.x(function (d) {
-                            return d[0];
-                        });
-                        chart.y(function (d) {
-                            return d[1];
-                        });
-                        chart.xAxis.axisLabel('Week').tickFormat(function (d) {
-                            if (window.innerWidth >= 1150) {
-                                return 'Week ' + d;
-                            } else {
-                                return d;
-                            }
+                            var data = {{ scoreData|jsonify }}
 
-                        });
-                        chart.yAxis.tickFormat(function (d) {
-                            return d + '%';
+                            chart.x(function (d) {
+                                return d[0];
+                            });
+                            chart.y(function (d) {
+                                return d[1];
+                            });
+                            chart.xAxis.axisLabel('Week').tickFormat(function (d) {
+                                if (window.innerWidth >= 1150) {
+                                    return 'Week ' + d;
+                                } else {
+                                    return d;
+                                }
 
+                            });
+                            chart.yAxis.tickFormat(function (d) {
+                                return d + '%';
+
+                            });
+                            d3.select('#chart1 svg').datum(data).transition().duration(500).call(chart);
+                            nv.utils.windowResize(chart.update);
+                            return chart;
                         });
-                        d3.select('#chart1 svg').datum(data).transition().duration(500).call(chart);
-                        nv.utils.windowResize(chart.update);
                     </script>
 
                     <h4>Weekly Activity</h4>
@@ -115,30 +119,34 @@
                         <svg></svg>
                     </div>
                     <script>
-                        var chart = nv.models.multiBarChart().showControls(false).forceY([0, 100]).reduceXTicks(false).showYAxis(true).showXAxis(true)
 
-                        var data = {{ eventPercentileData|jsonify }}
+                        nv.addGraph(function () {
+                            var chart = nv.models.multiBarChart().showControls(false).forceY([0, 100]).reduceXTicks(false).showYAxis(true).showXAxis(true)
 
-                        chart.x(function (d) {
-                            return d[0];
-                        });
-                        chart.y(function (d) {
-                            return d[1];
-                        });
-                        chart.xAxis.axisLabel('Week').tickFormat(function (d) {
-                            if (window.innerWidth >= 1150) {
-                                return 'Week ' + d;
-                            } else {
-                                return d;
-                            }
+                            var data = {{ eventPercentileData|jsonify }}
 
-                        });
-                        chart.yAxis.tickFormat(function (d) {
-                            return d + '%ile';
+                            chart.x(function (d) {
+                                return d[0];
+                            });
+                            chart.y(function (d) {
+                                return d[1];
+                            });
+                            chart.xAxis.axisLabel('Week').tickFormat(function (d) {
+                                if (window.innerWidth >= 1150) {
+                                    return 'Week ' + d;
+                                } else {
+                                    return d;
+                                }
 
+                            });
+                            chart.yAxis.tickFormat(function (d) {
+                                return d + '%ile';
+
+                            });
+                            d3.select('#chart2 svg').datum(data).transition().duration(500).call(chart);
+                            nv.utils.windowResize(chart.update);
+                            return chart;
                         });
-                        d3.select('#chart2 svg').datum(data).transition().duration(500).call(chart);
-                        nv.utils.windowResize(chart.update);
                     </script>
                 </div>
 
