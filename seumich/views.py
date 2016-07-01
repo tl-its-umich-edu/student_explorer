@@ -14,21 +14,21 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def convert_to_pages(student_list, page, num_records=None,
+def convert_to_pages(record_list, page, num_records=None,
                      num_page_links=None):
     if not num_records:
         num_records = settings.PAGINATION_RECORDS_PER_PAGE
     if not num_page_links:
         num_page_links = settings.PAGINATION_NUM_PAGE_LINKS
 
-    paginator = Paginator(student_list, num_records)
+    paginator = Paginator(record_list, num_records)
 
     try:
-        students = paginator.page(page)
+        records = paginator.page(page)
     except PageNotAnInteger:
-        students = paginator.page(1)
+        records = paginator.page(1)
     except EmptyPage:
-        students = paginator.page(paginator.num_pages)
+        records = paginator.page(paginator.num_pages)
 
     if not page:
         initial = 1
@@ -47,7 +47,7 @@ def convert_to_pages(student_list, page, num_records=None,
             initial = paginator.num_pages - (num_page_links - 1)
             final = 1 + paginator.num_pages
 
-    return students, range(initial, final)
+    return records, range(initial, final)
 
 
 class AdvisorsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
@@ -62,6 +62,21 @@ class CohortsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     # Filtering for id >= 0 eliminates "Bad Value"-type results.
     queryset = Cohort.objects.filter(id__gte=0)
     context_object_name = 'cohorts'
+
+
+class ClassListView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
+    template_name = 'seumich/class_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ClassListView, self).get_context_data(**kwargs)
+        class_list = ClassSite.objects.filter(id__gte=0)
+
+        # Pagination to break list into multiple pieces
+        pages, ranges = convert_to_pages(
+            class_list, self.request.GET.get('page'))
+        context['classes'] = pages
+        context['loop_times'] = ranges
+        return context
 
 
 class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
@@ -141,6 +156,27 @@ class CohortView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
             studentcohortmentor__cohort=cohort).filter(id__gte=0).distinct()
         context['studentListHeader'] = cohort.description
         context['cohort'] = cohort
+
+        # Pagination to break list into multiple pieces
+        pages, ranges = convert_to_pages(
+            student_list, self.request.GET.get('page'))
+        context['students'] = pages
+        context['loop_times'] = ranges
+        return context
+
+
+class ClassSiteView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
+    template_name = 'seumich/class_site_detail.html'
+
+    def get_context_data(self, class_site_id, **kwargs):
+        context = super(ClassSiteView, self).get_context_data(**kwargs)
+
+        class_site = get_object_or_404(ClassSite, id=class_site_id)
+        student_list = Student.objects.filter(
+            studentclasssitestatus__class_site=class_site).filter(
+            id__gte=0).distinct()
+        context['studentListHeader'] = class_site.description
+        context['class_site'] = class_site
 
         # Pagination to break list into multiple pieces
         pages, ranges = convert_to_pages(

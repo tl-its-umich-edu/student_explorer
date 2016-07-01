@@ -1,0 +1,89 @@
+{% extends 'seumich/advisor.html' %}
+
+{% block content %}
+
+    <div class="container content">
+        <h2 class="sub-header list-header">All Classes</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="hide-small">
+                            <a href="#" onClick="return false;">Name</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for class_site in classes %}
+                        <tr>
+                            <th scope="row" class="bold">
+                                <a href="/classes/{{ class_site.id }}/">{{ class_site.description }}</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if classes.paginator.num_pages > 1 %}
+            <div class="text-center">
+                <ul class="pagination">
+                    <li class="page-item {% if not classes.has_previous %} disabled {% endif %}">
+                        {% if query_user %}
+                            <a class="page-link" href='{% if classes.has_previous %}?search={{query_user}}&amp;page=1{% endif %}' aria-label="First">&laquo; First</a>
+                        {% else %}
+                            <a class="page-link" href='{% if classes.has_previous %}?page=1{% endif %}' aria-label="First">&laquo; First</a>
+                        {% endif %}
+                    </li>
+                    <li class="page-item {% if not classes.has_previous %} disabled {% endif %}">
+                        {% if query_user %}
+                            <a class="page-link" href='{% if classes.has_previous %}?search={{query_user}}&amp;page={{classes.previous_page_number}}{% endif %}' aria-label="Previous">&lsaquo; Previous</a>
+                        {% else %}
+                            <a class="page-link" href='{% if classes.has_previous %}?page={{classes.previous_page_number}}{% endif %}' aria-label="Previous">&lsaquo; Previous</a>
+                        {% endif %}
+                    </li>
+                    {% for page_num in loop_times %}
+                        {% if page_num == classes.number %}
+                            {% if query_user %}
+                                <li class="page-item active">
+                                    <a class="page-link" href='?search={{query_user}}&amp;page={{page_num}}'>{{page_num}}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item active">
+                                    <a class="page-link" href='?page={{page_num}}'>{{page_num}}</a>
+                                </li>
+                            {% endif %}
+                        {% else %}
+                            {% if page_num <= classes.paginator.num_pages %}
+                                {% if query_user %}
+                                    <li class="page-item">
+                                        <a class="page-link" href='?search={{query_user}}&amp;page={{page_num}}'>{{page_num}}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href='?page={{page_num}}'>{{page_num}}</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    <li class="page-item {% if not classes.has_next %} disabled {% endif %}">
+                        {% if query_user %}
+                            <a class="page-link" href='{% if classes.has_next %}?search={{query_user}}&amp;page={{classes.next_page_number}}{% endif %}' aria-label="Next">Next &rsaquo;</a>
+                        {% else %}
+                            <a class="page-link" href='{% if classes.has_next %}?page={{classes.next_page_number}}{% endif %}' aria-label="Next">Next &rsaquo;</a>
+                        {% endif %}
+                    </li>
+                    <li class="page-item {% if not classes.has_next %} disabled {% endif %}">
+                        {% if query_user %}
+                            <a class="page-link" href='{% if classes.has_next %}?search={{query_user}}&amp;page={{classes.paginator.num_pages}}{% endif %}' aria-label="Last">Last &raquo;</a>
+                        {% else %}
+                            <a class="page-link" href='{% if classes.has_next %}?page={{classes.paginator.num_pages}}{% endif %}' aria-label="Last">Last &raquo;</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
