@@ -34,7 +34,7 @@ Vagrant.configure(2) do |config|
         apt-get --no-install-recommends install --yes apache2 apache2-utils
         apt-get --no-install-recommends install --yes libldap2-dev libsasl2-dev
         apt-get --no-install-recommends install --yes libfontconfig
-        apt-get --no-install-recommends install --yes xmlsec1
+        apt-get --no-install-recommends install --yes xmlsec1 libffi-dev
 
         echo -e "[mysqld]\nbind-address = 0.0.0.0" > /tmp/mysqld_bind_vagrant.cnf
         mv -f /tmp/mysqld_bind_vagrant.cnf /etc/mysql/conf.d/

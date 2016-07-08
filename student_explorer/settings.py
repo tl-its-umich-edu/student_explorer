@@ -30,8 +30,6 @@ SILENCED_SYSTEM_CHECKS = []
 
 ADMINS = [('', getenv('DJANGO_ERROR_EMAIL', 'vagrant@localhost'))]
 
-EMAIL_HOST = getenv('DJANGO_EMAIL_HOST', 'localhost')
-
 
 # Application definition
 
@@ -47,6 +45,8 @@ INSTALLED_APPS = (
     'student_explorer',
     'seumich',
     'advisinggroups',
+    'tracking',
+    'feedback',
 )
 
 MIDDLEWARE_CLASSES = [
@@ -88,6 +88,13 @@ FORCE_SCRIPT_NAME = getenv('DJANGO_FORCE_SCRIPT_NAME', None)
 WATCHMAN_TOKEN = getenv('DJANGO_WATCHMAN_TOKEN', None)
 WATCHMAN_TOKEN_NAME = getenv('DJANGO_WATCHMAN_TOKEN_NAME', 'token')
 
+PAGINATION_RECORDS_PER_PAGE = int(getenv(
+    'DJANGO_PAGINATION_RECORDS_PER_PAGE', '10'))
+PAGINATION_NUM_PAGE_LINKS = int(getenv(
+    'DJANGO_PAGINATION_NUM_PAGE_LINKS', '5'))
+
+SERVER_EMAIL = getenv('DJANGO_SERVER_EMAIL',
+                      'student-explorer-admins@umich.edu')
 
 # Internationalization
 
@@ -118,6 +125,17 @@ STATICFILES_FINDERS = (
 LOGIN_URL = getenv('DJANGO_LOGIN_URL', '/accounts/login/')
 LOGIN_REDIRECT_URL = '/'
 
+LOGOUT_REDIRECT_URL = getenv('DJANGO_LOGOUT_REDIRECT_URL', '/')
+
+EMAIL_HOST = getenv('DJANGO_EMAIL_HOST', 'localhost')
+EMAIL_PORT = getenv('DJANGO_EMAIL_PORT', None)
+EMAIL_HOST_USER = getenv('DJANGO_EMAIL_HOST_USER', None)
+EMAIL_HOST_PASSWORD = getenv('DJANGO_EMAIL_HOST_PASSWORD', None)
+EMAIL_USE_TLS = getenv('DJANGO_EMAIL_USE_TLS', None)
+EMAIL_USE_SSL = getenv('DJANGO_EMAIL_USE_SSL', None)
+
+FEEDBACK_EMAIL = getenv('DJANGO_FEEDBACK_EMAIL', None)
+
 
 # Databases
 
@@ -140,6 +158,8 @@ DATABASES['seumich'] = {
     'PASSWORD': getenv('DJANGO_SEUMICH_DB_PASSWORD', 'student_explorer'),
     'HOST': getenv('DJANGO_SEUMICH_DB_HOST', ''),
     'PORT': getenv('DJANGO_SEUMICH_DB_PORT', ''),
+    'MIGRATE': getenv_bool('DJANGO_SEUMICH_DB_MIGRATE', 'no'),
+
 }
 DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
 

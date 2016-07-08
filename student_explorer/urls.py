@@ -16,20 +16,26 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
+import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('seumich.urls')),
     url(r'^status/', include('watchman.urls')),
     url(r'^advising_groups/', include('advisinggroups.urls')),
+    url(r'^feedback/', include('feedback.urls')),
 ]
 
 if 'djangosaml2' in settings.INSTALLED_APPS:
     urlpatterns += (
         url(r'^accounts/', include('djangosaml2.urls')),
     )
-
-if 'registration' in settings.INSTALLED_APPS:
+elif 'registration' in settings.INSTALLED_APPS:
     urlpatterns += (
         url(r'^accounts/', include('registration.backends.default.urls')),
     )
+
+# Override auth_logout from djangosaml2 and registration for consistant
+# behavior
+urlpatterns.append(url(r'^accounts/logout', views.logout, name='auth_logout'))
+urlpatterns.append(url(r'^about', views.about, name='about'))

@@ -4,7 +4,7 @@
 <h1 class="sub-header">{{ studentListHeader }}</h1>
 {% if students %}
     <hr class="main-no-margin-top"/>
-    <h2>Students</h2>
+    <h2 class="list-header">Students</h2>
 {% endif %}
 
 <div class="table-responsive">
@@ -62,15 +62,21 @@
         </tbody>
     </table>
 
+    {% if students.paginator.num_pages > 1 %}
     <div class="text-center">
         <ul class="pagination">
-            <li class="page-item">
-                {% if students.has_previous %}
-                    {% if query_user %}
-                        <a class="page-link" href='?search={{query_user}}&amp;page={{students.previous_page_number}}' aria-label="Previous">Previous</a>
-                    {% else %}
-                        <a class="page-link" href='?page={{students.previous_page_number}}' aria-label="Previous">Previous</a>
-                    {% endif %}
+            <li class="page-item {% if not students.has_previous %} disabled {% endif %}">
+                {% if query_user %}
+                    <a class="page-link" href='{% if students.has_previous %}?search={{query_user}}&amp;page=1{% endif %}' aria-label="First">&laquo; First</a>
+                {% else %}
+                    <a class="page-link" href='{% if students.has_previous %}?page=1{% endif %}' aria-label="First">&laquo; First</a>
+                {% endif %}
+            </li>
+            <li class="page-item {% if not students.has_previous %} disabled {% endif %}">
+                {% if query_user %}
+                    <a class="page-link" href='{% if students.has_previous %}?search={{query_user}}&amp;page={{students.previous_page_number}}{% endif %}' aria-label="Previous">&lsaquo; Previous</a>
+                {% else %}
+                    <a class="page-link" href='{% if students.has_previous %}?page={{students.previous_page_number}}{% endif %}' aria-label="Previous">&lsaquo; Previous</a>
                 {% endif %}
             </li>
             {% for page_num in loop_times %}
@@ -98,16 +104,22 @@
                     {% endif %}
                 {% endif %}
             {% endfor %}
-            <li class="page-item">
-                {% if students.has_next %}
-                    {% if query_user %}
-                        <a class="page-link" href='?search={{query_user}}&amp;page={{students.next_page_number}}' aria-label="Next">Next</a>
-                    {% else %}
-                        <a class="page-link" href='?page={{students.next_page_number}}' aria-label="Next">Next</a>
-                    {% endif %}
+            <li class="page-item {% if not students.has_next %} disabled {% endif %}">
+                {% if query_user %}
+                    <a class="page-link" href='{% if students.has_next %}?search={{query_user}}&amp;page={{students.next_page_number}}{% endif %}' aria-label="Next">Next &rsaquo;</a>
+                {% else %}
+                    <a class="page-link" href='{% if students.has_next %}?page={{students.next_page_number}}{% endif %}' aria-label="Next">Next &rsaquo;</a>
+                {% endif %}
+            </li>
+            <li class="page-item {% if not students.has_next %} disabled {% endif %}">
+                {% if query_user %}
+                    <a class="page-link" href='{% if students.has_next %}?search={{query_user}}&amp;page={{students.paginator.num_pages}}{% endif %}' aria-label="Last">Last &raquo;</a>
+                {% else %}
+                    <a class="page-link" href='{% if students.has_next %}?page={{students.paginator.num_pages}}{% endif %}' aria-label="Last">Last &raquo;</a>
                 {% endif %}
             </li>
         </ul>
     </div>
+    {% endif %}
 
 </div>
