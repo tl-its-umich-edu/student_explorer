@@ -1,5 +1,7 @@
 from django.views.generic import View, ListView, TemplateView
-from seumich.models import Student, Mentor, Cohort, ClassSite, ClassSiteScore
+from seumich.models import (Student, Mentor, Cohort, ClassSite,
+                            ClassSiteScore,
+                            StudentCohortMentor)
 from django.shortcuts import get_object_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db.models import Q
@@ -7,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.conf import settings
 from tracking.utils import UserLogPageViewMixin
+from django.db.models import Prefetch
 
 import logging
 
@@ -116,6 +119,7 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin,
                 self.request,
                 messages.WARNING,
                 'Multiple students with the same univ_id (%s)' % self.univ_id)
+        student_list = student_list.prefetch_related('class_sites', 'cohorts')
         return student_list
 
 
@@ -136,6 +140,7 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
         self.mentor = get_object_or_404(Mentor,
                                         username=self.kwargs['advisor'])
         student_list = self.mentor.students.order_by('last_name').distinct()
+        student_list = student_list.prefetch_related('class_sites', 'cohorts')
         return student_list
 
 
@@ -156,6 +161,7 @@ class CohortView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
         student_list = Student.objects.filter(
             studentcohortmentor__cohort=self.cohort).filter(
             id__gte=0).distinct()
+        student_list = student_list.prefetch_related('class_sites', 'cohorts')
         return student_list
 
 
@@ -177,6 +183,7 @@ class ClassSiteView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
         student_list = Student.objects.filter(
             studentclasssitestatus__class_site=self.class_site).filter(
             id__gte=0).distinct()
+        student_list = student_list.prefetch_related('class_sites', 'cohorts')
         return student_list
 
 
@@ -193,8 +200,14 @@ class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
         context = super(StudentView, self).get_context_data(**kwargs)
         selected_student = get_object_or_404(Student, username=student)
         context['student'] = selected_student
-        context['advisors'] = selected_student.mentors.all()
-        context['classSites'] = selected_student.class_sites.all()
+        context['advisors'] = (selected_student.mentors.all()
+                               .prefetch_related(
+            Prefetch('studentcohortmentor_set',
+                     queryset=StudentCohortMentor.objects.filter(
+                         student=selected_student),
+                     to_attr='cohort')))
+        context['classSites'] = (selected_student.class_sites.all()
+                                 .prefetch_related('classsitescore_set'))
         return context
 
 
@@ -291,5 +304,5 @@ class StudentClassSiteView(StudentView):
         context['scoreData'] = scoreData
         context['eventPercentileData'] = eventPercentileData
         context['assignments'] = student.studentclasssiteassignment_set.filter(
-            class_site=class_site)
+            class_site=class_site).prefetch_related('assignment', '_due_date')
         return context
