@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'advisinggroups',
     'tracking',
     'feedback',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = [
@@ -59,6 +60,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 TEMPLATES = [
@@ -136,6 +138,7 @@ EMAIL_USE_SSL = getenv('DJANGO_EMAIL_USE_SSL', None)
 
 FEEDBACK_EMAIL = getenv('DJANGO_FEEDBACK_EMAIL', None)
 
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 # Databases
 

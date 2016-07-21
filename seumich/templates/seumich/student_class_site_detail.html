@@ -27,8 +27,8 @@
                 {% for classSite in classSites %}
                     <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
                         <h3>{{classSite.description}}</h3>
-                        <a href="#" data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
-                            {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                        {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                        <a href="#" data-toggle="tooltip" title="{{ status|status_to_text }}" data-placement="bottom">
                             {% if status == 'Green' %}
                                 <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px"></img>
                             {% elif status == 'Yellow' %}
@@ -38,8 +38,8 @@
                             {% elif status == 'Not Applicable' %}
                                 <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px"></img>
                             {% endif %}
-                            {% endwith %}
                         </a>
+                        {% endwith %}
                     </div>
                 {% endfor %}
             </div>
@@ -52,8 +52,8 @@
                         <h3 class="main-h3">Course Site:
                             {{ classSite.description }}
                             <input type="hidden" id="current-classsite-code" value="{{ classSite.code }}">
-                            <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
-                                {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                            {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                            <span data-toggle="tooltip" title="{{ status|status_to_text }}" data-placement="bottom">
                                 {% if status == 'Green' %}
                                     <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="10"></img>
                                 {% elif status == 'Yellow' %}
@@ -63,8 +63,8 @@
                                 {% elif status == 'Not Applicable' %}
                                     <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px" hspace="10"></img>
                                 {% endif %}
-                                {% endwith %}
                             </span>
+                            {% endwith %}
                         </h3>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -203,39 +203,42 @@
                                             <div class="col-md-2 text-center">{{assignment.class_points_earned|divide:assignment.class_points_possible|multiply:100|floatformat}}%</div>
                                             <div class="col-md-2">
                                                 {% if assignment.grader_comment %}
+                                                    {% with assignment_id=assignment.assignment.id %}
                                                     <span>
-                                                        <span id="comment-title-{{assignment.assignment.id}}">View Comment</span>
+                                                        <span id="comment-title-{{assignment_id}}">View Comment</span>
                                                         <a class="assignment-button" role="button">
-                                                            <img id="plus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
-                                                            <img id="minus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Minus.png" alt="Expand"/>
+                                                            <img id="plus-button-{{assignment_id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
+                                                            <img id="minus-button-{{assignment_id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Minus.png" alt="Expand"/>
                                                         </a>
-                                                        <p id="assignment-grader-comment-{{assignment.assignment.id}}">&quot;{{assignment.grader_comment}}&quot;</p>
+                                                        <p id="assignment-grader-comment-{{assignment_id}}">&quot;{{assignment.grader_comment}}&quot;</p>
                                                     </span>
+                                                    {% endwith %}
                                                 {% endif %}
                                             </div>
                                         </div>
                                         <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="heading{{assignment.assignment.code}}">
+                                            {% with assignment_code=assignment.assignment.code %}
+                                            <div class="panel-heading" role="tab" id="heading{{assignment_code}}">
                                                 <h4 class="panel-title">
                                                     <span class="assignment-title">{{assignment.assignment.description }}</span>
                                                     <span class="assignment-title-right">
                                                         <span class="assignment-title-score">{{assignment.points_earned|divide:assignment.points_possible|multiply:100|floatformat}}%</span>
                                                         <a
                                                             class="assignment-button"
-                                                            id="{{assignment.assignment.code}}"
+                                                            id="{{assignment_code}}"
                                                             role="button"
                                                             data-toggle="collapse"
                                                             data-parent="#accordion"
-                                                            data-target="#collapse{{assignment.assignment.code}}"
+                                                            data-target="#collapse{{assignment_code}}"
                                                             onclick="toggleAssignment(this)"
                                                             aria-expanded="true"
-                                                            aria-controls="collapse{{assignment.assignment.code}}">
-                                                            <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
+                                                            aria-controls="collapse{{assignment_code}}">
+                                                            <img class="assignment-button" id="assignmentButton{{assignment_code}}" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
                                                         </a>
                                                     </span>
                                                 </h4>
                                             </div>
-                                            <div id="collapse{{assignment.assignment.code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{assignment.assignment.code}}">
+                                            <div id="collapse{{assignment_code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{assignment_code}}">
                                                 <div class="panel-body">
                                                     <div class="assignment-row">
                                                         <div class="assignment-detail assignment-detail-left">
@@ -264,6 +267,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            {% endwith %}
                                         </div>
                                         <hr class="main-no-margin-top hide-small-grid"/>
                                     {% endfor %}
