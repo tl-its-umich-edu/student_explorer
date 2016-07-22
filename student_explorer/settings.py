@@ -136,7 +136,6 @@ EMAIL_USE_SSL = getenv('DJANGO_EMAIL_USE_SSL', None)
 
 FEEDBACK_EMAIL = getenv('DJANGO_FEEDBACK_EMAIL', None)
 
-
 # Databases
 
 DATABASES = {}

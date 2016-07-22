@@ -59,8 +59,8 @@
                                         </a>
                                     </div>
                                     <div class="col-md-2 mobile-inline status-icon">
-                                        <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
-                                            {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                                        {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                                        <span data-toggle="tooltip" title="{{ status|status_to_text }}" data-placement="bottom">
                                             {% if status == 'Green' %}
                                                 <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="3"></img>
                                             {% elif status == 'Yellow' %}
@@ -70,8 +70,8 @@
                                             {% elif status == 'Not Applicable' %}
                                                 <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px" hspace="3"></img>
                                             {% endif %}
-                                            {% endwith %}
                                         </span>
+                                        {% endwith %}
                                     </div>
                                     <div class="col-md-8">
                                         {% with student_score=student.studentclasssitescore_set.all|get_student_score:classSite class_score=classSite.classsitescore_set.all|get_class_score %}
@@ -113,7 +113,7 @@
                     <p class="advisor-names">
                         <a href="/advisors/{{advisor.username}}/">{{ advisor.first_name }}
                             {{ advisor.last_name }}</a>
-                        <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true" title="{{ advisor.studentcohortmentor_set.all|get_student_cohort:student }}" data-toggle="tooltip" data-placement="bottom" tooltip></span>
+                        <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true" title="{{ advisor.cohort }}" data-toggle="tooltip" data-placement="bottom" tooltip></span>
                     </p>
                 {% endfor %}
             </div>
