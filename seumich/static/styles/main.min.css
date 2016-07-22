@@ -514,7 +514,7 @@ a.class-site-status-link span {
 }
 .average-bar {
     -webkit-box-shadow: none;
-    max-width: 90%;
+    max-width: 100%;
     box-shadow: none;
     float: left;
     font-size: 12px;
