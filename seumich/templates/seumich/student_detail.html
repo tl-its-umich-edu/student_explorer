@@ -112,7 +112,7 @@
                     <p class="advisor-names">
                         <a href="/advisors/{{advisor.username}}/">{{ advisor.first_name }}
                             {{ advisor.last_name }}</a>
-                        <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true" title="{{ advisor.cohort }}" data-toggle="tooltip" data-placement="bottom" tooltip></span>
+                        <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true" title="{{ advisor.cohort.0.cohort }}" data-toggle="tooltip" data-placement="bottom" tooltip></span>
                     </p>
                 {% endfor %}
             </div>
