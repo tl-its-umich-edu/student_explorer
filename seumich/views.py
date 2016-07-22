@@ -112,14 +112,17 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin,
                 Q(first_name__icontains=self.query_user) |
                 Q(last_name__icontains=self.query_user)
             ).order_by('last_name').distinct()
+            student_list = student_list.prefetch_related('class_sites',
+                                                         'cohorts')
         elif self.univ_id:
             student_list = Student.objects.filter(id__gte=0).filter(
                 univ_id=self.univ_id)
+            student_list = student_list.prefetch_related('class_sites',
+                                                         'cohorts')
             messages.add_message(
                 self.request,
                 messages.WARNING,
                 'Multiple students with the same univ_id (%s)' % self.univ_id)
-        student_list = student_list.prefetch_related('class_sites', 'cohorts')
         return student_list
 
 

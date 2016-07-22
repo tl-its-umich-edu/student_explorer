@@ -14,8 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import url, include
+from django.conf import settings
 from seumich import views
-import debug_toolbar
 
 urlpatterns = [
     url(
@@ -56,5 +56,10 @@ urlpatterns = [
     url(r'^students/(?P<student>\w+)/class_sites/(?P<classcode>[\w-]+)/$',
         views.StudentClassSiteView.as_view(),
         name='student_class'),
-    url(r'^__debug__/', include(debug_toolbar.urls)),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]

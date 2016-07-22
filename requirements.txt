@@ -9,3 +9,4 @@ whitenoise
 djangosaml2
 pandas
 xlrd
+django-debug-toolbar
