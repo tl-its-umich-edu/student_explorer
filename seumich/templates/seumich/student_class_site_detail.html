@@ -203,42 +203,39 @@
                                             <div class="col-md-2 text-center">{{assignment.class_points_earned|divide:assignment.class_points_possible|multiply:100|floatformat}}%</div>
                                             <div class="col-md-2">
                                                 {% if assignment.grader_comment %}
-                                                    {% with assignment_id=assignment.assignment.id %}
                                                     <span>
-                                                        <span id="comment-title-{{assignment_id}}">View Comment</span>
+                                                        <span id="comment-title-{{assignment.assignment.id}}">View Comment</span>
                                                         <a class="assignment-button" role="button">
-                                                            <img id="plus-button-{{assignment_id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
-                                                            <img id="minus-button-{{assignment_id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Minus.png" alt="Expand"/>
+                                                            <img id="plus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
+                                                            <img id="minus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Minus.png" alt="Expand"/>
                                                         </a>
-                                                        <p id="assignment-grader-comment-{{assignment_id}}">&quot;{{assignment.grader_comment}}&quot;</p>
+                                                        <p id="assignment-grader-comment-{{assignment.assignment.id}}">&quot;{{assignment.grader_comment}}&quot;</p>
                                                     </span>
-                                                    {% endwith %}
                                                 {% endif %}
                                             </div>
                                         </div>
                                         <div class="panel panel-default">
-                                            {% with assignment_code=assignment.assignment.code %}
-                                            <div class="panel-heading" role="tab" id="heading{{assignment_code}}">
+                                            <div class="panel-heading" role="tab" id="heading{{assignment.assignment.code}}">
                                                 <h4 class="panel-title">
                                                     <span class="assignment-title">{{assignment.assignment.description }}</span>
                                                     <span class="assignment-title-right">
                                                         <span class="assignment-title-score">{{assignment.points_earned|divide:assignment.points_possible|multiply:100|floatformat}}%</span>
                                                         <a
                                                             class="assignment-button"
-                                                            id="{{assignment_code}}"
+                                                            id="{{assignment.assignment.code}}"
                                                             role="button"
                                                             data-toggle="collapse"
                                                             data-parent="#accordion"
-                                                            data-target="#collapse{{assignment_code}}"
+                                                            data-target="#collapse{{assignment.assignment.code}}"
                                                             onclick="toggleAssignment(this)"
                                                             aria-expanded="true"
-                                                            aria-controls="collapse{{assignment_code}}">
-                                                            <img class="assignment-button" id="assignmentButton{{assignment_code}}" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
+                                                            aria-controls="collapse{{assignment.assignment.code}}">
+                                                            <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
                                                         </a>
                                                     </span>
                                                 </h4>
                                             </div>
-                                            <div id="collapse{{assignment_code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{assignment_code}}">
+                                            <div id="collapse{{assignment.assignment.code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{assignment.assignment.code}}">
                                                 <div class="panel-body">
                                                     <div class="assignment-row">
                                                         <div class="assignment-detail assignment-detail-left">
@@ -267,7 +264,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {% endwith %}
                                         </div>
                                         <hr class="main-no-margin-top hide-small-grid"/>
                                     {% endfor %}
