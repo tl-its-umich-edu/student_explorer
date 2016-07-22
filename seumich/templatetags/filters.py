@@ -89,3 +89,22 @@ def status_to_text(value, arg=None):
         return result + 'No data'
     else:
         return result + ''
+
+
+@register.simple_tag
+def get_bar_widths(student_score, class_score):
+    widths_dict = {}
+    if student_score == 'N/A':
+        student_score = 0
+    if class_score == 'N/A':
+        class_score = 0
+    if class_score > 100.0 and student_score < class_score:
+        widths_dict['student_score'] = student_score*100.0/class_score
+        widths_dict['class_score'] = 100
+    elif student_score > 100.0 and class_score < student_score:
+        widths_dict['student_score'] = 100
+        widths_dict['class_score'] = class_score*100.0/student_score
+    else:
+        widths_dict['student_score'] = student_score
+        widths_dict['class_score'] = class_score
+    return widths_dict
