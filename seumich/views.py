@@ -203,12 +203,10 @@ class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
         context = super(StudentView, self).get_context_data(**kwargs)
         selected_student = get_object_or_404(Student, username=student)
         context['student'] = selected_student
-        context['advisors'] = (selected_student.mentors.all()
-                               .prefetch_related(
-            Prefetch('studentcohortmentor_set',
-                     queryset=StudentCohortMentor.objects.filter(
-                         student=selected_student),
-                     to_attr='cohort')))
+        context['advisors'] = (StudentCohortMentor.objects
+                               .filter(
+                                   student=selected_student)
+                               .prefetch_related('mentor', 'cohort'))
         context['classSites'] = (selected_student.class_sites.all()
                                  .prefetch_related('classsitescore_set'))
         return context
