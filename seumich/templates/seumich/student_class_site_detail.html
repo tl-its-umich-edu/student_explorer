@@ -27,8 +27,8 @@
                 {% for classSite in classSites %}
                     <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
                         <h3>{{classSite.description}}</h3>
-                        <a href="#" data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
-                            {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                        {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                        <a href="#" data-toggle="tooltip" title="{{ status|status_to_text }}" data-placement="bottom">
                             {% if status == 'Green' %}
                                 <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px"></img>
                             {% elif status == 'Yellow' %}
@@ -38,8 +38,8 @@
                             {% elif status == 'Not Applicable' %}
                                 <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px"></img>
                             {% endif %}
-                            {% endwith %}
                         </a>
+                        {% endwith %}
                     </div>
                 {% endfor %}
             </div>
@@ -52,8 +52,8 @@
                         <h3 class="main-h3">Course Site:
                             {{ classSite.description }}
                             <input type="hidden" id="current-classsite-code" value="{{ classSite.code }}">
-                            <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
-                                {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                            {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
+                            <span data-toggle="tooltip" title="{{ status|status_to_text }}" data-placement="bottom">
                                 {% if status == 'Green' %}
                                     <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="10"></img>
                                 {% elif status == 'Yellow' %}
@@ -63,8 +63,8 @@
                                 {% elif status == 'Not Applicable' %}
                                     <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px" hspace="10"></img>
                                 {% endif %}
-                                {% endwith %}
                             </span>
+                            {% endwith %}
                         </h3>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
