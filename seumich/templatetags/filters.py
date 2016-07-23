@@ -89,3 +89,14 @@ def status_to_text(value, arg=None):
         return result + 'No data'
     else:
         return result + ''
+
+
+@register.filter
+def get_bar_width(value, arg):
+    width = value
+    if arg != 'N/A' and value != 'N/A':
+        arg = float(arg)
+        value = float(value)
+        if arg > 100.0 and value < arg:
+            width = value*100.0/arg
+    return width
