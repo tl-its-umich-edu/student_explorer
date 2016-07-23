@@ -16,19 +16,7 @@ def decimal_default(obj):
 
 
 @register.filter
-def get_student_score(qs, obj):
-    if qs.filter(class_site=obj).exists():
-        avg_score = qs.filter(class_site=obj)[0].current_score_average
-        if avg_score is None:
-            return 'N/A'
-        else:
-            return avg_score
-    else:
-        return 'N/A'
-
-
-@register.filter
-def get_class_score(qs):
+def get_score(qs):
     if qs.exists():
         avg_score = qs[0].current_score_average
         if avg_score is None:

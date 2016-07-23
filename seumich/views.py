@@ -211,7 +211,8 @@ class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
         Studentqs = (Student.objects
                      .prefetch_related(
                          'studentclasssitestatus_set__status',
-                         'studentclasssitestatus_set__class_site'))
+                         'studentclasssitestatus_set__class_site__studentclasssitescore_set',
+                         'studentclasssitestatus_set__class_site__classsitescore_set'))
         selected_student = get_object_or_404(Studentqs, username=student)
         context['student'] = selected_student
         context['advisors'] = (StudentCohortMentor.objects
