@@ -212,8 +212,8 @@ th[scope="row"] {
   color: white;
 }
 
-.student-detail-student-email-link :hover,
-.student-detail-student-name-link :hover {
+.student-detail-student-email-link:hover,
+.student-detail-student-name-link:hover {
   color: white;
 }
 
@@ -232,7 +232,7 @@ th[scope="row"] {
   border-bottom: 1px solid #d4d4d4;
 }
 
-.student-detail-left-menu-courses :hover {
+.student-detail-left-menu-courses:hover {
   cursor: pointer;
   background-color: #e5e5e5;
 }
@@ -700,7 +700,7 @@ svg text {
   text-decoration: none !important;
 }
 
-.backlink :hover {
+.backlink:hover {
   color: #1c3144;
 }
 
@@ -721,7 +721,7 @@ svg text {
   font-size: 15px;
 }
 
-.navbar-inverse .navbar-nav > li > a :hover {
+.navbar-inverse .navbar-nav > li > a:hover {
   color: #dedede;
   background-color: #124465;
 }
@@ -734,7 +734,7 @@ svg text {
   background-color: #124465;
 }
 
-.navbar-inverse .navbar-nav > li.active > a :hover {
+.navbar-inverse .navbar-nav > li.active > a:hover {
   background-color: #124465;
 }
 
@@ -848,7 +848,7 @@ svg text {
   margin: 20px 2px;
 }
 
-.card-block :hover {
+.card-block:hover {
   cursor: pointer;
 }
 
