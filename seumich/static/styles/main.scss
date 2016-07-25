@@ -175,7 +175,7 @@ th[scope="row"] {
 .student-detail-student-email-link,
 .student-detail-student-name-link {
     color: $white;
-    :hover {
+    &:hover {
         color: $white;
     }
 }
@@ -191,7 +191,7 @@ th[scope="row"] {
 .student-detail-left-menu-courses {
     min-height: 60px;
     border-bottom: 1px solid $color_quill_gray_approx;
-    :hover {
+    &:hover {
         cursor: pointer;
         background-color: $mercury;
     }
@@ -603,7 +603,7 @@ svg {
     font-size: 20px;
     color: $color_denim_approx;
     text-decoration: none !important;
-    :hover {
+    &:hover {
         color: $color_big_stone_approx;
     }
 }
@@ -620,7 +620,7 @@ svg {
             color: $color_wild_sand_approx;
             font-weight: 300;
             font-size: 15px;
-            :hover {
+            &:hover {
                 color: $color_alto_approx;
                 background-color: $color_astronaut_blue_approx;
             }
@@ -630,7 +630,7 @@ svg {
             :focus {
                 background-color: $color_astronaut_blue_approx;
             }
-            :hover {
+            &:hover {
                 background-color: $color_astronaut_blue_approx;
             }
         }
@@ -722,7 +722,7 @@ svg {
     box-shadow: 0 0 5px $gray;
     padding: $primary-padding;
     margin: $primary-margin 2px;
-    :hover {
+    &:hover {
         cursor: pointer;
     }
 }
