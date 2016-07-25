@@ -9,7 +9,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.conf import settings
 from tracking.utils import UserLogPageViewMixin
-from django.db.models import Prefetch
 
 import logging
 
@@ -112,13 +111,17 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin,
                 Q(first_name__icontains=self.query_user) |
                 Q(last_name__icontains=self.query_user)
             ).order_by('last_name').distinct()
-            student_list = student_list.prefetch_related('class_sites',
-                                                         'cohorts')
+            student_list = student_list.prefetch_related(
+                'studentclasssitestatus_set__status',
+                'studentclasssitestatus_set__class_site',
+                'cohorts')
         elif self.univ_id:
             student_list = Student.objects.filter(id__gte=0).filter(
                 univ_id=self.univ_id)
-            student_list = student_list.prefetch_related('class_sites',
-                                                         'cohorts')
+            student_list = student_list.prefetch_related(
+                'studentclasssitestatus_set__status',
+                'studentclasssitestatus_set__class_site',
+                'cohorts')
             messages.add_message(
                 self.request,
                 messages.WARNING,
@@ -143,7 +146,10 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
         self.mentor = get_object_or_404(Mentor,
                                         username=self.kwargs['advisor'])
         student_list = self.mentor.students.order_by('last_name').distinct()
-        student_list = student_list.prefetch_related('class_sites', 'cohorts')
+        student_list = student_list.prefetch_related(
+            'studentclasssitestatus_set__status',
+            'studentclasssitestatus_set__class_site',
+            'cohorts')
         return student_list
 
 
@@ -201,16 +207,19 @@ class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
 
     def get_context_data(self, student, **kwargs):
         context = super(StudentView, self).get_context_data(**kwargs)
-        selected_student = get_object_or_404(Student, username=student)
+        Studentqs = (Student.objects
+                     .prefetch_related(
+                         'studentclasssitestatus_set__status',
+                         ('studentclasssitestatus_set__class_site'
+                          '__studentclasssitescore_set'),
+                         ('studentclasssitestatus_set__class_site'
+                          '__classsitescore_set')))
+        selected_student = get_object_or_404(Studentqs, username=student)
         context['student'] = selected_student
-        context['advisors'] = (selected_student.mentors.all()
-                               .prefetch_related(
-            Prefetch('studentcohortmentor_set',
-                     queryset=StudentCohortMentor.objects.filter(
-                         student=selected_student),
-                     to_attr='cohort')))
-        context['classSites'] = (selected_student.class_sites.all()
-                                 .prefetch_related('classsitescore_set'))
+        context['advisors'] = (StudentCohortMentor.objects
+                               .filter(
+                                   student=selected_student)
+                               .prefetch_related('mentor', 'cohort'))
         return context
 
 
@@ -308,4 +317,6 @@ class StudentClassSiteView(StudentView):
         context['eventPercentileData'] = eventPercentileData
         context['assignments'] = student.studentclasssiteassignment_set.filter(
             class_site=class_site).prefetch_related('assignment', '_due_date')
+        context['current_status'] = student.studentclasssitestatus_set.get(
+            class_site=class_site).status.description
         return context

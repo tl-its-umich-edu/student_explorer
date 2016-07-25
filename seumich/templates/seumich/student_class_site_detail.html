@@ -24,21 +24,27 @@
                 <div class="student-detail-left-menu-course-line">
                     <input type="hidden" id="student-username" value="{{ student.username }}">
                 </div>
-                {% for classSite in classSites %}
-                    <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
-                        <h3>{{classSite.description}}</h3>
-                        {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
-                        <a href="#" data-toggle="tooltip" title="{{ status|status_to_text }}" data-placement="bottom">
-                            {% if status == 'Green' %}
-                                <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px"></img>
-                            {% elif status == 'Yellow' %}
-                                <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px"></img>
-                            {% elif status == 'Red' %}
-                                <img src="{{ baseUrl }}images/Status_Icons_Red.png" alt="Red engage status icon" width="25px"></img>
-                            {% elif status == 'Not Applicable' %}
-                                <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px"></img>
-                            {% endif %}
-                        </a>
+                {% for courseSite in student.studentclasssitestatus_set.all %}
+                    <div class="student-detail-left-menu-courses" id="student-menu-{{ courseSite.class_site.code }}">
+                        <h3>{{courseSite.class_site.description}}</h3>
+                        {% with status=courseSite.status.description %}
+                        {% if status == 'Green' %}
+                            <a href="#" data-toggle="tooltip" title="Encourage" data-placement="bottom">
+                                <img src="{% static 'images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
+                            </a>
+                        {% elif status == 'Yellow' %}
+                            <a href="#" data-toggle="tooltip" title="Explore" data-placement="bottom">
+                                <img src="{% static 'images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
+                            </a>
+                        {% elif status == 'Red' %}
+                            <a href="#" data-toggle="tooltip" title="Engage" data-placement="bottom">
+                                <img src="{% static 'images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
+                            </a>
+                        {% elif status == 'Not Applicable' %}
+                            <a href="#" data-toggle="tooltip" title="No data" data-placement="bottom">
+                                <img src="{% static 'images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
+                            </a>
+                        {% endif %}
                         {% endwith %}
                     </div>
                 {% endfor %}
@@ -52,19 +58,23 @@
                         <h3 class="main-h3">Course Site:
                             {{ classSite.description }}
                             <input type="hidden" id="current-classsite-code" value="{{ classSite.code }}">
-                            {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
-                            <span data-toggle="tooltip" title="{{ status|status_to_text }}" data-placement="bottom">
-                                {% if status == 'Green' %}
+                            {% if current_status == 'Green' %}
+                                <span data-toggle="tooltip" title="Encourage" data-placement="bottom">
                                     <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="10"></img>
-                                {% elif status == 'Yellow' %}
+                                </span>
+                            {% elif current_status == 'Yellow' %}
+                                <span data-toggle="tooltip" title="Explore" data-placement="bottom">
                                     <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px" hspace="10"></img>
-                                {% elif status == 'Red' %}
+                                </span>
+                            {% elif current_status == 'Red' %}
+                                <span data-toggle="tooltip" title="Engage" data-placement="bottom">
                                     <img src="{{ baseUrl }}images/Status_Icons_Red.png" alt="Red engage status icon" width="25px" hspace="10"></img>
-                                {% elif status == 'Not Applicable' %}
+                                </span>
+                            {% elif current_status == 'Not Applicable' %}
+                                <span data-toggle="tooltip" title="No data" data-placement="bottom">
                                     <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px" hspace="10"></img>
-                                {% endif %}
-                            </span>
-                            {% endwith %}
+                                </span>
+                            {% endif %}
                         </h3>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
