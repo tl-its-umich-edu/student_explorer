@@ -9,7 +9,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.conf import settings
 from tracking.utils import UserLogPageViewMixin
-from django.db.models import Prefetch
 
 import logging
 
@@ -211,8 +210,10 @@ class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
         Studentqs = (Student.objects
                      .prefetch_related(
                          'studentclasssitestatus_set__status',
-                         'studentclasssitestatus_set__class_site__studentclasssitescore_set',
-                         'studentclasssitestatus_set__class_site__classsitescore_set'))
+                         ('studentclasssitestatus_set__class_site'
+                          '__studentclasssitescore_set'),
+                         ('studentclasssitestatus_set__class_site'
+                          '__classsitescore_set')))
         selected_student = get_object_or_404(Studentqs, username=student)
         context['student'] = selected_student
         context['advisors'] = (StudentCohortMentor.objects
@@ -316,4 +317,6 @@ class StudentClassSiteView(StudentView):
         context['eventPercentileData'] = eventPercentileData
         context['assignments'] = student.studentclasssiteassignment_set.filter(
             class_site=class_site).prefetch_related('assignment', '_due_date')
+        context['current_status'] = student.studentclasssitestatus_set.get(
+            class_site=class_site).status.description
         return context

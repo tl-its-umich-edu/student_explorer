@@ -19,7 +19,7 @@
             <hr class="main-no-margin-top"/>
             <div class="student-detail-summary-content">
                 <div>
-                    {% if not student %}
+                    {% if not student.class_sites.all %}
                         <div>
                             <p>There is no class site data for this student.</p>
                         </div>
