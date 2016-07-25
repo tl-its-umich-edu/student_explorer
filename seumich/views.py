@@ -1,9 +1,10 @@
 from django.views.generic import View, ListView, TemplateView
-from seumich.models import Student, Mentor, Cohort, ClassSite, ClassSiteScore
+from seumich.models import (Student, Mentor, Cohort, ClassSite,
+                            ClassSiteScore,
+                            StudentCohortMentor)
 from django.shortcuts import get_object_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db.models import Q
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.conf import settings
@@ -14,40 +15,36 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def convert_to_pages(record_list, page, num_records=None,
-                     num_page_links=None):
-    if not num_records:
-        num_records = settings.PAGINATION_RECORDS_PER_PAGE
-    if not num_page_links:
-        num_page_links = settings.PAGINATION_NUM_PAGE_LINKS
+class PaginationMixin(object):
 
-    paginator = Paginator(record_list, num_records)
+    paginate_by = settings.PAGINATION_RECORDS_PER_PAGE
+    num_page_links = settings.PAGINATION_NUM_PAGE_LINKS
 
-    try:
-        records = paginator.page(page)
-    except PageNotAnInteger:
-        records = paginator.page(1)
-    except EmptyPage:
-        records = paginator.page(paginator.num_pages)
+    def render_pagination(self, context):
+        num_pages = context['paginator'].num_pages
+        context['loop_times'] = self.get_page_range(
+            self.request.GET.get('page'), num_pages)
+        return context
 
-    if not page:
-        initial = 1
-        final = 1 + num_page_links
-    elif paginator.num_pages <= num_page_links:
-        initial = 1
-        final = 1 + paginator.num_pages
-    else:
-        current = int(page)
-        initial = current - 2
-        final = 1 + (current + 2)
-        if current <= 2:
+    def get_page_range(self, page, num_pages):
+        if not page:
             initial = 1
-            final = initial + num_page_links
-        elif current + 2 >= paginator.num_pages:
-            initial = paginator.num_pages - (num_page_links - 1)
-            final = 1 + paginator.num_pages
+            final = 1 + self.num_page_links
+        elif num_pages <= self.num_page_links:
+            initial = 1
+            final = 1 + num_pages
+        else:
+            current = int(page)
+            initial = current - 2
+            final = 1 + (current + 2)
+            if current <= 2:
+                initial = 1
+                final = initial + self.num_page_links
+            elif current + 2 >= num_pages:
+                initial = num_pages - (self.num_page_links - 1)
+                final = 1 + num_pages
 
-    return records, range(initial, final)
+        return range(initial, final)
 
 
 class AdvisorsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
@@ -64,23 +61,25 @@ class CohortsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     context_object_name = 'cohorts'
 
 
-class ClassListView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
+class ClassListView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
+                    ListView):
     template_name = 'seumich/class_list.html'
+    context_object_name = 'classes'
 
     def get_context_data(self, **kwargs):
         context = super(ClassListView, self).get_context_data(**kwargs)
-        class_list = ClassSite.objects.filter(id__gte=0)
-
-        # Pagination to break list into multiple pieces
-        pages, ranges = convert_to_pages(
-            class_list, self.request.GET.get('page'))
-        context['classes'] = pages
-        context['loop_times'] = ranges
+        context = self.render_pagination(context)
         return context
 
+    def get_queryset(self):
+        class_list = ClassSite.objects.filter(id__gte=0)
+        return class_list
 
-class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
+
+class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin,
+                       PaginationMixin, ListView):
     template_name = 'seumich/student_list.html'
+    context_object_name = 'students'
 
     def get(self, request):
         univ_id = self.request.GET.get('univ_id', None)
@@ -95,95 +94,106 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(StudentsListView, self).get_context_data(**kwargs)
-        query_user = self.request.GET.get('search', None)
-        univ_id = self.request.GET.get('univ_id', None)
-        student_list = []
         context['studentListHeader'] = 'Search Students'
+        context = self.render_pagination(context)
+        context['query_user'] = self.query_user
+        return context
 
-        if query_user:
+    def get_queryset(self):
+        self.query_user = self.request.GET.get('search', None)
+        self.univ_id = self.request.GET.get('univ_id', None)
+        student_list = []
+        if self.query_user:
             # Filtering for id >= 0 eliminates "Bad Value"-type results.
             student_list = Student.objects.filter(id__gte=0).filter(
-                Q(username__icontains=query_user) |
-                Q(univ_id__icontains=query_user) |
-                Q(first_name__icontains=query_user) |
-                Q(last_name__icontains=query_user)
+                Q(username__icontains=self.query_user) |
+                Q(univ_id__icontains=self.query_user) |
+                Q(first_name__icontains=self.query_user) |
+                Q(last_name__icontains=self.query_user)
             ).order_by('last_name').distinct()
-        elif univ_id:
+            student_list = student_list.prefetch_related(
+                'studentclasssitestatus_set__status',
+                'studentclasssitestatus_set__class_site',
+                'cohorts')
+        elif self.univ_id:
             student_list = Student.objects.filter(id__gte=0).filter(
-                univ_id=univ_id)
+                univ_id=self.univ_id)
+            student_list = student_list.prefetch_related(
+                'studentclasssitestatus_set__status',
+                'studentclasssitestatus_set__class_site',
+                'cohorts')
             messages.add_message(
                 self.request,
                 messages.WARNING,
-                'Multiple students with the same univ_id (%s)' % univ_id)
-
-        # Pagination to break list into multiple pieces
-        pages, ranges = convert_to_pages(
-            student_list, self.request.GET.get('page'))
-        context['students'] = pages
-        context['loop_times'] = ranges
-        context['query_user'] = query_user
-        return context
+                'Multiple students with the same univ_id (%s)' % self.univ_id)
+        return student_list
 
 
-class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
+class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
+                  ListView):
     template_name = 'seumich/advisor_detail.html'
+    context_object_name = 'students'
 
-    def get_context_data(self, advisor, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super(AdvisorView, self).get_context_data(**kwargs)
-
-        mentor = get_object_or_404(Mentor, username=advisor)
-        student_list = mentor.students.order_by('last_name').distinct()
-        context['studentListHeader'] = mentor.first_name + \
-            " " + mentor.last_name
-        context['advisor'] = mentor
-
-        # Pagination to break list into multiple pieces
-        pages, ranges = convert_to_pages(
-            student_list, self.request.GET.get('page'))
-        context['students'] = pages
-        context['loop_times'] = ranges
+        context['studentListHeader'] = self.mentor.first_name + \
+            " " + self.mentor.last_name
+        context['advisor'] = self.mentor
+        context = self.render_pagination(context)
         return context
 
+    def get_queryset(self):
+        self.mentor = get_object_or_404(Mentor,
+                                        username=self.kwargs['advisor'])
+        student_list = self.mentor.students.order_by('last_name').distinct()
+        student_list = student_list.prefetch_related(
+            'studentclasssitestatus_set__status',
+            'studentclasssitestatus_set__class_site',
+            'cohorts')
+        return student_list
 
-class CohortView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
+
+class CohortView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
+                 ListView):
     template_name = 'seumich/cohort_detail.html'
+    context_object_name = 'students'
 
-    def get_context_data(self, code, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super(CohortView, self).get_context_data(**kwargs)
-
-        cohort = get_object_or_404(Cohort, code=code)
-        student_list = Student.objects.filter(
-            studentcohortmentor__cohort=cohort).filter(id__gte=0).distinct()
-        context['studentListHeader'] = cohort.description
-        context['cohort'] = cohort
-
-        # Pagination to break list into multiple pieces
-        pages, ranges = convert_to_pages(
-            student_list, self.request.GET.get('page'))
-        context['students'] = pages
-        context['loop_times'] = ranges
+        context['studentListHeader'] = self.cohort.description
+        context['cohort'] = self.cohort
+        context = self.render_pagination(context)
         return context
 
-
-class ClassSiteView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
-    template_name = 'seumich/class_site_detail.html'
-
-    def get_context_data(self, class_site_id, **kwargs):
-        context = super(ClassSiteView, self).get_context_data(**kwargs)
-
-        class_site = get_object_or_404(ClassSite, id=class_site_id)
+    def get_queryset(self):
+        self.cohort = get_object_or_404(Cohort, code=self.kwargs['code'])
         student_list = Student.objects.filter(
-            studentclasssitestatus__class_site=class_site).filter(
+            studentcohortmentor__cohort=self.cohort).filter(
             id__gte=0).distinct()
-        context['studentListHeader'] = class_site.description
-        context['class_site'] = class_site
+        student_list = student_list.prefetch_related('class_sites', 'cohorts')
+        return student_list
 
-        # Pagination to break list into multiple pieces
-        pages, ranges = convert_to_pages(
-            student_list, self.request.GET.get('page'))
-        context['students'] = pages
-        context['loop_times'] = ranges
+
+class ClassSiteView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
+                    ListView):
+    template_name = 'seumich/class_site_detail.html'
+    context_object_name = 'students'
+
+    def get_context_data(self, **kwargs):
+        context = super(ClassSiteView, self).get_context_data(**kwargs)
+        context['studentListHeader'] = self.class_site.description
+        context['class_site'] = self.class_site
+        context = self.render_pagination(context)
         return context
+
+    def get_queryset(self):
+        self.class_site = get_object_or_404(ClassSite,
+                                            id=self.kwargs['class_site_id'])
+        student_list = Student.objects.filter(
+            studentclasssitestatus__class_site=self.class_site).filter(
+            id__gte=0).distinct()
+        student_list = student_list.prefetch_related('class_sites', 'cohorts')
+        return student_list
 
 
 class IndexView(LoginRequiredMixin, UserLogPageViewMixin, View):
@@ -197,10 +207,19 @@ class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
 
     def get_context_data(self, student, **kwargs):
         context = super(StudentView, self).get_context_data(**kwargs)
-        selected_student = get_object_or_404(Student, username=student)
+        Studentqs = (Student.objects
+                     .prefetch_related(
+                         'studentclasssitestatus_set__status',
+                         ('studentclasssitestatus_set__class_site'
+                          '__studentclasssitescore_set'),
+                         ('studentclasssitestatus_set__class_site'
+                          '__classsitescore_set')))
+        selected_student = get_object_or_404(Studentqs, username=student)
         context['student'] = selected_student
-        context['advisors'] = selected_student.mentors.all()
-        context['classSites'] = selected_student.class_sites.all()
+        context['advisors'] = (StudentCohortMentor.objects
+                               .filter(
+                                   student=selected_student)
+                               .prefetch_related('mentor', 'cohort'))
         return context
 
 
@@ -297,5 +316,7 @@ class StudentClassSiteView(StudentView):
         context['scoreData'] = scoreData
         context['eventPercentileData'] = eventPercentileData
         context['assignments'] = student.studentclasssiteassignment_set.filter(
-            class_site=class_site)
+            class_site=class_site).prefetch_related('assignment', '_due_date')
+        context['current_status'] = student.studentclasssitestatus_set.get(
+            class_site=class_site).status.description
         return context

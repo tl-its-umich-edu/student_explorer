@@ -16,19 +16,7 @@ def decimal_default(obj):
 
 
 @register.filter
-def get_student_score(qs, obj):
-    if qs.filter(class_site=obj).exists():
-        avg_score = qs.filter(class_site=obj)[0].current_score_average
-        if avg_score is None:
-            return 'N/A'
-        else:
-            return avg_score
-    else:
-        return 'N/A'
-
-
-@register.filter
-def get_class_score(qs):
+def get_score(qs):
     if qs.exists():
         avg_score = qs[0].current_score_average
         if avg_score is None:
@@ -37,11 +25,6 @@ def get_class_score(qs):
             return avg_score
     else:
         return 'N/A'
-
-
-@register.filter
-def get_student_class_status(qs, obj):
-    return str(qs.filter(class_site=obj)[0].status)
 
 
 @register.filter
@@ -66,26 +49,11 @@ def multiply(value, arg):
 
 
 @register.filter
-def get_student_cohort(qs, obj):
-    if qs.filter(student=obj).exists():
-        return qs.filter(student=obj)[0].cohort
-    else:
-        return ''
-
-
-@register.filter
-def status_to_text(value, arg=None):
-    result = ''
-    value = str(value)
-    if arg:
-        result = str(arg) + ': ' + result
-    if value == 'Green':
-        return result + 'Encourage'
-    elif value == 'Yellow':
-        return result + 'Explore'
-    elif value == 'Red':
-        return result + 'Engage'
-    elif value == 'Not Applicable':
-        return result + 'No data'
-    else:
-        return result + ''
+def get_bar_width(value, arg):
+    width = value
+    if arg != 'N/A' and value != 'N/A':
+        arg = float(arg)
+        value = float(value)
+        if arg > 100.0 and value < arg:
+            width = value * 100.0 / arg
+    return width

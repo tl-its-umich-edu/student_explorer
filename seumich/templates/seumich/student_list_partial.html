@@ -34,21 +34,27 @@
                     </th>
                     <td class="hide-small">{{ student.univ_id }}</td>
                     <td>
-                        {% for classSite in student.class_sites.all %}
-                            <a href="/students/{{student.username}}/class_sites/{{classSite.code}}/" class="class-site-status-link">
-                                <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text:classSite }}" data-placement="bottom">
-                                    {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
-                                    {% if status == 'Green' %}
+                        {% for classSite in student.studentclasssitestatus_set.all %}
+                            <a href="/students/{{student.username}}/class_sites/{{classSite.class_site.code}}/" class="class-site-status-link">
+                                {% with status=classSite.status.description %}
+                                {% if status == 'Green' %}
+                                    <span data-toggle="tooltip" title="{{ classSite.class_site.description }}: Encourage" data-placement="bottom">
                                         <img src="{% static 'images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
-                                    {% elif status == 'Yellow' %}
+                                    </span>
+                                {% elif status == 'Yellow' %}
+                                    <span data-toggle="tooltip" title="{{ classSite.class_site.description }}: Explore" data-placement="bottom">
                                         <img src="{% static 'images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
-                                    {% elif status == 'Red' %}
+                                    </span>
+                                {% elif status == 'Red' %}
+                                    <span data-toggle="tooltip" title="{{ classSite.class_site.description }}: Engage" data-placement="bottom">
                                         <img src="{% static 'images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
-                                    {% elif status == 'Not Applicable' %}
+                                    </span>
+                                {% elif status == 'Not Applicable' %}
+                                    <span data-toggle="tooltip" title="{{ classSite.class_site.description }}: No data" data-placement="bottom">
                                         <img src="{% static 'images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
-                                    {% endif %}
-                                    {% endwith %}
-                                </span>
+                                    </span>
+                                {% endif %}
+                                {% endwith %}
                             </a>
                         {% endfor %}
                     </td>
@@ -62,64 +68,6 @@
         </tbody>
     </table>
 
-    {% if students.paginator.num_pages > 1 %}
-    <div class="text-center">
-        <ul class="pagination">
-            <li class="page-item {% if not students.has_previous %} disabled {% endif %}">
-                {% if query_user %}
-                    <a class="page-link" href='{% if students.has_previous %}?search={{query_user}}&amp;page=1{% endif %}' aria-label="First">&laquo; First</a>
-                {% else %}
-                    <a class="page-link" href='{% if students.has_previous %}?page=1{% endif %}' aria-label="First">&laquo; First</a>
-                {% endif %}
-            </li>
-            <li class="page-item {% if not students.has_previous %} disabled {% endif %}">
-                {% if query_user %}
-                    <a class="page-link" href='{% if students.has_previous %}?search={{query_user}}&amp;page={{students.previous_page_number}}{% endif %}' aria-label="Previous">&lsaquo; Previous</a>
-                {% else %}
-                    <a class="page-link" href='{% if students.has_previous %}?page={{students.previous_page_number}}{% endif %}' aria-label="Previous">&lsaquo; Previous</a>
-                {% endif %}
-            </li>
-            {% for page_num in loop_times %}
-                {% if page_num == students.number %}
-                    {% if query_user %}
-                        <li class="page-item active">
-                            <a class="page-link" href='?search={{query_user}}&amp;page={{page_num}}'>{{page_num}}</a>
-                        </li>
-                    {% else %}
-                        <li class="page-item active">
-                            <a class="page-link" href='?page={{page_num}}'>{{page_num}}</a>
-                        </li>
-                    {% endif %}
-                {% else %}
-                    {% if page_num <= students.paginator.num_pages %}
-                        {% if query_user %}
-                            <li class="page-item">
-                                <a class="page-link" href='?search={{query_user}}&amp;page={{page_num}}'>{{page_num}}</a>
-                            </li>
-                        {% else %}
-                            <li class="page-item">
-                                <a class="page-link" href='?page={{page_num}}'>{{page_num}}</a>
-                            </li>
-                        {% endif %}
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
-            <li class="page-item {% if not students.has_next %} disabled {% endif %}">
-                {% if query_user %}
-                    <a class="page-link" href='{% if students.has_next %}?search={{query_user}}&amp;page={{students.next_page_number}}{% endif %}' aria-label="Next">Next &rsaquo;</a>
-                {% else %}
-                    <a class="page-link" href='{% if students.has_next %}?page={{students.next_page_number}}{% endif %}' aria-label="Next">Next &rsaquo;</a>
-                {% endif %}
-            </li>
-            <li class="page-item {% if not students.has_next %} disabled {% endif %}">
-                {% if query_user %}
-                    <a class="page-link" href='{% if students.has_next %}?search={{query_user}}&amp;page={{students.paginator.num_pages}}{% endif %}' aria-label="Last">Last &raquo;</a>
-                {% else %}
-                    <a class="page-link" href='{% if students.has_next %}?page={{students.paginator.num_pages}}{% endif %}' aria-label="Last">Last &raquo;</a>
-                {% endif %}
-            </li>
-        </ul>
-    </div>
-    {% endif %}
+    {% include 'seumich/paginated_list.html' %}
 
 </div>
