@@ -30,19 +30,19 @@
                         {% with status=courseSite.status.description %}
                         {% if status == 'Green' %}
                             <a href="#" data-toggle="tooltip" title="Encourage" data-placement="bottom">
-                                <img src="{% static 'images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
+                                <img src="{% static 'seumich/images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
                             </a>
                         {% elif status == 'Yellow' %}
                             <a href="#" data-toggle="tooltip" title="Explore" data-placement="bottom">
-                                <img src="{% static 'images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
+                                <img src="{% static 'seumich/images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
                             </a>
                         {% elif status == 'Red' %}
                             <a href="#" data-toggle="tooltip" title="Engage" data-placement="bottom">
-                                <img src="{% static 'images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
+                                <img src="{% static 'seumich/images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
                             </a>
                         {% elif status == 'Not Applicable' %}
                             <a href="#" data-toggle="tooltip" title="No data" data-placement="bottom">
-                                <img src="{% static 'images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
+                                <img src="{% static 'seumich/images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
                             </a>
                         {% endif %}
                         {% endwith %}
@@ -60,19 +60,19 @@
                             <input type="hidden" id="current-classsite-code" value="{{ classSite.code }}">
                             {% if current_status == 'Green' %}
                                 <span data-toggle="tooltip" title="Encourage" data-placement="bottom">
-                                    <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="10"></img>
+                                    <img src="{{ baseUrl }}seumich/images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="10"></img>
                                 </span>
                             {% elif current_status == 'Yellow' %}
                                 <span data-toggle="tooltip" title="Explore" data-placement="bottom">
-                                    <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px" hspace="10"></img>
+                                    <img src="{{ baseUrl }}seumich/images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px" hspace="10"></img>
                                 </span>
                             {% elif current_status == 'Red' %}
                                 <span data-toggle="tooltip" title="Engage" data-placement="bottom">
-                                    <img src="{{ baseUrl }}images/Status_Icons_Red.png" alt="Red engage status icon" width="25px" hspace="10"></img>
+                                    <img src="{{ baseUrl }}seumich/images/Status_Icons_Red.png" alt="Red engage status icon" width="25px" hspace="10"></img>
                                 </span>
                             {% elif current_status == 'Not Applicable' %}
                                 <span data-toggle="tooltip" title="No data" data-placement="bottom">
-                                    <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px" hspace="10"></img>
+                                    <img src="{{ baseUrl }}seumich/images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px" hspace="10"></img>
                                 </span>
                             {% endif %}
                         </h3>
@@ -216,8 +216,8 @@
                                                     <span>
                                                         <span id="comment-title-{{assignment.assignment.id}}">View Comment</span>
                                                         <a class="assignment-button" role="button">
-                                                            <img id="plus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
-                                                            <img id="minus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Minus.png" alt="Expand"/>
+                                                            <img id="plus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}seumich/images/Dropdown_Plus.png" alt="Expand"/>
+                                                            <img id="minus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}seumich/images/Dropdown_Minus.png" alt="Expand"/>
                                                         </a>
                                                         <p id="assignment-grader-comment-{{assignment.assignment.id}}">&quot;{{assignment.grader_comment}}&quot;</p>
                                                     </span>
@@ -240,7 +240,7 @@
                                                             onclick="toggleAssignment(this)"
                                                             aria-expanded="true"
                                                             aria-controls="collapse{{assignment.assignment.code}}">
-                                                            <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
+                                                            <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{{baseUrl}}seumich/images/Dropdown_Plus.png" alt="Expand"/>
                                                         </a>
                                                     </span>
                                                 </h4>

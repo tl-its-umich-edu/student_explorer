@@ -39,19 +39,19 @@
                                 {% with status=classSite.status.description %}
                                 {% if status == 'Green' %}
                                     <span data-toggle="tooltip" title="{{ classSite.class_site.description }}: Encourage" data-placement="bottom">
-                                        <img src="{% static 'images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
+                                        <img src="{% static 'seumich/images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
                                     </span>
                                 {% elif status == 'Yellow' %}
                                     <span data-toggle="tooltip" title="{{ classSite.class_site.description }}: Explore" data-placement="bottom">
-                                        <img src="{% static 'images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
+                                        <img src="{% static 'seumich/images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
                                     </span>
                                 {% elif status == 'Red' %}
                                     <span data-toggle="tooltip" title="{{ classSite.class_site.description }}: Engage" data-placement="bottom">
-                                        <img src="{% static 'images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
+                                        <img src="{% static 'seumich/images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
                                     </span>
                                 {% elif status == 'Not Applicable' %}
                                     <span data-toggle="tooltip" title="{{ classSite.class_site.description }}: No data" data-placement="bottom">
-                                        <img src="{% static 'images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
+                                        <img src="{% static 'seumich/images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
                                     </span>
                                 {% endif %}
                                 {% endwith %}
