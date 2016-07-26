@@ -2,6 +2,7 @@ import os
 from django.test import TestCase
 from django.conf import settings
 from django.test.client import Client
+from django.core.urlresolvers import reverse
 from seumich.models import (UsernameField,
                             Advisor,
                             Date,
@@ -517,10 +518,11 @@ class SeumichTest(TestCase):
     def test_student_view(self):
         self.client.login(username='burl', password='burl')
         response = self.client.get('/students/grace/')
+        self.assertQuerysetEqual(response.context['advisors'],
+                                 [('<StudentCohortMentor: grace is in the '
+                                   'Special Probation F14 cohort>')])
         self.assertQuerysetEqual(
-            response.context['advisors'], ['<Mentor: burl>'])
-        self.assertQuerysetEqual(
-            list(response.context['classSites']), [
+            list(response.context['student'].class_sites.all()), [
                 '<ClassSite: Math 101>', '<ClassSite: Math 101 Lab>'])
         self.assertContains(response, '83.8')
         self.assertContains(response, '86.3')
@@ -538,7 +540,8 @@ class SeumichTest(TestCase):
         self.client.login(username='burl', password='burl')
         response = self.client.get('/students/grace/class_sites/1/')
         self.assertQuerysetEqual(response.context['advisors'],
-                                 ['<Mentor: burl>'])
+                                 [('<StudentCohortMentor: grace is in the '
+                                   'Special Probation F14 cohort>')])
         self.assertQuerysetEqual(response.context['scoreData'],
                                  [("{'color': '#255c91', 'values': [[1, 0L], "
                                    "[2, 0L], [3, 0L], [4, 0L], [5, 65L], "
