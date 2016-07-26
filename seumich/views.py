@@ -86,7 +86,7 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin,
         if univ_id:
             try:
                 student = get_object_or_404(Student, univ_id=univ_id)
-                return redirect('student', student.username)
+                return redirect('seumich:student', student.username)
             except MultipleObjectsReturned:
                 logger.info('Multiple students with the same univ_id (%s)'
                             % univ_id)
