@@ -199,7 +199,7 @@ class ClassSiteView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
 class IndexView(LoginRequiredMixin, UserLogPageViewMixin, View):
 
     def get(self, request):
-        return redirect('advisor', advisor=request.user.username)
+        return redirect('seumich:advisor', advisor=request.user.username)
 
 
 class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
