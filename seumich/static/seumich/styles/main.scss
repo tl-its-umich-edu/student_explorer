@@ -79,7 +79,7 @@ a {
 img#student-explorer-logo {
     float: left;
     width: 25px;
-    margin: 0 8px 0 0;
+    margin: -2px 8px 0 0;
 }
 h1.student-detail-student-name {
     margin-top: 0;
@@ -217,6 +217,9 @@ th[scope="row"] {
     margin-left: $secondary-margin;
     margin-right: $secondary-margin;
 }
+.student-detail-data-source{
+  margin-top:10px;
+}
 .student-info {
     background-color: $color_gallery_approx;
     padding: 0.75em;
@@ -323,8 +326,8 @@ th[scope="row"] {
         width: auto;
         margin: -$primary-margin -15px 0;
     }
-    .sub-header-backlink {
-        margin-top: 0;
+    .sub-header-backlink{
+        margin-top: 10px;
         display: block;
     }
     .student-detail-main-menu-top {
@@ -384,6 +387,9 @@ th[scope="row"] {
     }
     .panel-default {
         display: block;
+    }
+    .panel-heading{
+      padding: 15px;
     }
     .assignment-table {
         margin-left: 0;
@@ -453,6 +459,18 @@ th[scope="row"] {
         padding-top: $primary-padding;
     }
 }
+@media screen and (max-width: 992px) {
+  .navbar-toggle{
+    background-color: $light-gray-background;
+  }
+  .navbar-inverse .navbar-toggle:hover{
+    background-color: $gray-hover-state;
+  }
+  .navbar-inverse .navbar-toggle .icon-bar{
+    background-color: $gray;
+  }
+}
+
 a.class-site-status-link {
     text-decoration: none;
     span {
@@ -498,13 +516,14 @@ a.class-site-status-link {
     :not(:first-of-type) {
         margin-left: 1em;
     }
+    font-size: 1.1em;
 }
 .legend-key {
     border-radius: 50%;
     display: inline-block;
-    height: 10px;
+    height: 15px;
     margin-right: 0.4em;
-    width: 10px;
+    width: 15px;
 }
 .student-legend-key {
     background-color: $color_st_tropaz_approx;
