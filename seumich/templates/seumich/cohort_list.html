@@ -22,7 +22,7 @@
                     {% for cohort in cohorts %}
                         <tr>
                             <th scope="row" class="bold">
-                                <a href="/cohorts/{{ cohort.code }}/">{{ cohort.description }}</a>
+                                <a href="{% url 'seumich:cohort' cohort.code %}">{{ cohort.description }}</a>
                             </th>
                         </tr>
                     {% endfor %}

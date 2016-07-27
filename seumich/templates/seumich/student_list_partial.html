@@ -29,13 +29,13 @@
             {% for student in students %}
                 <tr>
                     <th scope="row" class="bold">
-                        <a href="/students/{{ student.username }}/">{{ student.first_name }}
+                        <a href="{% url 'seumich:student' student.username %}">{{ student.first_name }}
                             {{ student.last_name }}</a>
                     </th>
                     <td class="hide-small">{{ student.univ_id }}</td>
                     <td>
                         {% for classSite in student.studentclasssitestatus_set.all %}
-                            <a href="/students/{{student.username}}/class_sites/{{classSite.class_site.code}}/" class="class-site-status-link">
+                            <a href="{% url 'seumich:student_class' student.username classSite.class_site.code %}" class="class-site-status-link">
                                 {% with status=classSite.status.description %}
                                 {% if status == 'Green' %}
                                     <span data-toggle="tooltip" title="{{ classSite.class_site.description }}: Encourage" data-placement="bottom">
