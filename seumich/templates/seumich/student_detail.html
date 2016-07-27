@@ -52,11 +52,11 @@
                         <div class="container-fluid">
                             {% for classSite in student.studentclasssitestatus_set.all %}
                                 <hr class="main-no-margin-top hide-small-grid"/>
+                                <a class="class-site-title" href="/students/{{student.username}}/class_sites/{{classSite.class_site.code}}/">
                                 <div class="row student-desc">
                                     <div class="col-md-2 mobile-inline">
-                                        <a class="class-site-title" href="{% url 'seumich:student_class' student.username classSite.class_site.code %}">
                                             <h3 class="student-course-list">{{ classSite.class_site.description }}</h3>
-                                        </a>
+
                                     </div>
                                     <div class="col-md-2 mobile-inline status-icon">
                                         {% with status=classSite.status.description %}
@@ -99,7 +99,7 @@
                                     </div>
                                 </div>
                             {% endfor %}
-                        </div>
+                        </div></a>
                     {% endif %}
                 </div>
             </div>
