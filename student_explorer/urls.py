@@ -39,3 +39,11 @@ elif 'registration' in settings.INSTALLED_APPS:
 # behavior
 urlpatterns.append(url(r'^accounts/logout', views.logout, name='auth_logout'))
 urlpatterns.append(url(r'^about', views.about, name='about'))
+
+
+# Configure Django Debug Toolbar
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]

@@ -94,6 +94,17 @@
                     </div>
                     <script>
 
+                        function toggleAssignment(element) {
+                            var code = element.id;
+                            if (!$('#collapse' + code).hasClass('collapsing')) {
+                                var sign = $(element).find('img').attr('src');
+                                $('[class="assignment-button"]').attr('src', '{{baseUrl}}seumich/images/Dropdown_Plus.png');
+                                $('#assignmentButton' + code).attr('src', (sign === '{{baseUrl}}seumich/images/Dropdown_Plus.png')
+                                    ? '{{baseUrl}}seumich/images/Dropdown_Minus.png'
+                                    : '{{baseUrl}}seumich/images/Dropdown_Plus.png');
+                            }
+                        }
+
                         nv.addGraph(function () {
                             var chart = nv.models.multiBarChart().showControls(false).forceY([0, 100]).reduceXTicks(false).showYAxis(true).showXAxis(true)
 
@@ -225,27 +236,25 @@
                                             </div>
                                         </div>
                                         <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="heading{{assignment.assignment.code}}">
+                                            <div
+                                                class="panel-heading"
+                                                role="tab"
+                                                id="{{assignment.assignment.code}}"
+                                                data-toggle="collapse"
+                                                data-parent="#accordion"
+                                                data-target="#collapse{{assignment.assignment.code}}"
+                                                onclick="toggleAssignment(this)"
+                                                aria-expanded="true"
+                                                aria-controls="collapse{{assignment.assignment.code}}">
                                                 <h4 class="panel-title">
                                                     <span class="assignment-title">{{assignment.assignment.description }}</span>
                                                     <span class="assignment-title-right">
                                                         <span class="assignment-title-score">{{assignment.points_earned|divide:assignment.points_possible|multiply:100|floatformat}}%</span>
-                                                        <a
-                                                            class="assignment-button"
-                                                            id="{{assignment.assignment.code}}"
-                                                            role="button"
-                                                            data-toggle="collapse"
-                                                            data-parent="#accordion"
-                                                            data-target="#collapse{{assignment.assignment.code}}"
-                                                            onclick="toggleAssignment(this)"
-                                                            aria-expanded="true"
-                                                            aria-controls="collapse{{assignment.assignment.code}}">
-                                                            <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{{baseUrl}}seumich/images/Dropdown_Plus.png" alt="Expand"/>
-                                                        </a>
+                                                        <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{{baseUrl}}seumich/images/Dropdown_Plus.png" alt="Expand"/>
                                                     </span>
                                                 </h4>
                                             </div>
-                                            <div id="collapse{{assignment.assignment.code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{assignment.assignment.code}}">
+                                            <div id="collapse{{assignment.assignment.code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{assignment.assignment.code}}">
                                                 <div class="panel-body">
                                                     <div class="assignment-row">
                                                         <div class="assignment-detail assignment-detail-left">
