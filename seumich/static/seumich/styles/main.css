@@ -385,7 +385,7 @@ th[scope="row"] {
     margin: -20px -15px 0;
   }
   .sub-header-backlink {
-    margin-top: 0;
+    margin-top: 10px;
     display: block;
   }
   .student-detail-main-menu-top {
@@ -580,9 +580,9 @@ a.class-site-status-link span {
 .legend-key {
   border-radius: 50%;
   display: inline-block;
-  height: 10px;
+  height: 15px;
   margin-right: 0.4em;
-  width: 10px;
+  width: 15px;
 }
 
 .student-legend-key {
