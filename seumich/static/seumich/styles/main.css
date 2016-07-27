@@ -262,6 +262,10 @@ th[scope="row"] {
   margin-right: 10px;
 }
 
+.student-detail-data-source {
+  margin-top: 10px;
+}
+
 .student-info {
   background-color: #eee;
   padding: 0.75em;
