@@ -54,7 +54,7 @@
                                 <hr class="main-no-margin-top hide-small-grid"/>
                                 <div class="row student-desc">
                                     <div class="col-md-2 mobile-inline">
-                                        <a class="class-site-title" href="/students/{{student.username}}/class_sites/{{classSite.class_site.code}}/">
+                                        <a class="class-site-title" href="{% url 'seumich:student_class' student.username classSite.class_site.code %}">
                                             <h3 class="student-course-list">{{ classSite.class_site.description }}</h3>
                                         </a>
                                     </div>
@@ -110,7 +110,7 @@
                 </strong>
                 {% for advisor in advisors %}
                     <p class="advisor-names">
-                        <a href="/advisors/{{advisor.username}}/">{{ advisor.mentor.first_name }}
+                        <a href="{% url 'seumich:advisor' advisor.mentor.username %}">{{ advisor.mentor.first_name }}
                             {{ advisor.mentor.last_name }}</a>
                         <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true" title="{{ advisor.cohort }}" data-toggle="tooltip" data-placement="bottom" tooltip></span>
                     </p>

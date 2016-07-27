@@ -22,7 +22,7 @@
                     {% for advisor in advisors %}
                         <tr>
                             <th scope="row" class="bold">
-                                <a href="/advisors/{{ advisor.username }}/">{{ advisor.first_name }}
+                                <a href="{% url 'seumich:advisor' advisor.username %}">{{ advisor.first_name }}
                                     {{ advisor.last_name }}</a>
                             </th>
                         </tr>

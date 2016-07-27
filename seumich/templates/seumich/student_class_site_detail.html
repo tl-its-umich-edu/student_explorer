@@ -14,7 +14,7 @@
             </div>
 
             <h2 class="sub-header-backlink">
-                <a class="backlink" href="/students/{{student.username}}/">
+                <a class="backlink" href="{% url 'seumich:student' student.username %}">
                     &lt; Back to Course List
                 </a>
             </h2>
@@ -25,7 +25,7 @@
                     <input type="hidden" id="student-username" value="{{ student.username }}">
                 </div>
                 {% for courseSite in student.studentclasssitestatus_set.all %}
-                    <div class="student-detail-left-menu-courses" id="student-menu-{{ courseSite.class_site.code }}" onclick="location.href='/students/{{student.username}}/class_sites/{{courseSite.class_site.code}}/';">
+                    <div class="student-detail-left-menu-courses" id="student-menu-{{ courseSite.class_site.code }}" onclick="location.href='{% url "seumich:student_class" student.username courseSite.class_site.code %}';">
                         <h3>{{courseSite.class_site.description}}</h3>
                         {% with status=courseSite.status.description %}
                         {% if status == 'Green' %}
