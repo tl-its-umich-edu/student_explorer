@@ -96,7 +96,7 @@ a {
 img#student-explorer-logo {
   float: left;
   width: 25px;
-  margin: 0 8px 0 0;
+  margin: -2px 8px 0 0;
 }
 
 h1.student-detail-student-name {
@@ -451,6 +451,9 @@ th[scope="row"] {
   .panel-default {
     display: block;
   }
+  .panel-heading {
+    padding: 15px;
+  }
   .assignment-table {
     margin-left: 0;
   }
@@ -523,6 +526,18 @@ th[scope="row"] {
   }
 }
 
+@media screen and (max-width: 992px) {
+  .navbar-toggle {
+    background-color: #F9F9F9;
+  }
+  .navbar-inverse .navbar-toggle:hover {
+    background-color: #E5E5E5;
+  }
+  .navbar-inverse .navbar-toggle .icon-bar {
+    background-color: gray;
+  }
+}
+
 a.class-site-status-link {
   text-decoration: none;
 }
@@ -575,6 +590,7 @@ a.class-site-status-link span {
 .legend-text {
   display: inline-block;
   margin-bottom: 0;
+  font-size: 1.1em;
 }
 
 .legend-text :not(:first-of-type) {
