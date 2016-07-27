@@ -20,10 +20,10 @@ import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('seumich.urls')),
+    url(r'^', include('seumich.urls', namespace='seumich')),
     url(r'^status/', include('watchman.urls')),
     url(r'^advising_groups/', include('advisinggroups.urls')),
-    url(r'^feedback/', include('feedback.urls')),
+    url(r'^feedback/', include('feedback.urls', namespace='feedback')),
 ]
 
 if 'djangosaml2' in settings.INSTALLED_APPS:

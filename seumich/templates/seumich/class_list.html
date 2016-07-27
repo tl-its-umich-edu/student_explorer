@@ -17,7 +17,7 @@
                     {% for class_site in classes %}
                         <tr>
                             <th scope="row" class="bold">
-                                <a href="/classes/{{ class_site.id }}/">{{ class_site.description }}</a>
+                                <a href="{% url 'seumich:class_site' class_site.id %}">{{ class_site.description }}</a>
                             </th>
                         </tr>
                     {% endfor %}
