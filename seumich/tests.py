@@ -2,6 +2,7 @@ import os
 from django.test import TestCase
 from django.conf import settings
 from django.test.client import Client
+from django.core.urlresolvers import reverse
 from seumich.models import (UsernameField,
                             Advisor,
                             Date,
@@ -467,16 +468,19 @@ class SeumichTest(TestCase):
 
     def test_index_view(self):
         self.client.login(username='zander', password='zander')
-        response = self.client.get('/')
-        self.assertRedirects(response, '/advisors/zander/')
+        response = self.client.get(reverse('seumich:index'))
+        self.assertRedirects(response, reverse('seumich:advisor',
+                                               kwargs={'advisor': 'zander'}))
 
     def test_advisor_list_view_redirect(self):
-        response = self.client.get('/advisors/')
-        self.assertRedirects(response, '/accounts/login/?next=/advisors/')
+        url = reverse('seumich:advisors_list')
+        response = self.client.get(url)
+        url = "/accounts/login/?next=%s" % url
+        self.assertRedirects(response, url)
 
     def test_advisor_list_view(self):
         self.client.login(username='burl', password='burl')
-        response = self.client.get('/advisors/')
+        response = self.client.get(reverse('seumich:advisors_list'))
         self.assertQuerysetEqual(response.context['advisors'],
                                  [
                                  '<Mentor: zander>',
@@ -484,25 +488,33 @@ class SeumichTest(TestCase):
                                  '<Mentor: lavera>'])
 
     def test_student_list_view_redirect(self):
-        response = self.client.get('/students/')
-        self.assertRedirects(response, '/accounts/login/?next=/students/')
+        url = reverse('seumich:students_list')
+        response = self.client.get(url)
+        url = "/accounts/login/?next=%s" % url
+        self.assertRedirects(response, url)
 
     def test_student_list_view(self):
         self.client.login(username='burl', password='burl')
-        response = self.client.get('/students/?search=grace')
+        url = "%s?search=grace" % reverse('seumich:students_list')
+        response = self.client.get(url)
         self.assertContains(response, 'grace')
-        response = self.client.get('/students/?search=foxx')
+        url = "%s?search=foxx" % reverse('seumich:students_list')
+        response = self.client.get(url)
         self.assertContains(response, 'desmond')
-        response = self.client.get('/students/?search=10000023')
+        url = "%s?search=10000023" % reverse('seumich:students_list')
+        response = self.client.get(url)
         self.assertContains(response, 'nocourses')
 
     def test_advisor_view_redirect(self):
-        response = self.client.get('/advisors/burl/')
-        self.assertRedirects(response, '/accounts/login/?next=/advisors/burl/')
+        url = reverse('seumich:advisor', kwargs={'advisor': 'burl'})
+        response = self.client.get(url)
+        url = "/accounts/login/?next=%s" % url
+        self.assertRedirects(response, url)
 
     def test_advisor_view(self):
+        url = reverse('seumich:advisor', kwargs={'advisor': 'lavera'})
         self.client.login(username='burl', password='burl')
-        response = self.client.get('/advisors/lavera/')
+        response = self.client.get(url)
         self.assertContains(response, 'gianna')
         self.assertContains(response, 'deirdre')
         self.assertContains(response, 'gabriela')
@@ -510,17 +522,20 @@ class SeumichTest(TestCase):
         self.assertNotContains(response, 'grace')
 
     def test_student_view_redirect(self):
-        response = self.client.get('/students/james/')
-        self.assertRedirects(response,
-                             '/accounts/login/?next=/students/james/')
+        url = reverse('seumich:student', kwargs={'student': 'james'})
+        response = self.client.get(url)
+        url = "/accounts/login/?next=%s" % url
+        self.assertRedirects(response, url)
 
     def test_student_view(self):
+        url = reverse('seumich:student', kwargs={'student': 'grace'})
         self.client.login(username='burl', password='burl')
-        response = self.client.get('/students/grace/')
+        response = self.client.get(url)
+        self.assertQuerysetEqual(response.context['advisors'],
+                                 [('<StudentCohortMentor: grace is in the '
+                                   'Special Probation F14 cohort>')])
         self.assertQuerysetEqual(
-            response.context['advisors'], ['<Mentor: burl>'])
-        self.assertQuerysetEqual(
-            list(response.context['classSites']), [
+            list(response.context['student'].class_sites.all()), [
                 '<ClassSite: Math 101>', '<ClassSite: Math 101 Lab>'])
         self.assertContains(response, '83.8')
         self.assertContains(response, '86.3')
@@ -529,16 +544,20 @@ class SeumichTest(TestCase):
         self.assertNotContains(response, '87.1')
 
     def test_student_class_site_view_redirect(self):
-        response = self.client.get('/students/grace/class_sites/1/')
-        self.assertRedirects(response,
-                             ('/accounts/login/'
-                              '?next=/students/grace/class_sites/1/'))
+        url = reverse('seumich:student_class',
+                      kwargs={'student': 'grace', 'classcode': 1})
+        response = self.client.get(url)
+        url = "/accounts/login/?next=%s" % url
+        self.assertRedirects(response, url)
 
     def test_student_class_site_view(self):
+        url = reverse('seumich:student_class',
+                      kwargs={'student': 'grace', 'classcode': 1})
         self.client.login(username='burl', password='burl')
-        response = self.client.get('/students/grace/class_sites/1/')
+        response = self.client.get(url)
         self.assertQuerysetEqual(response.context['advisors'],
-                                 ['<Mentor: burl>'])
+                                 [('<StudentCohortMentor: grace is in the '
+                                   'Special Probation F14 cohort>')])
         self.assertQuerysetEqual(response.context['scoreData'],
                                  [("{'color': '#255c91', 'values': [[1, 0L], "
                                    "[2, 0L], [3, 0L], [4, 0L], [5, 65L], "

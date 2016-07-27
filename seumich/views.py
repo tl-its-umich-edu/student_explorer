@@ -86,7 +86,7 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin,
         if univ_id:
             try:
                 student = get_object_or_404(Student, univ_id=univ_id)
-                return redirect('student', student.username)
+                return redirect('seumich:student', student.username)
             except MultipleObjectsReturned:
                 logger.info('Multiple students with the same univ_id (%s)'
                             % univ_id)
@@ -199,7 +199,7 @@ class ClassSiteView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
 class IndexView(LoginRequiredMixin, UserLogPageViewMixin, View):
 
     def get(self, request):
-        return redirect('advisor', advisor=request.user.username)
+        return redirect('seumich:advisor', advisor=request.user.username)
 
 
 class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
