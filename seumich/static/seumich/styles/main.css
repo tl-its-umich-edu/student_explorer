@@ -22,6 +22,12 @@ body {
   padding-top: 50px;
 }
 
+@media screen and (max-width: 992px) {
+  body {
+    padding-bottom: 0;
+  }
+}
+
 a {
   color: #3072ab;
 }
@@ -37,6 +43,13 @@ a {
   display: none;
 }
 
+@media screen and (max-width: 992px) {
+  .sub-header-backlink {
+    margin-top: 10px;
+    display: block;
+  }
+}
+
 .navbar {
   vertical-align: middle;
   margin-bottom: 0;
@@ -45,6 +58,15 @@ a {
 .navbar-fixed-top {
   position: fixed;
   border: 0;
+}
+
+@media screen and (max-width: 992px) {
+  .navbar-fixed-top {
+    position: relative;
+    margin-top: -50px;
+    top: 0;
+    border-width: 0 0 1px;
+  }
 }
 
 .dropdown-menu p {
@@ -75,6 +97,13 @@ a {
   margin-top: 28px;
 }
 
+@media screen and (min-width: 993px) {
+  .marketing {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .header {
   background-color: #1c3144;
   font-weight: 300;
@@ -93,6 +122,13 @@ a {
   padding-bottom: 19px;
 }
 
+@media screen and (min-width: 993px) {
+  .header {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 img#student-explorer-logo {
   float: left;
   width: 25px;
@@ -107,6 +143,12 @@ h1.student-detail-student-name {
   word-wrap: break-word;
   padding: 20px 20px 0;
   font-weight: 400;
+}
+
+@media screen and (max-width: 992px) {
+  h1.student-detail-student-name {
+    padding-top: 30px;
+  }
 }
 
 h2 {
@@ -155,6 +197,15 @@ th[scope="row"] {
   margin-bottom: 20px;
 }
 
+@media screen and (max-width: 992px) {
+  .student-desc {
+    border: 1px solid #c8c8c8;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+}
+
 .student-class-site-list-table > tbody > tr > th {
   width: 220px;
   vertical-align: middle;
@@ -175,6 +226,15 @@ th[scope="row"] {
   margin-bottom: 100px;
 }
 
+@media screen and (max-width: 992px) {
+  .student-detail-left-menu {
+    position: static;
+    left: auto;
+    width: auto;
+    margin: -20px -15px 0;
+  }
+}
+
 .student-detail-left-menu-top {
   background-color: #3e6c9c;
   text-align: left;
@@ -186,10 +246,25 @@ th[scope="row"] {
   margin-right: -15px;
 }
 
+@media screen and (max-width: 992px) {
+  .student-detail-main-menu {
+    position: static;
+    left: auto;
+    width: auto;
+    margin: -20px -15px 0;
+  }
+}
+
 .student-detail-main-menu-top {
   width: 100%;
   background-color: #3e6c9c;
   padding-left: 20px;
+}
+
+@media screen and (max-width: 992px) {
+  .student-detail-main-menu-top {
+    padding-left: 0;
+  }
 }
 
 .student-detail-student-id {
@@ -253,13 +328,37 @@ th[scope="row"] {
   margin-left: 25%;
 }
 
+@media screen and (max-width: 992px) {
+  .student-detail-summary {
+    width: 100%;
+    position: relative;
+    margin: auto 0;
+  }
+}
+
 .student-detail-main {
   width: 75%;
+}
+
+@media screen and (max-width: 992px) {
+  .student-detail-main {
+    width: 100%;
+    position: relative;
+    margin: auto 0;
+    padding-left: 0;
+  }
 }
 
 .student-detail-summary-content {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+@media screen and (max-width: 992px) {
+  .student-detail-summary-content {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 .student-detail-data-source {
@@ -276,12 +375,24 @@ th[scope="row"] {
   display: inline;
 }
 
+@media screen and (max-width: 992px) {
+  .student-info {
+    margin-bottom: 10px;
+  }
+}
+
 .advisor-names {
   margin-right: 0.4em;
 }
 
 .panel-default {
   display: none;
+}
+
+@media screen and (max-width: 992px) {
+  .panel-default {
+    display: block;
+  }
 }
 
 .no-margin {
@@ -322,6 +433,13 @@ th[scope="row"] {
   margin-top: 13px;
 }
 
+@media screen and (min-width: 993px) {
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .container-narrow > hr {
   margin: 30px 0;
 }
@@ -336,124 +454,106 @@ th[scope="row"] {
   padding: 14px 24px;
 }
 
+@media screen and (min-width: 993px) {
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
 @media screen and (min-width: 1150px) {
   .nv-axislabel {
     display: none;
   }
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 993px) {
   .container {
     max-width: 100% !important;
   }
+}
+
+@media screen and (min-width: 993px) {
   .container-feedback {
     width: 50%;
   }
-  .footer,
-  .header,
-  .marketing {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .header {
-    margin-bottom: 30px;
-  }
-  .jumbotron {
-    border-bottom: 0;
-  }
+}
+
+@media screen and (min-width: 993px) {
   .student-class-site-list,
   .student-detail-mobile {
     display: none;
   }
+}
+
+@media screen and (min-width: 993px) {
   #student-search {
     width: 22em;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .open > .dropdown-menu {
-    color: #9d9d9d;
-  }
-  .student-class-site-table,
-  .student-detail-left-menu-detail {
-    display: none;
-  }
-  .table-responsive {
-    border: none;
-  }
-  .student-detail-left-menu,
-  .student-detail-main-menu {
-    position: static;
-    left: auto;
-    width: auto;
-    margin: -20px -15px 0;
-  }
-  .sub-header-backlink {
-    margin-top: 10px;
-    display: block;
-  }
-  .student-detail-main-menu-top {
-    padding-left: 0;
-  }
-  .student-detail-summary {
-    width: 100%;
-    position: relative;
-    margin: auto 0;
-  }
-  .student-detail-main {
-    width: 100%;
-    position: relative;
-    margin: auto 0;
-    padding-left: 0;
-  }
-  .student-detail-summary-title {
-    padding-left: 0;
-  }
-  .student-detail-summary-content {
-    margin-left: 0;
-    margin-right: 0;
-  }
-  .student-info {
-    margin-bottom: 10px;
-  }
-  body {
-    padding-bottom: 0;
-  }
-  .navbar-fixed-top {
-    position: relative;
-    margin-top: -50px;
-  }
-  .navbar-fixed-bottom {
-    position: relative;
-  }
-  h1.student-detail-student-name {
-    padding-top: 30px;
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  #student-search {
+    width: 22em;
   }
 }
 
 @media screen and (max-width: 992px) {
-  .student-desc {
-    border: 1px solid #c8c8c8;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+  .open > .dropdown-menu {
+    color: #9d9d9d;
   }
+}
+
+@media screen and (max-width: 992px) {
+  .student-class-site-table,
+  .student-detail-left-menu-detail {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .table-responsive {
+    border: none;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .student-detail-summary-title {
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .navbar-fixed-bottom {
+    position: relative;
+  }
+}
+
+@media screen and (max-width: 992px) {
   .mobile-inline {
     margin-bottom: 10px;
     display: inline-block;
   }
+}
+
+@media screen and (max-width: 992px) {
   .hide-small-grid {
     display: none;
   }
+}
+
+@media screen and (max-width: 992px) {
   .status-icon {
     float: right;
   }
-  .panel-default {
-    display: block;
-  }
+}
+
+@media screen and (max-width: 992px) {
   .panel-heading {
     padding: 15px;
   }
+}
+
+@media screen and (max-width: 992px) {
   .assignment-table {
     margin-left: 0;
   }
@@ -462,33 +562,44 @@ th[scope="row"] {
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 992px) {
+@media screen and (max-width: 992px) {
+  .footer-block,
+  .mobile-div {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .navbar-toggle {
+    background-color: #F9F9F9;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 992px) {
   .navbar-header {
     float: none;
   }
+}
+
+@media screen and (max-width: 992px) {
   .navbar-left,
   .navbar-right {
     float: none !important;
   }
-  .navbar-toggle {
-    display: block;
-  }
+}
+
+@media screen and (max-width: 992px) {
   .navbar-collapse {
     border-top: 1px solid transparent;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
-  .navbar-fixed-top {
-    position: relative;
-    top: 0;
-    border-width: 0 0 1px;
-    margin-top: -50px;
-  }
-  .navbar-fixed-bottom {
-    position: relative;
-  }
   .navbar-collapse.collapse {
     display: none !important;
   }
+}
+
+@media screen and (max-width: 992px) {
   .navbar-nav {
     float: none !important;
     margin-top: 7.5px;
@@ -500,41 +611,11 @@ th[scope="row"] {
     padding-top: 10px;
     padding-bottom: 10px;
   }
-  .collapse.in {
-    display: block !important;
-  }
-  #student-search {
-    width: 22em;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .hide-small {
-    display: none;
-  }
-  .footer-block {
-    display: block;
-  }
-  .mobile-div {
-    display: block;
-  }
-}
-
-@media screen and (max-width: 430px) {
-  .assignment-detail-comment {
-    padding-top: 20px;
-  }
 }
 
 @media screen and (max-width: 992px) {
-  .navbar-toggle {
-    background-color: #F9F9F9;
-  }
-  .navbar-inverse .navbar-toggle:hover {
-    background-color: #E5E5E5;
-  }
-  .navbar-inverse .navbar-toggle .icon-bar {
-    background-color: gray;
+  .collapse.in {
+    display: block !important;
   }
 }
 
@@ -735,6 +816,18 @@ svg text {
   background-color: #1c3144;
 }
 
+@media screen and (max-width: 992px) {
+  .navbar-inverse .navbar-toggle:hover {
+    background-color: #E5E5E5;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .navbar-inverse .navbar-toggle .icon-bar {
+    background-color: gray;
+  }
+}
+
 .navbar-inverse .navbar-nav > li > a {
   color: whitesmoke;
   font-weight: 300;
@@ -839,6 +932,12 @@ svg text {
   margin-left: 10%;
   margin-bottom: 20px;
   font-size: 18px;
+}
+
+@media screen and (max-width: 992px) {
+  .assignment-detail-comment {
+    padding-top: 20px;
+  }
 }
 
 .assignment-comment-cell {
