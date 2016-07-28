@@ -170,7 +170,10 @@ class CohortView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
         student_list = Student.objects.filter(
             studentcohortmentor__cohort=self.cohort).filter(
             id__gte=0).distinct()
-        student_list = student_list.prefetch_related('class_sites', 'cohorts')
+        student_list = student_list.prefetch_related(
+            'studentclasssitestatus_set__status',
+            'studentclasssitestatus_set__class_site',
+            'cohorts')
         return student_list
 
 
@@ -192,7 +195,10 @@ class ClassSiteView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
         student_list = Student.objects.filter(
             studentclasssitestatus__class_site=self.class_site).filter(
             id__gte=0).distinct()
-        student_list = student_list.prefetch_related('class_sites', 'cohorts')
+        student_list = student_list.prefetch_related(
+            'studentclasssitestatus_set__status',
+            'studentclasssitestatus_set__class_site',
+            'cohorts')
         return student_list
 
 
