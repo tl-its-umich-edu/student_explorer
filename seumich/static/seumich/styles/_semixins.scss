@@ -1,3 +1,5 @@
+$tablet-width: 992px;
+$chart-width: 1150px;
 @mixin marketheaderint {
     background-color: $color_big_stone_approx;
     font-weight: 300;
@@ -5,4 +7,34 @@
     padding-left: 15px;
     padding-right: 15px;
     margin-top: 40px;
+}
+@mixin zeropadding {
+    padding-left: 0;
+    padding-right: 0;
+}
+@mixin mobilemenu {
+    position: static;
+    left: auto;
+    width: auto;
+    margin: -$primary-margin -15px 0;
+}
+@mixin desktop {
+     @media screen and (min-width: #{$tablet-width + 1}){
+        @content;
+    }
+}
+@mixin mobile {
+     @media screen and (max-width: #{$tablet-width}){
+        @content;
+    }
+}
+@mixin medium {
+     @media screen and (min-width: 768px) and (max-width: 992px){
+        @content;
+    }
+}
+@mixin chart {
+     @media screen and (min-width: #{$chart-width}){
+        @content;
+    }
 }

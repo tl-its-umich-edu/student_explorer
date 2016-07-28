@@ -25,6 +25,9 @@ body {
     font-family: $font_Lato, $font_Helvetica;
     padding-top: 50px;
     @extend html;
+    @include mobile {
+        padding-bottom: 0;
+    }
 }
 a {
     color: $color_astral_approx;
@@ -38,6 +41,10 @@ a {
 .sub-header-backlink {
     @extend .sub-header;
     display: none;
+    @include mobile {
+        margin-top: 10px;
+        display: block;
+    }
 }
 .navbar {
     vertical-align: middle;
@@ -46,6 +53,12 @@ a {
 .navbar-fixed-top {
     position: fixed;
     border: 0;
+    @include mobile {
+        position: relative;
+        margin-top: -50px;
+        top: 0;
+        border-width: 0 0 1px;
+    }
 }
 .dropdown-menu p {
     padding: 3px $primary-padding;
@@ -64,6 +77,9 @@ a {
     p + h4 {
         margin-top: 28px;
     }
+    @include desktop {
+         @include zeropadding;
+    }
 }
 .header {
     @include marketheaderint;
@@ -74,6 +90,9 @@ a {
         margin-bottom: 0;
         line-height: 40px;
         padding-bottom: 19px;
+    }
+    @include desktop {
+         @include zeropadding;
     }
 }
 img#student-explorer-logo {
@@ -89,6 +108,9 @@ h1.student-detail-student-name {
     word-wrap: break-word;
     padding: $primary-padding $primary-padding 0;
     font-weight: 400;
+    @include mobile {
+        padding-top: 30px;
+    }
 }
 h2 {
     padding-left: $primary-padding;
@@ -125,6 +147,12 @@ th[scope="row"] {
 }
 .student-desc {
     margin-bottom: $primary-margin;
+    @include mobile {
+        border: 1px solid $color_pumice_approx;
+        padding-top: $primary-padding;
+        padding-bottom: $primary-padding;
+        margin-bottom: $primary-margin;
+    }
 }
 .student-class-site-list-table > tbody > tr {
     > th {
@@ -144,6 +172,9 @@ th[scope="row"] {
     overflow-y: scroll;
     /* Need to fix the scroll bug here for the left nav menu */
     margin-bottom: 100px;
+    @include mobile {
+         @include mobilemenu;
+    }
 }
 .student-detail-left-menu-top {
     background-color: $color_san_marino_approx;
@@ -153,11 +184,17 @@ th[scope="row"] {
 .student-detail-main-menu {
     margin-left: -15px;
     margin-right: -15px;
+    @include mobile {
+         @include mobilemenu;
+    }
 }
 .student-detail-main-menu-top {
     width: 100%;
     background-color: $color_san_marino_approx;
     padding-left: $primary-padding;
+    @include mobile {
+        padding-left: 0;
+    }
 }
 .student-detail-student-id {
     font-weight: 300;
@@ -209,16 +246,31 @@ th[scope="row"] {
 .student-detail-summary {
     width: 75%;
     margin-left: 25%;
+    @include mobile {
+        width: 100%;
+        position: relative;
+        margin: auto 0;
+    }
 }
 .student-detail-main {
     width: 75%;
+    @include mobile {
+        width: 100%;
+        position: relative;
+        margin: auto 0;
+        padding-left: 0;
+    }
 }
 .student-detail-summary-content {
     margin-left: $secondary-margin;
     margin-right: $secondary-margin;
+    @include mobile {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
-.student-detail-data-source{
-  margin-top:10px;
+.student-detail-data-source {
+    margin-top: 10px;
 }
 .student-info {
     background-color: $color_gallery_approx;
@@ -227,12 +279,18 @@ th[scope="row"] {
     p {
         display: inline;
     }
+    @include mobile {
+        margin-bottom: $secondary-margin;
+    }
 }
 .advisor-names {
     margin-right: 0.4em;
 }
 .panel-default {
     display: none;
+    @include mobile {
+        display: block;
+    }
 }
 .no-margin {
     margin-left: 0;
@@ -264,6 +322,9 @@ th[scope="row"] {
             margin-top: 13px;
         }
     }
+    @include desktop {
+         @include zeropadding;
+    }
 }
 .container-narrow > hr {
     margin: 30px 0;
@@ -275,157 +336,128 @@ th[scope="row"] {
         font-size: 21px;
         padding: 14px 24px;
     }
-}
-@media screen and (min-width: 1150px) {
-    .nv-axislabel {
-        display: none;
-    }
-}
-@media screen and (min-width: 769px) {
-    .container {
-        max-width: 100% !important;
-    }
-    .container-feedback {
-        width: 50%;
-    }
-    .footer,
-    .header,
-    .marketing {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    .header {
-        margin-bottom: 30px;
-    }
-    .jumbotron {
+    @include desktop {
         border-bottom: 0;
     }
-    .student-class-site-list,
-    .student-detail-mobile {
+}
+.nv-axislabel {
+    @include chart {
         display: none;
     }
-    #student-search {
+}
+.container {
+    @include desktop {
+        max-width: 100% !important;
+    }
+}
+.container-feedback {
+    @include desktop {
+        width: 50%;
+    }
+}
+.student-class-site-list,
+.student-detail-mobile {
+    @include desktop {
+        display: none;
+    }
+}
+#student-search {
+    @include desktop {
+        width: 22em;
+    }
+    @include medium {
         width: 22em;
     }
 }
-@media screen and (max-width: 768px) {
-    .open > .dropdown-menu {
+.open > .dropdown-menu {
+    @include mobile {
         color: $color_star_dust_approx;
     }
-    .student-class-site-table,
-    .student-detail-left-menu-detail {
+}
+.student-class-site-table,
+.student-detail-left-menu-detail {
+    @include mobile {
         display: none;
     }
-    .table-responsive {
+}
+.table-responsive {
+    @include mobile {
         border: none;
     }
-    .student-detail-left-menu,
-    .student-detail-main-menu {
-        position: static;
-        left: auto;
-        width: auto;
-        margin: -$primary-margin -15px 0;
-    }
-    .sub-header-backlink{
-        margin-top: 10px;
-        display: block;
-    }
-    .student-detail-main-menu-top {
+}
+.student-detail-summary-title {
+    @include mobile {
         padding-left: 0;
-    }
-    .student-detail-summary {
-        width: 100%;
-        position: relative;
-        margin: auto 0;
-    }
-    .student-detail-main {
-        width: 100%;
-        position: relative;
-        margin: auto 0;
-        padding-left: 0;
-    }
-    .student-detail-summary-title {
-        padding-left: 0;
-    }
-    .student-detail-summary-content {
-        margin-left: 0;
-        margin-right: 0;
-    }
-    .student-info {
-        margin-bottom: $secondary-margin;
-    }
-    body {
-        padding-bottom: 0;
-    }
-    .navbar-fixed-top {
-        position: relative;
-        margin-top: -50px;
-    }
-    .navbar-fixed-bottom {
-        position: relative;
-    }
-    h1.student-detail-student-name {
-        padding-top: 30px;
     }
 }
-@media screen and (max-width: 992px) {
-    .student-desc {
-        border: 1px solid $color_pumice_approx;
-        padding-top: $primary-padding;
-        padding-bottom: $primary-padding;
-        margin-bottom: $primary-margin;
+.navbar-fixed-bottom {
+    @include mobile {
+        position: relative;
     }
-    .mobile-inline {
+}
+.mobile-inline {
+    @include mobile {
         margin-bottom: $secondary-margin;
         display: inline-block;
     }
-    .hide-small-grid {
+}
+.hide-small-grid {
+    @include mobile {
         display: none;
     }
-    .status-icon {
+}
+.status-icon {
+    @include mobile {
         float: right;
     }
-    .panel-default {
-        display: block;
-    }
-    .panel-heading{
-      padding: 15px;
-    }
-    .assignment-table {
-        margin-left: 0;
-    }
-    .assignment-table > .container-fluid {
-        padding: 0;
+}
+.panel-heading {
+    @include mobile {
+        padding: 15px;
     }
 }
-@media screen and (min-width: 768px) and (max-width: 992px) {
-    .navbar-header {
-        float: none;
+.assignment-table {
+    @include mobile {
+        margin-left: 0;
+        > .container-fluid {
+            padding: 0;
+        }
     }
-    .navbar-left,
-    .navbar-right {
-        float: none !important;
-    }
-    .navbar-toggle {
+}
+.footer-block,
+.mobile-div {
+    @include mobile {
         display: block;
     }
-    .navbar-collapse {
+}
+.navbar-toggle {
+    @include mobile {
+        background-color: $light-gray-background;
+        display: block;
+    }
+}
+.navbar-header {
+    @include mobile {
+        float: none;
+    }
+}
+.navbar-left,
+.navbar-right {
+    @include mobile {
+        float: none !important;
+    }
+}
+.navbar-collapse {
+    @include mobile {
         border-top: 1px solid transparent;
         box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+        &.collapse {
+            display: none!important;
+        }
     }
-    .navbar-fixed-top {
-        position: relative;
-        top: 0;
-        border-width: 0 0 1px;
-        margin-top: -50px;
-    }
-    .navbar-fixed-bottom {
-        position: relative;
-    }
-    .navbar-collapse.collapse {
-        display: none!important;
-    }
-    .navbar-nav {
+}
+.navbar-nav {
+    @include mobile {
         float: none!important;
         margin-top: 7.5px;
         > li {
@@ -436,41 +468,12 @@ th[scope="row"] {
             }
         }
     }
-    .collapse.in {
+}
+.collapse.in {
+    @include mobile {
         display: block !important;
     }
-    #student-search {
-        width: 22em;
-    }
 }
-@media screen and (max-width: 600px) {
-    .hide-small {
-        display: none;
-    }
-    .footer-block {
-        display: block;
-    }
-    .mobile-div {
-        display: block;
-    }
-}
-@media screen and (max-width: 430px) {
-    .assignment-detail-comment {
-        padding-top: $primary-padding;
-    }
-}
-@media screen and (max-width: 992px) {
-  .navbar-toggle{
-    background-color: $light-gray-background;
-  }
-  .navbar-inverse .navbar-toggle:hover{
-    background-color: $gray-hover-state;
-  }
-  .navbar-inverse .navbar-toggle .icon-bar{
-    background-color: $gray;
-  }
-}
-
 a.class-site-status-link {
     text-decoration: none;
     span {
@@ -634,6 +637,18 @@ svg {
 }
 .navbar-inverse {
     background-color: $color_big_stone_approx;
+    .navbar-toggle {
+        &:hover {
+            @include mobile {
+                background-color: $gray-hover-state;
+            }
+        }
+        .icon-bar {
+            @include mobile {
+                background-color: $gray;
+            }
+        }
+    }
     .navbar-nav > li {
         > a {
             color: $color_wild_sand_approx;
@@ -720,6 +735,9 @@ svg {
     margin-left: 10%;
     margin-bottom: $primary-margin;
     font-size: 18px;
+    @include mobile {
+        padding-top: $primary-padding;
+    }
 }
 .assignment-comment-cell {
     width: 200px;
