@@ -1,13 +1,16 @@
 from django.views.generic import View, ListView, TemplateView
 from seumich.models import (Student, Mentor, Cohort, ClassSite,
                             ClassSiteScore,
-                            StudentCohortMentor)
+                            StudentCohortMentor,
+                            StudentClassSiteStatus,
+                            StudentClassSiteScore)
 from django.shortcuts import get_object_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.conf import settings
+from django.db.models import Prefetch
 from tracking.utils import UserLogPageViewMixin
 
 import logging
@@ -213,15 +216,21 @@ class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
 
     def get_context_data(self, student, **kwargs):
         context = super(StudentView, self).get_context_data(**kwargs)
-        Studentqs = (Student.objects
-                     .prefetch_related(
-                         'studentclasssitestatus_set__status',
-                         ('studentclasssitestatus_set__class_site'
-                          '__studentclasssitescore_set'),
-                         ('studentclasssitestatus_set__class_site'
-                          '__classsitescore_set')))
-        selected_student = get_object_or_404(Studentqs, username=student)
+        selected_student = get_object_or_404(Student, username=student)
         context['student'] = selected_student
+        prefetch_student_score = Prefetch(
+            'class_site__studentclasssitescore_set',
+            queryset=StudentClassSiteScore.objects.filter(
+                student=selected_student))
+        context['classSites'] = (StudentClassSiteStatus.objects
+                                 .filter(
+                                     student=selected_student
+                                 )
+                                 .prefetch_related(
+                                     'class_site__classsitescore_set',
+                                     'status',
+                                     prefetch_student_score
+                                 ))
         context['advisors'] = (StudentCohortMentor.objects
                                .filter(
                                    student=selected_student)
