@@ -78,7 +78,8 @@ a {
         margin-top: 28px;
     }
     @include desktop {
-         @include zeropadding;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 .header {
@@ -92,7 +93,8 @@ a {
         padding-bottom: 19px;
     }
     @include desktop {
-         @include zeropadding;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 img#student-explorer-logo {
@@ -323,7 +325,8 @@ th[scope="row"] {
         }
     }
     @include desktop {
-         @include zeropadding;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 .container-narrow > hr {
