@@ -404,6 +404,11 @@ th[scope="row"] {
         display: inline-block;
     }
 }
+.class-site {
+    @include mobile {
+        width: 75%;
+    }
+}
 .hide-small-grid {
     @include mobile {
         display: none;
@@ -549,7 +554,7 @@ a.class-site-status-link {
 }
 .average-bar {
     -webkit-box-shadow: none;
-    max-width: 100%;
+    max-width: 90%;
     box-shadow: none;
     float: left;
     font-size: 12px;

@@ -43,7 +43,7 @@ def divide(value, arg):
 @register.filter
 def multiply(value, arg):
     try:
-        return value * arg
+        return float(value) * float(arg)
     except:
         return None
 
