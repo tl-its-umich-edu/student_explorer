@@ -383,6 +383,9 @@ th[scope="row"] {
         display: none;
     }
 }
+.student-detail-left-menu-detail {
+    margin-bottom: 100px;
+}
 .table-responsive {
     @include mobile {
         border: none;
