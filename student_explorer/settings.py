@@ -93,6 +93,8 @@ PAGINATION_RECORDS_PER_PAGE = int(getenv(
 PAGINATION_NUM_PAGE_LINKS = int(getenv(
     'DJANGO_PAGINATION_NUM_PAGE_LINKS', '5'))
 
+SERVER_EMAIL = getenv('DJANGO_SERVER_EMAIL',
+                      'student-explorer-admins@umich.edu')
 
 # Internationalization
 
@@ -133,7 +135,6 @@ EMAIL_USE_TLS = getenv('DJANGO_EMAIL_USE_TLS', None)
 EMAIL_USE_SSL = getenv('DJANGO_EMAIL_USE_SSL', None)
 
 FEEDBACK_EMAIL = getenv('DJANGO_FEEDBACK_EMAIL', None)
-
 
 # Databases
 

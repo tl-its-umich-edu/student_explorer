@@ -7,14 +7,14 @@
 {% endblock %}
 {% block content %}
 
-    <div class="container-fluid">
+    <div class="container-fluid content">
         <div class="student-detail-left-menu" id="student-detail-menu">
             <div class="student-detail-left-menu-top">
                 {% include 'seumich/student_info_partial.html' with link_present=True %}
             </div>
 
             <h2 class="sub-header-backlink">
-                <a class="backlink" href="/students/{{student.username}}/">
+                <a class="backlink" href="{% url 'seumich:student' student.username %}">
                     &lt; Back to Course List
                 </a>
             </h2>
@@ -24,22 +24,28 @@
                 <div class="student-detail-left-menu-course-line">
                     <input type="hidden" id="student-username" value="{{ student.username }}">
                 </div>
-                {% for classSite in classSites %}
-                    <div class="student-detail-left-menu-courses" id="student-menu-{{ classSite.code }}">
-                        <h3>{{classSite.description}}</h3>
-                        <a href="#" data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
-                            {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
-                            {% if status == 'Green' %}
-                                <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px"></img>
-                            {% elif status == 'Yellow' %}
-                                <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px"></img>
-                            {% elif status == 'Red' %}
-                                <img src="{{ baseUrl }}images/Status_Icons_Red.png" alt="Red engage status icon" width="25px"></img>
-                            {% elif status == 'Not Applicable' %}
-                                <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px"></img>
-                            {% endif %}
-                            {% endwith %}
-                        </a>
+                {% for courseSite in student.studentclasssitestatus_set.all %}
+                    <div class="student-detail-left-menu-courses" id="student-menu-{{ courseSite.class_site.code }}" onclick="location.href='{% url "seumich:student_class" student.username courseSite.class_site.code %}';">
+                        <h3>{{courseSite.class_site.description}}</h3>
+                        {% with status=courseSite.status.description %}
+                        {% if status == 'Green' %}
+                            <a href="#" data-toggle="tooltip" title="Encourage" data-placement="bottom">
+                                <img src="{% static 'seumich/images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
+                            </a>
+                        {% elif status == 'Yellow' %}
+                            <a href="#" data-toggle="tooltip" title="Explore" data-placement="bottom">
+                                <img src="{% static 'seumich/images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
+                            </a>
+                        {% elif status == 'Red' %}
+                            <a href="#" data-toggle="tooltip" title="Engage" data-placement="bottom">
+                                <img src="{% static 'seumich/images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
+                            </a>
+                        {% elif status == 'Not Applicable' %}
+                            <a href="#" data-toggle="tooltip" title="No data" data-placement="bottom">
+                                <img src="{% static 'seumich/images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
+                            </a>
+                        {% endif %}
+                        {% endwith %}
                     </div>
                 {% endfor %}
             </div>
@@ -48,28 +54,32 @@
         <div class="student-detail-summary">
             <div class="student-detail-summary-content">
                 <div class="row no-margin">
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                        <h3 class="main-h3">Course Site:
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h3 class="main-h3">
                             {{ classSite.description }}
                             <input type="hidden" id="current-classsite-code" value="{{ classSite.code }}">
-                            <span data-toggle="tooltip" title="{{ student.studentclasssitestatus_set.all|get_student_class_status:classSite|status_to_text }}" data-placement="bottom">
-                                {% with status=student.studentclasssitestatus_set.all|get_student_class_status:classSite %}
-                                {% if status == 'Green' %}
-                                    <img src="{{ baseUrl }}images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="10"></img>
-                                {% elif status == 'Yellow' %}
-                                    <img src="{{ baseUrl }}images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px" hspace="10"></img>
-                                {% elif status == 'Red' %}
-                                    <img src="{{ baseUrl }}images/Status_Icons_Red.png" alt="Red engage status icon" width="25px" hspace="10"></img>
-                                {% elif status == 'Not Applicable' %}
-                                    <img src="{{ baseUrl }}images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px" hspace="10"></img>
-                                {% endif %}
-                                {% endwith %}
-                            </span>
+                            {% if current_status == 'Green' %}
+                                <span data-toggle="tooltip" title="Encourage" data-placement="bottom">
+                                    <img src="{{ baseUrl }}seumich/images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="10"></img>
+                                </span>
+                            {% elif current_status == 'Yellow' %}
+                                <span data-toggle="tooltip" title="Explore" data-placement="bottom">
+                                    <img src="{{ baseUrl }}seumich/images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px" hspace="10"></img>
+                                </span>
+                            {% elif current_status == 'Red' %}
+                                <span data-toggle="tooltip" title="Engage" data-placement="bottom">
+                                    <img src="{{ baseUrl }}seumich/images/Status_Icons_Red.png" alt="Red engage status icon" width="25px" hspace="10"></img>
+                                </span>
+                            {% elif current_status == 'Not Applicable' %}
+                                <span data-toggle="tooltip" title="No data" data-placement="bottom">
+                                    <img src="{{ baseUrl }}seumich/images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px" hspace="10"></img>
+                                </span>
+                            {% endif %}
                         </h3>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <div class="pull-right">
-                            <br>Data Source:
+                    <div class="col-xs-12 student-detail-data-source">
+                        <div>
+                            Data Source:
                             <span class="label label-primary">{{classSite.source_system}}</span>
                         </div>
                     </div>
@@ -83,6 +93,17 @@
                         <svg></svg>
                     </div>
                     <script>
+
+                        function toggleAssignment(element) {
+                            var code = element.id;
+                            if (!$('#collapse' + code).hasClass('collapsing')) {
+                                var sign = $(element).find('img').attr('src');
+                                $('[class="assignment-button"]').attr('src', '{{baseUrl}}seumich/images/Dropdown_Plus.png');
+                                $('#assignmentButton' + code).attr('src', (sign === '{{baseUrl}}seumich/images/Dropdown_Plus.png')
+                                    ? '{{baseUrl}}seumich/images/Dropdown_Minus.png'
+                                    : '{{baseUrl}}seumich/images/Dropdown_Plus.png');
+                            }
+                        }
 
                         nv.addGraph(function () {
                             var chart = nv.models.multiBarChart().showControls(false).forceY([0, 100]).reduceXTicks(false).showYAxis(true).showXAxis(true)
@@ -206,8 +227,8 @@
                                                     <span>
                                                         <span id="comment-title-{{assignment.assignment.id}}">View Comment</span>
                                                         <a class="assignment-button" role="button">
-                                                            <img id="plus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
-                                                            <img id="minus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}images/Dropdown_Minus.png" alt="Expand"/>
+                                                            <img id="plus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}seumich/images/Dropdown_Plus.png" alt="Expand"/>
+                                                            <img id="minus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}seumich/images/Dropdown_Minus.png" alt="Expand"/>
                                                         </a>
                                                         <p id="assignment-grader-comment-{{assignment.assignment.id}}">&quot;{{assignment.grader_comment}}&quot;</p>
                                                     </span>
@@ -215,27 +236,25 @@
                                             </div>
                                         </div>
                                         <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="heading{{assignment.assignment.code}}">
+                                            <div
+                                                class="panel-heading"
+                                                role="tab"
+                                                id="{{assignment.assignment.code}}"
+                                                data-toggle="collapse"
+                                                data-parent="#accordion"
+                                                data-target="#collapse{{assignment.assignment.code}}"
+                                                onclick="toggleAssignment(this)"
+                                                aria-expanded="true"
+                                                aria-controls="collapse{{assignment.assignment.code}}">
                                                 <h4 class="panel-title">
                                                     <span class="assignment-title">{{assignment.assignment.description }}</span>
                                                     <span class="assignment-title-right">
                                                         <span class="assignment-title-score">{{assignment.points_earned|divide:assignment.points_possible|multiply:100|floatformat}}%</span>
-                                                        <a
-                                                            class="assignment-button"
-                                                            id="{{assignment.assignment.code}}"
-                                                            role="button"
-                                                            data-toggle="collapse"
-                                                            data-parent="#accordion"
-                                                            data-target="#collapse{{assignment.assignment.code}}"
-                                                            onclick="toggleAssignment(this)"
-                                                            aria-expanded="true"
-                                                            aria-controls="collapse{{assignment.assignment.code}}">
-                                                            <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{{baseUrl}}images/Dropdown_Plus.png" alt="Expand"/>
-                                                        </a>
+                                                        <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{{baseUrl}}seumich/images/Dropdown_Plus.png" alt="Expand"/>
                                                     </span>
                                                 </h4>
                                             </div>
-                                            <div id="collapse{{assignment.assignment.code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{assignment.assignment.code}}">
+                                            <div id="collapse{{assignment.assignment.code}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{assignment.assignment.code}}">
                                                 <div class="panel-body">
                                                     <div class="assignment-row">
                                                         <div class="assignment-detail assignment-detail-left">

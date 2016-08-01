@@ -8,7 +8,7 @@
 {% block content %}
 
     <div class="container content">
-        <h2 class="sub-header list-header">All Advisors</h2>
+        <h2 class="sub-header list-header">All Cohorts</h2>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -19,11 +19,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for advisor in advisors %}
+                    {% for cohort in cohorts %}
                         <tr>
                             <th scope="row" class="bold">
-                                <a href="{% url 'seumich:advisor' advisor.username %}">{{ advisor.first_name }}
-                                    {{ advisor.last_name }}</a>
+                                <a href="{% url 'seumich:cohort' cohort.code %}">{{ cohort.description }}</a>
                             </th>
                         </tr>
                     {% endfor %}

@@ -20,10 +20,10 @@ import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('seumich.urls')),
+    url(r'^', include('seumich.urls', namespace='seumich')),
     url(r'^status/', include('watchman.urls')),
     url(r'^advising_groups/', include('advisinggroups.urls')),
-    url(r'^feedback/', include('feedback.urls')),
+    url(r'^feedback/', include('feedback.urls', namespace='feedback')),
 ]
 
 if 'djangosaml2' in settings.INSTALLED_APPS:
@@ -39,3 +39,11 @@ elif 'registration' in settings.INSTALLED_APPS:
 # behavior
 urlpatterns.append(url(r'^accounts/logout', views.logout, name='auth_logout'))
 urlpatterns.append(url(r'^about', views.about, name='about'))
+
+
+# Configure Django Debug Toolbar
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]
