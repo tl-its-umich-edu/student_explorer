@@ -510,6 +510,10 @@ th[scope="row"] {
   }
 }
 
+.student-detail-left-menu-detail {
+  margin-bottom: 100px;
+}
+
 @media screen and (max-width: 992px) {
   .table-responsive {
     border: none;
