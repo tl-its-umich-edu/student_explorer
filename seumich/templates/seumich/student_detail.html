@@ -19,7 +19,7 @@
             <hr class="main-no-margin-top"/>
             <div class="student-detail-summary-content">
                 <div>
-                    {% if not student.class_sites.all %}
+                    {% if not classSites %}
                         <div>
                             <p>There is no class site data for this student.</p>
                         </div>
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="container-fluid">
-                            {% for classSite in student.studentclasssitestatus_set.all %}
+                            {% for classSite in classSites %}
                                 <hr class="main-no-margin-top hide-small-grid"/>
                                 <a class="class-site-title" href="/students/{{student.username}}/class_sites/{{classSite.class_site.code}}/">
                                 <div class="row student-desc">
