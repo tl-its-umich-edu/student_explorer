@@ -19,7 +19,7 @@
             <hr class="main-no-margin-top"/>
             <div class="student-detail-summary-content">
                 <div>
-                    {% if not student.class_sites.all %}
+                    {% if not classSites %}
                         <div>
                             <p>There is no class site data for this student.</p>
                         </div>
@@ -50,11 +50,11 @@
                             </div>
                         </div>
                         <div class="container-fluid">
-                            {% for classSite in student.studentclasssitestatus_set.all %}
+                            {% for classSite in classSites %}
                                 <hr class="main-no-margin-top hide-small-grid"/>
                                 <a class="class-site-title" href="/students/{{student.username}}/class_sites/{{classSite.class_site.code}}/">
                                 <div class="row student-desc">
-                                    <div class="col-md-2 mobile-inline">
+                                    <div class="col-md-2 mobile-inline class-site">
                                             <h3 class="student-course-list">{{ classSite.class_site.description }}</h3>
 
                                     </div>
@@ -82,14 +82,14 @@
                                     <div class="col-md-8">
                                         {% with student_score=classSite.class_site.studentclasssitescore_set.all|get_score class_score=classSite.class_site.classsitescore_set.all|get_score %}
                                         <div class="average-bar-container">
-                                            <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{ student_score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ student_score|get_bar_width:class_score }}%;">
+                                            <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{ student_score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ student_score|get_bar_width:class_score|multiply:0.9 }}%;">
                                                 <p class="average-bar-text">{{ student_score }}%</p>
                                                 <span class="sr-only">Student Percentage:
                                                     {{ student_score }}%</span>
                                             </div>
                                         </div>
                                         <div class="average-bar-container">
-                                            <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{ class_score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ class_score|get_bar_width:student_score }}%;">
+                                            <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{ class_score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ class_score|get_bar_width:student_score|multiply:0.9 }}%;">
                                                 <p class="average-bar-text">{{ class_score }}%</p>
                                                 <span class="sr-only">Class Average Percentage:
                                                     {{ class_score }}%</span>
