@@ -45,7 +45,7 @@ def multiply(value, arg):
     try:
         return float(value) * float(arg)
     except:
-        return None
+        return value
 
 
 @register.filter
