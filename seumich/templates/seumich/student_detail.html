@@ -26,19 +26,19 @@
                     {% else %}
                         <div class="container-fluid">
                             <div class="row hide-small-grid">
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <strong class="table-column-name">Course Site</strong>
                                 </div>
                                 <div class="col-md-2">
                                     <strong class="table-column-name">Status</strong>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <strong class="table-column-name">Current Percentage</strong>
                                 </div>
                             </div>
                             <hr class="main-no-margin-top hide-small-grid"/>
                             <div class="row">
-                                <div class="col-md-4"></div>
+                                <div class="col-md-5"></div>
                                 <div class="col-md-2 mobile-inline">
                                     <p class="legend-text">
                                         <span class="legend-key student-legend-key"></span>Student</p>
@@ -54,7 +54,7 @@
                                 <hr class="main-no-margin-top hide-small-grid"/>
                                 <a class="class-site-title" href="/students/{{student.username}}/class_sites/{{classSite.class_site.code}}/">
                                 <div class="row student-desc">
-                                    <div class="col-md-2 mobile-inline">
+                                    <div class="col-md-3 mobile-inline">
                                             <h3 class="student-course-list">{{ classSite.class_site.description }}</h3>
 
                                     </div>
@@ -79,7 +79,7 @@
                                         {% endif %}
                                         {% endwith %}
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-7">
                                         {% with student_score=classSite.class_site.studentclasssitescore_set.all|get_score class_score=classSite.class_site.classsitescore_set.all|get_score %}
                                         <div class="average-bar-container">
                                             <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{ student_score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ student_score|get_bar_width:class_score }}%;">
