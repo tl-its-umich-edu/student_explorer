@@ -498,6 +498,12 @@ th[scope="row"] {
 }
 
 @media screen and (max-width: 992px) {
+  #student-search:focus {
+    font-size: 1em !important;
+  }
+}
+
+@media screen and (max-width: 992px) {
   .open > .dropdown-menu {
     color: #9d9d9d;
   }

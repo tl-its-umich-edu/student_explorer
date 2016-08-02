@@ -371,6 +371,11 @@ th[scope="row"] {
     @include medium {
         width: 22em;
     }
+    @include mobile {
+        &:focus {
+            font-size: 1em !important;
+        }
+    }
 }
 .open > .dropdown-menu {
     @include mobile {
