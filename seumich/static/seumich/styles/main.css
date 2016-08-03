@@ -498,8 +498,8 @@ th[scope="row"] {
 }
 
 @media screen and (max-width: 992px) {
-  #student-search:focus {
-    font-size: 1em !important;
+  #student-search:focus, #student-search:hover {
+    font-size: 16px !important;
   }
 }
 
