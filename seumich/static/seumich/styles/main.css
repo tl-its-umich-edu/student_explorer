@@ -2,8 +2,8 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
 .browsehappy {
   margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
+  background: #cccccc;
+  color: black;
   padding: 0.2em 0;
 }
 
@@ -33,10 +33,10 @@ a {
 }
 
 .sub-header, .sub-header-backlink {
-  color: brown;
+  color: #c1272d;
   font-weight: 400;
   margin-top: 20px;
-  /*border-bottom: 1px solid $color_gallery_approx;*/
+  /*border-bottom: 1px solid $color_hover_gray;*/
 }
 
 .sub-header-backlink {
@@ -76,11 +76,11 @@ a {
 .mobile-nav-right {
   padding: 10px 15px;
   margin-bottom: 0;
-  color: #9d9d9d;
+  color: #cccccc;
 }
 
 .policy-warning {
-  background-color: #ffc8c8;
+  background-color: #cccccc;
 }
 
 .marketing {
@@ -199,7 +199,7 @@ th[scope="row"] {
 
 @media screen and (max-width: 992px) {
   .student-desc {
-    border: 1px solid #c8c8c8;
+    border: 1px solid #cccccc;
     padding-top: 20px;
     padding-bottom: 20px;
     margin-bottom: 20px;
@@ -236,7 +236,7 @@ th[scope="row"] {
 }
 
 .student-detail-left-menu-top {
-  background-color: #3e6c9c;
+  background-color: #3072ab;
   text-align: left;
   width: 100%;
 }
@@ -257,7 +257,7 @@ th[scope="row"] {
 
 .student-detail-main-menu-top {
   width: 100%;
-  background-color: #3e6c9c;
+  background-color: #3072ab;
   padding-left: 20px;
 }
 
@@ -304,7 +304,7 @@ th[scope="row"] {
 
 .student-detail-left-menu-courses {
   min-height: 60px;
-  border-bottom: 1px solid #d4d4d4;
+  border-bottom: 1px solid #cccccc;
 }
 
 .student-detail-left-menu-courses:hover {
@@ -366,7 +366,7 @@ th[scope="row"] {
 }
 
 .student-info {
-  background-color: #eee;
+  background-color: #e5e5e5;
   padding: 0.75em;
   margin-bottom: 80px;
 }
@@ -422,7 +422,7 @@ th[scope="row"] {
 }
 
 .footer .container-fluid {
-  color: #777;
+  color: #cccccc;
   border-top: 1px solid #e5e5e5;
   background-color: #1c3144;
   font-weight: 300;
@@ -499,7 +499,7 @@ th[scope="row"] {
 
 @media screen and (max-width: 992px) {
   .open > .dropdown-menu {
-    color: #9d9d9d;
+    color: #cccccc;
   }
 }
 
@@ -581,7 +581,7 @@ th[scope="row"] {
 
 @media screen and (max-width: 992px) {
   .navbar-toggle {
-    background-color: #F9F9F9;
+    background-color: #f9f9f9;
     display: block;
   }
 }
@@ -673,7 +673,7 @@ a.class-site-status-link span {
 }
 
 .progress-text {
-  color: #c8d6c7;
+  color: #becdc0;
   display: none;
   margin-left: 6px;
 }
@@ -697,11 +697,11 @@ a.class-site-status-link span {
 }
 
 .student-legend-key {
-  background-color: #255c91;
+  background-color: #3072ab;
 }
 
 .class-legend-key {
-  background-color: #f0d654;
+  background-color: #f4e075;
 }
 
 .average-bar-container {
@@ -734,11 +734,11 @@ a.class-site-status-link span {
 }
 
 .student-average-bar {
-  background: #255c91;
+  background: #3072ab;
 }
 
 .class-average-bar {
-  background: #f0d654;
+  background: #f4e075;
 }
 
 .average-bar-text {
@@ -795,7 +795,7 @@ svg text {
   font-weight: bold;
   background-color: rgba(247, 247, 247, 0.75);
   text-align: center;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid #e5e5e5;
   -webkit-border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
   border-radius: 5px 5px 0 0;
@@ -807,7 +807,7 @@ svg text {
 
 .backlink {
   font-size: 20px;
-  color: #1f77b4;
+  color: #3072ab;
   text-decoration: none !important;
 }
 
@@ -818,7 +818,7 @@ svg text {
 .graph-caption {
   font-size: x-large;
   font-weight: 300;
-  color: brown;
+  color: #c1272d;
   text-align: center;
 }
 
@@ -828,24 +828,24 @@ svg text {
 
 @media screen and (max-width: 992px) {
   .navbar-inverse .navbar-toggle:hover {
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
   }
 }
 
 @media screen and (max-width: 992px) {
   .navbar-inverse .navbar-toggle .icon-bar {
-    background-color: gray;
+    background-color: #cccccc;
   }
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: whitesmoke;
+  color: #f9f9f9;
   font-weight: 300;
   font-size: 15px;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {
-  color: #dedede;
+  color: #e5e5e5;
   background-color: #124465;
 }
 
@@ -863,11 +863,11 @@ svg text {
 
 .unsortable:hover {
   text-decoration: none;
-  color: #337ab7;
+  color: #3072ab;
 }
 
 .table-column-name {
-  color: #337ab7;
+  color: #3072ab;
 }
 
 .not-found {
@@ -972,7 +972,7 @@ svg text {
 }
 
 .card-block {
-  box-shadow: 0 0 5px gray;
+  box-shadow: 0 0 5px #cccccc;
   padding: 20px;
   margin: 20px 2px;
 }

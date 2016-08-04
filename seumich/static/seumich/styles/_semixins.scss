@@ -1,9 +1,9 @@
 $tablet-width: 992px;
 $chart-width: 1150px;
 @mixin marketheaderint {
-    background-color: $color_big_stone_approx;
+    background-color: $color_nav_background;
     font-weight: 300;
-    color: $white;
+    color: $color_white;
     padding-left: 15px;
     padding-right: 15px;
     margin-top: 40px;

@@ -1,16 +1,15 @@
 @import 'secolor';
-$font_Lato: Lato;
-$font_Helvetica: Helvetica;
+@import 'sefont';
+@import 'semixins';
 $primary-padding: 20px;
 $primary-margin: 20px;
 $secondary-margin: 10px;
-@import 'semixins';
 @import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
 .browsehappy {
     margin: 0.2em 0;
-    background: $color_celeste_approx;
-    color: $black;
+    background: $color_active_gray;
+    color: $color_black;
     padding: 0.2em 0;
 }
 html {
@@ -30,13 +29,13 @@ body {
     }
 }
 a {
-    color: $color_astral_approx;
+    color: $color_student_detail_background;
 }
 .sub-header {
-    color: $color_mexican_red_approx;
+    color: $color_engage_red;
     font-weight: 400;
     margin-top: $primary-margin;
-    /*border-bottom: 1px solid $color_gallery_approx;*/
+    /*border-bottom: 1px solid $color_hover_gray;*/
 }
 .sub-header-backlink {
     @extend .sub-header;
@@ -66,10 +65,10 @@ a {
 .mobile-nav-right {
     padding: 10px 15px;
     margin-bottom: 0;
-    color: $color_star_dust_approx;
+    color: $color_active_gray;
 }
 .policy-warning {
-    background-color: $color_pink_approx;
+    background-color: $color_active_gray;
 }
 .marketing {
     @include marketheaderint;
@@ -84,7 +83,7 @@ a {
 }
 .header {
     @include marketheaderint;
-    border-bottom: 1px solid $mercury;
+    border-bottom: 1px solid $color_hover_gray;
     margin-bottom: $secondary-margin;
     h3 {
         margin-top: 0;
@@ -105,7 +104,7 @@ img#student-explorer-logo {
 h1.student-detail-student-name {
     margin-top: 0;
     line-height: 1.2;
-    color: $white;
+    color: $color_white;
     font-size: 28px;
     word-wrap: break-word;
     padding: $primary-padding $primary-padding 0;
@@ -150,7 +149,7 @@ th[scope="row"] {
 .student-desc {
     margin-bottom: $primary-margin;
     @include mobile {
-        border: 1px solid $color_pumice_approx;
+        border: 1px solid $color_active_gray;
         padding-top: $primary-padding;
         padding-bottom: $primary-padding;
         margin-bottom: $primary-margin;
@@ -170,7 +169,7 @@ th[scope="row"] {
     position: fixed;
     left: 0;
     height: 100%;
-    background-color: $color_alabaster_approx;
+    background-color: $color_background_gray;
     overflow-y: scroll;
     /* Need to fix the scroll bug here for the left nav menu */
     margin-bottom: 100px;
@@ -179,7 +178,7 @@ th[scope="row"] {
     }
 }
 .student-detail-left-menu-top {
-    background-color: $color_san_marino_approx;
+    background-color: $color_student_detail_background;
     text-align: left;
     width: 100%;
 }
@@ -192,7 +191,7 @@ th[scope="row"] {
 }
 .student-detail-main-menu-top {
     width: 100%;
-    background-color: $color_san_marino_approx;
+    background-color: $color_student_detail_background;
     padding-left: $primary-padding;
     @include mobile {
         padding-left: 0;
@@ -201,7 +200,7 @@ th[scope="row"] {
 .student-detail-student-id {
     font-weight: 300;
     margin-bottom: 0;
-    color: $white;
+    color: $color_white;
     padding-left: $primary-padding;
 }
 .student-detail-student-email {
@@ -213,9 +212,9 @@ th[scope="row"] {
 }
 .student-detail-student-email-link,
 .student-detail-student-name-link {
-    color: $white;
+    color: $color_white;
     &:hover {
-        color: $white;
+        color: $color_white;
     }
 }
 .student-detail-left-menu-course-line p {
@@ -225,14 +224,14 @@ th[scope="row"] {
     padding-left: $primary-padding;
     font-size: 20px;
     font-weight: bold;
-    color: $color_big_stone_approx;
+    color: $color_nav_background;
 }
 .student-detail-left-menu-courses {
     min-height: 60px;
-    border-bottom: 1px solid $color_quill_gray_approx;
+    border-bottom: 1px solid $color_active_gray;
     &:hover {
         cursor: pointer;
-        background-color: $mercury;
+        background-color: $color_hover_gray;
     }
     h3 {
         width: 70%;
@@ -240,7 +239,7 @@ th[scope="row"] {
         margin-bottom: $secondary-margin;
         padding-left: $primary-padding;
         font-size: 18px;
-        color: $color_big_stone_approx;
+        color: $color_nav_background;
         display: inline-block;
         word-wrap: break-word;
     }
@@ -275,7 +274,7 @@ th[scope="row"] {
     margin-top: 10px;
 }
 .student-info {
-    background-color: $color_gallery_approx;
+    background-color: $color_hover_gray;
     padding: 0.75em;
     margin-bottom: 80px;
     p {
@@ -315,11 +314,11 @@ th[scope="row"] {
     left: 0;
     right: 0;
     .container-fluid {
-        color: $color_tapa_approx;
-        border-top: 1px solid $mercury;
-        background-color: $color_big_stone_approx;
+        color: $color_active_gray;
+        border-top: 1px solid $color_hover_gray;
+        background-color: $color_nav_background;
         font-weight: 300;
-        color: $white;
+        color: $color_white;
         p.main-color-white {
             margin-top: 13px;
         }
@@ -334,7 +333,7 @@ th[scope="row"] {
 }
 .jumbotron {
     text-align: center;
-    border-bottom: 1px solid $mercury;
+    border-bottom: 1px solid $color_hover_gray;
     .btn {
         font-size: 21px;
         padding: 14px 24px;
@@ -374,7 +373,7 @@ th[scope="row"] {
 }
 .open > .dropdown-menu {
     @include mobile {
-        color: $color_star_dust_approx;
+        color: $color_active_gray;
     }
 }
 .student-class-site-table,
@@ -443,7 +442,7 @@ th[scope="row"] {
 }
 .navbar-toggle {
     @include mobile {
-        background-color: $light-gray-background;
+        background-color: $color_background_gray;
         display: block;
     }
 }
@@ -520,7 +519,7 @@ a.class-site-status-link {
     font-weight: bold;
 }
 .progress-text {
-    color: $color_sea_mist_approx;
+    color: $color_lms_activity;
     display: none;
     margin-left: 6px;
 }
@@ -540,10 +539,10 @@ a.class-site-status-link {
     width: 15px;
 }
 .student-legend-key {
-    background-color: $color_st_tropaz_approx;
+    background-color: $color_student_detail_background;
 }
 .class-legend-key {
-    background-color: $color_confetti_approx;
+    background-color: $color_course_average;
 }
 .average-bar-container {
     -webkit-box-shadow: none;
@@ -573,10 +572,10 @@ a.class-site-status-link {
     transition: width 0.6s ease;
 }
 .student-average-bar {
-    background: $color_st_tropaz_approx;
+    background: $color_student_detail_background;
 }
 .class-average-bar {
-    background: $color_confetti_approx;
+    background: $color_course_average;
 }
 .average-bar-text {
     color: black;
@@ -594,10 +593,10 @@ a.class-site-status-link {
     margin-top: 0;
 }
 .main-h3 {
-    color: $color_big_stone_approx;
+    color: $color_nav_background;
 }
 .main-color-white {
-    color: $mercury !important;
+    color: $color_hover_gray !important;
 }
 .main-navbar-brand {
     font-weight: 300;
@@ -622,7 +621,7 @@ svg {
         font-weight: bold;
         background-color: rgba(247,247,247,0.75);
         text-align: center;
-        border-bottom: 1px solid $color_cararra_approx;
+        border-bottom: 1px solid $color_hover_gray;
         -webkit-border-radius: 5px 5px 0 0;
         -moz-border-radius: 5px 5px 0 0;
         border-radius: 5px 5px 0 0;
@@ -630,63 +629,63 @@ svg {
 }
 .tooltip-inner {
     text-align: left;
-    $white-space: pre-line;
+    $color_white-space: pre-line;
 }
 .backlink {
     font-size: 20px;
-    color: $color_denim_approx;
+    color: $color_student_detail_background;
     text-decoration: none !important;
     &:hover {
-        color: $color_big_stone_approx;
+        color: $color_nav_background;
     }
 }
 .graph-caption {
     font-size: x-large;
     font-weight: 300;
-    color: $color_mexican_red_approx;
+    color: $color_engage_red;
     text-align: center;
 }
 .navbar-inverse {
-    background-color: $color_big_stone_approx;
+    background-color: $color_nav_background;
     .navbar-toggle {
         &:hover {
             @include mobile {
-                background-color: $gray-hover-state;
+                background-color: $color_hover_gray;
             }
         }
         .icon-bar {
             @include mobile {
-                background-color: $gray;
+                background-color: $color_active_gray;
             }
         }
     }
     .navbar-nav > li {
         > a {
-            color: $color_wild_sand_approx;
+            color: $color_background_gray;
             font-weight: 300;
             font-size: 15px;
             &:hover {
-                color: $color_alto_approx;
-                background-color: $color_astronaut_blue_approx;
+                color: $color_hover_gray;
+                background-color: $color_nav_hover;
             }
         }
         &.active > a {
-            background-color: $color_astronaut_blue_approx;
+            background-color: $color_nav_hover;
             :focus {
-                background-color: $color_astronaut_blue_approx;
+                background-color: $color_nav_hover;
             }
             &:hover {
-                background-color: $color_astronaut_blue_approx;
+                background-color: $color_nav_hover;
             }
         }
     }
 }
 .unsortable:hover {
     text-decoration: none;
-    color: $color_steel_blue_approx;
+    color: $color_student_detail_background;
 }
 .table-column-name {
-    color: $color_steel_blue_approx;
+    color: $color_student_detail_background;
 }
 .not-found {
     margin-top: 6%;
@@ -767,7 +766,7 @@ svg {
     margin-left: 22px;
 }
 .card-block {
-    box-shadow: 0 0 5px $gray;
+    box-shadow: 0 0 5px $color_active_gray;
     padding: $primary-padding;
     margin: $primary-margin 2px;
     &:hover {
