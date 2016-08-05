@@ -50,56 +50,59 @@
                             </div>
                         </div>
                         <div class="container-fluid">
-                            {% for classSite in classSites %}
+                            {% for element in classSites %}
                                 <hr class="main-no-margin-top hide-small-grid"/>
-                                <a class="class-site-title" href="/students/{{student.username}}/class_sites/{{classSite.class_site.code}}/">
-                                <div class="row student-desc">
-                                    <div class="col-md-3 mobile-inline class-site">
-                                            <h3 class="student-course-list">{{ classSite.class_site.description }}</h3>
+                                {% with class_site=element.class_site %}
+                                <a class="class-site-title" href="/students/{{student.username}}/class_sites/{{class_site.code}}/">
+                                    <div class="row student-desc">
+                                        <div class="col-md-3 mobile-inline class-site">
+                                            <h3 class="student-course-list">{{ class_site.description }}</h3>
 
-                                    </div>
-                                    <div class="col-md-2 mobile-inline status-icon">
-                                        {% with status=classSite.status.description %}
-                                        {% if status == 'Green' %}
-                                            <span data-toggle="tooltip" title="Encourage" data-placement="bottom">
-                                                <img src="{% static 'seumich/images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
-                                            </span>
-                                        {% elif status == 'Yellow' %}
-                                            <span data-toggle="tooltip" title="Explore" data-placement="bottom">
-                                                <img src="{% static 'seumich/images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
-                                            </span>
-                                        {% elif status == 'Red' %}
-                                            <span data-toggle="tooltip" title="Engage" data-placement="bottom">
-                                                <img src="{% static 'seumich/images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
-                                            </span>
-                                        {% elif status == 'Not Applicable' %}
-                                            <span data-toggle="tooltip" title="No data" data-placement="bottom">
-                                                <img src="{% static 'seumich/images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
-                                            </span>
-                                        {% endif %}
-                                        {% endwith %}
-                                    </div>
-                                    <div class="col-md-7">
-                                        {% with student_score=classSite.class_site.studentclasssitescore_set.all|get_score class_score=classSite.class_site.classsitescore_set.all|get_score %}
-                                        <div class="average-bar-container">
-                                            <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{ student_score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ student_score|get_bar_width:class_score|multiply:0.9 }}%;">
-                                                <p class="average-bar-text">{{ student_score }}%</p>
-                                                <span class="sr-only">Student Percentage:
-                                                    {{ student_score }}%</span>
-                                            </div>
                                         </div>
-                                        <div class="average-bar-container">
-                                            <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{ class_score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ class_score|get_bar_width:student_score|multiply:0.9 }}%;">
-                                                <p class="average-bar-text">{{ class_score }}%</p>
-                                                <span class="sr-only">Class Average Percentage:
-                                                    {{ class_score }}%</span>
-                                            </div>
+                                        <div class="col-md-2 mobile-inline status-icon">
+                                            {% with status=element.status %}
+                                            {% if status.description == 'Green' %}
+                                                <span data-toggle="tooltip" title="Encourage" data-placement="bottom">
+                                                    <img src="{% static 'seumich/images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
+                                                </span>
+                                            {% elif status.description == 'Yellow' %}
+                                                <span data-toggle="tooltip" title="Explore" data-placement="bottom">
+                                                    <img src="{% static 'seumich/images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
+                                                </span>
+                                            {% elif status.description == 'Red' %}
+                                                <span data-toggle="tooltip" title="Engage" data-placement="bottom">
+                                                    <img src="{% static 'seumich/images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
+                                                </span>
+                                            {% elif status.description == 'Not Applicable' %}
+                                                <span data-toggle="tooltip" title="No data" data-placement="bottom">
+                                                    <img src="{% static 'seumich/images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
+                                                </span>
+                                            {% endif %}
+                                            {% endwith %}
                                         </div>
-                                        {% endwith %}
+                                        <div class="col-md-7">
+                                            {% with student_score=class_site.studentclasssitescore_set.all|get_score class_score=class_site.classsitescore_set.all|get_score %}
+                                            <div class="average-bar-container">
+                                                <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{ student_score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ student_score|get_bar_width:class_score|multiply:0.9 }}%;">
+                                                    <p class="average-bar-text">{{ student_score }}%</p>
+                                                    <span class="sr-only">Student Percentage:
+                                                        {{ student_score }}%</span>
+                                                </div>
+                                            </div>
+                                            <div class="average-bar-container">
+                                                <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{ class_score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ class_score|get_bar_width:student_score|multiply:0.9 }}%;">
+                                                    <p class="average-bar-text">{{ class_score }}%</p>
+                                                    <span class="sr-only">Class Average Percentage:
+                                                        {{ class_score }}%</span>
+                                                </div>
+                                            </div>
+                                            {% endwith %}
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
+                                {% endwith %}
                             {% endfor %}
-                        </div></a>
+                        </div>
                     {% endif %}
                 </div>
             </div>
@@ -108,12 +111,14 @@
                     <a class="unsortable">Advisors:
                     </a>
                 </strong>
-                {% for advisor in advisors %}
+                {% for element in advisors %}
+                    {% with mentor=element.mentor cohort=element.cohort %}
                     <p class="advisor-names">
-                        <a href="{% url 'seumich:advisor' advisor.mentor.username %}">{{ advisor.mentor.first_name }}
-                            {{ advisor.mentor.last_name }}</a>
-                        <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true" title="{{ advisor.cohort }}" data-toggle="tooltip" data-placement="bottom" tooltip></span>
+                        <a href="{% url 'seumich:advisor' mentor.username %}">{{ mentor.first_name }}
+                            {{ mentor.last_name }}</a>
+                        <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true" title="{{ cohort }}" data-toggle="tooltip" data-placement="bottom" tooltip></span>
                     </p>
+                    {% endwith %}
                 {% endfor %}
             </div>
         </div>
