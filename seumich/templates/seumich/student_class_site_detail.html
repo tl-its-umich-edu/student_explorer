@@ -24,29 +24,31 @@
                 <div class="student-detail-left-menu-course-line">
                     <input type="hidden" id="student-username" value="{{ student.username }}">
                 </div>
-                {% for courseSite in student.studentclasssitestatus_set.all %}
-                    <div class="student-detail-left-menu-courses" id="student-menu-{{ courseSite.class_site.code }}" onclick="location.href='{% url "seumich:student_class" student.username courseSite.class_site.code %}';">
-                        <h3>{{courseSite.class_site.description}}</h3>
-                        {% with status=courseSite.status.description %}
-                        {% if status == 'Green' %}
+                {% for element in student.studentclasssitestatus_set.all %}
+                    {% with class_site=element.class_site %}
+                    <div class="student-detail-left-menu-courses" id="student-menu-{{ class_site.code }}" onclick="location.href='{% url "seumich:student_class" student.username class_site.code %}';">
+                        <h3>{{class_site.description}}</h3>
+                        {% with status=element.status %}
+                        {% if status.description == 'Green' %}
                             <a href="#" data-toggle="tooltip" title="Encourage" data-placement="bottom">
                                 <img src="{% static 'seumich/images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
                             </a>
-                        {% elif status == 'Yellow' %}
+                        {% elif status.description == 'Yellow' %}
                             <a href="#" data-toggle="tooltip" title="Explore" data-placement="bottom">
                                 <img src="{% static 'seumich/images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
                             </a>
-                        {% elif status == 'Red' %}
+                        {% elif status.description == 'Red' %}
                             <a href="#" data-toggle="tooltip" title="Engage" data-placement="bottom">
                                 <img src="{% static 'seumich/images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
                             </a>
-                        {% elif status == 'Not Applicable' %}
+                        {% elif status.description == 'Not Applicable' %}
                             <a href="#" data-toggle="tooltip" title="No data" data-placement="bottom">
                                 <img src="{% static 'seumich/images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
                             </a>
                         {% endif %}
                         {% endwith %}
                     </div>
+                    {% endwith %}
                 {% endfor %}
             </div>
         </div>
@@ -60,19 +62,19 @@
                             <input type="hidden" id="current-classsite-code" value="{{ classSite.code }}">
                             {% if current_status == 'Green' %}
                                 <span data-toggle="tooltip" title="Encourage" data-placement="bottom">
-                                    <img src="{{ baseUrl }}seumich/images/Status_Icons_Green.png" alt="Green encourage status icon" width="25px" hspace="10"></img>
+                                    <img src="{% static 'seumich/images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="10"></img>
                                 </span>
                             {% elif current_status == 'Yellow' %}
                                 <span data-toggle="tooltip" title="Explore" data-placement="bottom">
-                                    <img src="{{ baseUrl }}seumich/images/Status_Icons_Yellow.png" alt="Yellow explore status icon" width="25px" hspace="10"></img>
+                                    <img src="{% static 'seumich/images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="10"></img>
                                 </span>
                             {% elif current_status == 'Red' %}
                                 <span data-toggle="tooltip" title="Engage" data-placement="bottom">
-                                    <img src="{{ baseUrl }}seumich/images/Status_Icons_Red.png" alt="Red engage status icon" width="25px" hspace="10"></img>
+                                    <img src="{% static 'seumich/images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="10"></img>
                                 </span>
                             {% elif current_status == 'Not Applicable' %}
                                 <span data-toggle="tooltip" title="No data" data-placement="bottom">
-                                    <img src="{{ baseUrl }}seumich/images/Status_Icons_Not Applicable.png" alt="no status available for this course icon" width="25px" hspace="10"></img>
+                                    <img src="{% static 'seumich/images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="10"></img>
                                 </span>
                             {% endif %}
                         </h3>
@@ -98,10 +100,10 @@
                             var code = element.id;
                             if (!$('#collapse' + code).hasClass('collapsing')) {
                                 var sign = $(element).find('img').attr('src');
-                                $('[class="assignment-button"]').attr('src', '{{baseUrl}}seumich/images/Dropdown_Plus.png');
-                                $('#assignmentButton' + code).attr('src', (sign === '{{baseUrl}}seumich/images/Dropdown_Plus.png')
-                                    ? '{{baseUrl}}seumich/images/Dropdown_Minus.png'
-                                    : '{{baseUrl}}seumich/images/Dropdown_Plus.png');
+                                $('[class="assignment-button"]').attr('src', '{% static "seumich/images/Dropdown_Plus.png" %}');
+                                $('#assignmentButton' + code).attr('src', (sign === '{% static "seumich/images/Dropdown_Plus.png" %}')
+                                    ? '{% static "seumich/images/Dropdown_Minus.png" %}'
+                                    : '{% static "seumich/images/Dropdown_Plus.png" %}');
                             }
                         }
 
@@ -227,8 +229,8 @@
                                                     <span>
                                                         <span id="comment-title-{{assignment.assignment.id}}">View Comment</span>
                                                         <a class="assignment-button" role="button">
-                                                            <img id="plus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}seumich/images/Dropdown_Plus.png" alt="Expand"/>
-                                                            <img id="minus-button-{{assignment.assignment.id}}" class="assignment-button" src="{{baseUrl}}seumich/images/Dropdown_Minus.png" alt="Expand"/>
+                                                            <img id="plus-button-{{assignment.assignment.id}}" class="assignment-button" src="{% static 'seumich/images/Dropdown_Plus.png' %}" alt="Expand"/>
+                                                            <img id="minus-button-{{assignment.assignment.id}}" class="assignment-button" src="{% static 'seumich/images/Dropdown_Minus.png' %}" alt="Expand"/>
                                                         </a>
                                                         <p id="assignment-grader-comment-{{assignment.assignment.id}}">&quot;{{assignment.grader_comment}}&quot;</p>
                                                     </span>
@@ -250,7 +252,7 @@
                                                     <span class="assignment-title">{{assignment.assignment.description }}</span>
                                                     <span class="assignment-title-right">
                                                         <span class="assignment-title-score">{{assignment.points_earned|divide:assignment.points_possible|multiply:100|floatformat}}%</span>
-                                                        <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{{baseUrl}}seumich/images/Dropdown_Plus.png" alt="Expand"/>
+                                                        <img class="assignment-button" id="assignmentButton{{assignment.assignment.code}}" src="{% static 'seumich/images/Dropdown_Plus.png' %}" alt="Expand"/>
                                                     </span>
                                                 </h4>
                                             </div>
