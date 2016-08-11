@@ -224,7 +224,7 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
       # where the remote metadata is stored
       'metadata': {
           'local': [os.path.join(
-            BASE_DIR, 'student_explorer/local/saml/remote_metadata.xml')],
+            BASE_DIR, 'student_explorer/local/saml/remote-metadata.xml')],
           },
 
       # set to 1 to output debugging information
@@ -232,9 +232,9 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
 
       # certificate
       'key_file': os.path.join(
-        BASE_DIR, 'student_explorer/local/saml/student_explorer_saml.key'),
+        BASE_DIR, 'student_explorer/local/saml/student-explorer-saml.key'),
       'cert_file': os.path.join(
-        BASE_DIR, 'student_explorer/local/saml/student_explorer_saml.pem'),
+        BASE_DIR, 'student_explorer/local/saml/student-explorer-saml.pem'),
       }
 
 SAML_CREATE_UNKNOWN_USER = False
