@@ -47,7 +47,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
-                            <li class="dropdown hidden-xs">
+                            <li class="dropdown hidden-xs hidden-sm">
                                 <a class="dropdown-toggle" aria-label="expand for logout" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{user.username}}
                                     <span class="caret"></span>
                                 </a>
@@ -64,14 +64,14 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="visible-xs">
+                            <li class="visible-xs visible-sm">
                                 <p class="mobile-nav-right">
                                     <strong>{{user.first_name}}
                                         {{user.last_name}}
                                         ({{user.username}})</strong>
                                 </p>
                             </li>
-                            <li class="visible-xs">
+                            <li class="visible-xs visible-sm">
                                 <a href="{% url 'auth_logout' %}">Logout</a>
                             </li>
                         {% else %}
