@@ -29,6 +29,7 @@ body {
 }
 
 a {
+  font-size: 14px;
   color: #3072ab;
 }
 
@@ -138,10 +139,10 @@ img#student-explorer-logo {
 h1.student-detail-student-name {
   margin-top: 0;
   line-height: 1.2;
-  color: white;
-  font-size: 28px;
   word-wrap: break-word;
   padding: 20px 20px 0;
+  font-size: 28px;
+  color: white;
   font-weight: 400;
 }
 
@@ -162,14 +163,17 @@ h2 {
 }
 
 h3.student-course-list {
-  font-size: 18px;
   margin: 5px 0 0;
+  font-size: 18px;
+  color: #2c71ad;
   font-weight: 500;
 }
 
 h4 {
-  font-size: 20px;
   margin-left: 10px;
+  font-size: 20px;
+  color: #333333;
+  font-weight: 500;
 }
 
 .note {
@@ -268,18 +272,19 @@ th[scope="row"] {
 }
 
 .student-detail-student-id {
-  font-weight: 300;
   margin-bottom: 0;
-  color: white;
   padding-left: 20px;
+  font-size: 14px;
+  color: white;
 }
 
 .student-detail-student-email {
-  font-weight: 300;
   margin-bottom: 0;
   padding-left: 20px;
   padding-bottom: 20px;
   text-decoration: underline;
+  font-size: 14px;
+  color: white;
 }
 
 .student-detail-student-email-link,
@@ -317,10 +322,11 @@ th[scope="row"] {
   margin-top: 16px;
   margin-bottom: 10px;
   padding-left: 20px;
-  font-size: 18px;
-  color: #1c3144;
   display: inline-block;
   word-wrap: break-word;
+  font-size: 18px;
+  color: #2c71ad;
+  font-weight: 500;
 }
 
 .student-detail-summary {

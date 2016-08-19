@@ -29,7 +29,7 @@ body {
     }
 }
 a {
-    color: $color_student_detail_background;
+    @include font($font_links_lists...);
 }
 .sub-header {
     color: $color_engage_red;
@@ -104,11 +104,9 @@ img#student-explorer-logo {
 h1.student-detail-student-name {
     margin-top: 0;
     line-height: 1.2;
-    color: $color_white;
-    font-size: 28px;
     word-wrap: break-word;
     padding: $primary-padding $primary-padding 0;
-    font-weight: 400;
+    @include font($font_student_h1...);
     @include mobile {
         padding-top: 30px;
     }
@@ -122,13 +120,12 @@ h2 {
     padding-left: 0;
 }
 h3.student-course-list {
-    font-size: 18px;
     margin: 5px 0 0;
-    font-weight: 500;
+    @include font($font_student_course_list...);
 }
 h4 {
-    font-size: 20px;
     margin-left: $secondary-margin;
+    @include font($font_student_h4...);
 }
 .note {
     display: inline-block;
@@ -198,17 +195,16 @@ th[scope="row"] {
     }
 }
 .student-detail-student-id {
-    font-weight: 300;
     margin-bottom: 0;
-    color: $color_white;
     padding-left: $primary-padding;
+    @include font($font_student_email_uniquename...);
 }
 .student-detail-student-email {
-    font-weight: 300;
     margin-bottom: 0;
     padding-left: $primary-padding;
     padding-bottom: $primary-padding;
     text-decoration: underline;
+    @include font($font_student_email_uniquename...);
 }
 .student-detail-student-email-link,
 .student-detail-student-name-link {
@@ -238,10 +234,9 @@ th[scope="row"] {
         margin-top: 16px;
         margin-bottom: $secondary-margin;
         padding-left: $primary-padding;
-        font-size: 18px;
-        color: $color_nav_background;
         display: inline-block;
         word-wrap: break-word;
+        @include font($font_student_course_list...);
     }
 }
 .student-detail-summary {

@@ -34,8 +34,8 @@ $chart-width: 1150px;
         @content;
     }
 }
-@mixin font ($size, $weight: null, $color: null) {
+@mixin font ($size, $color: null, $weight: null) {
     font-size: $size;
-    font-weight: $weight;
     color: $color;
+    font-weight: $weight;
 }
