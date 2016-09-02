@@ -7,6 +7,4 @@ django-registration-redux
 django-extensions
 whitenoise
 djangosaml2
-pandas
-xlrd
 django-debug-toolbar
