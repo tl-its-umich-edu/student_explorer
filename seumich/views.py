@@ -6,16 +6,29 @@ from seumich.models import (Student, Mentor, Cohort, ClassSite,
                             StudentClassSiteScore)
 from django.shortcuts import get_object_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.conf import settings
 from django.db.models import Prefetch
 from tracking.utils import UserLogPageViewMixin
+from tracking.models import Event
+from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.decorators import method_decorator
 
 import logging
+import datetime
 
 logger = logging.getLogger(__name__)
+
+
+class StaffMemberRequiredMixin(object):
+
+    @method_decorator(staff_member_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(StaffMemberRequiredMixin, self).dispatch(request,
+                                                              *args,
+                                                              **kwargs)
 
 
 class PaginationMixin(object):
@@ -334,4 +347,23 @@ class StudentClassSiteView(StudentView):
             class_site=class_site).prefetch_related('assignment', '_due_date')
         context['current_status'] = student.studentclasssitestatus_set.get(
             class_site=class_site).status.description
+        return context
+
+
+class UsageView(StaffMemberRequiredMixin, TemplateView):
+    template_name = 'seumich/usage.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UsageView, self).get_context_data(**kwargs)
+        usage_past_weeks = settings.USAGE_PAST_WEEKS
+        usage_past_days = -(usage_past_weeks * 7)
+        context['startdate'] = (datetime.datetime.now() +
+                                datetime.timedelta(usage_past_days))
+        context['totalusers'] = Event.objects.aggregate(Count('user',
+                                                              distinct=True))
+        context['pastusers'] = (Event.objects
+                                .filter(
+                                    timestamp__gte=context['startdate']
+                                )
+                                .aggregate(Count('user', distinct=True)))
         return context

@@ -95,6 +95,9 @@ PAGINATION_NUM_PAGE_LINKS = int(getenv(
 SERVER_EMAIL = getenv('DJANGO_SERVER_EMAIL',
                       'student-explorer-admins@umich.edu')
 
+USAGE_PAST_WEEKS = int(getenv(
+    'DJANGO_USAGE_PAST_WEEKS', '4'))
+
 # Internationalization
 
 LANGUAGE_CODE = getenv('DJANGO_LANGUAGE_CODE', 'en-us')
