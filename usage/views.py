@@ -39,8 +39,7 @@ class UsageView(StaffMemberRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(UsageView, self).get_context_data(**kwargs)
         usage_past_weeks = settings.USAGE_PAST_WEEKS
-        usage_past_days = -(usage_past_weeks * 7)
-        startdate = timezone.now() + datetime.timedelta(usage_past_days)
+        startdate = timezone.now() - datetime.timedelta(weeks=usage_past_weeks)
         weeklydata = (Event.objects
                       .filter(
                           timestamp__gte=startdate
