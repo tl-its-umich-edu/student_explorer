@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'seumich',
     'tracking',
     'feedback',
+    'usage',
 )
 
 MIDDLEWARE_CLASSES = [
@@ -96,7 +97,7 @@ SERVER_EMAIL = getenv('DJANGO_SERVER_EMAIL',
                       'student-explorer-admins@umich.edu')
 
 USAGE_PAST_WEEKS = int(getenv(
-    'DJANGO_USAGE_PAST_WEEKS', '4'))
+    'DJANGO_USAGE_PAST_WEEKS', '8'))
 
 # Internationalization
 

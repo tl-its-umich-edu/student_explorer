@@ -1,0 +1,99 @@
+{% extends 'student_explorer/index.html' %}
+{% load filters %}
+
+{% block content %}
+
+    <div class="container content">
+        <h1 class="sub-header">Usage Statistics</h1>
+        {% now "Y" as current_year %}
+        <a class="note" href='{% url "usage:usage_download" %}'>Download Users for the Academic Year
+            {{current_year|add:-1}}-{{current_year}}</a>
+        <hr class="main-no-margin-top"/>
+
+        <div class="row charts no-margin">
+            <h4>Weekly Unique Users</h4>
+            <small class="note">This graph shows the total number of unique users in each week.</small>
+            <div id="chart1" style="height: 100%;">
+                <svg></svg>
+            </div>
+            <script>
+
+                function getDateOfISOWeek(w, y) {
+                    var simple = new Date(Date.UTC(y, 0, 1 + (w - 1) * 7));
+                    var dow = simple.getUTCDay();
+                    var ISOweekStart = simple;
+                    if (dow <= 4)
+                        ISOweekStart.setUTCDate(simple.getUTCDate() - simple.getUTCDay() + 1);
+                    else
+                        ISOweekStart.setUTCDate(simple.getUTCDate() + 8 - simple.getUTCDay());
+                    return ISOweekStart;
+                }
+
+                nv.addGraph(function () {
+                    var chart = nv.models.discreteBarChart().valueFormat(d3.format("d")).showValues(true).tooltips(false);
+
+                    var data = {{ weekData|safe }};
+
+                    chart.x(function (d) {
+                        return getDateOfISOWeek(d.week, d.year).toISOString().split('T')[0];
+                    });
+                    chart.y(function (d) {
+                        return d.usercount;
+                    });
+                    chart.yAxis.tickFormat(function (d) {
+                        return d + ' Users';
+
+                    });
+                    chart.xAxis.rotateLabels(-65);
+                    chart.margin({bottom: 100});
+                    d3.select('#chart1 svg').datum(data).transition().duration(350).call(chart);
+                    nv.utils.windowResize(chart.update);
+                    return chart;
+                });
+            </script>
+
+            <h4>Weekly Hits</h4>
+            <small class="note">This graph shows the total number of page hits in each week.</small>
+            <div id="chart2" style="height: 100%;">
+                <svg></svg>
+            </div>
+            <script>
+
+                function getDateOfISOWeek(w, y) {
+                    var simple = new Date(Date.UTC(y, 0, 1 + (w - 1) * 7));
+                    var dow = simple.getUTCDay();
+                    var ISOweekStart = simple;
+                    if (dow <= 4)
+                        ISOweekStart.setUTCDate(simple.getUTCDate() - simple.getUTCDay() + 1);
+                    else
+                        ISOweekStart.setUTCDate(simple.getUTCDate() + 8 - simple.getUTCDay());
+                    return ISOweekStart;
+                }
+
+                nv.addGraph(function () {
+                    var chart = nv.models.discreteBarChart().valueFormat(d3.format("d")).showValues(true).tooltips(false);
+
+                    var data = {{ weekData|safe }};
+
+                    chart.x(function (d) {
+                        return getDateOfISOWeek(d.week, d.year).toISOString().split('T')[0];
+                    });
+                    chart.y(function (d) {
+                        return d.idcount;
+                    });
+                    chart.yAxis.tickFormat(function (d) {
+                        return d + ' Hits';
+
+                    });
+                    chart.xAxis.rotateLabels(-65);
+                    chart.margin({bottom: 100});
+                    d3.select('#chart2 svg').datum(data).transition().duration(350).call(chart);
+                    nv.utils.windowResize(chart.update);
+                    return chart;
+                });
+            </script>
+
+        </div>
+    </div>
+
+{% endblock %}

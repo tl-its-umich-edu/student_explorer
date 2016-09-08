@@ -55,7 +55,4 @@ urlpatterns = [
     url(r'^students/(?P<student>\w+)/class_sites/(?P<classcode>[\w-]+)/$',
         views.StudentClassSiteView.as_view(),
         name='student_class'),
-    url(r'^usage/$',
-        views.UsageView.as_view(),
-        name='usage'),
 ]
