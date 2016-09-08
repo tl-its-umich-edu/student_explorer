@@ -59,6 +59,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'student_explorer.middleware.LoggingMiddleware',
 ]
 
 TEMPLATES = [
@@ -267,17 +268,45 @@ LOGGING = {
         'simple': {
             'format': '%(levelname)s %(name)s %(message)s'
         },
+        'access_logs': {
+            'format': ('%(message)s'),
+        },
+
     },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         },
+        'access_logs': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'access_logs',
+        },
     },
     'loggers': {
-        '': {
+        'django': {
             'handlers': ['console'],
             'level': getenv('DJANGO_LOGGING_LEVEL', 'WARNING'),
+        },
+        'se_umich': {
+            'handlers': ['console'],
+            'level': getenv('DJANGO_LOGGING_LEVEL', 'WARNING'),
+        },
+        'feedback': {
+            'handlers': ['console'],
+            'level': getenv('DJANGO_LOGGING_LEVEL', 'WARNING'),
+        },
+        'tracking': {
+            'handlers': ['console'],
+            'level': getenv('DJANGO_LOGGING_LEVEL', 'WARNING'),
+        },
+        'student_explorer': {
+            'handlers': ['console'],
+            'level': getenv('DJANGO_LOGGING_LEVEL', 'WARNING'),
+        },
+        'access_logs': {
+            'handlers': ['access_logs'],
+            'level': 'INFO',
         },
     },
 }
