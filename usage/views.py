@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import View, TemplateView
 from django.db import models
 from django.db.models import Count, Func
 from django.contrib.admin.views.decorators import staff_member_required
@@ -58,42 +58,46 @@ class UsageView(StaffMemberRequiredMixin, TemplateView):
         return context
 
 
-def next_weekday(d, weekday):
-    days_ahead = weekday - d.weekday()
-    if days_ahead <= 0:  # Target day already happened this week
-        days_ahead += 7
-    return d + datetime.timedelta(days_ahead)
+class DownloadCsvView(View):
 
+    def next_weekday(self, d, weekday):
+        days_ahead = weekday - d.weekday()
+        if days_ahead <= 0:
+            days_ahead += 7
+        return d + datetime.timedelta(days_ahead)
 
-def download_csv_view(request):
-    # Create the HttpResponse object with the appropriate CSV header.
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="usernamelist.csv"'
+    def render_to_csv(self):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = ('attachment; '
+                                           'filename="usernamelist.csv"')
 
-    writer = csv.writer(response)
-    sept_current = datetime.datetime(timezone.now().year,
-                                     month=9,
-                                     day=1)
-    sept_current = next_weekday(sept_current, 0)
-    sept_last = datetime.datetime(timezone.now().year - 1,
-                                  month=9,
-                                  day=1)
-    sept_last = next_weekday(sept_last, 0)
-    current_acad_year = timezone.make_aware(
-        sept_current,
-        timezone.get_current_timezone())
-    last_acad_year = timezone.make_aware(
-        sept_last,
-        timezone.get_current_timezone())
-    pastAcadUsers = (Event.objects
-                     .filter(
-                         timestamp__lte=current_acad_year,
-                         timestamp__gte=last_acad_year
-                     )
-                     .values_list('user__username', flat=True)
-                     .distinct()
-                     .order_by())
-    writer.writerow(['UserName'])
-    for user in pastAcadUsers:
-        writer.writerow([user])
-    return response
+        writer = csv.writer(response)
+        sept_current = datetime.datetime(timezone.now().year,
+                                         month=9,
+                                         day=1)
+        sept_current = self.next_weekday(sept_current, 0)
+        sept_last = datetime.datetime(timezone.now().year - 1,
+                                      month=9,
+                                      day=1)
+        sept_last = self.next_weekday(sept_last, 0)
+        current_acad_year = timezone.make_aware(
+            sept_current,
+            timezone.get_current_timezone())
+        last_acad_year = timezone.make_aware(
+            sept_last,
+            timezone.get_current_timezone())
+        pastAcadUsers = (Event.objects
+                         .filter(
+                             timestamp__lte=current_acad_year,
+                             timestamp__gte=last_acad_year
+                         )
+                         .values_list('user__username', flat=True)
+                         .distinct()
+                         .order_by())
+        writer.writerow(['UserName'])
+        for user in pastAcadUsers:
+            writer.writerow([user])
+        return response
+
+    def get(self, request, *args, **kwargs):
+        return self.render_to_csv()
