@@ -33,13 +33,22 @@ class ExtractYear(Func):
     output_field = models.IntegerField()
 
 
+class ExtractSubString(Func):
+    function = 'SUBSTRING'
+    template = '%(function)s(%(expressions)s, 11)'
+    output_field = models.CharField()
+
+
+class ExtractStudent(Func):
+    function = 'SUBSTRING_INDEX'
+    template = '%(function)s(%(expressions)s, "/", 1)'
+    output_field = models.CharField()
+
+
 class UsageView(StaffMemberRequiredMixin, TemplateView):
     template_name = 'usage.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(UsageView, self).get_context_data(**kwargs)
-        usage_past_weeks = settings.USAGE_PAST_WEEKS
-        startdate = timezone.now() - datetime.timedelta(weeks=usage_past_weeks)
+    def get_weekly_data(self, startdate):
         weeklydata = (Event.objects
                       .filter(
                           timestamp__gte=startdate
@@ -48,7 +57,47 @@ class UsageView(StaffMemberRequiredMixin, TemplateView):
                       .values('week', 'year')
                       .annotate(usercount=Count('user', distinct=True),
                                 idcount=Count('id'))
-                      .order_by('week', 'year'))
+                      .order_by())
+        return weeklydata
+
+    def get_weekly_login_data(self, startdate):
+        weeklylogindata = (Event.objects
+                           .filter(
+                               name__iexact="UserLoggedIn",
+                               timestamp__gte=startdate
+                           ).annotate(week=ExtractWeek('timestamp'),
+                                      year=ExtractYear('timestamp'))
+                           .values('week', 'year')
+                           .annotate(logincount=Count('user', distinct=True))
+                           .order_by())
+        return weeklylogindata
+
+    def get_student_search_data(self, startdate):
+        weeklystudentdata = (Event.objects
+                             .filter(
+                                 note__regex=r'^/students/[a-zA-Z]+/',
+                                 timestamp__gte=startdate
+                             )
+                             .annotate(
+                                 week=ExtractWeek('timestamp'),
+                                 year=ExtractYear('timestamp'))
+                             .values('week', 'year')
+                             .annotate(
+                                 studentcount=Count(
+                                     ExtractStudent(
+                                         ExtractSubString('note')),
+                                     distinct=True))
+                             .order_by())
+        return weeklystudentdata
+
+    def get_context_data(self, **kwargs):
+        context = super(UsageView, self).get_context_data(**kwargs)
+        usage_past_weeks = settings.USAGE_PAST_WEEKS
+        startdate = timezone.now() - datetime.timedelta(weeks=usage_past_weeks)
+        weeklydata = self.get_weekly_data(startdate)
+        weeklylogindata = self.get_weekly_login_data(startdate)
+        weeklystudentdata = self.get_student_search_data(startdate)
+
         weekData = []
         weekData.append(
             {'key': 'Unique Users Count', 'values': list(
