@@ -34,17 +34,6 @@ class ExtractDate(Func):
     output_field = models.DateField()
 
 
-class ExtractWeek(Func):
-    function = 'WEEK'
-    template = '%(function)s(%(expressions)s, 3)'
-    output_field = models.IntegerField()
-
-
-class ExtractYear(Func):
-    function = 'YEAR'
-    output_field = models.IntegerField()
-
-
 class ExtractSubString(Func):
     function = 'SUBSTRING'
     template = '%(function)s(%(expressions)s, 11)'
@@ -60,68 +49,18 @@ class ExtractStudent(Func):
 class UsageView(StaffMemberRequiredMixin, TemplateView):
     template_name = 'usage.html'
 
-    def get_weekly_user_data(self, startdate):
-        weeklydata = (Event.objects
-                      .filter(
-                          timestamp__gte=startdate
-                      ).annotate(week=ExtractWeek('timestamp'),
-                                 year=ExtractYear('timestamp'))
-                      .values('week', 'year')
-                      .annotate(count=Count('user', distinct=True))
-                      .order_by())
-        return weeklydata
-
-    def get_weekly_hits_data(self, startdate):
-        weeklydata = (Event.objects
-                      .filter(
-                          timestamp__gte=startdate
-                      ).annotate(week=ExtractWeek('timestamp'),
-                                 year=ExtractYear('timestamp'))
-                      .values('week', 'year')
-                      .annotate(count=Count('id'))
-                      .order_by())
-        return weeklydata
-
-    def get_weekly_login_data(self, startdate):
-        weeklydata = (Event.objects
-                           .filter(
-                               name__iexact="UserLoggedIn",
-                               timestamp__gte=startdate
-                           ).annotate(week=ExtractWeek('timestamp'),
-                                      year=ExtractYear('timestamp'))
-                      .values('week', 'year')
-                      .annotate(logincount=Count('user', distinct=True))
-                      .order_by())
-        return weeklydata
-
-    def get_daily_login_data(self, startdate):
+    def get_daily_user_data(self, startdate):
         dailydata = (Event.objects
-                          .filter(
-                              name__iexact="UserLoggedIn",
-                              timestamp__gte=startdate
-                          ).annotate(date=ExtractDate('timestamp'))
+                     .filter(
+                         timestamp__gte=startdate
+                     )
+                     .annotate(
+                         date=ExtractUnixTimestamp(
+                             ExtractDate('timestamp')))
                      .values('date')
-                     .annotate(logincount=Count('user', distinct=True))
+                     .annotate(count=Count('user', distinct=True))
                      .order_by())
         return dailydata
-
-    def get_weekly_student_data(self, startdate):
-        weeklydata = (Event.objects
-                      .filter(
-                          note__regex=r'^/students/[a-zA-Z]+/',
-                          timestamp__gte=startdate
-                      )
-                      .annotate(
-                          week=ExtractWeek('timestamp'),
-                          year=ExtractYear('timestamp'))
-                      .values('week', 'year')
-                      .annotate(
-                          studentcount=Count(
-                              ExtractStudent(
-                                  ExtractSubString('note')),
-                              distinct=True))
-                      .order_by())
-        return weeklydata
 
     def get_daily_student_data(self, startdate):
         dailydata = (Event.objects
@@ -134,7 +73,7 @@ class UsageView(StaffMemberRequiredMixin, TemplateView):
                              ExtractDate('timestamp')))
                      .values('date')
                      .annotate(
-                         studentcount=Count(
+                         count=Count(
                              ExtractStudent(
                                  ExtractSubString('note')),
                              distinct=True))
@@ -150,26 +89,15 @@ class UsageView(StaffMemberRequiredMixin, TemplateView):
             days=(7 - startdate.weekday())
         )
         startdate = startdate.replace(hour=0, minute=0, second=0)
-        weeklyuserdata = self.get_weekly_user_data(startdate)
-        weeklyhitsdata = self.get_weekly_hits_data(startdate)
-        dailystudentdata = self.get_daily_student_data(startdate)
 
-        weeklyData = []
+        dailyuserdata = {'key': 'Unique Users Count', 'values': list(
+            self.get_daily_user_data(startdate)), 'area': 'true'}
+        dailystudentdata = {'key': 'Unique Students Viewed', 'values': list(
+            self.get_daily_student_data(startdate)), 'color': '#ff7f0e'}
+
         dailyData = []
-        userscount = {'key': 'Unique Users Count',
-                      'values': list(weeklyuserdata),
-                      'bar': 'true',
-                      'color': '#F0D654'}
-        hitscount = {'key': 'Hits Count',
-                     'values': list(weeklyhitsdata),
-                     'color': '#255c91'}
-        dailyData.append(
-            {'key': 'Unique Student Searches', 'values': list(
-                dailystudentdata), 'area': 'true'}
-        )
-        weeklyData.append(userscount)
-        weeklyData.append(hitscount)
-        context['weeklyData'] = weeklyData
+        dailyData.append(dailyuserdata)
+        dailyData.append(dailystudentdata)
         context['dailyData'] = dailyData
         return context
 

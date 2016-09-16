@@ -24,21 +24,17 @@
 
             function drawLineChart(div) {
                 nv.addGraph(function () {
-                    var chart = nv.models.lineChart().margin({left: 80}).useInteractiveGuideline(true).transitionDuration(350).showYAxis(true).showXAxis(true);
-
+                    var chart = nv.models.lineChart().useInteractiveGuideline(true).transitionDuration(350);
                     var myData = {{ dailyData|safe }};
 
                     chart.x(function (d) {
                         return d.date * 1000;
                     });
                     chart.y(function (d) {
-                        return d.studentcount;
+                        return d.count;
                     });
                     chart.xAxis.tickFormat(function (d) {
                         return d3.time.format('%Y-%m-%d')(new Date(d));
-                    });
-                    chart.yAxis.tickFormat(function (d) {
-                        return d + ' Students';
                     });
 
                     chart.xAxis.rotateLabels(-65);
@@ -51,60 +47,16 @@
                     return chart;
                 });
             }
-
-            function drawLinePlusBarChart(div) {
-                nv.addGraph(function () {
-                    var chart = nv.models.linePlusBarChart().x(function (d, i) {
-                        return i
-                    }).y(function (d, i) {
-                        return d.count;
-                    });
-
-                    var myData = {{ weeklyData|safe }};
-
-                    chart.xAxis.tickFormat(function (d) {
-                        d = myData[0].values[d];
-                        return getDateOfISOWeek(d.week, d.year).toISOString().split('T')[0];
-                    });
-
-                    chart.y1Axis.tickFormat(function (d) {
-                        return d + ' Users';
-                    });
-
-                    chart.y2Axis.tickFormat(function (d) {
-                        return d + ' Hits';
-                    });
-
-                    chart.bars.forceY([0]);
-
-                    chart.xAxis.rotateLabels(-65);
-                    chart.margin({bottom: 100});
-                    d3.select('#' + div + ' svg').datum(myData).transition().duration(350).call(chart);
-
-                    nv.utils.windowResize(chart.update);
-
-                    return chart;
-                });
-            }
         </script>
 
         <div class="row charts no-margin">
-            <h4>Weekly Unique Users / Weekly Hits</h4>
-            <small class="note">This graph shows the total number of unique users and page hits in each week.</small>
-            <div id="chartlineplusbar" style="height: 100%;">
+            <h4>Daily Unique Users / Unique Students Viewed</h4>
+            <small class="note">This graph shows the daily number of unique users and unique students viewed</small>
+            <div id="chartunique" style="height: 100%;">
                 <svg></svg>
             </div>
             <script>
-                drawLinePlusBarChart('chartlineplusbar');
-            </script>
-
-            <h4>Daily Unique Student Searches</h4>
-            <small class="note">This graph shows the daily number of unique students searched.</small>
-            <div id="chartsearch" style="height: 100%;">
-                <svg></svg>
-            </div>
-            <script>
-                drawLineChart('chartsearch');
+                drawLineChart('chartunique');
             </script>
         </div>
 
