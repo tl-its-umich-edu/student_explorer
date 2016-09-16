@@ -6,13 +6,13 @@
     <div class="container content">
         <h1 class="sub-header">Usage Statistics</h1>
         {% now "Y" as current_year %}
-        <a class="btn btn-primary btn-xs" href='{% url "usage:usage_download" %}'>Download Users for the Academic Year
+        <a class="btn btn-primary btn-xs count-data" href='{% url "usage:usage_download" %}'>Download Users for the Academic Year
             {{current_year|add:-1}}-{{current_year}}
             <span class="badge">
                 {{usersCount}}
             </span>
         </a>
-        <p class="btn btn-primary btn-xs">Unique Students Viewed for the Academic Year
+        <p class="btn btn-primary btn-xs count-data">Unique Students Viewed for the Academic Year
             {{current_year|add:-1}}-{{current_year}}
             <span class="badge">
                 {{studentsCount}}
