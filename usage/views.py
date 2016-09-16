@@ -22,6 +22,40 @@ class StaffMemberRequiredMixin(object):
                                                               **kwargs)
 
 
+class PastAcadDataMixin(object):
+
+    def next_weekday(self, d, weekday):
+        days_ahead = weekday - d.weekday()
+        if days_ahead <= 0:
+            days_ahead += 7
+        return d + datetime.timedelta(days_ahead)
+
+    def get_past_acad_users(self):
+        sept_current = datetime.datetime(timezone.now().year,
+                                         month=9,
+                                         day=1)
+        sept_current = self.next_weekday(sept_current, 0)
+        sept_last = datetime.datetime(timezone.now().year - 1,
+                                      month=9,
+                                      day=1)
+        sept_last = self.next_weekday(sept_last, 0)
+        current_acad_year = timezone.make_aware(
+            sept_current,
+            timezone.get_current_timezone())
+        last_acad_year = timezone.make_aware(
+            sept_last,
+            timezone.get_current_timezone())
+        pastAcadUsers = (Event.objects
+                         .filter(
+                             timestamp__lte=current_acad_year,
+                             timestamp__gte=last_acad_year
+                         )
+                         .values_list('user__username', flat=True)
+                         .distinct()
+                         .order_by())
+        return pastAcadUsers
+
+
 class ExtractUnixTimestamp(Func):
     function = 'UNIX_TIMESTAMP'
     template = '%(function)s(%(expressions)s)'
@@ -103,13 +137,7 @@ class UsageView(StaffMemberRequiredMixin, TemplateView):
         return context
 
 
-class DownloadCsvView(View):
-
-    def next_weekday(self, d, weekday):
-        days_ahead = weekday - d.weekday()
-        if days_ahead <= 0:
-            days_ahead += 7
-        return d + datetime.timedelta(days_ahead)
+class DownloadCsvView(View, PastAcadDataMixin):
 
     def render_to_csv(self):
         response = HttpResponse(content_type='text/csv')
@@ -117,30 +145,8 @@ class DownloadCsvView(View):
                                            'filename="usernamelist.csv"')
 
         writer = csv.writer(response)
-        sept_current = datetime.datetime(timezone.now().year,
-                                         month=9,
-                                         day=1)
-        sept_current = self.next_weekday(sept_current, 0)
-        sept_last = datetime.datetime(timezone.now().year - 1,
-                                      month=9,
-                                      day=1)
-        sept_last = self.next_weekday(sept_last, 0)
-        current_acad_year = timezone.make_aware(
-            sept_current,
-            timezone.get_current_timezone())
-        last_acad_year = timezone.make_aware(
-            sept_last,
-            timezone.get_current_timezone())
-        pastAcadUsers = (Event.objects
-                         .filter(
-                             timestamp__lte=current_acad_year,
-                             timestamp__gte=last_acad_year
-                         )
-                         .values_list('user__username', flat=True)
-                         .distinct()
-                         .order_by())
         writer.writerow(['UserName'])
-        for user in pastAcadUsers:
+        for user in self.get_past_acad_users():
             writer.writerow([user])
         return response
 
