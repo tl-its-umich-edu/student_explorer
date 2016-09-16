@@ -22,59 +22,89 @@
                 return ISOweekStart;
             }
 
-            function drawCharts(div) {
+            function drawLineChart(div) {
                 nv.addGraph(function () {
-                    var chart = nv.models.discreteBarChart().valueFormat(d3.format("d")).showValues(true).tooltips(false);
+                    var chart = nv.models.lineChart().margin({left: 80}).useInteractiveGuideline(true).transitionDuration(350).showYAxis(true).showXAxis(true);
 
-                    var data = {{ weekData|safe }};
+                    var myData = {{ dailyData|safe }};
 
                     chart.x(function (d) {
-                        return getDateOfISOWeek(d.week, d.year).toISOString().split('T')[0];
+                        return d.date * 1000;
                     });
                     chart.y(function (d) {
-                        if (div == 'chartusers') {
-                            return d.usercount;
-                        }
-                        if (div == 'charthits') {
-                            return d.idcount;
-                        }
+                        return d.studentcount;
+                    });
+                    chart.xAxis.tickFormat(function (d) {
+                        return d3.time.format('%Y-%m-%d')(new Date(d));
                     });
                     chart.yAxis.tickFormat(function (d) {
-                        if (div == 'chartusers') {
-                            return d + ' Users';
-                        }
-                        if (div == 'charthits') {
-                            return d + ' Hits';
-                        }
-
+                        return d + ' Students';
                     });
+
                     chart.xAxis.rotateLabels(-65);
                     chart.margin({bottom: 100});
-                    d3.select('#' + div + ' svg').datum(data).transition().duration(350).call(chart);
-                    nv.utils.windowResize(chart.update);
+                    d3.select('#' + div + ' svg').datum(myData).call(chart);
+
+                    nv.utils.windowResize(function () {
+                        chart.update()
+                    });
                     return chart;
                 });
+            }
 
+            function drawLinePlusBarChart(div) {
+                nv.addGraph(function () {
+                    var chart = nv.models.linePlusBarChart().x(function (d, i) {
+                        return i
+                    }).y(function (d, i) {
+                        return d.count;
+                    });
+
+                    var myData = {{ weeklyData|safe }};
+
+                    chart.xAxis.tickFormat(function (d) {
+                        d = myData[0].values[d];
+                        return getDateOfISOWeek(d.week, d.year).toISOString().split('T')[0];
+                    });
+
+                    chart.y1Axis.tickFormat(function (d) {
+                        return d + ' Users';
+                    });
+
+                    chart.y2Axis.tickFormat(function (d) {
+                        return d + ' Hits';
+                    });
+
+                    chart.bars.forceY([0]);
+
+                    chart.xAxis.rotateLabels(-65);
+                    chart.margin({bottom: 100});
+                    d3.select('#' + div + ' svg').datum(myData).transition().duration(350).call(chart);
+
+                    nv.utils.windowResize(chart.update);
+
+                    return chart;
+                });
             }
         </script>
 
         <div class="row charts no-margin">
-            <h4>Weekly Unique Users</h4>
-            <small class="note">This graph shows the total number of unique users in each week.</small>
-            <div id="chartusers" style="height: 100%;">
+            <h4>Weekly Unique Users / Weekly Hits</h4>
+            <small class="note">This graph shows the total number of unique users and page hits in each week.</small>
+            <div id="chartlineplusbar" style="height: 100%;">
                 <svg></svg>
             </div>
             <script>
-                drawCharts('chartusers');
+                drawLinePlusBarChart('chartlineplusbar');
             </script>
 
-            <h4>Weekly Hits</h4>
-            <small class="note">This graph shows the total number of page hits in each week.</small>
-            <div id="charthits" style="height: 100%;">
+            <h4>Daily Unique Student Searches</h4>
+            <small class="note">This graph shows the daily number of unique students searched.</small>
+            <div id="chartsearch" style="height: 100%;">
                 <svg></svg>
             </div>
             <script>
-                drawCharts('charthits');
+                drawLineChart('chartsearch');
             </script>
         </div>
 
