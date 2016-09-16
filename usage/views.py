@@ -91,13 +91,14 @@ class UsageView(StaffMemberRequiredMixin, TemplateView):
         startdate = startdate.replace(hour=0, minute=0, second=0)
 
         dailyuserdata = {'key': 'Unique Users Count', 'values': list(
-            self.get_daily_user_data(startdate)), 'area': 'true'}
+            self.get_daily_user_data(startdate)), 'color': '#7777ff',
+            'area': 'true'}
         dailystudentdata = {'key': 'Unique Students Viewed', 'values': list(
             self.get_daily_student_data(startdate)), 'color': '#ff7f0e'}
 
         dailyData = []
-        dailyData.append(dailyuserdata)
         dailyData.append(dailystudentdata)
+        dailyData.append(dailyuserdata)
         context['dailyData'] = dailyData
         return context
 
