@@ -16,23 +16,23 @@ class Event(models.Model):
     related_content_type = models.ForeignKey(ContentType, null=True, blank=True)
     related_object_id = models.PositiveIntegerField(null=True, blank=True)
     related_object = GenericForeignKey('related_content_type', 'related_object_id')
-    
+
     class Meta:
         ordering = ('-timestamp',)
         get_latest_by = 'timestamp'
         app_label = 'tracking'
-    
+
     def __unicode__(self):
         return "%s at %s" % ( self.name, self.timestamp )
-    
+
     @classmethod
     def events_related_to(cls, related_object):
         related_ct = ContentType.objects.get_for_model(related_object)
         related_pk = related_object.id
-        
+
         return Event.objects.filter(related_content_type=related_ct,
                                     related_object_id=related_pk)
-    
+
 
 event_logged = Signal(providing_args=["event"])
 
