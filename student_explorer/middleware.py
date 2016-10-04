@@ -8,7 +8,11 @@ class LoggingMiddleware(object):
     def process_response(self, request, response):
         l = []
 
-        l.append(request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR', '-')))
+        l.append(request.META.get(
+            'HTTP_X_FORWARDED_FOR',
+            request.META.get('REMOTE_ADDR', '-')
+            )
+        )
 
         if hasattr(request, 'user') and request.user.is_authenticated():
             l.append(request.user.username)
