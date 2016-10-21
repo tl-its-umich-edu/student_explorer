@@ -37,11 +37,13 @@
                     <a class="main-color-white main-navbar-brand navbar-brand" href="{% url 'seumich:index' %}"><img id="student-explorer-logo" src="/static/seumich/images/se-logo.svg" alt="student explorer logo">Student Explorer</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
+                    {% url 'seumich:advisor' advisor.username as mystudentsurl%}
+                    {% url 'seumich:advisors_list' as advisorsurl %}
                     <ul class="nav navbar-nav">
-                        <li>
+                        <li {% if request.path == mystudentsurl %} class="active" {% endif %}>
                             <a href="{% url 'seumich:index' %}" data-toggle="collapse" data-target="#navbar.in">My Students</a>
                         </li>
-                        <li>
+                        <li {% if request.path == advisorsurl %} class="active" {% endif %}>
                             <a href="{% url 'seumich:advisors_list' %}" data-toggle="collapse" data-target="#navbar.in">Advisors</a>
                         </li>
                     </ul>
@@ -85,7 +87,7 @@
                             </li>
                         {% endif %}
                     </ul>
-                    <form action="{% url 'seumich:students_list' %}"method="get" class="navbar-form navbar-right">
+                    <form action="{% url 'seumich:students_list' %}" method="get" class="navbar-form navbar-right">
                         <div class="form-group">
                             <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label>
                             <input id="student-search" value="{{ query_user | default_if_none:'' }}" name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
