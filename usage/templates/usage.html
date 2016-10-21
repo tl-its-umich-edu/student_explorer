@@ -6,9 +6,19 @@
     <div class="container content">
         <h1 class="sub-header">Usage Statistics</h1>
         {% now "Y" as current_year %}
-        <a class="note" href='{% url "usage:usage_download" %}'>Download Users for the Academic Year
-            {{current_year|add:-1}}-{{current_year}}</a>
-        <hr class="main-no-margin-top"/>
+        <a class="btn btn-primary btn-xs count-data" href='{% url "usage:usage_download" %}'>Download Users for the Academic Year
+            {{current_year|add:-1}}-{{current_year}}
+            <span class="badge">
+                {{usersCount}}
+            </span>
+        </a>
+        <p class="btn btn-primary btn-xs count-data">Unique Students Viewed for the Academic Year
+            {{current_year|add:-1}}-{{current_year}}
+            <span class="badge">
+                {{studentsCount}}
+            </span>
+        </p>
+        <hr/>
 
         <script>
             function getDateOfISOWeek(w, y) {
@@ -22,59 +32,41 @@
                 return ISOweekStart;
             }
 
-            function drawCharts(div) {
+            function drawLineChart(div) {
                 nv.addGraph(function () {
-                    var chart = nv.models.discreteBarChart().valueFormat(d3.format("d")).showValues(true).tooltips(false);
-
-                    var data = {{ weekData|safe }};
+                    var chart = nv.models.lineChart().useInteractiveGuideline(true).transitionDuration(350);
+                    var myData = {{ dailyData|safe }};
 
                     chart.x(function (d) {
-                        return getDateOfISOWeek(d.week, d.year).toISOString().split('T')[0];
+                        return d.date * 1000;
                     });
                     chart.y(function (d) {
-                        if (div == 'chartusers') {
-                            return d.usercount;
-                        }
-                        if (div == 'charthits') {
-                            return d.idcount;
-                        }
+                        return d.count;
                     });
-                    chart.yAxis.tickFormat(function (d) {
-                        if (div == 'chartusers') {
-                            return d + ' Users';
-                        }
-                        if (div == 'charthits') {
-                            return d + ' Hits';
-                        }
+                    chart.xAxis.tickFormat(function (d) {
+                        return d3.time.format('%Y-%m-%d')(new Date(d));
+                    });
 
-                    });
                     chart.xAxis.rotateLabels(-65);
                     chart.margin({bottom: 100});
-                    d3.select('#' + div + ' svg').datum(data).transition().duration(350).call(chart);
-                    nv.utils.windowResize(chart.update);
+                    d3.select('#' + div + ' svg').datum(myData).call(chart);
+
+                    nv.utils.windowResize(function () {
+                        chart.update()
+                    });
                     return chart;
                 });
-
             }
         </script>
 
         <div class="row charts no-margin">
-            <h4>Weekly Unique Users</h4>
-            <small class="note">This graph shows the total number of unique users in each week.</small>
-            <div id="chartusers" style="height: 100%;">
+            <h4>Daily Unique Users / Unique Students Viewed</h4>
+            <small class="note">This graph shows the daily number of unique users and unique students viewed</small>
+            <div id="chartunique" style="height: 100%;">
                 <svg></svg>
             </div>
             <script>
-                drawCharts('chartusers');
-            </script>
-
-            <h4>Weekly Hits</h4>
-            <small class="note">This graph shows the total number of page hits in each week.</small>
-            <div id="charthits" style="height: 100%;">
-                <svg></svg>
-            </div>
-            <script>
-                drawCharts('charthits');
+                drawLineChart('chartunique');
             </script>
         </div>
 
