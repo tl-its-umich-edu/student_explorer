@@ -13,6 +13,7 @@ from django.conf import settings
 from django.db.models import Prefetch
 from tracking.utils import UserLogPageViewMixin
 
+import operator
 import logging
 
 logger = logging.getLogger(__name__)
@@ -108,12 +109,14 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin,
         student_list = []
         if self.query_user:
             # Filtering for id >= 0 eliminates "Bad Value"-type results.
-            student_list = Student.objects.filter(id__gte=0).filter(
-                Q(username__icontains=self.query_user) |
-                Q(univ_id__icontains=self.query_user) |
-                Q(first_name__icontains=self.query_user) |
-                Q(last_name__icontains=self.query_user)
-            ).order_by('last_name').distinct()
+            query_user_list = self.query_user.split(' ')
+            q_list = [Q(username__icontains=x) for x in query_user_list]
+            q_list += [Q(univ_id__icontains=x) for x in query_user_list]
+            q_list += [Q(first_name__icontains=x) for x in query_user_list]
+            q_list += [Q(last_name__icontains=x) for x in query_user_list]
+            student_list = (Student.objects.filter(id__gte=0)
+                            .filter(reduce(operator.or_, q_list))
+                            .order_by('last_name').distinct())
             student_list = student_list.prefetch_related(
                 'studentclasssitestatus_set__status',
                 'studentclasssitestatus_set__class_site',
