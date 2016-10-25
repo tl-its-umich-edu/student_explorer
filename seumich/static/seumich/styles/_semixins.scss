@@ -1,13 +1,5 @@
 $tablet-width: 992px;
 $chart-width: 1150px;
-@mixin marketheaderint {
-    background-color: $color_big_stone_approx;
-    font-weight: 300;
-    color: $white;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-top: 40px;
-}
 @mixin mobilemenu {
     position: static;
     left: auto;
@@ -33,4 +25,9 @@ $chart-width: 1150px;
      @media screen and (min-width: #{$chart-width}){
         @content;
     }
+}
+@mixin font ($size: null, $color: null, $weight: null) {
+    font-size: $size;
+    color: $color;
+    font-weight: $weight;
 }

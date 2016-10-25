@@ -1,12 +1,5 @@
 @import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
-
 html, body {
   height: 100%;
 }
@@ -29,14 +22,15 @@ body {
 }
 
 a {
+  font-size: 14px;
   color: #3072ab;
 }
 
 .sub-header, .sub-header-backlink {
-  color: brown;
+  color: #c1272d;
   font-weight: 400;
   margin-top: 20px;
-  /*border-bottom: 1px solid $color_gallery_approx;*/
+  /*border-bottom: 1px solid $color_hover_gray;*/
 }
 
 .sub-header-backlink {
@@ -76,32 +70,7 @@ a {
 .mobile-nav-right {
   padding: 10px 15px;
   margin-bottom: 0;
-  color: #9d9d9d;
-}
-
-.policy-warning {
-  background-color: #ffc8c8;
-}
-
-.marketing {
-  background-color: #1c3144;
-  font-weight: 300;
-  color: white;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-top: 40px;
-  margin: 40px 0;
-}
-
-.marketing p + h4 {
-  margin-top: 28px;
-}
-
-@media screen and (min-width: 993px) {
-  .marketing {
-    padding-left: 0;
-    padding-right: 0;
-  }
+  color: #cccccc;
 }
 
 .header {
@@ -138,10 +107,10 @@ img#student-explorer-logo {
 h1.student-detail-student-name {
   margin-top: 0;
   line-height: 1.2;
-  color: white;
-  font-size: 28px;
   word-wrap: break-word;
   padding: 20px 20px 0;
+  font-size: 28px;
+  color: white;
   font-weight: 400;
 }
 
@@ -162,14 +131,17 @@ h2 {
 }
 
 h3.student-course-list {
-  font-size: 18px;
   margin: 5px 0 0;
+  font-size: 18px;
+  color: #2c71ad;
   font-weight: 500;
 }
 
 h4 {
-  font-size: 20px;
   margin-left: 10px;
+  font-size: 20px;
+  color: #333333;
+  font-weight: 500;
 }
 
 .note {
@@ -203,7 +175,7 @@ th[scope="row"] {
 
 @media screen and (max-width: 992px) {
   .student-desc {
-    border: 1px solid #c8c8c8;
+    border: 1px solid #cccccc;
     padding-top: 20px;
     padding-bottom: 20px;
     margin-bottom: 20px;
@@ -272,18 +244,21 @@ th[scope="row"] {
 }
 
 .student-detail-student-id {
-  font-weight: 300;
   margin-bottom: 0;
-  color: white;
   padding-left: 20px;
+  font-size: 14px;
+  color: white;
+  font-weight: 300;
 }
 
 .student-detail-student-email {
-  font-weight: 300;
   margin-bottom: 0;
   padding-left: 20px;
   padding-bottom: 20px;
   text-decoration: underline;
+  font-size: 14px;
+  color: white;
+  font-weight: 300;
 }
 
 .student-detail-student-email-link,
@@ -308,7 +283,7 @@ th[scope="row"] {
 
 .student-detail-left-menu-courses {
   min-height: 60px;
-  border-bottom: 1px solid #d4d4d4;
+  border-bottom: 1px solid #cccccc;
 }
 
 .student-detail-left-menu-courses:hover {
@@ -321,10 +296,10 @@ th[scope="row"] {
   margin-top: 16px;
   margin-bottom: 10px;
   padding-left: 20px;
-  font-size: 18px;
-  color: #1c3144;
   display: inline-block;
   word-wrap: break-word;
+  font-size: 18px;
+  color: #1c3144;
 }
 
 .student-detail-summary {
@@ -370,7 +345,7 @@ th[scope="row"] {
 }
 
 .student-info {
-  background-color: #eee;
+  background-color: #e5e5e5;
   padding: 0.75em;
   margin-bottom: 80px;
 }
@@ -426,7 +401,7 @@ th[scope="row"] {
 }
 
 .footer .container-fluid {
-  color: #777;
+  color: #cccccc;
   border-top: 1px solid #e5e5e5;
   background-color: #1c3144;
   font-weight: 300;
@@ -509,7 +484,7 @@ th[scope="row"] {
 
 @media screen and (max-width: 992px) {
   .open > .dropdown-menu {
-    color: #9d9d9d;
+    color: #cccccc;
   }
 }
 
@@ -591,7 +566,7 @@ th[scope="row"] {
 
 @media screen and (max-width: 992px) {
   .navbar-toggle {
-    background-color: #F9F9F9;
+    background-color: #f9f9f9;
     display: block;
   }
 }
@@ -666,28 +641,6 @@ a.class-site-status-link span {
   content: url("../images/Status_Icons_Red.png");
 }
 
-.progress {
-  width: 200px;
-  overflow: visible;
-}
-
-.progress-bar {
-  text-align: left;
-  padding-left: 5px;
-  min-width: 5em;
-  border-radius: 4px 0 0 4px;
-}
-
-.progress-label {
-  font-weight: bold;
-}
-
-.progress-text {
-  color: #c8d6c7;
-  display: none;
-  margin-left: 6px;
-}
-
 .legend-text {
   display: inline-block;
   margin-bottom: 0;
@@ -707,11 +660,11 @@ a.class-site-status-link span {
 }
 
 .student-legend-key {
-  background-color: #255c91;
+  background-color: #3e6c9c;
 }
 
 .class-legend-key {
-  background-color: #f0d654;
+  background-color: #f4e075;
 }
 
 .average-bar-container {
@@ -744,11 +697,11 @@ a.class-site-status-link span {
 }
 
 .student-average-bar {
-  background: #255c91;
+  background: #3e6c9c;
 }
 
 .class-average-bar {
-  background: #f0d654;
+  background: #f4e075;
 }
 
 .average-bar-text {
@@ -805,7 +758,7 @@ svg text {
   font-weight: bold;
   background-color: rgba(247, 247, 247, 0.75);
   text-align: center;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid #e5e5e5;
   -webkit-border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
   border-radius: 5px 5px 0 0;
@@ -813,23 +766,17 @@ svg text {
 
 .tooltip-inner {
   text-align: left;
+  white-space: pre-line;
 }
 
 .backlink {
   font-size: 20px;
-  color: #1f77b4;
+  color: #3e6c9c;
   text-decoration: none !important;
 }
 
 .backlink:hover {
   color: #1c3144;
-}
-
-.graph-caption {
-  font-size: x-large;
-  font-weight: 300;
-  color: brown;
-  text-align: center;
 }
 
 .navbar-inverse {
@@ -838,7 +785,7 @@ svg text {
 
 @media screen and (max-width: 992px) {
   .navbar-inverse .navbar-toggle:hover {
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
   }
 }
 
@@ -849,13 +796,13 @@ svg text {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: whitesmoke;
+  color: #f9f9f9;
   font-weight: 300;
   font-size: 15px;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {
-  color: #dedede;
+  color: #e5e5e5;
   background-color: #124465;
 }
 
@@ -873,11 +820,11 @@ svg text {
 
 .unsortable:hover {
   text-decoration: none;
-  color: #337ab7;
+  color: #3e6c9c;
 }
 
 .table-column-name {
-  color: #337ab7;
+  color: #3e6c9c;
 }
 
 .not-found {
@@ -960,50 +907,11 @@ svg text {
   }
 }
 
-.assignment-comment-cell {
-  width: 200px;
-}
-
-.assignment-comment-cell p {
-  margin-bottom: 0;
-}
-
-.assignment-comment-cell .assignment-button {
-  padding-bottom: 0;
-}
-
 .collapsing {
   width: 100%;
 }
 
-.legend-text-block {
-  margin-bottom: 10px;
-  margin-left: 22px;
-}
-
-.card-block {
-  box-shadow: 0 0 5px gray;
-  padding: 20px;
-  margin: 20px 2px;
-}
-
-.card-block:hover {
-  cursor: pointer;
-}
-
-.card-title {
-  margin-bottom: 15px;
-}
-
-.card-title a {
-  font-size: 20px;
-  width: 70%;
-  word-wrap: break-word;
-  display: inline-block;
-}
-
-.assignment-title-right,
-.card-class-site-status {
+.assignment-title-right {
   float: right;
 }
 
