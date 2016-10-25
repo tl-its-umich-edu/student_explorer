@@ -620,7 +620,7 @@ svg {
         }
         .icon-bar {
             @include mobile {
-                background-color: $color_active_gray;
+                background-color: gray;
             }
         }
     }

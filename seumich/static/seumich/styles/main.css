@@ -791,7 +791,7 @@ svg text {
 
 @media screen and (max-width: 992px) {
   .navbar-inverse .navbar-toggle .icon-bar {
-    background-color: #cccccc;
+    background-color: gray;
   }
 }
 
