@@ -244,7 +244,7 @@ th[scope="row"] {
 }
 
 .student-detail-left-menu-top {
-  background-color: #3072ab;
+  background-color: #3e6c9c;
   text-align: left;
   width: 100%;
 }
@@ -265,7 +265,7 @@ th[scope="row"] {
 
 .student-detail-main-menu-top {
   width: 100%;
-  background-color: #3072ab;
+  background-color: #3e6c9c;
   padding-left: 20px;
 }
 
@@ -280,6 +280,7 @@ th[scope="row"] {
   padding-left: 20px;
   font-size: 14px;
   color: white;
+  font-weight: 300;
 }
 
 .student-detail-student-email {
@@ -289,6 +290,7 @@ th[scope="row"] {
   text-decoration: underline;
   font-size: 14px;
   color: white;
+  font-weight: 300;
 }
 
 .student-detail-student-email-link,
@@ -713,7 +715,7 @@ a.class-site-status-link span {
 }
 
 .student-legend-key {
-  background-color: #3072ab;
+  background-color: #3e6c9c;
 }
 
 .class-legend-key {
@@ -750,7 +752,7 @@ a.class-site-status-link span {
 }
 
 .student-average-bar {
-  background: #3072ab;
+  background: #3e6c9c;
 }
 
 .class-average-bar {
@@ -823,7 +825,7 @@ svg text {
 
 .backlink {
   font-size: 20px;
-  color: #3072ab;
+  color: #3e6c9c;
   text-decoration: none !important;
 }
 
@@ -879,11 +881,11 @@ svg text {
 
 .unsortable:hover {
   text-decoration: none;
-  color: #3072ab;
+  color: #3e6c9c;
 }
 
 .table-column-name {
-  color: #3072ab;
+  color: #3e6c9c;
 }
 
 .not-found {
