@@ -1,12 +1,5 @@
 @import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
-.browsehappy {
-  margin: 0.2em 0;
-  background: #cccccc;
-  color: black;
-  padding: 0.2em 0;
-}
-
 html, body {
   height: 100%;
 }
@@ -78,31 +71,6 @@ a {
   padding: 10px 15px;
   margin-bottom: 0;
   color: #cccccc;
-}
-
-.policy-warning {
-  background-color: #cccccc;
-}
-
-.marketing {
-  background-color: #1c3144;
-  font-weight: 300;
-  color: white;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-top: 40px;
-  margin: 40px 0;
-}
-
-.marketing p + h4 {
-  margin-top: 28px;
-}
-
-@media screen and (min-width: 993px) {
-  .marketing {
-    padding-left: 0;
-    padding-right: 0;
-  }
 }
 
 .header {
@@ -331,8 +299,7 @@ th[scope="row"] {
   display: inline-block;
   word-wrap: break-word;
   font-size: 18px;
-  color: #2c71ad;
-  font-weight: 500;
+  color: #1c3144;
 }
 
 .student-detail-summary {
@@ -674,28 +641,6 @@ a.class-site-status-link span {
   content: url("../images/Status_Icons_Red.png");
 }
 
-.progress {
-  width: 200px;
-  overflow: visible;
-}
-
-.progress-bar {
-  text-align: left;
-  padding-left: 5px;
-  min-width: 5em;
-  border-radius: 4px 0 0 4px;
-}
-
-.progress-label {
-  font-weight: bold;
-}
-
-.progress-text {
-  color: #becdc0;
-  display: none;
-  margin-left: 6px;
-}
-
 .legend-text {
   display: inline-block;
   margin-bottom: 0;
@@ -821,6 +766,7 @@ svg text {
 
 .tooltip-inner {
   text-align: left;
+  white-space: pre-line;
 }
 
 .backlink {
@@ -831,13 +777,6 @@ svg text {
 
 .backlink:hover {
   color: #1c3144;
-}
-
-.graph-caption {
-  font-size: x-large;
-  font-weight: 300;
-  color: #c1272d;
-  text-align: center;
 }
 
 .navbar-inverse {
@@ -968,50 +907,11 @@ svg text {
   }
 }
 
-.assignment-comment-cell {
-  width: 200px;
-}
-
-.assignment-comment-cell p {
-  margin-bottom: 0;
-}
-
-.assignment-comment-cell .assignment-button {
-  padding-bottom: 0;
-}
-
 .collapsing {
   width: 100%;
 }
 
-.legend-text-block {
-  margin-bottom: 10px;
-  margin-left: 22px;
-}
-
-.card-block {
-  box-shadow: 0 0 5px #cccccc;
-  padding: 20px;
-  margin: 20px 2px;
-}
-
-.card-block:hover {
-  cursor: pointer;
-}
-
-.card-title {
-  margin-bottom: 15px;
-}
-
-.card-title a {
-  font-size: 20px;
-  width: 70%;
-  word-wrap: break-word;
-  display: inline-block;
-}
-
-.assignment-title-right,
-.card-class-site-status {
+.assignment-title-right {
   float: right;
 }
 

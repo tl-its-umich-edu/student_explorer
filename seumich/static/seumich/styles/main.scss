@@ -6,12 +6,6 @@ $primary-margin: 20px;
 $secondary-margin: 10px;
 @import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
-.browsehappy {
-    margin: 0.2em 0;
-    background: $color_active_gray;
-    color: $color_black;
-    padding: 0.2em 0;
-}
 html {
     height: 100%;
 }
@@ -21,7 +15,7 @@ html {
     padding-bottom: 100px;
 }
 body {
-    font-family: $font_Lato, $font_Helvetica;
+    font-family: Lato, Helvetica;
     padding-top: 50px;
     @extend html;
     @include mobile {
@@ -67,22 +61,13 @@ a {
     margin-bottom: 0;
     color: $color_active_gray;
 }
-.policy-warning {
-    background-color: $color_active_gray;
-}
-.marketing {
-    @include marketheaderint;
-    margin: 40px 0;
-    p + h4 {
-        margin-top: 28px;
-    }
-    @include desktop {
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
 .header {
-    @include marketheaderint;
+    background-color: $color_nav_background;
+    font-weight: 300;
+    color: rgb(255, 255, 255);
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 40px;
     border-bottom: 1px solid $color_hover_gray;
     margin-bottom: $secondary-margin;
     h3 {
@@ -211,9 +196,9 @@ th[scope="row"] {
 }
 .student-detail-student-email-link,
 .student-detail-student-name-link {
-    color: $color_white;
+    color: rgb(255, 255, 255);
     &:hover {
-        color: $color_white;
+        color: rgb(255, 255, 255);
     }
 }
 .student-detail-left-menu-course-line p {
@@ -239,7 +224,7 @@ th[scope="row"] {
         padding-left: $primary-padding;
         display: inline-block;
         word-wrap: break-word;
-        @include font($font_student_course_list...);
+        @include font($font_student_course_list_menu...);
     }
 }
 .student-detail-summary {
@@ -316,7 +301,7 @@ th[scope="row"] {
         border-top: 1px solid $color_hover_gray;
         background-color: $color_nav_background;
         font-weight: 300;
-        color: $color_white;
+        color: rgb(255, 255, 255);
         p.main-color-white {
             margin-top: 13px;
         }
@@ -509,24 +494,6 @@ a.class-site-status-link {
 .status-engage {
     content: url("../images/Status_Icons_Red.png");
 }
-.progress {
-    width: 200px;
-    overflow: visible;
-}
-.progress-bar {
-    text-align: left;
-    padding-left: 5px;
-    min-width: 5em;
-    border-radius: 4px 0 0 4px;
-}
-.progress-label {
-    font-weight: bold;
-}
-.progress-text {
-    color: $color_lms_activity;
-    display: none;
-    margin-left: 6px;
-}
 .legend-text {
     display: inline-block;
     margin-bottom: 0;
@@ -576,7 +543,7 @@ a.class-site-status-link {
     transition: width 0.6s ease;
 }
 .student-average-bar {
-    background: $color_student_detail_background;
+    background: $color_student_average;
 }
 .class-average-bar {
     background: $color_course_average;
@@ -612,11 +579,11 @@ svg {
     height: 350px !important;
     margin-top: 40px;
     text {
-        font: normal 13px $font_Lato, $font_Helvetica;
+        font: normal 13px Lato, Helvetica;
     }
 }
 .nvtooltip {
-    font-family: $font_Lato, $font_Helvetica;
+    font-family: Lato, Helvetica;
     h3 {
         margin: 0;
         padding: 4px 14px;
@@ -633,7 +600,7 @@ svg {
 }
 .tooltip-inner {
     text-align: left;
-    $color_white-space: pre-line;
+    white-space: pre-line;
 }
 .backlink {
     font-size: 20px;
@@ -642,12 +609,6 @@ svg {
     &:hover {
         color: $color_nav_background;
     }
-}
-.graph-caption {
-    font-size: x-large;
-    font-weight: 300;
-    color: $color_engage_red;
-    text-align: center;
 }
 .navbar-inverse {
     background-color: $color_nav_background;
@@ -753,41 +714,10 @@ svg {
         padding-top: $primary-padding;
     }
 }
-.assignment-comment-cell {
-    width: 200px;
-    p {
-        margin-bottom: 0;
-    }
-    .assignment-button {
-        padding-bottom: 0;
-    }
-}
 .collapsing {
     width: 100%;
 }
-.legend-text-block {
-    margin-bottom: $secondary-margin;
-    margin-left: 22px;
-}
-.card-block {
-    box-shadow: 0 0 5px $color_active_gray;
-    padding: $primary-padding;
-    margin: $primary-margin 2px;
-    &:hover {
-        cursor: pointer;
-    }
-}
-.card-title {
-    margin-bottom: 15px;
-    a {
-        font-size: 20px;
-        width: 70%;
-        word-wrap: break-word;
-        display: inline-block;
-    }
-}
-.assignment-title-right,
-.card-class-site-status {
+.assignment-title-right {
     float: right;
 }
 .alert-message {
