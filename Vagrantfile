@@ -71,6 +71,23 @@ EOM
                 ldconfig
                 pip install cx_Oracle
             fi
+            cd /vagrant
         fi
+
+        # Make a python package:
+        touch student_explorer/local/__init__.py
+
+        # Create default settings_override module:
+        echo -e "from student_explorer.settings import *\n\nDEBUG = True" > student_explorer/local/settings_override.py
+
+        # Migrate database to create tables, etc.:
+        python manage.py migrate
+
+        # Load test user data:
+        python manage.py loaddata student_explorer/fixtures/dev_users.json
+
+        # Load test advising data:
+        mysql -h 127.0.0.1 -u student_explorer -pstudent_explorer student_explorer < seumich/fixtures/dev_data_drop_create_and_insert.sql
+
     SHELL
 end
