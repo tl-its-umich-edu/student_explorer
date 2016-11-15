@@ -553,6 +553,7 @@ class SeumichTest(TestCase):
         self.assertContains(response, '95.0')
         self.assertContains(response, '80.0')
         self.assertContains(response, '81.9')
+        self.assertContains(response, 'N/A')
 
     def test_student_class_site_view_redirect(self):
         url = reverse('seumich:student_class',
@@ -585,6 +586,16 @@ class SeumichTest(TestCase):
                                    'assignment Assessment in Math 101>'),
                                   ('<StudentClassSiteAssignment: grace has '
                                    'assignment Exam 1 in Math 101>')])
+        url = reverse('seumich:student_class',
+                      kwargs={'student': 'james', 'classcode': 3})
+        self.client.login(username='burl', password='burl')
+        response = self.client.get(url)
+        self.assertQuerysetEqual(response.context['scoreData'],
+                                 [("{'color': '#255c91', 'values': [], "
+                                   "'key': 'Student'}"),
+                                  ("{'color': '#F0D654', 'values': [], "
+                                   "'key': 'Class'}")
+                                  ])
 
     def test_pagination_mixin(self):
         pagination = PaginationMixin()
@@ -632,3 +643,29 @@ class SeumichTest(TestCase):
         self.assertContains(response, 'mike')
         self.assertNotContains(response, 'grace')
         self.assertNotContains(response, 'wendi')
+
+    def test_logout(self):
+        self.client.login(username='burl', password='burl')
+        response = self.client.get(reverse('auth_logout'))
+        self.assertEquals(response.status_code, 302)
+
+    def test_about(self):
+        response = self.client.get('/about')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'student_explorer/about.html')
+
+    def test_feedback(self):
+        self.client.login(username='burl', password='burl')
+        response = self.client.get(reverse('feedback:feedback'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'feedback/feedback.html')
+        message = {
+            'feedback_message': 'Sample Message',
+        }
+        response = self.client.post(
+            reverse('feedback:feedback'),
+            message,
+            follow=True
+        )
+        self.assertContains(response,
+                            "Thank you for submitting your feedback!")
