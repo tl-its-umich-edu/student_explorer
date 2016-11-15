@@ -39,7 +39,7 @@ urlpatterns = [
         views.AdvisorView.as_view(),
         name='advisor'),
     url(
-        r'^cohorts/(?P<code>[\w-]+)/$',
+        r'^cohorts/(?P<code>[\s\w-]+)/$',
         views.CohortView.as_view(),
         name='cohort'),
     url(
