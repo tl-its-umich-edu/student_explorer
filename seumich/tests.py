@@ -27,6 +27,7 @@ from seumich.models import (UsernameField,
                             WeeklyStudentClassSiteEvent,
                             WeeklyStudentClassSiteStatus,
                             WeeklyStudentClassSiteScore)
+from seumich.views import PaginationMixin
 
 
 class SeumichTest(TestCase):
@@ -504,6 +505,9 @@ class SeumichTest(TestCase):
         url = "%s?search=10000023" % reverse('seumich:students_list')
         response = self.client.get(url)
         self.assertContains(response, 'nocourses')
+        url = "%s?univ_id=10000001" % reverse('seumich:students_list')
+        response = self.client.get(url)
+        self.assertRedirects(response, '/students/grace/')
 
     def test_advisor_view_redirect(self):
         url = reverse('seumich:advisor', kwargs={'advisor': 'burl'})
@@ -542,6 +546,13 @@ class SeumichTest(TestCase):
         self.assertContains(response, '88.1')
         self.assertContains(response, '81.9')
         self.assertNotContains(response, '87.1')
+        url = reverse('seumich:student', kwargs={'student': 'james'})
+        response = self.client.get(url)
+        self.assertContains(response, '150.0')
+        self.assertContains(response, '100.0')
+        self.assertContains(response, '95.0')
+        self.assertContains(response, '80.0')
+        self.assertContains(response, '81.9')
 
     def test_student_class_site_view_redirect(self):
         url = reverse('seumich:student_class',
@@ -574,3 +585,50 @@ class SeumichTest(TestCase):
                                    'assignment Assessment in Math 101>'),
                                   ('<StudentClassSiteAssignment: grace has '
                                    'assignment Exam 1 in Math 101>')])
+
+    def test_pagination_mixin(self):
+        pagination = PaginationMixin()
+        pagination.num_page_links = 5
+        self.assertEqual(pagination.get_page_range(1, 3), [1, 2, 3])
+        self.assertEqual(pagination.get_page_range(1, 15), [1, 2, 3, 4, 5])
+        self.assertEqual(pagination.get_page_range(9, 10), [6, 7, 8, 9, 10])
+
+    def test_class_list_view(self):
+        self.client.login(username='burl', password='burl')
+        response = self.client.get(reverse('seumich:class_list'))
+        self.assertQuerysetEqual(list(response.context['classes']),
+                                 ['<ClassSite: Math 101>',
+                                  '<ClassSite: Math 101 Lab>',
+                                  '<ClassSite: Physics 101>',
+                                  '<ClassSite: Physics 101 Lab>',
+                                  '<ClassSite: English 101>',
+                                  '<ClassSite: History 101>'])
+
+    def test_cohort_view(self):
+        url = reverse('seumich:cohort',
+                      kwargs={'code': 'SPPRO-W15'})
+        self.client.login(username='burl', password='burl')
+        response = self.client.get(url)
+        self.assertContains(response, 'janell')
+        self.assertContains(response, 'gabriela')
+        self.assertContains(response, 'wendi')
+        self.assertContains(response, 'james')
+        self.assertContains(response, 'mike')
+        self.assertContains(response, 'geneva')
+        self.assertContains(response, 'theo')
+        self.assertContains(response, 'caroyln')
+        self.assertNotContains(response, 'grace')
+        self.assertNotContains(response, 'jeana')
+
+    def test_class_site_view(self):
+        url = reverse('seumich:class_site',
+                      kwargs={'class_site_id': 6})
+        self.client.login(username='burl', password='burl')
+        response = self.client.get(url)
+        self.assertContains(response, 'theo')
+        self.assertContains(response, 'jeana')
+        self.assertContains(response, 'deeanna')
+        self.assertContains(response, 'james')
+        self.assertContains(response, 'mike')
+        self.assertNotContains(response, 'grace')
+        self.assertNotContains(response, 'wendi')
