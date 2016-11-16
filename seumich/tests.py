@@ -28,6 +28,7 @@ from seumich.models import (UsernameField,
                             WeeklyStudentClassSiteStatus,
                             WeeklyStudentClassSiteScore)
 from seumich.views import PaginationMixin
+from seumich.mixins import SeumichDataMixin
 
 
 class SeumichTest(TestCase):
@@ -603,6 +604,19 @@ class SeumichTest(TestCase):
         self.assertEqual(pagination.get_page_range(1, 3), [1, 2, 3])
         self.assertEqual(pagination.get_page_range(1, 15), [1, 2, 3, 4, 5])
         self.assertEqual(pagination.get_page_range(9, 10), [6, 7, 8, 9, 10])
+
+    def test_seumich_data_mixin(self):
+        seumich_data_mixin = SeumichDataMixin()
+        collection = StudentAdvisorRole.objects.filter(
+            student=Student.objects.get(
+                id=2),
+            advisor=Advisor.objects.get(id=1),
+            role=AdvisorRole.objects.get(id=1))
+        self.assertEqual(
+            seumich_data_mixin.aggrate_relationships(
+                collection, 'advisor', 'role'
+            ), [{'roles': [AdvisorRole.objects.get(id=1)],
+                 'advisor': Advisor.objects.get(id=1)}])
 
     def test_class_list_view(self):
         self.client.login(username='burl', password='burl')
