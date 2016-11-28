@@ -26,6 +26,10 @@ ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = getenv('DJANGO_SECRET_KEY', 'I need to be changed!')
 
+SESSION_COOKIE_AGE = int(getenv('DJANGO_SESSION_COOKIE_AGE', 36000))
+SESSION_SAVE_EVERY_REQUEST = getenv_bool('DJANGO_SESSION_SAVE_EVERY_REQUEST',
+                                         'on')
+
 SILENCED_SYSTEM_CHECKS = []
 
 ADMINS = [('', getenv('DJANGO_ERROR_EMAIL', 'vagrant@localhost'))]
