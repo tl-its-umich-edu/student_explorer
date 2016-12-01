@@ -136,7 +136,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = getenv('DJANGO_LOGOUT_REDIRECT_URL', '/')
 
 EMAIL_HOST = getenv('DJANGO_EMAIL_HOST', 'localhost')
-EMAIL_PORT = getenv('DJANGO_EMAIL_PORT', None)
+EMAIL_PORT = int(getenv('DJANGO_EMAIL_PORT', '25'))
 EMAIL_HOST_USER = getenv('DJANGO_EMAIL_HOST_USER', None)
 EMAIL_HOST_PASSWORD = getenv('DJANGO_EMAIL_HOST_PASSWORD', None)
 EMAIL_USE_TLS = getenv('DJANGO_EMAIL_USE_TLS', None)
@@ -278,6 +278,9 @@ LOGGING = {
 
     },
     'handlers': {
+        'mail_admins': {
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
         'console': {
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
@@ -288,6 +291,11 @@ LOGGING = {
         },
     },
     'loggers': {
+        '': {
+            'handlers': ['mail_admins'],
+            'level': getenv('DJANGO_LOGGING_LEVEL_EMAIL_ADMINS', 'WARNING'),
+            'propagate': True,
+        },
         'django': {
             'handlers': ['console'],
             'level': getenv('DJANGO_LOGGING_LEVEL', 'WARNING'),
