@@ -280,7 +280,7 @@ LOGGING = {
     'handlers': {
         'mail_admins': {
             'class': 'django.utils.log.AdminEmailHandler',
-            'level': getenv('DJANGO_LOGGING_LEVEL_EMAIL_ADMINS', 'WARNING'),
+            'level': getenv('DJANGO_LOGGING_LEVEL_EMAIL_ADMINS', 'ERROR'),
         },
         'console': {
             'class': 'logging.StreamHandler',
@@ -294,7 +294,7 @@ LOGGING = {
     'loggers': {
         '': {
             'handlers': ['mail_admins'],
-            'level': getenv('DJANGO_LOGGING_LEVEL_EMAIL_ADMINS', 'WARNING'),
+            'level': getenv('DJANGO_LOGGING_LEVEL_EMAIL_ADMINS', 'ERROR'),
             'propagate': True,
         },
         'django': {
