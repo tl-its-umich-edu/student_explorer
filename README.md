@@ -1,47 +1,31 @@
-# student explorer #
-
-## Set up submodules ##
-1. git submodule init
-2. git submodule update
+# Student Explorer #
 
 ## Development Environment ##
 
-### First Time Setup ###
-1. Install Vagrant (https://www.vagrantup.com/)
-2. Start Vagrant
-   - `cd student_explorer`
-   - `vagrant up`
-   - `vagrant ssh`
-3. Install bower
-   - `cd /vagrant/sespa`
-   - `bower install`
+### Setup ###
+1. Install [Vagrant](https://www.vagrantup.com/)
+2. Follow steps in the "Run development server" section below. The `vagrant up` step should run the provision script on its first run.
 
-### Regular Use ###
-1. Initialize and start app server
-    - `cd /vagrant`
-    - `python manage.py migrate` (updates your repo if anything as changed)
-    - `python manage.py loaddata */fixtures/*.json` (loads some test student data)
-    - `python manage.py runserver`
-2. Browse to [http://localhost:2080/login/](http://localhost:2080/login/)
-    - Login as individual advisors using their lower-case first name as username/password (e.g.: burl/burl)
-    - Student with useful data: [http://localhost:2080/#/students/grace/](http://localhost:2080/#/students/grace/)
+### Run development server ###
+- `cd student_explorer`
+- `vagrant up`
+- `vagrant ssh`
+- `cd /vagrant`
+- `python manage.py runserver`
+- Browse to [http://localhost:2082/](http://localhost:2082/)
+- Login as individual advisors using their lower-case first name as username/password (e.g.: burl/burl)
+- Student with useful data: [http://localhost:2082/students/grace/](http://localhost:2082/students/grace/)
 
-## Configuring an external database ##
-- Add an database to the DATABASES setting ('lt_dataset' in this example).
-- Add any database routers to DATABASE_ROUTERS.
-- Use ADVISING_DATABASE to specify the database name.
-- If custom models are needed:
-    - Add the package to the INSTALLED_APPS
-    - Use ADVISING_PACKAGE to specify the package name.
+### Using the Django Debug Toolbar ###
+For the [Django Debug Toolbar](https://django-debug-toolbar.readthedocs.io/en/1.5/) to work in development, please add the following in _student_explorer > local > settings_override.py_
+- `INSTALLED_APPS += ('debug_toolbar',)`
+- `MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)`
+- `DEBUG_TOOLBAR_PATCH_SETTINGS = False`
+- `INTERNAL_IPS = ['10.0.2.2']`
 
-## Update Data Fixtures ##
+### Note on settings ###
+By default manage.py looks for the student_explorer.local.settings_override module. This file is created manually as documented in the setup steps above.
 
-This is the procedure to add dummy data to the fixture files.
+By default wsgi.py (which is used by start.sh) looks for the student_explorer.settings module. This file is versioned as part of this repository.
 
-- Connect to the database in the Vagrant VM. (This can be done from your host system via the port defined in the Vagrant file, 2033)
-- Delete all tables.
-- Run the migrations to recreate the tables: `python manage.py migrate`
-- Run the loaddata command to load existing fixtures: `python manage.py loaddata */fixtures/*.json`
-- Make changes to the database.
-- Save the changes to a fixture file: `python manage.py dumpdata --indent 4 advising > advising/fixtures/dev_data.json`
-- Commit the changes to the updated fixture file.
+This behavior can be changed for both manage.py and wsgi.py by setting the DJANGO_SETTINGS_MODULE environment variable.

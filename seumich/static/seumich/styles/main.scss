@@ -1,0 +1,728 @@
+@import 'secolor';
+@import 'sefont';
+@import 'semixins';
+$primary-padding: 20px;
+$primary-margin: 20px;
+$secondary-margin: 10px;
+@import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
+html {
+    height: 100%;
+}
+.container-index {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 100px;
+}
+body {
+    font-family: Lato, Helvetica;
+    padding-top: 50px;
+    @extend html;
+    @include mobile {
+        padding-bottom: 0;
+    }
+}
+a {
+    @include font($font_links_lists...);
+}
+.sub-header {
+    color: $color_engage_red;
+    font-weight: 400;
+    margin-top: $primary-margin;
+    /*border-bottom: 1px solid $color_hover_gray;*/
+}
+.sub-header-backlink {
+    @extend .sub-header;
+    display: none;
+    @include mobile {
+        margin-top: 10px;
+        display: block;
+    }
+}
+.navbar {
+    vertical-align: middle;
+    margin-bottom: 0;
+}
+.navbar-fixed-top {
+    position: fixed;
+    border: 0;
+    @include mobile {
+        position: relative;
+        margin-top: -50px;
+        top: 0;
+        border-width: 0 0 1px;
+    }
+}
+.dropdown-menu p {
+    padding: 3px $primary-padding;
+}
+.mobile-nav-right {
+    padding: 10px 15px;
+    margin-bottom: 0;
+    color: $color_active_gray;
+}
+.header {
+    background-color: $color_nav_background;
+    font-weight: 300;
+    color: rgb(255, 255, 255);
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 40px;
+    border-bottom: 1px solid $color_hover_gray;
+    margin-bottom: $secondary-margin;
+    h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 40px;
+        padding-bottom: 19px;
+    }
+    @include desktop {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+img#student-explorer-logo {
+    float: left;
+    width: 25px;
+    margin: -2px 8px 0 0;
+}
+h1.student-detail-student-name {
+    margin-top: 0;
+    line-height: 1.2;
+    word-wrap: break-word;
+    padding: $primary-padding $primary-padding 0;
+    @include font($font_student_h1...);
+    @include mobile {
+        padding-top: 30px;
+    }
+}
+h2 {
+    padding-left: $primary-padding;
+    margin: 30px 0 $secondary-margin;
+    font-size: 24px;
+}
+.list-header {
+    padding-left: 0;
+}
+h3.student-course-list {
+    margin: 5px 0 0;
+    @include font($font_student_course_list...);
+}
+h4 {
+    margin-left: $secondary-margin;
+    @include font($font_student_h4...);
+}
+.note {
+    display: inline-block;
+    margin-left: $secondary-margin;
+}
+.count-data {
+    margin-top: $secondary-margin;
+}
+.center-align {
+    text-align: center;
+}
+.pagination {
+    padding-bottom: 40px;
+}
+th[scope="row"] {
+    font-weight: normal;
+}
+.row {
+    margin-bottom: $secondary-margin;
+}
+.student-desc {
+    margin-bottom: $primary-margin;
+    @include mobile {
+        border: 1px solid $color_active_gray;
+        padding-top: $primary-padding;
+        padding-bottom: $primary-padding;
+        margin-bottom: $primary-margin;
+    }
+}
+.student-class-site-list-table > tbody > tr {
+    > th {
+        width: 220px;
+        vertical-align: middle;
+    }
+    > td {
+        vertical-align: middle;
+    }
+}
+.student-detail-left-menu {
+    width: 25%;
+    position: fixed;
+    left: 0;
+    height: 100%;
+    background-color: $color_background_gray;
+    overflow-y: scroll;
+    /* Need to fix the scroll bug here for the left nav menu */
+    margin-bottom: 100px;
+    @include mobile {
+         @include mobilemenu;
+    }
+}
+.student-detail-left-menu-top {
+    background-color: $color_student_detail_background;
+    text-align: left;
+    width: 100%;
+}
+.student-detail-main-menu {
+    margin-left: -15px;
+    margin-right: -15px;
+    @include mobile {
+         @include mobilemenu;
+    }
+}
+.student-detail-main-menu-top {
+    width: 100%;
+    background-color: $color_student_detail_background;
+    padding-left: $primary-padding;
+    @include mobile {
+        padding-left: 0;
+    }
+}
+.student-detail-student-id {
+    margin-bottom: 0;
+    padding-left: $primary-padding;
+    @include font($font_student_email_uniquename...);
+}
+.student-detail-student-email {
+    margin-bottom: 0;
+    padding-left: $primary-padding;
+    padding-bottom: $primary-padding;
+    text-decoration: underline;
+    @include font($font_student_email_uniquename...);
+}
+.student-detail-student-email-link,
+.student-detail-student-name-link {
+    color: rgb(255, 255, 255);
+    &:hover {
+        color: rgb(255, 255, 255);
+    }
+}
+.student-detail-left-menu-course-line p {
+    vertical-align: middle;
+    line-height: 60px;
+    margin-bottom: 0;
+    padding-left: $primary-padding;
+    font-size: 20px;
+    font-weight: bold;
+    color: $color_nav_background;
+}
+.student-detail-left-menu-courses {
+    min-height: 60px;
+    border-bottom: 1px solid $color_active_gray;
+    &:hover {
+        cursor: pointer;
+        background-color: $color_hover_gray;
+    }
+    h3 {
+        width: 70%;
+        margin-top: 16px;
+        margin-bottom: $secondary-margin;
+        padding-left: $primary-padding;
+        display: inline-block;
+        word-wrap: break-word;
+        @include font($font_student_course_list_menu...);
+    }
+}
+.student-detail-summary {
+    width: 75%;
+    margin-left: 25%;
+    @include mobile {
+        width: 100%;
+        position: relative;
+        margin: auto 0;
+    }
+}
+.student-detail-main {
+    width: 75%;
+    @include mobile {
+        width: 100%;
+        position: relative;
+        margin: auto 0;
+        padding-left: 0;
+    }
+}
+.student-detail-summary-content {
+    margin-left: $secondary-margin;
+    margin-right: $secondary-margin;
+    @include mobile {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+.student-detail-data-source {
+    margin-top: 10px;
+}
+.student-info {
+    background-color: $color_hover_gray;
+    padding: 0.75em;
+    margin-bottom: 80px;
+    p {
+        display: inline;
+    }
+    @include mobile {
+        margin-bottom: $secondary-margin;
+    }
+}
+.advisor-names {
+    margin-right: 0.4em;
+}
+.panel-default {
+    display: none;
+    @include mobile {
+        display: block;
+    }
+}
+.no-margin {
+    margin-left: 0;
+    margin-right: 0;
+}
+.student-detail-class-site-status {
+    display: inline-block;
+}
+.feedback {
+    margin: 0.5em;
+    img {
+        width: 25px;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .container-fluid {
+        color: $color_active_gray;
+        border-top: 1px solid $color_hover_gray;
+        background-color: $color_nav_background;
+        font-weight: 300;
+        color: rgb(255, 255, 255);
+        p.main-color-white {
+            margin-top: 13px;
+        }
+    }
+    @include desktop {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+.container-narrow > hr {
+    margin: 30px 0;
+}
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid $color_hover_gray;
+    .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+    }
+    @include desktop {
+        border-bottom: 0;
+    }
+}
+.nv-axislabel {
+    @include chart {
+        display: none;
+    }
+}
+.container {
+    @include desktop {
+        max-width: 100% !important;
+    }
+}
+.container-feedback {
+    @include desktop {
+        width: 50%;
+    }
+}
+.student-class-site-list,
+.student-detail-mobile {
+    @include desktop {
+        display: none;
+    }
+}
+#student-search {
+    @include desktop {
+        width: 22em;
+    }
+    @include medium {
+        width: 22em;
+    }
+    @include mobile {
+        // Fix mobile input zoom
+        &:focus, &:hover {
+            font-size: 16px !important;
+        }
+    }
+}
+.open > .dropdown-menu {
+    @include mobile {
+        color: $color_active_gray;
+    }
+}
+.student-class-site-table,
+.student-detail-left-menu-detail {
+    @include mobile {
+        display: none;
+    }
+}
+.student-detail-left-menu-detail {
+    margin-bottom: 100px;
+}
+.table-responsive {
+    @include mobile {
+        border: none;
+    }
+}
+.student-detail-summary-title {
+    @include mobile {
+        padding-left: 0;
+    }
+}
+.navbar-fixed-bottom {
+    @include mobile {
+        position: relative;
+    }
+}
+.mobile-inline {
+    @include mobile {
+        margin-bottom: $secondary-margin;
+        display: inline-block;
+    }
+}
+.class-site {
+    @include mobile {
+        width: 75%;
+    }
+}
+.hide-small-grid {
+    @include mobile {
+        display: none;
+    }
+}
+.status-icon {
+    @include mobile {
+        float: right;
+    }
+}
+.panel-heading {
+    @include mobile {
+        padding: 15px;
+    }
+}
+.assignment-table {
+    @include mobile {
+        margin-left: 0;
+        > .container-fluid {
+            padding: 0;
+        }
+    }
+}
+.footer-block,
+.mobile-div {
+    @include mobile {
+        display: block;
+    }
+}
+.navbar-toggle {
+    @include mobile {
+        background-color: $color_background_gray;
+        display: block;
+    }
+}
+.navbar-header {
+    @include mobile {
+        float: none;
+    }
+}
+.navbar-left,
+.navbar-right {
+    @include mobile {
+        float: none !important;
+    }
+}
+.navbar-collapse {
+    @include mobile {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+        &.collapse {
+            display: none!important;
+        }
+    }
+}
+.navbar-nav {
+    @include mobile {
+        float: none!important;
+        margin-top: 7.5px;
+        > li {
+            float: none;
+            > a {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+        }
+    }
+}
+.collapse.in {
+    @include mobile {
+        display: block !important;
+    }
+}
+a.class-site-status-link {
+    text-decoration: none;
+    span {
+        display: inline-block;
+    }
+}
+.class-site-status {
+    width: 20pt;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+    content: url("../images/Status_Icons_Not Applicable.png");
+}
+.status-encourage {
+    content: url("../images/Status_Icons_Green.png");
+}
+.status-explore {
+    content: url("../images/Status_Icons_Yellow.png");
+}
+.status-engage {
+    content: url("../images/Status_Icons_Red.png");
+}
+.legend-text {
+    display: inline-block;
+    margin-bottom: 0;
+    :not(:first-of-type) {
+        margin-left: 1em;
+    }
+    font-size: 1.1em;
+}
+.legend-key {
+    border-radius: 50%;
+    display: inline-block;
+    height: 15px;
+    margin-right: 0.4em;
+    width: 15px;
+}
+.student-legend-key {
+    background-color: $color_student_detail_background;
+}
+.class-legend-key {
+    background-color: $color_course_average;
+}
+.average-bar-container {
+    -webkit-box-shadow: none;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    height: 20px;
+    margin-bottom: 0;
+    overflow: visible;
+    width: 90%;
+}
+.average-bar {
+    -webkit-box-shadow: none;
+    max-width: 90%;
+    box-shadow: none;
+    float: left;
+    font-size: 12px;
+    height: 100%;
+    line-height: 20px;
+    min-width: 0.5em;
+    padding-left: 5px;
+    position: relative;
+    text-align: center;
+    text-align: left;
+    -o-transition: width 0.6s ease;
+    -webkit-transition: width 0.6s ease;
+    transition: width 0.6s ease;
+}
+.student-average-bar {
+    background: $color_student_average;
+}
+.class-average-bar {
+    background: $color_course_average;
+}
+.average-bar-text {
+    color: black;
+    display: inline-block;
+    padding-left: 15px;
+    position: absolute;
+    right: 0;
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+    transform: translateX(100%);
+}
+.main-no-margin-top {
+    margin-top: 0;
+}
+.main-h3 {
+    color: $color_nav_background;
+}
+.main-color-white {
+    color: $color_hover_gray !important;
+}
+.main-navbar-brand {
+    font-weight: 300;
+}
+.main-page-end-margin-bottom {
+    margin-bottom: 50px;
+}
+svg {
+    height: 350px !important;
+    margin-top: 40px;
+    text {
+        font: normal 13px Lato, Helvetica;
+    }
+}
+.nvtooltip {
+    font-family: Lato, Helvetica;
+    h3 {
+        margin: 0;
+        padding: 4px 14px;
+        font-size: 15px;
+        line-height: 18px;
+        font-weight: bold;
+        background-color: rgba(247,247,247,0.75);
+        text-align: center;
+        border-bottom: 1px solid $color_hover_gray;
+        -webkit-border-radius: 5px 5px 0 0;
+        -moz-border-radius: 5px 5px 0 0;
+        border-radius: 5px 5px 0 0;
+    }
+}
+.tooltip-inner {
+    text-align: left;
+    white-space: pre-line;
+}
+.backlink {
+    font-size: 20px;
+    color: $color_student_detail_background;
+    text-decoration: none !important;
+    &:hover {
+        color: $color_nav_background;
+    }
+}
+.navbar-inverse {
+    background-color: $color_nav_background;
+    .navbar-toggle {
+        &:hover {
+            @include mobile {
+                background-color: $color_hover_gray;
+            }
+        }
+        .icon-bar {
+            @include mobile {
+                background-color: gray;
+            }
+        }
+    }
+    .navbar-nav > li {
+        > a {
+            color: $color_background_gray;
+            font-weight: 300;
+            font-size: 15px;
+            &:hover {
+                color: $color_hover_gray;
+                background-color: $color_nav_hover;
+            }
+        }
+        &.active > a {
+            background-color: $color_nav_hover;
+            :focus {
+                background-color: $color_nav_hover;
+            }
+            &:hover {
+                background-color: $color_nav_hover;
+            }
+        }
+    }
+}
+.unsortable:hover {
+    text-decoration: none;
+    color: $color_student_detail_background;
+}
+.table-column-name {
+    color: $color_student_detail_background;
+}
+.not-found {
+    margin-top: 6%;
+}
+.nv-x .tick line {
+    display: none;
+}
+.panel-title {
+    vertical-align: middle;
+}
+.panel-warning {
+    margin-top: $primary-margin;
+}
+.assignment-button {
+    width: 20px;
+    padding-bottom: 5px;
+}
+.assignment-title {
+    font-size: 18px;
+    width: 60%;
+    word-wrap: break-word;
+    display: inline-block;
+}
+.assignment-title-score {
+    margin-right: $primary-margin;
+}
+.assignment-row {
+    height: 80px;
+    display: block;
+}
+.assignment-row-lower {
+    margin-bottom: $primary-margin;
+}
+.assignment-detail {
+    width: 35%;
+    margin: $secondary-margin auto;
+    font-size: 18px;
+}
+.assignment-detail-bold {
+    font-weight: bold;
+}
+.assignment-detail-grade {
+    font-size: 25px;
+    margin-top: $secondary-margin;
+}
+.assignment-detail-left {
+    display: inline-block;
+    margin-left: 10%;
+}
+.assignment-detail-right {
+    float: right;
+    display: inline;
+    margin-right: 5%;
+}
+.assignment-detail-comment {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: $primary-margin;
+    font-size: 18px;
+    @include mobile {
+        padding-top: $primary-padding;
+    }
+}
+.collapsing {
+    width: 100%;
+}
+.assignment-title-right {
+    float: right;
+}
+.alert-message {
+    margin-top: $primary-margin;
+}
+.content {
+    margin-bottom: 100px;
+}

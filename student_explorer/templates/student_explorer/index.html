@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+    <head>
+        {% load static from staticfiles %}
+        <meta charset="utf-8">
+        <title>Student Explorer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="{% static 'seumich/images/favicon.ico' %}">
+        <link rel="apple-touch-icon" href="{% static 'seumich/images/icon.png' %}">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'nvd3/src/nv.d3.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'components-font-awesome/css/font-awesome.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'seumich/styles/main.css' %}">
+        <script src="{% static 'jquery/dist/jquery.js' %}"></script>
+        <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
+        <script src="{% static 'd3/d3.js' %}"></script>
+        <script src="{% static 'nvd3/nv.d3.js' %}"></script>
+        <script src="{% static 'tablesorter/jquery.tablesorter.js' %}"></script>
+        <script src="{% static 'seumich/index.js' %}"></script>
+        {% block head %}{% endblock %}
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="main-color-white main-navbar-brand navbar-brand"><img id="student-explorer-logo" src="/static/seumich/images/se-logo.svg" alt="student explorer logo">Student Explorer</span>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    {% url 'seumich:advisor' advisor.username as mystudentsurl%}
+                    {% url 'seumich:advisors_list' as advisorsurl %}
+                    <ul class="nav navbar-nav">
+                        <li {% if request.path == mystudentsurl %} class="active" {% endif %}>
+                            <a href="{% url 'seumich:index' %}" data-toggle="collapse" data-target="#navbar.in">My Students</a>
+                        </li>
+                        <li {% if request.path == advisorsurl %} class="active" {% endif %}>
+                            <a href="{% url 'seumich:advisors_list' %}" data-toggle="collapse" data-target="#navbar.in">Advisors</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                            <li class="dropdown hidden-xs hidden-sm">
+                                <a class="dropdown-toggle" aria-label="expand for logout" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{user.username}}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <p>
+                                            <strong>{{user.first_name}}
+                                                {{user.last_name}}</strong>
+                                        </p>
+                                    </li>
+                                    {% if user.is_superuser %}
+                                        <li>
+                                            <a href="{% url 'admin:index' %}">Admin</a>
+                                        </li>
+                                    {% endif %}
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="{% url 'auth_logout' %}">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="visible-xs visible-sm">
+                                <p class="mobile-nav-right">
+                                    <strong>{{user.first_name}}
+                                        {{user.last_name}}
+                                        ({{user.username}})</strong>
+                                </p>
+                            </li>
+                            <li class="visible-xs visible-sm">
+                                <a href="{% url 'auth_logout' %}">Logout</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{{ settings.LOGIN_URL }}" aria-haspopup="true" aria-expanded="false">Login</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    <form action="{% url 'seumich:students_list' %}" method="get" class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label>
+                            <input id="student-search" value="{{ query_user | default_if_none:'' }}" name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-index">
+            {% if messages %}
+                <div class="container alert-message">
+                    {% for message in messages %}
+                        <div class='alert alert-{{ message.tags }} alert-dismissible' role='alert'>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% block content %}{% endblock %}
+            <div class="footer">
+                <div class='feedback center-align visible-md visible-lg'>
+                    <img src="{% static 'seumich/images/feedback.svg' %}" alt="Feedback icon"></img>Help us improve Student Explorer by
+                    <a href="{% url 'feedback:feedback' %}">submitting your feedback</a>
+                </div>
+                <div class='feedback center-align visible-sm visible-xs'>
+                    <a href="{% url 'feedback:feedback' %}">
+                        <button type="button" class="btn btn-sm btn-default">
+                            <img src="{% static 'seumich/images/feedback.svg' %}" alt="Feedback icon"></img>
+                            Submit Feedback</button>
+                    </a>
+                </div>
+                <div class="container-fluid">
+                    <p class="main-color-white">Student Explorer (<a href="{% url 'about' %}" style="text-decoration: none; color: inherit;">2.3.0</a>)
+                        <span class="footer-block">Copyright &copy; 2015 - 2016</span>
+                        <span class="footer-block">The Regents of the University of Michigan</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                },
+                i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-67092539-3', 'auto');
+            ga('send', 'pageview');
+        </script>
+    </body>
+
+</html>

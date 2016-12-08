@@ -1,0 +1,75 @@
+{% load filters %}
+{% load static from staticfiles %}
+
+<h1 class="sub-header">{{ studentListHeader }}</h1>
+{% if students %}
+    <hr class="main-no-margin-top"/>
+    <h2 class="list-header">Students</h2>
+{% endif %}
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Name</strong>
+                </th>
+                <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Student ID</strong>
+                </th>
+                <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Status</strong>
+                </th>
+                <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Cohorts</strong>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <th scope="row" class="bold">
+                        <a href="{% url 'seumich:student' student.username %}">{{ student.first_name }}
+                            {{ student.last_name }}</a>
+                    </th>
+                    <td class="hide-small">{{ student.univ_id }}</td>
+                    <td>
+                        {% for element in student.studentclasssitestatus_set.all %}
+                            {% with class_site=element.class_site %}
+                            <a href="{% url 'seumich:student_class' student.username class_site.code %}" class="class-site-status-link">
+                                {% with status=element.status %}
+                                {% if status.description == 'Green' %}
+                                    <span data-toggle="tooltip" title="{{ class_site.description }}: Encourage" data-placement="bottom">
+                                        <img src="{% static 'seumich/images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
+                                    </span>
+                                {% elif status.description == 'Yellow' %}
+                                    <span data-toggle="tooltip" title="{{ class_site.description }}: Explore" data-placement="bottom">
+                                        <img src="{% static 'seumich/images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
+                                    </span>
+                                {% elif status.description == 'Red' %}
+                                    <span data-toggle="tooltip" title="{{ class_site.description }}: Engage" data-placement="bottom">
+                                        <img src="{% static 'seumich/images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
+                                    </span>
+                                {% elif status.description == 'Not Applicable' %}
+                                    <span data-toggle="tooltip" title="{{ class_site.description }}: No data" data-placement="bottom">
+                                        <img src="{% static 'seumich/images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
+                                    </span>
+                                {% endif %}
+                                {% endwith %}
+                            </a>
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+                    <td class="hide-small">
+                        {% for cohort in student.cohorts.all %}
+                            <div>{{ cohort }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% include 'seumich/paginated_list.html' %}
+
+</div>

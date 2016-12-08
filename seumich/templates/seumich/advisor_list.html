@@ -1,0 +1,35 @@
+{% extends 'seumich/advisor.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <script src='{% static 'seumich/sort_table.js' %}'></script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container content">
+        <h2 class="sub-header list-header">All Advisors</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="hide-small">
+                            <a href="#" onClick="return false;">Name</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for advisor in advisors %}
+                        <tr>
+                            <th scope="row" class="bold">
+                                <a href="{% url 'seumich:advisor' advisor.username %}">{{ advisor.first_name }}
+                                    {{ advisor.last_name }}</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

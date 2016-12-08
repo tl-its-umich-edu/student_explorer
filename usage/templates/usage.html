@@ -1,0 +1,75 @@
+{% extends 'student_explorer/index.html' %}
+{% load filters %}
+
+{% block content %}
+
+    <div class="container content">
+        <h1 class="sub-header">Usage Statistics</h1>
+        {% now "Y" as current_year %}
+        <a class="btn btn-primary btn-xs count-data" href='{% url "usage:usage_download" %}'>Download Users for the Academic Year
+            {{current_year|add:-1}}-{{current_year}}
+            <span class="badge">
+                {{usersCount}}
+            </span>
+        </a>
+        <p class="btn btn-primary btn-xs count-data">Unique Students Viewed for the Academic Year
+            {{current_year|add:-1}}-{{current_year}}
+            <span class="badge">
+                {{studentsCount}}
+            </span>
+        </p>
+        <hr/>
+
+        <script>
+            function getDateOfISOWeek(w, y) {
+                var simple = new Date(y, 0, 1 + (w - 1) * 7);
+                var dow = simple.getDay();
+                var ISOweekStart = simple;
+                if (dow <= 4)
+                    ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+                else
+                    ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+                return ISOweekStart;
+            }
+
+            function drawLineChart(div) {
+                nv.addGraph(function () {
+                    var chart = nv.models.lineChart().useInteractiveGuideline(true).transitionDuration(350);
+                    var myData = {{ dailyData|safe }};
+
+                    chart.x(function (d) {
+                        return d.date * 1000;
+                    });
+                    chart.y(function (d) {
+                        return d.count;
+                    });
+                    chart.xAxis.tickFormat(function (d) {
+                        return d3.time.format('%Y-%m-%d')(new Date(d));
+                    });
+
+                    chart.xAxis.rotateLabels(-65);
+                    chart.margin({bottom: 100});
+                    d3.select('#' + div + ' svg').datum(myData).call(chart);
+
+                    nv.utils.windowResize(function () {
+                        chart.update()
+                    });
+                    return chart;
+                });
+            }
+        </script>
+
+        <div class="row charts no-margin">
+            <h4>Daily Unique Users / Unique Students Viewed</h4>
+            <small class="note">This graph shows the daily number of unique users and unique students viewed</small>
+            <div id="chartunique" style="height: 100%;">
+                <svg></svg>
+            </div>
+            <script>
+                drawLineChart('chartunique');
+            </script>
+        </div>
+
+    </div>
+
+{% endblock %}

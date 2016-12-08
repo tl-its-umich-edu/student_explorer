@@ -1,7 +1,10 @@
 Django==1.9
-mysql-python
-djangorestframework
-django-filter
-django-crispy-forms
-python-ldap
-requests
+mysql-python==1.2.5
+python-ldap==2.4.27
+requests==2.11.1
+django-watchman==0.11.0
+django-registration-redux==1.4
+django-extensions==1.7.4
+whitenoise==3.2.2
+djangosaml2==0.14.5
+django-debug-toolbar==1.6

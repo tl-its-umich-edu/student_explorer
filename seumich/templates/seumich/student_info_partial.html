@@ -1,0 +1,15 @@
+{% if link_present %}
+    <a class="student-detail-student-name-link" href="{% url 'seumich:student' student.username %}">
+        <h1 class="student-detail-student-name">{{student.first_name}}
+            {{student.last_name}}</h1>
+    </a>
+{% else %}
+    <h1 class="student-detail-student-name">{{student.first_name}}
+        {{student.last_name}}</h1>
+{% endif %}
+
+<p class="student-detail-student-id">Student ID:
+    {{ student.univ_id }}</p>
+<p class="student-detail-student-email">
+    <a href="mailto:{{student.email_address}}" class="student-detail-student-email-link">{{student.email_address}}</a>
+</p>

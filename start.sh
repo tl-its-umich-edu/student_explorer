@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
-if [ -z "${DJANGO_SETTINGS_MODULE}" ]; then
-    export DJANGO_SETTINGS_MODULE=student_explorer.settings.env
-fi
+echo $DJANGO_SETTINGS_MODULE
 
 if [ -z "${GUNICORN_WORKERS}" ]; then
-    GUNICORN_WORKERS=2
+    GUNICORN_WORKERS=4
 fi
 
 if [ -z "${GUNICORN_PORT}" ]; then
@@ -13,9 +11,6 @@ if [ -z "${GUNICORN_PORT}" ]; then
 fi
 
 set -x
-
-python manage.py migrate
-python manage.py collectstatic --noinput
 
 gunicorn \
     --workers="${GUNICORN_WORKERS}" \

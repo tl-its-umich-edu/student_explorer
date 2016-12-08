@@ -7,11 +7,12 @@ Vagrant.configure(2) do |config|
         v.memory = 2048
     end
 
-    config.vm.network "forwarded_port", guest: 22,   host: 2022
-    config.vm.network "forwarded_port", guest: 8000, host: 2080
-    config.vm.network "forwarded_port", guest: 80,   host: 2081
-    config.vm.network "forwarded_port", guest: 3306, host: 2033
-    config.vm.network "forwarded_port", guest: 9000,   host: 2090
+    config.vm.network "forwarded_port", guest: 8000, host: 2082
+    config.vm.network "forwarded_port", guest: 3306, host: 2034
+
+    if File.directory?("../django-unizindata/unizindata/")
+        config.vm.synced_folder "../django-unizindata/unizindata/", "/usr/local/lib/python2.7/dist-packages/unizindata"
+    end
 
     config.vm.provision "shell", inline: <<-SHELL
         set -xe
@@ -28,10 +29,7 @@ Vagrant.configure(2) do |config|
         debconf-set-selections <<< 'mysql-server mysql-server/root_password password 12345'
         debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password 12345'
 
-        apt-get --no-install-recommends install --yes mysql-server libmysqlclient-dev
-        apt-get --no-install-recommends install --yes python-pip python-dev
-        apt-get --no-install-recommends install --yes apache2 apache2-utils
-        apt-get --no-install-recommends install --yes libldap2-dev libsasl2-dev
+        apt-get --no-install-recommends install --yes mysql-server libmysqlclient-dev python-pip python-dev apache2 apache2-utils libldap2-dev libsasl2-dev libfontconfig xmlsec1 libffi-dev build-essential
 
         echo -e "[mysqld]\nbind-address = 0.0.0.0" > /tmp/mysqld_bind_vagrant.cnf
         mv -f /tmp/mysqld_bind_vagrant.cnf /etc/mysql/conf.d/
@@ -61,21 +59,8 @@ EOM
         pip install coverage
         pip install -r requirements.txt
 
-        if [ ! -e student_explorer/settings/local.py ]; then
-            cp student_explorer/settings/local_sample.py student_explorer/settings/local.py
-        fi
-
-        echo "Installing Bower..."        
-        cd /vagrant
-        apt-get update
-        apt-get install --yes git
-        curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
-        apt-get install --yes nodejs
-        npm install --global npm@latest
-        npm install --global bower
-
-        if [ -d /vagrant/student_explorer/extras ]; then
-            cd /vagrant/student_explorer/extras
+        if [ -d /vagrant/student_explorer/dependencies ]; then
+            cd /vagrant/student_explorer/dependencies
             ls *.deb; if [ $? -eq 0 ]; then
                 apt-get --no-install-recommends install --yes libaio1 libaio-dev
                 dpkg -i *.deb
@@ -86,6 +71,23 @@ EOM
                 ldconfig
                 pip install cx_Oracle
             fi
+            cd /vagrant
         fi
+
+        # Make a python package:
+        touch student_explorer/local/__init__.py
+
+        # Create default settings_override module:
+        echo -e "from student_explorer.settings import *\n\nDEBUG = True" > student_explorer/local/settings_override.py
+
+        # Migrate database to create tables, etc.:
+        python manage.py migrate
+
+        # Load test user data:
+        python manage.py loaddata student_explorer/fixtures/dev_users.json
+
+        # Load test advising data:
+        mysql -h 127.0.0.1 -u student_explorer -pstudent_explorer student_explorer < seumich/fixtures/dev_data_drop_create_and_insert.sql
+
     SHELL
 end

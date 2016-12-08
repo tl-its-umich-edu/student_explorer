@@ -1,0 +1,20 @@
+{% extends 'seumich/student.html' %}
+
+{% block content %}
+    <div class="container content">
+        {% if not students %}
+            {% if user.is_authenticated %}
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">No Results</h3>
+                    </div>
+                    <div class="panel-body">
+                        No students found that match the query terms.
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+            {% include 'seumich/student_list_partial.html' %}
+        {% endif %}
+    </div>
+{% endblock %}

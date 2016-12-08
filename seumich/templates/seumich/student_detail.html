@@ -1,0 +1,126 @@
+{% extends 'seumich/student.html' %}
+{% load filters %}
+
+{% block head %}
+    {% load staticfiles %}
+    <script src='{% static "seumich/student.js" %}'></script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid content">
+        <div class="student-detail-main-menu">
+            <div class="student-detail-main-menu-top">
+                {% include 'seumich/student_info_partial.html' with link_present=False %}
+            </div>
+        </div>
+        <div class="student-detail-main">
+            <h2>Courses Summary</h2>
+            <hr class="main-no-margin-top"/>
+            <div class="student-detail-summary-content">
+                <div>
+                    {% if not classSites %}
+                        <div>
+                            <p>There is no class site data for this student.</p>
+                        </div>
+                    {% else %}
+                        <div class="container-fluid">
+                            <div class="row hide-small-grid">
+                                <div class="col-md-3">
+                                    <strong class="table-column-name">Course Site</strong>
+                                </div>
+                                <div class="col-md-2">
+                                    <strong class="table-column-name">Status</strong>
+                                </div>
+                                <div class="col-md-7">
+                                    <strong class="table-column-name">Current Percentage</strong>
+                                </div>
+                            </div>
+                            <hr class="main-no-margin-top hide-small-grid"/>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2 mobile-inline">
+                                    <p class="legend-text">
+                                        <span class="legend-key student-legend-key"></span>Student</p>
+                                </div>
+                                <div class="col-md-2 mobile-inline">
+                                    <p class="legend-text">
+                                        <span class="legend-key class-legend-key"></span>Class Average</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            {% for element in classSites %}
+                                <hr class="main-no-margin-top hide-small-grid"/>
+                                {% with class_site=element.class_site %}
+                                <a class="class-site-title" href="/students/{{student.username}}/class_sites/{{class_site.code}}/">
+                                    <div class="row student-desc">
+                                        <div class="col-md-3 mobile-inline class-site">
+                                            <h3 class="student-course-list">{{ class_site.description }}</h3>
+                                        </div>
+                                        <div class="col-md-2 mobile-inline status-icon">
+                                            {% with status=element.status %}
+                                            {% if status.description == 'Green' %}
+                                                <span data-toggle="tooltip" title="Encourage" data-placement="bottom">
+                                                    <img src="{% static 'seumich/images/Status_Icons_Green.png' %}" alt="Green encourage status icon" width="25px" hspace="3"></img>
+                                                </span>
+                                            {% elif status.description == 'Yellow' %}
+                                                <span data-toggle="tooltip" title="Explore" data-placement="bottom">
+                                                    <img src="{% static 'seumich/images/Status_Icons_Yellow.png' %}" alt="Yellow explore status icon" width="25px" hspace="3"></img>
+                                                </span>
+                                            {% elif status.description == 'Red' %}
+                                                <span data-toggle="tooltip" title="Engage" data-placement="bottom">
+                                                    <img src="{% static 'seumich/images/Status_Icons_Red.png' %}" alt="Red engage status icon" width="25px" hspace="3"></img>
+                                                </span>
+                                            {% elif status.description == 'Not Applicable' %}
+                                                <span data-toggle="tooltip" title="No data" data-placement="bottom">
+                                                    <img src="{% static 'seumich/images/Status_Icons_Not Applicable.png' %}" alt="no status available for this course icon" width="25px" hspace="3"></img>
+                                                </span>
+                                            {% endif %}
+                                            {% endwith %}
+                                        </div>
+                                        <div class="col-md-7">
+                                            {% with student_score=class_site.studentclasssitescore_set.all|get_score class_score=class_site.classsitescore_set.all|get_score %}
+                                            <div class="average-bar-container">
+                                                <div class="average-bar student-average-bar" role="progressbar" aria-valuenow="{{ student_score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ student_score|get_bar_width:class_score|multiply:0.9 }}%;">
+                                                    <p class="average-bar-text">{{ student_score }}%</p>
+                                                    <span class="sr-only">Student Percentage:
+                                                        {{ student_score }}%</span>
+                                                </div>
+                                            </div>
+                                            <div class="average-bar-container">
+                                                <div class="average-bar class-average-bar" role="progressbar" aria-valuenow="{{ class_score }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ class_score|get_bar_width:student_score|multiply:0.9 }}%;">
+                                                    <p class="average-bar-text">{{ class_score }}%</p>
+                                                    <span class="sr-only">Class Average Percentage:
+                                                        {{ class_score }}%</span>
+                                                </div>
+                                            </div>
+                                            {% endwith %}
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endwith %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="student-info">
+                <strong>
+                    <a class="unsortable">Advisors:
+                    </a>
+                </strong>
+                {% for element in advisors %}
+                    {% with mentor=element.mentor cohort=element.cohort %}
+                    <p class="advisor-names">
+                        <a href="{% url 'seumich:advisor' mentor.username %}">{{ mentor.first_name }}
+                            {{ mentor.last_name }}</a>
+                        <span class="glyphicon glyphicon-info-sign comma" aria-hidden="true" title="{{ cohort }}" data-toggle="tooltip" data-placement="bottom" tooltip></span>
+                    </p>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

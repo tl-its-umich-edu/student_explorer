@@ -15,43 +15,35 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.views.static import serve
 from django.conf import settings
-
-import hashredirect.views
-
-if settings.DEBUG:
-    document_root = 'sespa/app'
-else:
-    document_root = 'sespa/dist'
+import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^check/', include('statuscheck.urls')),
-
-    url(r'^api/', include('advising.urls')),
-    url(r'^api/users/', include('umichuser.urls')),
-
-    url(r'^$', hashredirect.views.login_or_serve, {
-        'document_root': document_root,
-        'path': 'index.html'
-    }, name='app-root'),
-
-    url(r'^login/$', hashredirect.views.login_redirect,
-        name='hashredirect-login-redirect'),
-    url(r'^logout/$', hashredirect.views.logout_redirect,
-        name='hashredirect-logout-redirect'),
+    url(r'^', include('seumich.urls', namespace='seumich')),
+    url(r'^status/', include('watchman.urls')),
+    url(r'^feedback/', include('feedback.urls', namespace='feedback')),
+    url(r'^usage/', include('usage.urls', namespace='usage')),
 ]
 
+if 'djangosaml2' in settings.INSTALLED_APPS:
+    urlpatterns += (
+        url(r'^accounts/', include('djangosaml2.urls')),
+    )
+elif 'registration' in settings.INSTALLED_APPS:
+    urlpatterns += (
+        url(r'^accounts/', include('registration.backends.default.urls')),
+    )
+
+# Override auth_logout from djangosaml2 and registration for consistant
+# behavior
+urlpatterns.append(url(r'^accounts/logout', views.logout, name='auth_logout'))
+urlpatterns.append(url(r'^about', views.about, name='about'))
+
+
+# Configure Django Debug Toolbar
 if settings.DEBUG:
+    import debug_toolbar
     urlpatterns += [
-        url(r'^bower_components/(?P<path>.*)$', serve, {
-            'document_root': 'sespa/bower_components',
-        }),
+        url(r'^__debug__/', include(debug_toolbar.urls)),
     ]
-
-urlpatterns += [
-    url(r'^(?P<path>.*)$', serve, {
-        'document_root': document_root,
-    }),
-]
