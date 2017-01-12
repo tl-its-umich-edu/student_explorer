@@ -26,7 +26,6 @@ urlpatterns = [
     url(r'^status/', include('watchman.urls')),
     url(r'^feedback/', include('feedback.urls', namespace='feedback')),
     url(r'^usage/', include('usage.urls', namespace='usage')),
-
 ]
 
 if 'djangosaml2' in settings.INSTALLED_APPS:
