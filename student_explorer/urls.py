@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('seumich.urls', namespace='seumich')),
     url(r'^status/', include('watchman.urls')),
+    url(r'^manage/', include('management.urls')),
     url(r'^feedback/', include('feedback.urls', namespace='feedback')),
     url(r'^usage/', include('usage.urls', namespace='usage')),
 ]

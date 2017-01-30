@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http.response import HttpResponseForbidden
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 
 
 class StaffRequiredMixin(object):
@@ -16,4 +16,12 @@ class StaffRequiredMixin(object):
 
 
 class IndexView(TemplateView, StaffRequiredMixin):
+    template_name = 'management/index.html'
+
+
+class UserListView(ListView, StaffRequiredMixin):
+    template_name = 'management/index.html'
+
+
+class CohortListView(ListView, StaffRequiredMixin):
     template_name = 'management/index.html'

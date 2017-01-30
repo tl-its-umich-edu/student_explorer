@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'watchman',
     'student_explorer',
     'seumich',
+    'management',
     'tracking',
     'feedback',
     'usage',
