@@ -3,14 +3,25 @@ from __future__ import unicode_literals
 from django.db import models
 
 
+class Advisor(models.Model):
+    username = models.CharField(max_length=20)
+
+
 class Cohort(models.Model):
     code = models.CharField(max_length=50)
-    description = models.CharField(max_length=100)
+    label = models.CharField(max_length=100)
     group = models.CharField(max_length=50)
     active = models.BooleanField(default=True)
 
 
 class Student(models.Model):
     username = models.CharField(max_length=20)
+
+
+class StudentAdvisorCohort(models.Model):
+    advisor = models.ForeignKey(Advisor)
+    student = models.ForeignKey(Student)
     cohort = models.ForeignKey(Cohort)
-    mentor_username = models.CharField(max_length=20)
+
+    class Meta:
+        unique_together = ('student', 'cohort', 'advisor')
