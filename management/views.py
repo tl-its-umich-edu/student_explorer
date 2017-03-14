@@ -7,7 +7,7 @@ from django.views.generic.edit import FormView
 
 from management.forms import CohortForm
 
-from .models import Student, Advisor, Cohort, StudentAdvisorCohort
+from .models import Student, Mentor, Cohort, StudentCohortMentor
 
 import csv
 
@@ -55,15 +55,16 @@ class BaseCohortView(FormView, StaffRequiredMixin):
         for member in members:
             record = member.split(delimiter)
             student, created = Student.objects.get_or_create(
-                username=record[0])
-            advisor, created = Advisor.objects.get_or_create(
-                username=record[1])
+                username=record[0].strip())
+            mentor, created = Mentor.objects.get_or_create(
+                username=record[1].strip())
             cohort = form.save()
-            (StudentAdvisorCohort
+            (StudentCohortMentor
              .objects
              .get_or_create(student=student,
-                            advisor=advisor,
-                            cohort=cohort))
+                            cohort=cohort,
+                            mentor=mentor
+                            ))
 
 
 class AddCohortView(BaseCohortView):

@@ -33,4 +33,4 @@ class CohortForm(forms.ModelForm):
 
     class Meta:
         model = Cohort
-        fields = ('code', 'description',)
+        fields = ('code', 'description', 'group',)
