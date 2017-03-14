@@ -18,6 +18,11 @@
                     <td>{{ cohort.group }}</td>
                     <td>
                         <a href="">deactivate</a>
+                        |
+                        <a href="{% url 'management:edit-cohort' cohort.code %}">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            Edit Cohort
+                        </a>
                     </td>
                 </tr>
                 {% empty %}

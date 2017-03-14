@@ -1,8 +1,8 @@
 {% extends 'management/base.html' %}
 
 {% block management %}
-<ul>
-    <li><a href="{% url 'management:cohort-list' %}">Cohorts</a></li>
-    <li><a href="{% url 'management:user-list' %}">Users</a></li>
+<ul class="list-group">
+    <li class="list-group-item"><a href="{% url 'management:cohort-list' %}">Cohorts</a></li>
+    <li class="list-group-item"><a href="{% url 'management:user-list' %}">Users</a></li>
 </ul>
 {% endblock %}
