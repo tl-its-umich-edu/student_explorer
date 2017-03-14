@@ -3,8 +3,13 @@
 {% block management %}
 
     <form action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Add Cohort"/>
+        {% for field in form %}
+            <div class="form-group {% if field.errors %} has-error {% endif %}">
+                {{ field.errors }}
+                {{ field.label_tag }} {{ field }}
+            </div>
+        {% endfor %}
+        <input type="submit" class="btn btn-success" value="Add Cohort"/>
     </form>
 
 {% endblock %}
