@@ -1,6 +1,15 @@
 {% extends 'management/base.html' %}
 
 {% block management %}
+    <a class="btn btn-default" href="{% url 'management:cohort-list-download' %}">
+        <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+        Download TLA_Cohort_USELAB
+    </a>
+    <a class="btn btn-default" href="{% url 'management:cohort-detail-download' %}">
+        <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+        Download TLA_StudentCohortMentor_USELAB
+    </a>
+    <hr/>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -13,7 +22,11 @@
         <tbody>
             {% for cohort in object_list %}
                 <tr>
-                    <td>{{ cohort.code }}</td>
+                    <td>
+                        <a href="{% url 'management:cohort-detail' cohort.code %}">
+                            {{ cohort.code }}
+                        </a>
+                    </td>
                     <td>{{ cohort.description }}</td>
                     <td>{{ cohort.group }}</td>
                     <td>

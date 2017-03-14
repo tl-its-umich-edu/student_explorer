@@ -1,0 +1,27 @@
+{% extends 'management/base.html' %}
+
+{% block management %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Student Username</th>
+                <th>Cohort Code</th>
+                <th>Advisor Username</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.student.username }}</td>
+                    <td>{{ object.cohort.code }}</td>
+                    <td>{{ object.mentor.username }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">None Found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include 'management/pagination.html' %}
+{% endblock %}

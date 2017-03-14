@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http.response import HttpResponseForbidden
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, View
 from django.views.generic.edit import FormView
+from django.http import StreamingHttpResponse
 
 from management.forms import CohortForm
 
@@ -14,6 +15,12 @@ import csv
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
+
+
+class Echo(object):
+
+    def write(self, value):
+        return value
 
 
 class StaffRequiredMixin(object):
@@ -41,6 +48,19 @@ class CohortListView(ListView, StaffRequiredMixin):
     template_name = 'management/cohort_list.html'
     model = Cohort
     paginate_by = 50
+
+
+class CohortDetailView(ListView, StaffRequiredMixin):
+    template_name = 'management/cohort_detail.html'
+    model = StudentCohortMentor
+    paginate_by = 50
+
+    def get_queryset(self):
+        return (self.model.objects
+                .filter(cohort__code=self.kwargs['code'])
+                .prefetch_related('student',
+                                  'cohort',
+                                  'mentor'))
 
 
 class BaseCohortView(FormView, StaffRequiredMixin):
@@ -93,3 +113,44 @@ class EditCohortView(BaseCohortView):
             self.process_form(form)
             return redirect(self.success_url)
         return render(request, self.template_name, {'form': form})
+
+
+class CohortListDownloadView(View, StaffRequiredMixin):
+
+    def iter_csv(self, rows, header, file_obj):
+        writer = csv.writer(file_obj, delimiter='\t')
+        yield writer.writerow(header)
+        for row in rows:
+            yield writer.writerow(row)
+
+    def render_to_csv(self, header, rows, fname):
+        response = (StreamingHttpResponse(
+            self.iter_csv(rows,
+                          header,
+                          Echo()),
+            content_type="text/tab-separated-values"))
+        response['Content-Disposition'] = 'attachment; filename="%s"' % fname
+        return response
+
+    def get(self, request, *args, **kwargs):
+        headers = ('CohortCode', 'CohortDescription', 'CohortGroup')
+        rows = (Cohort.objects
+                .values_list('code',
+                             'description',
+                             'group'))
+        return self.render_to_csv(headers,
+                                  rows,
+                                  'TLA_Cohort_USELAB.dat')
+
+
+class CohortDetailDownloadView(CohortListDownloadView):
+
+    def get(self, request, *args, **kwargs):
+        headers = ('StudentUniqname', 'CohortCode', 'MentorUniqname')
+        rows = (StudentCohortMentor.objects
+                .values_list('student__username',
+                             'cohort__code',
+                             'mentor__username'))
+        return self.render_to_csv(headers,
+                                  rows,
+                                  'TLA_StudentCohortMentor_USELAB.dat')
