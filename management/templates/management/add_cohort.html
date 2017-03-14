@@ -1,12 +1,23 @@
 {% extends 'management/base.html' %}
 
 {% block management %}
+    <p class="bg-info">The first column in 'Members' field should be Student Uniquenames and the second column should be Advisor Uniquenames. Do not add headers.</p>
+    <p class="bg-info">Please add only 2 columns in 'Members' field seperated by one of the following delimiters:
+        <mark>Tab</mark>
+        |
+        <mark>Comma</mark>
+        |
+        <mark>Space</mark>.
+        The delimiter used should be consistent across rows.
+    </p>
+    <hr/>
 
     <form action="" method="post">{% csrf_token %}
         {% for field in form %}
             <div class="form-group {% if field.errors %} has-error {% endif %}">
                 {{ field.errors }}
-                {{ field.label_tag }} {{ field }}
+                {{ field.label_tag }}
+                {{ field }}
             </div>
         {% endfor %}
         <input type="submit" class="btn btn-success" value="Add Cohort"/>
