@@ -34,11 +34,13 @@ class IndexView(TemplateView, StaffRequiredMixin):
 class UserListView(ListView, StaffRequiredMixin):
     template_name = 'management/user_list.html'
     model = User
+    paginate_by = 50
 
 
 class CohortListView(ListView, StaffRequiredMixin):
     template_name = 'management/cohort_list.html'
     model = Cohort
+    paginate_by = 50
 
 
 class BaseCohortView(FormView, StaffRequiredMixin):
