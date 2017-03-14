@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^users/$', views.UserListView.as_view(), name='user-list'),
     url(r'^cohorts/$', views.CohortListView.as_view(), name='cohort-list'),
+    url(r'^cohorts/add/$', views.AddCohortView.as_view(), name='add-cohort'),
 ]

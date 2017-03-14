@@ -4,18 +4,18 @@ from django.db import models
 
 
 class Advisor(models.Model):
-    username = models.CharField(max_length=20)
+    username = models.CharField(max_length=20, primary_key=True)
 
 
 class Cohort(models.Model):
-    code = models.CharField(max_length=50)
-    label = models.CharField(max_length=100)
+    code = models.CharField(max_length=50, primary_key=True)
+    description = models.CharField(max_length=100)
     group = models.CharField(max_length=50)
     active = models.BooleanField(default=True)
 
 
 class Student(models.Model):
-    username = models.CharField(max_length=20)
+    username = models.CharField(max_length=20, primary_key=True)
 
 
 class StudentAdvisorCohort(models.Model):

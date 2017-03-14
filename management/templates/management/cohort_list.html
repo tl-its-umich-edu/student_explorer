@@ -3,26 +3,25 @@
 {% block management %}
     <table>
         <thead>
-            <tr>
-                <th>Code</th>
-                <th>Description</th>
-                <th></tr>
-            </thead>
-            <tbody>
-                {% for cohort in object_list %}
-                    <tr>
-                        <td>{{ cohort.code }}</td>
-                        <td>{{ cohort.description }}</td>
-                        <td>
-                            <a href="">deactiveate</a>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="2">none found</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-    {% endblock %}
+            <th>Code</th>
+            <th>Description</th>
+            <th></th>
+        </thead>
+        <tbody>
+            {% for cohort in object_list %}
+                <tr>
+                    <td>{{ cohort.code }}</td>
+                    <td>{{ cohort.description }}</td>
+                    <td>
+                        <a href="">deactivate</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">none found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'management:add-cohort' %}">Add Cohort</a>
+{% endblock %}
