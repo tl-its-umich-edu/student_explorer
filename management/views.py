@@ -117,7 +117,7 @@ class EditCohortView(BaseCohortView):
 
 class CohortListDownloadView(View, StaffRequiredMixin):
 
-    def iter_csv(self, rows, header, file_obj):
+    def iter_qs(self, rows, header, file_obj):
         writer = csv.writer(file_obj, delimiter='\t')
         yield writer.writerow(header)
         for row in rows:
@@ -125,9 +125,9 @@ class CohortListDownloadView(View, StaffRequiredMixin):
 
     def render_to_csv(self, header, rows, fname):
         response = (StreamingHttpResponse(
-            self.iter_csv(rows,
-                          header,
-                          Echo()),
+            self.iter_qs(rows,
+                         header,
+                         Echo()),
             content_type="text/tab-separated-values"))
         response['Content-Disposition'] = 'attachment; filename="%s"' % fname
         return response
@@ -150,7 +150,7 @@ class CohortDetailDownloadView(CohortListDownloadView):
         rows = (StudentCohortMentor.objects
                 .values_list('student__username',
                              'cohort__code',
-                             'mentor__username'))
+                             'mentor__username').order_by('id'))
         return self.render_to_csv(headers,
                                   rows,
                                   'TLA_StudentCohortMentor_USELAB.dat')
