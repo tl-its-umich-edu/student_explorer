@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http.response import HttpResponseForbidden
@@ -97,22 +97,6 @@ class AddCohortView(BaseCohortView):
             self.process_form(form)
             return redirect(self.success_url)
         return self.render_to_response(self.get_context_data(**kwargs))
-
-
-class EditCohortView(BaseCohortView):
-
-    def get(self, request, *args, **kwargs):
-        instance = get_object_or_404(Cohort, code=self.kwargs['code'])
-        form = self.form_class(instance=instance)
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request, *args, **kwargs):
-        instance = get_object_or_404(Cohort, code=self.kwargs['code'])
-        form = self.form_class(request.POST or None, instance=instance)
-        if form.is_valid():
-            self.process_form(form)
-            return redirect(self.success_url)
-        return render(request, self.template_name, {'form': form})
 
 
 class CohortListDownloadView(View, StaffRequiredMixin):

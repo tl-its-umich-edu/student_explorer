@@ -14,8 +14,6 @@ class CohortForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
             })
-        if 'instance' in kwargs:
-            self.fields['code'].widget.attrs['readonly'] = True
 
     def clean_members(self):
         data = self.cleaned_data['members']
