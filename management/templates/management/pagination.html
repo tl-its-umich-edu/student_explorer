@@ -3,7 +3,7 @@
         <ul class="pagination">
             {% if page_obj.has_previous %}
                 <li>
-                    <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
                 </li>
             {% else %}
                 <li class="disabled">
@@ -19,13 +19,13 @@
                     </li>
                 {% else %}
                     <li>
-                        <a href="?page={{ i }}">{{ i }}</a>
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                     </li>
                 {% endif %}
             {% endfor %}
             {% if page_obj.has_next %}
                 <li>
-                    <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
                 </li>
             {% else %}
                 <li class="disabled">

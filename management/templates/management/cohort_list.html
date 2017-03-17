@@ -1,5 +1,10 @@
 {% extends 'management/base.html' %}
 
+{% block head %}
+    {% load staticfiles %}
+    <script src='{% static "management/cohort_list.js" %}'></script>
+{% endblock %}
+
 {% block management %}
     <a class="btn btn-default btn-sm" href="{% url 'management:cohort-list-download' %}">
         <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
@@ -10,39 +15,80 @@
         Download TLA_StudentCohortMentor_USELAB.dat
     </a>
     <hr/>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Code</th>
-                <th>Description</th>
-                <th>Group</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for cohort in object_list %}
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" value="" id="allCohorts">Show All Cohorts (Active + InActive)
+        </label>
+    </div>
+    <div id="resultsTable" data-url="{% url 'management:cohort-list' %}">
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>
-                        <a href="{% url 'management:cohort-detail' cohort.code %}">
-                            {{ cohort.code }}
-                        </a>
-                    </td>
-                    <td>{{ cohort.description }}</td>
-                    <td>{{ cohort.group }}</td>
-                    <td>
-                        <a href="">Deactivate</a>
-                    </td>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>Group</th>
+                    <th>Action</th>
                 </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4">None Found</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'management:add-cohort' %}" class="btn btn-info">
-        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-        Add Cohort
-    </a>
-    {% include 'management/pagination.html' %}
+            </thead>
+            <tbody>
+                {% for cohort in object_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'management:cohort-detail' cohort.code %}">
+                                {{ cohort.code }}
+                            </a>
+                        </td>
+                        <td>{{ cohort.description }}</td>
+                        <td>{{ cohort.group }}</td>
+                        <td>
+
+                            <a data-toggle="modal" href="#ActionModal-{{ cohort.code }}">
+                                {% if cohort.active %}
+                                    Deactivate
+                                {% else %}
+                                    Activate
+                                {% endif %}
+                            </a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="ActionModal-{{ cohort.code }}" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Are you sure?</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to
+                                                {% if cohort.active %}
+                                                    deactivate
+                                                {% else %}
+                                                    activate
+                                                {% endif %}
+                                                {{ cohort.code }}?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger submit" id="{{ cohort.code }}" data-dismiss="modal" data-action={% if cohort.active %} "deactivate" {% else %} "activate" {% endif %}>Yes</button>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">None Found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'management:add-cohort' %}" class="btn btn-info">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            Add Cohort
+        </a>
+        {% include 'management/pagination.html' %}
+    </div>
 {% endblock %}

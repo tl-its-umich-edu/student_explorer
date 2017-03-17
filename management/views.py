@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http.response import HttpResponseForbidden
@@ -48,6 +48,31 @@ class CohortListView(ListView, StaffRequiredMixin):
     template_name = 'management/cohort_list.html'
     model = Cohort
     paginate_by = 50
+
+    def get(self, request, *args, **kwargs):
+        return super(CohortListView, self).get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        checked = self.request.POST.get('checked', None)
+        if checked and checked == 'all':
+            cohort_list = self.model.objects.all()
+        else:
+            cohort_list = self.model.objects.filter(active=True)
+        return cohort_list
+
+    def post(self, request, *args, **kwargs):
+        code = request.POST.get('code', None)
+        action = request.POST.get('action', None)
+        if code and action:
+            if action == 'activate':
+                instance = get_object_or_404(Cohort, code=code)
+                instance.active = True
+                instance.save()
+            if action == 'deactivate':
+                instance = get_object_or_404(Cohort, code=code)
+                instance.active = False
+                instance.save()
+        return self.get(request, *args, **kwargs)
 
 
 class CohortDetailView(ListView, StaffRequiredMixin):
@@ -119,6 +144,7 @@ class CohortListDownloadView(View, StaffRequiredMixin):
     def get(self, request, *args, **kwargs):
         headers = ('CohortCode', 'CohortDescription', 'CohortGroup')
         rows = (Cohort.objects
+                .filter(active=True)
                 .values_list('code',
                              'description',
                              'group'))
@@ -132,6 +158,7 @@ class CohortDetailDownloadView(CohortListDownloadView):
     def get(self, request, *args, **kwargs):
         headers = ('StudentUniqname', 'CohortCode', 'MentorUniqname')
         rows = (StudentCohortMentor.objects
+                .filter(cohort__active=True)
                 .values_list('student__username',
                              'cohort__code',
                              'mentor__username').order_by('id'))
