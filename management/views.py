@@ -5,6 +5,7 @@ from django.http.response import HttpResponseForbidden
 from django.views.generic import TemplateView, ListView, View
 from django.views.generic.edit import FormView
 from django.http import StreamingHttpResponse
+from django.conf import settings
 
 from management.forms import CohortForm
 
@@ -28,27 +29,33 @@ class StaffRequiredMixin(object):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_staff:
-            return HttpResponseForbidden
-
+        token = request.GET.get('token', None)
+        if not token or token != settings.DOWNLOAD_TOKEN:
+            if not request.user.is_staff:
+                return HttpResponseForbidden()
         return super(StaffRequiredMixin, self).dispatch(request,
                                                         *args, **kwargs)
 
 
-class IndexView(TemplateView, StaffRequiredMixin):
+class IndexView(StaffRequiredMixin, TemplateView):
     template_name = 'management/index.html'
 
 
-class UserListView(ListView, StaffRequiredMixin):
+class UserListView(StaffRequiredMixin, ListView):
     template_name = 'management/user_list.html'
     model = User
     paginate_by = 50
 
 
-class CohortListView(ListView, StaffRequiredMixin):
+class CohortListView(StaffRequiredMixin, ListView):
     template_name = 'management/cohort_list.html'
     model = Cohort
     paginate_by = 50
+
+    def get_context_data(self, **kwargs):
+        context = super(CohortListView, self).get_context_data(**kwargs)
+        context['token'] = settings.DOWNLOAD_TOKEN
+        return context
 
     def get(self, request, *args, **kwargs):
         return super(CohortListView, self).get(request, *args, **kwargs)
@@ -76,7 +83,7 @@ class CohortListView(ListView, StaffRequiredMixin):
         return self.get(request, *args, **kwargs)
 
 
-class CohortDetailView(ListView, StaffRequiredMixin):
+class CohortDetailView(StaffRequiredMixin, ListView):
     template_name = 'management/cohort_detail.html'
     model = StudentCohortMentor
     paginate_by = 50
@@ -89,7 +96,7 @@ class CohortDetailView(ListView, StaffRequiredMixin):
                                   'mentor'))
 
 
-class BaseCohortView(FormView, StaffRequiredMixin):
+class BaseCohortView(StaffRequiredMixin, FormView):
     template_name = 'management/add_cohort.html'
     form_class = CohortForm
     success_url = '/manage/cohorts/'
@@ -144,7 +151,7 @@ class AddCohortView(BaseCohortView):
         return self.render_to_response(self.get_context_data(**kwargs))
 
 
-class CohortListDownloadView(View, StaffRequiredMixin):
+class CohortListDownloadView(StaffRequiredMixin, View):
 
     def iter_qs(self, rows, header, file_obj):
         writer = csv.writer(file_obj, delimiter='\t')
