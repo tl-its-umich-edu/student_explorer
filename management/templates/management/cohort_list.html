@@ -42,7 +42,7 @@
                         <td>{{ cohort.group }}</td>
                         <td>
 
-                            <a data-toggle="modal" href="#ActionModal-{{ cohort.code }}">
+                            <a data-toggle="modal" href="#ActionModal-{{ cohort.code|slugify }}">
                                 {% if cohort.active %}
                                     Deactivate
                                 {% else %}
@@ -51,7 +51,7 @@
                             </a>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="ActionModal-{{ cohort.code }}" role="dialog">
+                            <div class="modal fade" id="ActionModal-{{ cohort.code|slugify }}" role="dialog">
                                 <div class="modal-dialog">
 
                                     <!-- Modal content-->
