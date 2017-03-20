@@ -11,6 +11,7 @@ from management.forms import CohortForm
 from .models import Student, Mentor, Cohort, StudentCohortMentor
 
 import csv
+import xlrd
 
 
 from django.contrib.auth import get_user_model
@@ -93,8 +94,7 @@ class BaseCohortView(FormView, StaffRequiredMixin):
     form_class = CohortForm
     success_url = '/manage/cohorts/'
 
-    def process_form(self, form):
-        members = form.cleaned_data['members']
+    def process_form_members(self, form, members):
         sniffer = csv.Sniffer()
         members = members.split('\r\n')
         dialect = sniffer.sniff(members[0])
@@ -113,13 +113,33 @@ class BaseCohortView(FormView, StaffRequiredMixin):
                             mentor=mentor
                             ))
 
+    def handle_uploaded_file(self, form, fname):
+        xl_workbook = xlrd.open_workbook(file_contents=fname.read())
+        xl_sheet = xl_workbook.sheet_by_index(0)
+        for row_idx in range(0, xl_sheet.nrows):
+            student, created = Student.objects.get_or_create(
+                username=xl_sheet.cell(row_idx, 0).value.strip())
+            mentor, created = Mentor.objects.get_or_create(
+                username=xl_sheet.cell(row_idx, 1).value.strip())
+            cohort = form.save()
+            (StudentCohortMentor
+             .objects
+             .get_or_create(student=student,
+                            cohort=cohort,
+                            mentor=mentor
+                            ))
+
 
 class AddCohortView(BaseCohortView):
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
-            self.process_form(form)
+            members = form.cleaned_data['members']
+            if members:
+                self.process_form_members(form, members)
+            if len(request.FILES) != 0:
+                self.handle_uploaded_file(form, request.FILES['excel_file'])
             return redirect(self.success_url)
         return self.render_to_response(self.get_context_data(**kwargs))
 
