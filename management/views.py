@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http.response import HttpResponseForbidden
+from django.core.exceptions import PermissionDenied
 from django.views.generic import TemplateView, ListView, View
 from django.views.generic.edit import FormView
 from django.http import StreamingHttpResponse, HttpResponse
@@ -33,7 +33,7 @@ class StaffRequiredMixin(object):
         token = request.GET.get('token', None)
         if not token or token != settings.DOWNLOAD_TOKEN:
             if not request.user.is_staff:
-                return HttpResponseForbidden()
+                raise PermissionDenied
         return super(StaffRequiredMixin, self).dispatch(request,
                                                         *args, **kwargs)
 
