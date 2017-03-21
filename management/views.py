@@ -80,6 +80,9 @@ class CohortListView(StaffRequiredMixin, ListView):
                 instance = get_object_or_404(Cohort, code=code)
                 instance.active = False
                 instance.save()
+            if action == 'delete':
+                instance = get_object_or_404(Cohort, code=code)
+                instance.delete()
         return self.get(request, *args, **kwargs)
 
 

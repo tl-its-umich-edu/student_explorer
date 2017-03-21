@@ -49,6 +49,10 @@
                                     Activate
                                 {% endif %}
                             </a>
+                            |
+                            <a data-toggle="modal" href="#DeleteModal-{{ cohort.code|slugify }}">
+                                Delete
+                            </a>
 
                             <!-- Modal -->
                             <div class="modal fade" id="ActionModal-{{ cohort.code|slugify }}" role="dialog">
@@ -76,6 +80,29 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="modal fade" id="DeleteModal-{{ cohort.code|slugify }}" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Are you sure?</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to permanently delete
+                                                {{ cohort.code }}?
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger submit" id="{{ cohort.code }}" data-dismiss="modal" data-action="delete">Yes</button>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </td>
                     </tr>
                     {% empty %}
