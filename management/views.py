@@ -4,7 +4,7 @@ from django.utils.decorators import method_decorator
 from django.http.response import HttpResponseForbidden
 from django.views.generic import TemplateView, ListView, View
 from django.views.generic.edit import FormView
-from django.http import StreamingHttpResponse
+from django.http import StreamingHttpResponse, HttpResponse
 from django.conf import settings
 
 from management.forms import CohortForm
@@ -13,6 +13,7 @@ from .models import Student, Mentor, Cohort, StudentCohortMentor
 
 import csv
 import xlrd
+import xlwt
 
 
 from django.contrib.auth import get_user_model
@@ -86,10 +87,15 @@ class CohortListView(StaffRequiredMixin, ListView):
         return self.get(request, *args, **kwargs)
 
 
-class CohortDetailView(StaffRequiredMixin, ListView):
-    template_name = 'management/cohort_detail.html'
+class CohortMembersView(StaffRequiredMixin, ListView):
+    template_name = 'management/cohort_members.html'
     model = StudentCohortMentor
     paginate_by = 50
+
+    def get_context_data(self, **kwargs):
+        context = super(CohortMembersView, self).get_context_data(**kwargs)
+        context['cohort_code'] = self.kwargs['code']
+        return context
 
     def get_queryset(self):
         return (self.model.objects
@@ -195,3 +201,30 @@ class CohortDetailDownloadView(CohortListDownloadView):
         return self.render_to_csv(headers,
                                   rows,
                                   'TLA_StudentCohortMentor_USELAB.dat')
+
+
+class CohortMembersDownloadView(CohortListDownloadView):
+
+    def render_to_excel(self, rows, fname):
+        response = HttpResponse(content_type="application/ms-excel")
+        response['Content-Disposition'] = 'attachment; filename="%s"' % fname
+
+        wb = xlwt.Workbook()
+        ws = wb.add_sheet('Students')
+
+        for idx, row in enumerate(rows):
+            ws.write(idx, 0, row[0])
+            ws.write(idx, 1, row[1])
+
+        wb.save(response)
+        return response
+
+    def get(self, request, *args, **kwargs):
+        rows = (StudentCohortMentor.objects
+                .filter(cohort__code=self.kwargs['code'])
+                .values_list('student__username',
+                             'mentor__username').order_by('id'))
+        return self.render_to_excel(
+            rows,
+            'StudentCohortMentor_' + self.kwargs['code'] + '.xls'
+        )

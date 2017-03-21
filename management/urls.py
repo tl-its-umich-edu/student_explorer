@@ -14,7 +14,10 @@ urlpatterns = [
     url(r'^cohorts/detail/download/$',
         views.CohortDetailDownloadView.as_view(),
         name='cohort-detail-download'),
-    url(r'^cohorts/(?P<code>[\s\w-]+)/$',
-        views.CohortDetailView.as_view(),
-        name='cohort-detail'),
+    url(r'^cohorts/(?P<code>[\s\w-]+)/members/download/$',
+        views.CohortMembersDownloadView.as_view(),
+        name='cohort-members-download'),
+    url(r'^cohorts/(?P<code>[\s\w-]+)/members/$',
+        views.CohortMembersView.as_view(),
+        name='cohort-members'),
 ]

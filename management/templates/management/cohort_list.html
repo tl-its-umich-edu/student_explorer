@@ -34,7 +34,7 @@
                 {% for cohort in object_list %}
                     <tr>
                         <td>
-                            <a href="{% url 'management:cohort-detail' cohort.code %}">
+                            <a href="{% url 'management:cohort-members' cohort.code %}">
                                 {{ cohort.code }}
                             </a>
                         </td>

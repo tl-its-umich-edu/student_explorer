@@ -1,6 +1,11 @@
 {% extends 'management/base.html' %}
 
 {% block management %}
+    <a class="btn btn-default btn-sm" href="{% url 'management:cohort-members-download' cohort_code %}">
+        <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+        Download StudentCohortMentor_{{ cohort_code }}.xls
+    </a>
+    <hr/>
     <table class="table table-bordered">
         <thead>
             <tr>
