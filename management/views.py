@@ -30,12 +30,22 @@ class StaffRequiredMixin(object):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            raise PermissionDenied
+        return super(StaffRequiredMixin, self).dispatch(request,
+                                                        *args, **kwargs)
+
+
+class StaffOrTokenRequiredMixin(object):
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
         token = request.GET.get('token', None)
         if not token or token != settings.DOWNLOAD_TOKEN:
             if not request.user.is_staff:
                 raise PermissionDenied
-        return super(StaffRequiredMixin, self).dispatch(request,
-                                                        *args, **kwargs)
+        return super(StaffOrTokenRequiredMixin, self).dispatch(request,
+                                                               *args, **kwargs)
 
 
 class IndexView(StaffRequiredMixin, TemplateView):
@@ -160,7 +170,7 @@ class AddCohortView(BaseCohortView):
         return self.render_to_response(self.get_context_data(**kwargs))
 
 
-class CohortListDownloadView(StaffRequiredMixin, View):
+class CohortListDownloadView(StaffOrTokenRequiredMixin, View):
 
     def iter_qs(self, rows, header, file_obj):
         writer = csv.writer(file_obj, delimiter='\t')
