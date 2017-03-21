@@ -8,7 +8,7 @@ import os
 
 class CohortForm(forms.ModelForm):
     members = forms.CharField(widget=forms.Textarea, required=False)
-    excel_file = forms.FileField(label='Select a Excel file to Import:',
+    excel_file = forms.FileField(label='Select an Excel file to Import:',
                                  required=False)
 
     def __init__(self, *args, **kwargs):
