@@ -1,10 +1,5 @@
 {% extends 'management/base.html' %}
 
-{% block head %}
-    {% load staticfiles %}
-    <script src='{% static "management/cohort_list.js" %}'></script>
-{% endblock %}
-
 {% block management %}
     <a class="btn btn-default btn-sm" href="{% url 'management:cohort-list-download' %}?token={{ token }}">
         <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
@@ -15,11 +10,16 @@
         Download TLA_StudentCohortMentor_USELAB.dat
     </a>
     <hr/>
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" value="" id="allCohorts">Show All Cohorts (Active + Inactive)
-        </label>
+
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default {% if show == 'all' %}active{% endif %}">
+            <a href="{% url 'management:cohort-list' %}?show=all">Show all cohorts</a>
+        </button>
+        <button type="button" class="btn btn-default {% if show == 'active' %}active{% endif %}">
+            <a href="{% url 'management:cohort-list' %}">Show only active cohorts</a>
+        </button>
     </div>
+
     <div id="resultsTable" data-url="{% url 'management:cohort-list' %}">
         <table class="table table-bordered">
             <thead>
@@ -74,8 +74,13 @@
                                                 {{ cohort.code }}?</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger submit" id="{{ cohort.code }}" data-dismiss="modal" data-action={% if cohort.active %} "deactivate" {% else %} "activate" {% endif %}>Yes</button>
-                                            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="code" value="{{ cohort.code }}">
+                                                <input type="hidden" name="action" value="{% if cohort.active %}deactivate{% else %}activate{% endif %}">
+                                                <input type="submit" class="btn btn-danger submit" value="Yes">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -96,8 +101,13 @@
                                             </p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger submit" id="{{ cohort.code }}" data-dismiss="modal" data-action="delete">Yes</button>
-                                            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="code" value="{{ cohort.code }}">
+                                                <input type="hidden" name="action" value="delete">
+                                                <input type="submit" class="btn btn-danger submit" value="Yes">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
