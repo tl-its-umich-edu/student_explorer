@@ -1,8 +1,6 @@
 {% extends 'management/base.html' %}
 
 {% block management %}
-    <p>Add two columns: student uniqname and mentor uniqname. Separate the columns with tabs, spaces or commas.</p>
-    <hr/>
 
     <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
         {% for field in form %}
@@ -10,6 +8,7 @@
                 {{ field.label_tag }}
                 {{ field.errors }}
                 {{ field }}
+                {{ field.help_text }}
             </div>
         {% endfor %}
         <input type="submit" class="btn btn-success" value="Submit"/>

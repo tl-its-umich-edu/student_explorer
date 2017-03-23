@@ -7,7 +7,12 @@ import os
 
 
 class CohortForm(forms.ModelForm):
-    members = forms.CharField(widget=forms.Textarea, required=False)
+    members = forms.CharField(widget=forms.Textarea,
+                              help_text=('Add two columns: student uniqname '
+                                         'and mentor uniqname. '
+                                         'Separate the columns with tabs, '
+                                         'spaces or commas.'),
+                              required=False)
     excel_file = forms.FileField(label='Select an Excel file to Import:',
                                  required=False)
 
