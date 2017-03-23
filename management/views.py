@@ -118,7 +118,7 @@ class CohortMembersView(StaffRequiredMixin, ListView):
 
 
 class BaseCohortView(StaffRequiredMixin, FormView):
-    template_name = 'management/add_cohort.html'
+    template_name = 'management/cohort_add.html'
     form_class = CohortForm
     success_url = '/manage/cohorts/'
 
