@@ -7,8 +7,8 @@
     <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
         {% for field in form %}
             <div class="form-group {% if field.errors %} has-error {% endif %}">
-                {{ field.errors }}
                 {{ field.label_tag }}
+                {{ field.errors }}
                 {{ field }}
             </div>
         {% endfor %}
