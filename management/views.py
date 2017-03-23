@@ -117,7 +117,7 @@ class CohortMembersView(StaffRequiredMixin, ListView):
                                   'mentor'))
 
 
-class BaseCohortView(StaffRequiredMixin, FormView):
+class AddCohortView(StaffRequiredMixin, FormView):
     template_name = 'management/cohort_add.html'
     form_class = CohortForm
     success_url = '/manage/cohorts/'
@@ -156,9 +156,6 @@ class BaseCohortView(StaffRequiredMixin, FormView):
                             cohort=cohort,
                             mentor=mentor
                             ))
-
-
-class AddCohortView(BaseCohortView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
