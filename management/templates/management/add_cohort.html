@@ -1,21 +1,7 @@
 {% extends 'management/base.html' %}
 
 {% block management %}
-    <button class="btn btn-info" data-toggle="collapse" data-target="#instructions">Click for Instructions</button>
-    <div id="instructions" class="collapse">
-        <p class="bg-info">The first column in 'Members' field should be Student Usernames and the second column should be Advisor Usernames. Do not add headers.</p>
-        <p class="bg-info">Please add only 2 columns in 'Members' field seperated by one of the following delimiters:
-            <mark>Tab</mark>
-            |
-            <mark>Comma</mark>
-            |
-            <mark>Space</mark>. The delimiter used should be consistent across rows.
-        </p>
-        <p class="bg-info">Please follow the same guidelines for a csv file. You can fill either the 'Members' text area
-            <mark>OR</mark>
-            upload a csv file.
-        </p>
-    </div>
+    <p>Add two columns: student uniqname and mentor uniqname. Separate the columns with tabs, spaces or commas.</p>
     <hr/>
 
     <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
