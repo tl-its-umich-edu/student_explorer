@@ -1,11 +1,11 @@
 {% extends 'management/base.html' %}
 
 {% block management %}
-    <a class="btn btn-default btn-sm" href="{% url 'management:cohort-list-download' %}?token={{ token }}">
+    <a class="btn btn-default btn-sm" href="{% url 'management:cohort-list-download' %}">
         <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
         Download TLA_Cohort_USELAB.dat
     </a>
-    <a class="btn btn-default btn-sm" href="{% url 'management:cohort-detail-download' %}?token={{ token }}">
+    <a class="btn btn-default btn-sm" href="{% url 'management:cohort-detail-download' %}">
         <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
         Download TLA_StudentCohortMentor_USELAB.dat
     </a>

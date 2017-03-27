@@ -65,7 +65,6 @@ class CohortListView(StaffRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CohortListView, self).get_context_data(**kwargs)
-        context['token'] = settings.DOWNLOAD_TOKEN
         context['query_term'] = self.all_cohorts
         context['show'] = 'all' if self.all_cohorts == 'all' else 'active'
         return context
