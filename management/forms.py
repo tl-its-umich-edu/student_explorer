@@ -14,6 +14,10 @@ class CohortForm(forms.ModelForm):
                                          'spaces or commas.'),
                               required=False)
     excel_file = forms.FileField(label='Select an Excel file to Import:',
+                                 help_text=('Add two columns: student '
+                                            'uniqname and mentor uniqname. '
+                                            'Separate the columns with tabs, '
+                                            'spaces or commas.'),
                                  required=False)
 
     def __init__(self, *args, **kwargs):

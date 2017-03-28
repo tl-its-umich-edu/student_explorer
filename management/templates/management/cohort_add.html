@@ -7,8 +7,10 @@
             <div class="form-group {% if field.errors %} has-error {% endif %}">
                 {{ field.label_tag }}
                 {{ field.errors }}
+                <p>
+                    {{ field.help_text }}
+                </p>
                 {{ field }}
-                {{ field.help_text }}
             </div>
         {% endfor %}
         <input type="submit" class="btn btn-success" value="Submit"/>
