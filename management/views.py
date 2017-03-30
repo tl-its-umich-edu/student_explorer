@@ -21,8 +21,12 @@ User = get_user_model()
 
 
 class Echo(object):
+    """An object that implements just the write method of the file-like
+    interface.
+    """
 
     def write(self, value):
+        """Write the value by returning it, instead of storing in a buffer."""
         return value
 
 
@@ -214,6 +218,7 @@ class CohortListDownloadView(StaffOrTokenRequiredMixin, View):
             yield writer.writerow(row)
 
     def render_to_csv(self, header, rows, fname):
+        """A function that streams a large CSV file."""
         response = (StreamingHttpResponse(
             self.iter_qs(rows,
                          header,
