@@ -1,9 +1,32 @@
 from django import forms
+from django.contrib.auth.models import User
 
 from management.models import Cohort
 
 import csv
 import os
+
+
+class UserCreateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(UserCreateForm, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control'
+            })
+
+    def save(self, commit=True):
+        user = super(UserCreateForm, self).save(commit=False)
+        default_password = User.objects.make_random_password()
+        user.set_password(default_password)
+        if commit:
+            user.save()
+        return user
+
+    class Meta:
+        model = User
+        fields = ('username',)
 
 
 class CohortForm(forms.ModelForm):

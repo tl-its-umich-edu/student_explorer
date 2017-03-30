@@ -3,11 +3,11 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
 from django.views.generic import TemplateView, ListView, View
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
 from django.http import StreamingHttpResponse, HttpResponse
 from django.conf import settings
 
-from management.forms import CohortForm
+from management.forms import CohortForm, UserCreateForm
 
 from .models import Student, Mentor, Cohort, StudentCohortMentor
 
@@ -52,12 +52,6 @@ class IndexView(StaffRequiredMixin, TemplateView):
     template_name = 'management/index.html'
 
 
-class UserListView(StaffRequiredMixin, ListView):
-    template_name = 'management/user_list.html'
-    model = User
-    paginate_by = 50
-
-
 class CohortListView(StaffRequiredMixin, ListView):
     template_name = 'management/cohort_list.html'
     model = Cohort
@@ -95,6 +89,43 @@ class CohortListView(StaffRequiredMixin, ListView):
             if action == 'delete':
                 instance = get_object_or_404(Cohort, code=code)
                 instance.delete()
+        return self.get(request, *args, **kwargs)
+
+
+class UserListView(StaffRequiredMixin, ListView):
+    template_name = 'management/user_list.html'
+    model = User
+    paginate_by = 50
+
+    def get_context_data(self, **kwargs):
+        context = super(UserListView, self).get_context_data(**kwargs)
+        context['query_term'] = self.all_users
+        context['show'] = 'all' if self.all_users == 'all' else 'active'
+        return context
+
+    def get(self, request, *args, **kwargs):
+        return super(UserListView, self).get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        self.all_users = self.request.GET.get('show', None)
+        if self.all_users and self.all_users == 'all':
+            user_list = self.model.objects.all()
+        else:
+            user_list = self.model.objects.filter(is_active=True)
+        return user_list
+
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get('username', None)
+        action = request.POST.get('action', None)
+        if username and action:
+            if action == 'activate':
+                instance = get_object_or_404(User, username=username)
+                instance.is_active = True
+                instance.save()
+            if action == 'deactivate':
+                instance = get_object_or_404(User, username=username)
+                instance.is_active = False
+                instance.save()
         return self.get(request, *args, **kwargs)
 
 
@@ -166,6 +197,12 @@ class AddCohortView(StaffRequiredMixin, FormView):
                 self.handle_uploaded_file(form, request.FILES['excel_file'])
             return redirect(self.success_url)
         return self.render_to_response(self.get_context_data(**kwargs))
+
+
+class AddUserView(StaffRequiredMixin, CreateView):
+    template_name = 'management/user_add.html'
+    form_class = UserCreateForm
+    success_url = '/manage/users/'
 
 
 class CohortListDownloadView(StaffOrTokenRequiredMixin, View):

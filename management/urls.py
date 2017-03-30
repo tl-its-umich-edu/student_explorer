@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^users/$', views.UserListView.as_view(), name='user-list'),
     url(r'^cohorts/$', views.CohortListView.as_view(), name='cohort-list'),
     url(r'^cohorts/add/$', views.AddCohortView.as_view(), name='add-cohort'),
+    url(r'^users/add/$', views.AddUserView.as_view(), name='add-user'),
     url(r'^cohorts/download/$',
         views.CohortListDownloadView.as_view(),
         name='cohort-list-download'),
