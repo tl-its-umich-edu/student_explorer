@@ -20,16 +20,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class Echo(object):
-    """An object that implements just the write method of the file-like
-    interface.
-    """
-
-    def write(self, value):
-        """Write the value by returning it, instead of storing in a buffer."""
-        return value
-
-
 class StaffRequiredMixin(object):
 
     @method_decorator(login_required)
@@ -211,6 +201,11 @@ class AddUserView(StaffRequiredMixin, CreateView):
 
 class CohortListDownloadView(StaffOrTokenRequiredMixin, View):
 
+    class Echo(object):
+
+        def write(self, value):
+            return value
+
     def iter_qs(self, rows, header, file_obj):
         writer = csv.writer(file_obj, delimiter='\t')
         yield writer.writerow(header)
@@ -222,7 +217,7 @@ class CohortListDownloadView(StaffOrTokenRequiredMixin, View):
         response = (StreamingHttpResponse(
             self.iter_qs(rows,
                          header,
-                         Echo()),
+                         self.Echo()),
             content_type="text/tab-separated-values"))
         response['Content-Disposition'] = 'attachment; filename="%s"' % fname
         return response
