@@ -1,0 +1,16 @@
+{% extends 'management/base.html' %}
+
+{% block management %}
+
+    <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
+        {% for field in form %}
+            <div class="form-group {% if field.errors %} has-error {% endif %}">
+                {{ field.label_tag }}
+                {{ field.errors }}
+                {{ field }}
+            </div>
+        {% endfor %}
+        <input type="submit" class="btn btn-success" value="Submit"/>
+    </form>
+
+{% endblock %}

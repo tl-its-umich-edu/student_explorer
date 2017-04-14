@@ -1,0 +1,139 @@
+{% extends 'management/base.html' %}
+
+{% block management %}
+
+    <div id="resultsTable">
+        <table class="table table-bordered">
+            <caption>
+                {% if show == "active" %}
+                    Active Cohorts
+                    <a href="{% url 'management:cohort-list' %}?show=all" class="show-links">
+                        Show all cohorts
+                    </a>
+                {% endif %}
+                {% if show == "all" %}
+                    All Cohorts
+                    <a href="{% url 'management:cohort-list' %}" class="show-links">
+                        Show only active cohorts
+                    </a>
+                {% endif %}
+            </caption>
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>Group</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cohort in object_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'management:cohort-members' cohort.code %}">
+                                {% if cohort.active %}
+                                    {{ cohort.code }}
+                                {% else %}
+                                    <s>{{ cohort.code }}</s>
+                                {% endif %}
+                            </a>
+                        </td>
+                        <td>{{ cohort.description }}</td>
+                        <td>{{ cohort.group }}</td>
+                        <td>
+
+                            <a data-toggle="modal" href="#ActionModal-{{ cohort.code|slugify }}">
+                                {% if cohort.active %}
+                                    Deactivate
+                                {% else %}
+                                    Activate
+                                {% endif %}
+                            </a>
+                            |
+                            <a data-toggle="modal" href="#DeleteModal-{{ cohort.code|slugify }}">
+                                Delete
+                            </a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="ActionModal-{{ cohort.code|slugify }}" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Are you sure?</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to
+                                                {% if cohort.active %}
+                                                    deactivate
+                                                {% else %}
+                                                    activate
+                                                {% endif %}
+                                                {{ cohort.code }}?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="code" value="{{ cohort.code }}">
+                                                <input type="hidden" name="action" value="{% if cohort.active %}deactivate{% else %}activate{% endif %}">
+                                                <input type="submit" class="btn btn-danger submit" value="Yes">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="DeleteModal-{{ cohort.code|slugify }}" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Are you sure?</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to permanently delete
+                                                {{ cohort.code }}?
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="code" value="{{ cohort.code }}">
+                                                <input type="hidden" name="action" value="delete">
+                                                <input type="submit" class="btn btn-danger submit" value="Yes">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">None Found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'management:add-cohort' %}" class="btn btn-info">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            Add Cohort
+        </a>
+        <a class="btn btn-default btn-sm" href="{% url 'management:cohort-list-download' %}">
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+            Download TLA_Cohort_USELAB.dat
+        </a>
+        <a class="btn btn-default btn-sm" href="{% url 'management:cohort-detail-download' %}">
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+            Download TLA_StudentCohortMentor_USELAB.dat
+        </a>
+        {% include 'management/pagination.html' %}
+    </div>
+{% endblock %}

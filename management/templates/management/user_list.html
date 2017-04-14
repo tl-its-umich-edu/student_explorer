@@ -1,0 +1,96 @@
+{% extends 'management/base.html' %}
+
+{% block management %}
+    <table class="table table-bordered">
+        <caption>
+            {% if show == "active" %}
+                Active Users
+                <a href="{% url 'management:user-list' %}?show=all" class="show-links">
+                    Show all users
+                </a>
+            {% endif %}
+            {% if show == "all" %}
+                All Users
+                <a href="{% url 'management:user-list' %}" class="show-links">
+                    Show only active users
+                </a>
+            {% endif %}
+        </caption>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in object_list %}
+                <tr>
+                    <td>
+                        {% if user.is_active %}
+                            {{ user.username }}
+                        {% else %}
+                            <s>{{ user.username }}</s>
+                        {% endif %}
+                    </td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>
+                        <a href="https://mcommunity.umich.edu/#profile:{{ user.username }}">Lookup</a>
+                        |
+                        <a data-toggle="modal" href="#ActionModal-{{ user.username }}">
+                            {% if user.is_active %}
+                                Deactivate
+                            {% else %}
+                                Activate
+                            {% endif %}
+                        </a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="ActionModal-{{ user.username }}" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Are you sure?</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to
+                                            {% if user.is_active %}
+                                                deactivate
+                                            {% else %}
+                                                activate
+                                            {% endif %}
+                                            {{ user.username }}?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="username" value="{{ user.username }}">
+                                            <input type="hidden" name="action" value="{% if user.is_active %}deactivate{% else %}activate{% endif %}">
+                                            <input type="submit" class="btn btn-danger submit" value="Yes">
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">None Found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'management:add-user' %}" class="btn btn-info">
+        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        Add User
+    </a>
+    {% include 'management/pagination.html' %}
+{% endblock %}

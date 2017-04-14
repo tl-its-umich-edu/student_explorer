@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'watchman',
     'student_explorer',
     'seumich',
+    'management',
     'tracking',
     'feedback',
     'usage',
@@ -92,6 +93,8 @@ FORCE_SCRIPT_NAME = getenv('DJANGO_FORCE_SCRIPT_NAME', None)
 
 WATCHMAN_TOKEN = getenv('DJANGO_WATCHMAN_TOKEN', None)
 WATCHMAN_TOKEN_NAME = getenv('DJANGO_WATCHMAN_TOKEN_NAME', 'token')
+
+DOWNLOAD_TOKEN = getenv('DJANGO_DOWNLOAD_TOKEN', None)
 
 PAGINATION_RECORDS_PER_PAGE = int(getenv(
     'DJANGO_PAGINATION_RECORDS_PER_PAGE', '10'))
