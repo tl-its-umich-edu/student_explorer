@@ -12,6 +12,8 @@ fi
 
 set -x
 
+python manage.py migrate
+
 gunicorn \
     --workers="${GUNICORN_WORKERS}" \
     --bind=0.0.0.0:${GUNICORN_PORT} \
