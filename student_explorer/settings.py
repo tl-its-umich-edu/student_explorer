@@ -30,7 +30,7 @@ SESSION_COOKIE_AGE = int(getenv('DJANGO_SESSION_COOKIE_AGE', 36000))
 SESSION_SAVE_EVERY_REQUEST = getenv_bool('DJANGO_SESSION_SAVE_EVERY_REQUEST',
                                          'on')
 
-SILENCED_SYSTEM_CHECKS = []
+SILENCED_SYSTEM_CHECKS = ['fields.W342']
 
 ADMINS = [('', getenv('DJANGO_ERROR_EMAIL', 'vagrant@localhost'))]
 
