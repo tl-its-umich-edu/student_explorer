@@ -17,4 +17,5 @@ python manage.py migrate
 gunicorn \
     --workers="${GUNICORN_WORKERS}" \
     --bind=0.0.0.0:${GUNICORN_PORT} \
+    --timeout=60 \
     student_explorer.wsgi:application
