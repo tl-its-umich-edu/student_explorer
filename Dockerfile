@@ -9,13 +9,6 @@ RUN apt-get --no-install-recommends install --yes \
 
 WORKDIR /tmp/
 
-COPY student_explorer/dependencies/oracle-instantclient12.1-*.deb /tmp/
-RUN dpkg -i oracle-instantclient12.1-*.deb
-ENV ORACLE_HOME /usr/lib/oracle/12.1/client64
-ENV LD_LIBRARY_PATH /usr/lib/oracle/12.1/client64/lib
-RUN rm oracle-instantclient12.1-*.deb
-
-RUN pip install cx_Oracle==5.3
 RUN pip install gunicorn
 
 COPY requirements.txt /tmp/
