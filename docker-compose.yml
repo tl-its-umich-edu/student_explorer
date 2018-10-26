@@ -20,7 +20,9 @@ services:
   web:
     build:
         context: .
-        dockerfile: Dockerfile.dev
+        dockerfile: Dockerfile
+        args:
+            - LOCALHOST_DEV=1
     command: bash -c "./start.sh"
     volumes:
       - .:/code
