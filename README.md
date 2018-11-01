@@ -3,15 +3,12 @@
 ## Development Environment ##
 
 ### Setup ###
-1. Install [Vagrant](https://www.vagrantup.com/)
-2. Follow steps in the "Run development server" section below. The `vagrant up` step should run the provision script on its first run.
+1. Install [Docker](https://www.docker.com/)
+2. Follow steps in the "Run development server" section below.
 
 ### Run development server ###
 - `cd student_explorer`
-- `vagrant up`
-- `vagrant ssh`
-- `cd /vagrant`
-- `python manage.py runserver`
+- `docker-compose down; docker-compose build; docker-compose up -d`
 - Browse to [http://localhost:2082/](http://localhost:2082/)
 - Login as individual advisors using their lower-case first name as username/password (e.g.: burl/burl)
 - Student with useful data: [http://localhost:2082/students/grace/](http://localhost:2082/students/grace/)

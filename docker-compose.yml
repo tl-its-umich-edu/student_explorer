@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:5.7.22
+    restart: always
+    environment:
+      - MYSQL_HOST=${DJANGO_DB_HOST}
+      - MYSQL_DATABASE=${DJANGO_DB_NAME}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${DJANGO_DB_USER}
+      - MYSQL_PASSWORD=${DJANGO_DB_PASSWORD}
+      - MYSQL_PORT=${DJANGO_DB_PORT}
+    entrypoint: ['docker-entrypoint.sh', '--default-authentication-plugin=mysql_native_password']
+    ports:
+      - "2034:3306"
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d/:ro
+    container_name: student_explorer_mysql
+  web:
+    build:
+        context: .
+        dockerfile: Dockerfile
+        args:
+            - LOCALHOST_DEV=1
+    command: bash -c "./start.sh"
+    volumes:
+      - .:/code
+    ports:
+      - "2082:8000"
+    depends_on:
+      - mysql
+    env_file:
+      - .env
+    environment:
+      - LOCALHOST_DEV=1
+    container_name: student_explorer
