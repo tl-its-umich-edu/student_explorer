@@ -16,7 +16,7 @@ fi
 
 set -x
 
-dockerize -wait tcp://${DJANGO_DB_HOST}:${DJANGO_DB_PORT} -timeout 15s
+wait-port ${DJANGO_DB_HOST}:${DJANGO_DB_PORT} -t 15000
 
 python manage.py migrate
 

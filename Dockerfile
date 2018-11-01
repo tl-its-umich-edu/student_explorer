@@ -14,12 +14,6 @@ COPY requirements.txt /tmp/
 RUN pip install -r requirements.txt && \
     pip install gunicorn
 
-#https://github.com/jwilder/dockerize
-ENV DOCKERIZE_VERSION v0.6.1
-RUN curl -sLO "https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz" \
-    && tar -C /usr/local/bin -xzvf "dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz" \
-    && rm "dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz"
-
 # Sets the local timezone of the docker image
 ENV TZ=America/Detroit
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -29,6 +23,11 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 COPY . /usr/src/app
+
+# Install npm and wait-port globally
+# https://github.com/nodesource/distributions/blob/master/README.md
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    apt-get -y install npm && npm install -g wait-port@"~0.2.2"
 
 ARG LOCALHOST_DEV
 # Run these only for dev
