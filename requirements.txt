@@ -1,7 +1,7 @@
 Django==1.9
 mysql-python==1.2.5
 python-ldap==2.4.27
-requests==2.11.1
+requests==2.20
 django-watchman==0.11.0
 django-registration-redux==1.4
 django-extensions==1.7.4
