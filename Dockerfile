@@ -30,6 +30,9 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     apt-get -y install npm && npm install -g wait-port@"~0.2.2"
 
 ARG LOCALHOST_DEV
+
+WORKDIR /usr/src/app/student_explorer/dependencies/
+
 # Run these only for dev
 # Make a python package:
 RUN if [ "$LOCALHOST_DEV" ] ; then \
@@ -38,8 +41,16 @@ RUN if [ "$LOCALHOST_DEV" ] ; then \
 # Create default settings_override module:
     echo "from student_explorer.settings import *\n\nDEBUG = True" > /usr/src/app/student_explorer/local/settings_override.py && \ 
     apt-get --no-install-recommends install --yes mysql-client && \
-    pip install coverage \
-    ; else echo "Skipping Development Dependencies" ; fi
+    pip install coverage\
+    ; else \
+    echo "LOCALHOST_DEV is not set, building production dependencies" && \
+    dpkg -i oracle-instantclient12.1-*.deb; rm oracle-instantclient12.1-*.deb; pip install cx_Oracle==5.3 \
+    ; fi
+
+ENV ORACLE_HOME /usr/lib/oracle/12.1/client64	
+ENV LD_LIBRARY_PATH /usr/lib/oracle/12.1/client64/lib	
+
+WORKDIR /usr/src/app/
 
 RUN python manage.py collectstatic --settings=student_explorer.settings --noinput --verbosity 0
 
