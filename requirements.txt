@@ -1,4 +1,4 @@
-Django==1.11
+Django>=1.11,<1.11.99
 mysql-python==1.2.5
 python-ldap==2.4.27
 requests==2.20
