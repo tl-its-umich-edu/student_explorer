@@ -215,6 +215,8 @@ class IndexView(LoginRequiredMixin, UserLogPageViewMixin, View):
         try:
             has_mentor = Mentor.objects.get(username=request.user.username)
         except Mentor.DoesNotExist:
+            logger.info('(%s) not found as mentor. Redirecting to advisors_list'
+                            % request.user.username)
             return redirect('seumich:advisors_list')
         return redirect('seumich:advisor', advisor=request.user.username)
 
