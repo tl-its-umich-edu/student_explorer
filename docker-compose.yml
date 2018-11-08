@@ -23,7 +23,7 @@ services:
         dockerfile: Dockerfile
         args:
             - LOCALHOST_DEV=1
-    command: bash -c "./start.sh"
+    command: bash -c "./start-localhost.sh"
     volumes:
       - .:/code
     ports:
