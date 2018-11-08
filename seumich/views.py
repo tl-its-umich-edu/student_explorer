@@ -211,6 +211,11 @@ class ClassSiteView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
 class IndexView(LoginRequiredMixin, UserLogPageViewMixin, View):
 
     def get(self, request):
+        # If the user has no mentors (is an admin) just redirect to main list
+        try:
+            has_mentor = Mentor.objects.get(username=request.user.username)
+        except Mentor.DoesNotExist:
+            return redirect('seumich:advisors_list')
         return redirect('seumich:advisor', advisor=request.user.username)
 
 
