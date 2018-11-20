@@ -60,6 +60,9 @@ RUN if [ "$LOCALHOST_DEV" ] ; then \
 
 WORKDIR /usr/src/app/
 
+# Comiple the css file
+RUN pysassc seumich/static/seumich/styles/main.scss seumich/static/seumich/styles/main.css
+
 RUN python manage.py collectstatic --settings=student_explorer.settings --noinput --verbosity 0
 
 EXPOSE 8000

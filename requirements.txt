@@ -10,3 +10,5 @@ djangosaml2==0.14.5
 django-debug-toolbar==1.6
 xlrd==1.0.0
 xlwt==1.2.0
+
+libsass==0.16.0
