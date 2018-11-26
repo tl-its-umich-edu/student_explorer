@@ -33,16 +33,16 @@ ARG LOCALHOST_DEV
 
 WORKDIR /usr/src/app/student_explorer/dependencies/
 
-ENV ORACLE_HOME /usr/lib/oracle/18.3/client64	
-ENV LD_LIBRARY_PATH /usr/lib/oracle/18.3/client64/lib	
+ENV ORACLE_HOME /usr/lib/oracle/18.3/client64
+ENV LD_LIBRARY_PATH /usr/lib/oracle/18.3/client64/lib
 
 # Run these only for dev
 # Make a python package:
 RUN if [ "$LOCALHOST_DEV" ] ; then \
-    echo "LOCALHOST_DEV is set, building development dependencies" && \ 
+    echo "LOCALHOST_DEV is set, building development dependencies" && \
     touch /usr/src/app/student_explorer/local/__init__.py && \
 # Create default settings_override module:
-    echo "from student_explorer.settings import *\n\nDEBUG = True" > /usr/src/app/student_explorer/local/settings_override.py && \ 
+    echo "from student_explorer.settings import *\n\nDEBUG = True" > /usr/src/app/student_explorer/local/settings_override.py && \
     apt-get --no-install-recommends install --yes mysql-client && \
     pip install coverage\
     ; else \
@@ -59,6 +59,9 @@ RUN if [ "$LOCALHOST_DEV" ] ; then \
     ; fi
 
 WORKDIR /usr/src/app/
+
+# Comiple the css file
+RUN pysassc seumich/static/seumich/styles/main.scss seumich/static/seumich/styles/main.css
 
 RUN python manage.py collectstatic --settings=student_explorer.settings --noinput --verbosity 0
 
