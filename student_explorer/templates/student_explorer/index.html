@@ -121,24 +121,25 @@
             {% endif %}
             {% block content %}{% endblock %}
             <div class="footer">
-                <div class='feedback center-align visible-md visible-lg'>
-                    <img src="{% static 'seumich/images/feedback.svg' %}" alt="Feedback icon"></img>Help us improve Student Explorer by
-                    <a href="{% url 'feedback:feedback' %}">submitting your feedback</a>
-                </div>
-                <div class='feedback center-align visible-sm visible-xs'>
-                    <a href="{% url 'feedback:feedback' %}">
-                        <button type="button" class="btn btn-sm btn-default">
-                            <img src="{% static 'seumich/images/feedback.svg' %}" alt="Feedback icon"></img>
-                            Submit Feedback</button>
-                    </a>
-                </div>
                 <div class="container-fluid">
+                  <div class='feedback center-align visible-md visible-lg'>
+                      <img src="{% static 'seumich/images/feedback.svg' %}" alt="Feedback icon"></img>Help us improve Student Explorer by
+                      <a href="{% url 'feedback:feedback' %}">submitting your feedback</a>
+                  </div>
+                  <div class='feedback center-align visible-sm visible-xs'>
+                      <a href="{% url 'feedback:feedback' %}">
+                          <button type="button" class="btn btn-sm btn-default">
+                              <img src="{% static 'seumich/images/feedback.svg' %}" alt="Feedback icon"></img>
+                              Submit Feedback</button>
+                  </div>
+                  <div>
                     <p class="main-color-white">Student Explorer (<a href="{% url 'about' %}" style="text-decoration: none; color: inherit;">2.3.4</a>)
                         <span class="footer-block">Copyright &copy; 2015 - 2017</span>
-                        <span class="footer-block">The Regents of the University of Michigan</span>
+                        <span style="text-align:center;">The Regents of the University of Michigan</span>
+                        <span style="float:right">Updated:11/29/2018</span>
                     </p>
-                </div>
-            </div>
+                 </div>
+               </div>
         </div>
 
     </body>
