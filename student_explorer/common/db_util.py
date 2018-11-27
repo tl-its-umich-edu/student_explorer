@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 def get_data_date():
 
     try:
-        c = LearningAnalyticsStats.objects.filter(dw_data_nm='Student Explorer Daily Tables')
+        c = LearningAnalyticsStats.objects.get(dw_data_nm='Student Explorer Daily Tables')
         logger.info(c)
         return c.load_dt
     except LearningAnalyticsStats.DoesNotExist:
