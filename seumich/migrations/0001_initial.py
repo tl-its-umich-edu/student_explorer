@@ -283,6 +283,18 @@ class Migration(migrations.Migration):
                 'db_table': '"CNLYR002"."FC_STDNT_CLS_WKLY_ACAD_PRF"',
             },
         ),
+        migrations.CreateModel(
+            name='LearningAnalyticsStats',
+            fields=[
+                ('dw_data_nm', models.CharField(db_column=b'STDNT_ASSGN_GRDR_CMNT_TXT', max_length=50)),
+                ('extrct_dt', models.DateField(db_column=b'EXTRCT_DT')),
+                ('load_dt', models.DateField(db_column=b'LOAD_DT')),
+                ('dw_ownr_nm', models.CharField(db_column=b'DW_OWNR_NM', max_length=8)),
+            ],
+            options={
+                'db_table': '"CNLYR002"."LRNG_ANLTCS_STAT"',
+            },
+        ),
         migrations.AddField(
             model_name='eventtype',
             name='source_system',

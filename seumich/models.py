@@ -480,3 +480,15 @@ class WeeklyStudentClassSiteStatus(models.Model):
     class Meta:
         unique_together = ('student', 'class_site', 'week_end_date', 'status')
         db_table = '"CNLYR002"."FC_STDNT_CLS_WKLY_ACAD_PRF"'
+
+class LearningAnalyticsStats(models.Model):
+    dw_data_nm = models.CharField(primary_key=True, max_length=50, db_column='DW_DATA_NM')
+    extrct_dt = models.DateField(db_column='EXTRCT_DT')
+    load_dt = models.DateField(db_column='LOAD_DT')
+    dw_ownr_nm = models.CharField(max_length=8, db_column='DW_OWNR_NM')
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        db_table = '"CNLYR002"."LRNG_ANLTCS_STAT"'
