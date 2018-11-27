@@ -26,7 +26,8 @@ from seumich.models import (UsernameField,
                             WeeklyClassSiteScore,
                             WeeklyStudentClassSiteEvent,
                             WeeklyStudentClassSiteStatus,
-                            WeeklyStudentClassSiteScore)
+                            WeeklyStudentClassSiteScore,
+                            LearningAnalyticsStats,)
 from seumich.views import PaginationMixin
 from seumich.mixins import SeumichDataMixin
 
