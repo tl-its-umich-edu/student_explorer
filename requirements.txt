@@ -6,7 +6,7 @@ django-watchman==0.15.0
 django-registration-redux==1.4
 django-extensions==1.7.4
 whitenoise==3.2.2
-djangosaml2==0.14.5
+djangosaml2==0.17.2
 django-debug-toolbar==1.6
 xlrd==1.0.0
 xlwt==1.2.0
