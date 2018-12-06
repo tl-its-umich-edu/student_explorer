@@ -182,12 +182,20 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
     SAML2_URL_BASE = getenv('STUDENT_EXPLORER_SAML_URL_BASE',
                             'http://localhost:2082/accounts/')
 
+    SAML2_REMOTE_METADATA = getenv('STUDENT_EXPLORER_SAML_REMOTE_METADATA','')
+    SAML2_REMOTE_PEM_FILE = getenv('STUDENT_EXPLORER_SAML_REMOTE_PEM_FILE','')
+
+    SAML2_DEFAULT_IDP = getenv('STUDENT_EXPLORER_SAML_DEFAULT_IDP','')
+
+    if SAML2_DEFAULT_IDP:
+        SAML2_DEFAULT_IDP = '?idp=%s' % SAML2_DEFAULT_IDP
+
     INSTALLED_APPS += ('djangosaml2',)
     AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
         'djangosaml2.backends.Saml2Backend',
     )
-    LOGIN_URL = '%slogin/' % SAML2_URL_PATH
+    LOGIN_URL = '%slogin/%s' % (SAML2_URL_PATH, SAML2_DEFAULT_IDP)
     SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
     import saml2
@@ -233,14 +241,14 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
               },
           },
 
-      # where the remote metadata is stored
-      'metadata': {
-          'local': [os.path.join(
-            BASE_DIR, 'student_explorer/local/saml/remote-metadata.xml')],
-          },
+      'metadata': [{
+          "class": "saml2.mdstore.MetaDataExtern",
+          "metadata": [
+              (SAML2_REMOTE_METADATA, SAML2_REMOTE_PEM_FILE)]
+      }],
 
       # set to 1 to output debugging information
-      'debug': 1,
+      'debug': DEBUG,
 
       # certificate
       'key_file': os.path.join(
