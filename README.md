@@ -26,3 +26,14 @@ By default manage.py looks for the student_explorer.local.settings_override modu
 By default wsgi.py (which is used by start.sh) looks for the student_explorer.settings module. This file is versioned as part of this repository.
 
 This behavior can be changed for both manage.py and wsgi.py by setting the DJANGO_SETTINGS_MODULE environment variable.
+
+### Cron JOB
+Users and files are loaded now with the cron job. This is run on a separate pod in Openshift when the environment variable IS_CRON_POD=true.
+
+Crons are configured in this project with django-cron. Django-cron is executed whenever python manage.py runcrons is run but it is limited via a few environment variables.
+
+The installation notes recommends that you have a Unix crontab scheduled to run every 5 minutes to run this command. https://django-cron.readthedocs.io/en/latest/installation.html
+
+For local testing, make sure your secrets are added and your VPN is active. Then run this command on a running container to execute the cronjob
+
+`docker exec -it student_explorer /bin/bash -c "python manage.py migrate django_cron && python manage.py runcrons --force"`
