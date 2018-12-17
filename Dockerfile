@@ -5,7 +5,7 @@ RUN apt-get update
 RUN apt-get --no-install-recommends install --yes \
     libaio1 libaio-dev xmlsec1 libffi-dev \
     libldap2-dev libsasl2-dev \
-    build-essential default-libmysqlclient-dev git
+    build-essential default-libmysqlclient-dev git cron
 
 WORKDIR /tmp/
 
@@ -18,11 +18,7 @@ RUN pip install -r requirements.txt && \
 ENV TZ=America/Detroit
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN mkdir -p /usr/src/app
-
-WORKDIR /usr/src/app
-
-COPY . /usr/src/app
+RUN git clone https://github.com/tl-its-umich-edu/api-utils-python && cd api-utils-python && pip install .
 
 # Install npm and wait-port globally
 # https://github.com/nodesource/distributions/blob/master/README.md
@@ -35,6 +31,10 @@ WORKDIR /usr/src/app/student_explorer/dependencies/
 
 ENV ORACLE_HOME /usr/lib/oracle/18.3/client64
 ENV LD_LIBRARY_PATH /usr/lib/oracle/18.3/client64/lib
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app/
+COPY . /usr/src/app
 
 # Run these only for dev
 # Make a python package:
@@ -58,9 +58,7 @@ RUN if [ "$LOCALHOST_DEV" ] ; then \
     pip install cx_Oracle==7.0 \
     ; fi
 
-WORKDIR /usr/src/app/
-
-# Comiple the css file
+# Compile the css file
 RUN pysassc seumich/static/seumich/styles/main.scss seumich/static/seumich/styles/main.css
 
 RUN python manage.py collectstatic --settings=student_explorer.settings --noinput --verbosity 0

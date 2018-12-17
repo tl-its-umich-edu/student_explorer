@@ -9,30 +9,25 @@ to the top, then override settings initialized in this module.
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-from os import getenv
-
-
-def getenv_bool(var, default='0'):
-    return getenv(var, default).lower() in ('yes', 'on', 'true', '1', )
+from decouple import config, Csv
 
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv_bool('DJANGO_DEBUG')
-ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
+DEBUG = config('DJANGO_DEBUG', cast=bool)
+ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', 'localhost', cast=Csv())
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = getenv('DJANGO_SECRET_KEY', 'I need to be changed!')
+SECRET_KEY = config('DJANGO_SECRET_KEY', default='I need to be changed!')
 
-SESSION_COOKIE_AGE = int(getenv('DJANGO_SESSION_COOKIE_AGE', 36000))
-SESSION_SAVE_EVERY_REQUEST = getenv_bool('DJANGO_SESSION_SAVE_EVERY_REQUEST',
-                                         'on')
+SESSION_COOKIE_AGE = config('DJANGO_SESSION_COOKIE_AGE', default=36000, cast=int)
+SESSION_SAVE_EVERY_REQUEST = config('DJANGO_SESSION_SAVE_EVERY_REQUEST', default='on', cast=bool)
 
 SILENCED_SYSTEM_CHECKS = []
 
-ADMINS = [('', getenv('DJANGO_ERROR_EMAIL', 'vagrant@localhost'))]
+ADMINS = [('', config('DJANGO_ERROR_EMAIL', default='vagrant@localhost'))]
 
 
 # Application definition
@@ -45,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cron',
     'watchman',
     'student_explorer',
     'seumich',
@@ -53,6 +49,13 @@ INSTALLED_APPS = (
     'feedback',
     'usage',
 )
+
+CRON_CLASSES = [
+    "seumich.cron.StudentExplorerCronJob",
+]
+
+# Time to run cron
+RUN_AT_TIMES = config('RUN_AT_TIMES', default="", cast= Csv())
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -88,44 +91,41 @@ ROOT_URLCONF = 'student_explorer.urls'
 
 WSGI_APPLICATION = 'student_explorer.wsgi.application'
 
-USE_X_FORWARDED_HOST = getenv_bool('DJANGO_USE_X_FORWARDED_HOST', 'no')
+USE_X_FORWARDED_HOST = config('DJANGO_USE_X_FORWARDED_HOST', default='no', cast=bool)
 
-FORCE_SCRIPT_NAME = getenv('DJANGO_FORCE_SCRIPT_NAME', None)
+FORCE_SCRIPT_NAME = config('DJANGO_FORCE_SCRIPT_NAME', default=None)
 
-WATCHMAN_TOKEN = getenv('DJANGO_WATCHMAN_TOKEN', None)
-WATCHMAN_TOKEN_NAME = getenv('DJANGO_WATCHMAN_TOKEN_NAME', 'token')
+WATCHMAN_TOKEN = config('DJANGO_WATCHMAN_TOKEN', default=None)
+WATCHMAN_TOKEN_NAME = config('DJANGO_WATCHMAN_TOKEN_NAME', default='token')
 
-DOWNLOAD_TOKEN = getenv('DJANGO_DOWNLOAD_TOKEN', None)
+DOWNLOAD_TOKEN = config('DJANGO_DOWNLOAD_TOKEN', default=None)
 
-PAGINATION_RECORDS_PER_PAGE = int(getenv(
-    'DJANGO_PAGINATION_RECORDS_PER_PAGE', '10'))
-PAGINATION_NUM_PAGE_LINKS = int(getenv(
-    'DJANGO_PAGINATION_NUM_PAGE_LINKS', '5'))
+PAGINATION_RECORDS_PER_PAGE = config('DJANGO_PAGINATION_RECORDS_PER_PAGE', default=10, cast=int)
+PAGINATION_NUM_PAGE_LINKS = config('DJANGO_PAGINATION_NUM_PAGE_LINKS', default=5, cast=int)
 
-SERVER_EMAIL = getenv('DJANGO_SERVER_EMAIL',
-                      'student-explorer-admins@umich.edu')
+SERVER_EMAIL = config('DJANGO_SERVER_EMAIL',
+                      default='student-explorer-admins@umich.edu')
 
-USAGE_PAST_WEEKS = int(getenv(
-    'DJANGO_USAGE_PAST_WEEKS', '8'))
+USAGE_PAST_WEEKS = config('DJANGO_USAGE_PAST_WEEKS', default=8, cast=int)
 
 # Internationalization
 
-LANGUAGE_CODE = getenv('DJANGO_LANGUAGE_CODE', 'en-us')
+LANGUAGE_CODE = config('DJANGO_LANGUAGE_CODE', default='en-us')
 
-TIME_ZONE = getenv('DJANGO_TIME_ZONE', 'America/Detroit')
+TIME_ZONE = config('DJANGO_TIME_ZONE', default='America/Detroit')
 
-USE_I18N = getenv_bool('DJANGO_USE_I18N', 'yes')
+USE_I18N = config('DJANGO_USE_I18N', default='yes', cast=bool)
 
-USE_L10N = getenv_bool('DJANGO_USE_L10N', 'yes')
+USE_L10N = config('DJANGO_USE_L10N', default='yes', cast=bool)
 
-USE_TZ = getenv_bool('DJANGO_USE_TZ', 'yes')
+USE_TZ = config('DJANGO_USE_TZ', default='yes', cast=bool)
 
 
 # Static files (CSS, JavaScript, Images)
 
-STATIC_URL = getenv('DJANGO_STATIC_URL', '/static/')
-STATIC_ROOT = getenv('DJANGO_STATIC_ROOT',
-                     os.path.join(BASE_DIR, 'staticfiles'))
+STATIC_URL = config('DJANGO_STATIC_URL', default='/static/')
+STATIC_ROOT = config('DJANGO_STATIC_ROOT',
+                     default=os.path.join(BASE_DIR, 'staticfiles'))
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -134,19 +134,19 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-LOGIN_URL = getenv('DJANGO_LOGIN_URL', '/accounts/login/')
+LOGIN_URL = config('DJANGO_LOGIN_URL', default='/accounts/login/')
 LOGIN_REDIRECT_URL = '/'
 
-LOGOUT_REDIRECT_URL = getenv('DJANGO_LOGOUT_REDIRECT_URL', '/')
+LOGOUT_REDIRECT_URL = config('DJANGO_LOGOUT_REDIRECT_URL', default='/')
 
-EMAIL_HOST = getenv('DJANGO_EMAIL_HOST', 'localhost')
-EMAIL_PORT = int(getenv('DJANGO_EMAIL_PORT', '25'))
-EMAIL_HOST_USER = getenv('DJANGO_EMAIL_HOST_USER', None)
-EMAIL_HOST_PASSWORD = getenv('DJANGO_EMAIL_HOST_PASSWORD', None)
-EMAIL_USE_TLS = getenv('DJANGO_EMAIL_USE_TLS', None)
-EMAIL_USE_SSL = getenv('DJANGO_EMAIL_USE_SSL', None)
+EMAIL_HOST = config('DJANGO_EMAIL_HOST', default='localhost')
+EMAIL_PORT = config('DJANGO_EMAIL_PORT', default=25)
+EMAIL_HOST_USER = config('DJANGO_EMAIL_HOST_USER', default=None)
+EMAIL_HOST_PASSWORD = config('DJANGO_EMAIL_HOST_PASSWORD', default=None)
+EMAIL_USE_TLS = config('DJANGO_EMAIL_USE_TLS', default=None)
+EMAIL_USE_SSL = config('DJANGO_EMAIL_USE_SSL', default=None)
 
-FEEDBACK_EMAIL = getenv('DJANGO_FEEDBACK_EMAIL', None)
+FEEDBACK_EMAIL = config('DJANGO_FEEDBACK_EMAIL', default=None)
 
 # Databases
 
@@ -154,22 +154,22 @@ DATABASES = {}
 DATABASE_ROUTERS = []
 
 DATABASES['default'] = {
-    'ENGINE': getenv('DJANGO_DB_ENGINE', 'django.db.backends.mysql'),
-    'NAME': getenv('DJANGO_DB_NAME', 'student_explorer'),
-    'USER': getenv('DJANGO_DB_USER', 'student_explorer'),
-    'PASSWORD': getenv('DJANGO_DB_PASSWORD', 'student_explorer'),
-    'HOST': getenv('DJANGO_DB_HOST', ''),
-    'PORT': getenv('DJANGO_DB_PORT', ''),
+    'ENGINE': config('DJANGO_DB_ENGINE', default='django.db.backends.mysql'),
+    'NAME': config('DJANGO_DB_NAME', default='student_explorer'),
+    'USER': config('DJANGO_DB_USER', default='student_explorer'),
+    'PASSWORD': config('DJANGO_DB_PASSWORD', default='student_explorer'),
+    'HOST': config('DJANGO_DB_HOST', default=''),
+    'PORT': config('DJANGO_DB_PORT', default=''),
 }
 
 DATABASES['seumich'] = {
-    'ENGINE': getenv('DJANGO_SEUMICH_DB_ENGINE', 'django.db.backends.mysql'),
-    'NAME': getenv('DJANGO_SEUMICH_DB_NAME', 'student_explorer'),
-    'USER': getenv('DJANGO_SEUMICH_DB_USER', 'student_explorer'),
-    'PASSWORD': getenv('DJANGO_SEUMICH_DB_PASSWORD', 'student_explorer'),
-    'HOST': getenv('DJANGO_SEUMICH_DB_HOST', ''),
-    'PORT': getenv('DJANGO_SEUMICH_DB_PORT', ''),
-    'MIGRATE': getenv_bool('DJANGO_SEUMICH_DB_MIGRATE', 'no'),
+    'ENGINE': config('DJANGO_SEUMICH_DB_ENGINE', default='django.db.backends.mysql'),
+    'NAME': config('DJANGO_SEUMICH_DB_NAME', default='student_explorer'),
+    'USER': config('DJANGO_SEUMICH_DB_USER', default='student_explorer'),
+    'PASSWORD': config('DJANGO_SEUMICH_DB_PASSWORD', default='student_explorer'),
+    'HOST': config('DJANGO_SEUMICH_DB_HOST', default=''),
+    'PORT': config('DJANGO_SEUMICH_DB_PORT', default=''),
+    'MIGRATE': config('DJANGO_SEUMICH_DB_MIGRATE', default='no', cast=bool),
 
 }
 DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
@@ -177,17 +177,25 @@ DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
 
 # SAML Auth
 
-if getenv_bool('STUDENT_EXPLORER_SAML'):
-    SAML2_URL_PATH = getenv('STUDENT_EXPLORER_SAML_URL_PATH', '/accounts/')
-    SAML2_URL_BASE = getenv('STUDENT_EXPLORER_SAML_URL_BASE',
-                            'http://localhost:2082/accounts/')
+if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
+    SAML2_URL_PATH = config('STUDENT_EXPLORER_SAML_URL_PATH', default='/accounts/')
+    SAML2_URL_BASE = config('STUDENT_EXPLORER_SAML_URL_BASE',
+                            default='http://localhost:2082/accounts/')
+
+    SAML2_REMOTE_METADATA = config('STUDENT_EXPLORER_SAML_REMOTE_METADATA',default='')
+    SAML2_REMOTE_PEM_FILE = config('STUDENT_EXPLORER_SAML_REMOTE_PEM_FILE',default='')
+
+    SAML2_DEFAULT_IDP = config('STUDENT_EXPLORER_SAML_DEFAULT_IDP',default='')
+
+    if SAML2_DEFAULT_IDP:
+        SAML2_DEFAULT_IDP = '?idp=%s' % SAML2_DEFAULT_IDP
 
     INSTALLED_APPS += ('djangosaml2',)
     AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
         'djangosaml2.backends.Saml2Backend',
     )
-    LOGIN_URL = '%slogin/' % SAML2_URL_PATH
+    LOGIN_URL = '%slogin/%s' % (SAML2_URL_PATH, SAML2_DEFAULT_IDP)
     SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
     import saml2
@@ -197,15 +205,15 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
 
       # directory with attribute mapping
       # 'attribute_map_dir': os.path.join(BASE_DIR, 'attribute-maps'),
-      'name': getenv('STUDENT_EXPLORER_SAML_SERVICE_NAME', 'Student Explorer'),
+      'name': config('STUDENT_EXPLORER_SAML_SERVICE_NAME', default='Student Explorer'),
       # this block states what services we provide
       'service': {
           # we are just a lonely SP
           'sp': {
               'name': 'Student Explorer',
-              'name_id_format': getenv(
+              'name_id_format': config(
                 'STUDENT_EXPLORER_SAML_NAME_ID_FORMAT',
-                'urn:oasis:names:tc:SAML:2.0:nameid-format:transient'),
+                default='urn:oasis:names:tc:SAML:2.0:nameid-format:transient'),
               'authn_requests_signed': 'true',
               'allow_unsolicited': True,
               'endpoints': {
@@ -233,14 +241,14 @@ if getenv_bool('STUDENT_EXPLORER_SAML'):
               },
           },
 
-      # where the remote metadata is stored
-      'metadata': {
-          'local': [os.path.join(
-            BASE_DIR, 'student_explorer/local/saml/remote-metadata.xml')],
-          },
+      'metadata': [{
+          "class": "saml2.mdstore.MetaDataExtern",
+          "metadata": [
+              (SAML2_REMOTE_METADATA, SAML2_REMOTE_PEM_FILE)]
+      }],
 
       # set to 1 to output debugging information
-      'debug': 1,
+      'debug': DEBUG,
 
       # certificate
       'key_file': os.path.join(
@@ -284,7 +292,7 @@ LOGGING = {
     'handlers': {
         'mail_admins': {
             'class': 'django.utils.log.AdminEmailHandler',
-            'level': getenv('DJANGO_LOGGING_LEVEL_EMAIL_ADMINS', 'ERROR'),
+            'level': config('DJANGO_LOGGING_LEVEL_EMAIL_ADMINS', default='ERROR'),
         },
         'console': {
             'class': 'logging.StreamHandler',
@@ -298,28 +306,28 @@ LOGGING = {
     'loggers': {
         '': {
             'handlers': ['mail_admins'],
-            'level': getenv('DJANGO_LOGGING_LEVEL_EMAIL_ADMINS', 'ERROR'),
+            'level': config('DJANGO_LOGGING_LEVEL_EMAIL_ADMINS', default='ERROR'),
             'propagate': True,
         },
         'django': {
             'handlers': ['console'],
-            'level': getenv('DJANGO_LOGGING_LEVEL', 'WARNING'),
+            'level': config('DJANGO_LOGGING_LEVEL', default='WARNING'),
         },
         'se_umich': {
             'handlers': ['console'],
-            'level': getenv('DJANGO_LOGGING_LEVEL', 'WARNING'),
+            'level': config('DJANGO_LOGGING_LEVEL', default='WARNING'),
         },
         'feedback': {
             'handlers': ['console'],
-            'level': getenv('DJANGO_LOGGING_LEVEL', 'WARNING'),
+            'level': config('DJANGO_LOGGING_LEVEL', default='WARNING'),
         },
         'tracking': {
             'handlers': ['console'],
-            'level': getenv('DJANGO_LOGGING_LEVEL', 'WARNING'),
+            'level': config('DJANGO_LOGGING_LEVEL', default='WARNING'),
         },
         'student_explorer': {
             'handlers': ['console'],
-            'level': getenv('DJANGO_LOGGING_LEVEL', 'WARNING'),
+            'level': config('DJANGO_LOGGING_LEVEL', default='WARNING'),
         },
         'access_logs': {
             'handlers': ['access_logs'],
