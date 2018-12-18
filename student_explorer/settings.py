@@ -16,7 +16,7 @@ BASE_DIR = os.path.dirname(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DJANGO_DEBUG', cast=bool)
+DEBUG = config('DJANGO_DEBUG', default='off', cast=bool)
 ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', 'localhost', cast=Csv())
 
 # SECURITY WARNING: keep the secret key used in production secret!
