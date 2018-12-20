@@ -51,7 +51,7 @@ INSTALLED_APPS = (
 )
 
 CRON_CLASSES = [
-    "seumich.cron.StudentExplorerCronJob",
+    "student_explorer.cron.StudentExplorerCronJob",
 ]
 
 # Time to run cron
