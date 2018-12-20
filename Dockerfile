@@ -19,7 +19,7 @@ ENV TZ=America/Detroit
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Use this tag of API Utils, this will eventually be released
-ENV API_UTILS_VERSION v1.0
+ENV API_UTILS_VERSION v1.1
 RUN git clone https://github.com/tl-its-umich-edu/api-utils-python && cd api-utils-python && git checkout tags/${API_UTILS_VERSION} && pip install .
 
 # Install npm and wait-port globally
