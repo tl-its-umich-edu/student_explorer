@@ -24,30 +24,32 @@ logger = logging.getLogger(__name__)
 # use ApiUtil for all API directory calls
 apiUtil = ApiUtil(config("APIUTIL_URL", default=""), config("APIUTIL_KEY", default=""), config("APIUTIL_SECRET", default=""))
 
-
 # cron job to populate course and user tables
 class StudentExplorerCronJob(CronJobBase):
 
     schedule = Schedule(run_at_times=settings.RUN_AT_TIMES)
     code = 'student_explorer.StudentExplorerCronJob'    # a unique code
 
-    def get_mentor_canvas_id(self, mentor_uniqname):
+    def get_user_canvas_id(self, user_uniqname):
         """
-        This process gets the canvas user id for mentor
-        :param mentor_uniqname:
+        This process gets the canvas user id for user
+        :param user_uniqname:
         :return:
         """
-        mentor_result = apiUtil.api_call(f"aa/CanvasReadOnly/users/sis_login_id:{mentor_uniqname}/profile", "canvasreadonly")
-        mentor_json = json.loads(mentor_result.text)
-        return mentor_json.get("id", "")
+        user_result = apiUtil.api_call(f"aa/CanvasReadOnly/users/sis_login_id:{user_uniqname}/profile", "canvasreadonly")
+        user_json = json.loads(user_result.text)
+        return user_json.get("id", "")
 
-    def mentor_in_athletic(self, mentor_uniqname):
+    def mentor_in_affiliated_department(self, mentor_uniqname):
         """
-        checks whether the mentor is in athletic department
+        checks whether the mentor is in affiliated department
         :param mentor_uniqname:
         :return:
         """
-        in_athletic = False
+        in_affiliated_department = False
+
+        # get the array of affiliated department from config settings
+        deptAffiliations = config("DEPT_AFFILIATION", default="").split(",")
 
         logger.info("mentor uniquename=" + mentor_uniqname)
         resp = apiUtil.api_call(f"MCommunity/People/{mentor_uniqname}", "mcommunity")
@@ -61,18 +63,17 @@ class StudentExplorerCronJob(CronJobBase):
             logger.warn(f"Cannot find user {mentor_uniqname} in MCommunity")
         else:
             advisor_json = json.loads(resp.text)
-            affiliation = advisor_json.get("person").get("affiliation", "")
+            user_affiliation = advisor_json.get("person").get("affiliation", "")
             # array of affiliated department.
             # The advisors of those department will be added as observers to student's Canvas courses
-            affiliated_depts = ["Athletics - Faculty and Staff"]
-            for dept in affiliated_depts:
-                if dept in affiliation:
+            for dept in deptAffiliations:
+                if dept in user_affiliation:
                     # advisor with right dept affiliation
-                    in_athletic = True
+                    in_affiliated_department = True
 
-        return in_athletic
+        return in_affiliated_department
 
-    def add_user_as_observer_to_course(self, class_site_id, mentor_canvas_user_id):
+    def add_user_as_observer_to_course(self, class_site_id, mentor_canvas_user_id, user_canvas_user_id):
         """
         check whether the mentor is enrolled in this Canvas course
         if enrolled, do nothing;
@@ -82,6 +83,7 @@ class StudentExplorerCronJob(CronJobBase):
         :return:
         """
         enrolled = False
+        course_section_id = ""
         enrollments_resp = apiUtil.api_call(f"aa/CanvasReadOnly/courses/{class_site_id}/enrollments", "canvasreadonly")
         if (enrollments_resp.text.find("errors") != -1):
             # check for error message
@@ -89,29 +91,49 @@ class StudentExplorerCronJob(CronJobBase):
             logger.warn(f"errors retrieving enrollments for class {class_site_id}: {enrollments_resp.text}")
         else:
             enrollments_json = json.loads(enrollments_resp.text)
+
             for item in enrollments_json:
                 user_id=item.get("user_id")
 
+                # get the Canvas section id for student enrollment
+                if (user_id == user_canvas_user_id):
+                    course_section_id = item.get("course_section_id")
+
+                # check whether mentor has already enrolled in the course
                 if user_id == mentor_canvas_user_id:
                     # advisor is enrolled in the course
                     # break and do nothing
                     enrolled = True
                     break
 
-            if not enrolled:
+            logger.info(f" enrolled = {enrolled} user_canvas_user_id = {user_canvas_user_id} course_section_id={course_section_id}")
+            if enrolled:
+                # mentor is already in Canvas course site
+                # do nothing
+                logger.info(f"User id {mentor_canvas_user_id} is already enrolled in course {class_site_id}")
+            else:
+                #enroll mentor to the Canvas course site with Observer role
                 logger.info(f"Start: User id {mentor_canvas_user_id} is NOT enrolled in course {class_site_id}. Preparing to add user with Observer role. ")
-                # add user as observer role to the Canvas course site
+
+                # POST call to add mentor with Observer role to given section
                 payload_dictionary = {
                     "enrollment[user_id]": mentor_canvas_user_id,
                     "enrollment[type]": "ObserverEnrollment",
                     "enrollment[enrollment_state]": "active",
-                    "enrollment[course_section_id]": class_site_id,
+                    "enrollment[course_section_id]": course_section_id,
                     "enrollment[limit_privileges_to_course_section]": "true",
-                    "enrollment[notify]": "true"
+                    "enrollment[notify]": "true",
+                    "enrollment[associated_user_id]":user_canvas_user_id
                 }
-                # POST call to add user
-                post_result = apiUtil.api_call(f"aa/CanvasReadOnly/courses/{class_site_id}/enrollments", "canvasreadonly", method="POST", payload=payload_dictionary)
-                logger.info(f"End: result of adding user id {mentor_canvas_user_id} to course {class_site_id}: {post_result}")
+                post_result = apiUtil.api_call(f"aa/CanvasTLAdmin/courses/{class_site_id}/enrollments", "canvastladmin", method="POST", payload=payload_dictionary)
+                logger.info(f"End: result of adding user id {mentor_canvas_user_id} to course {class_site_id}: {post_result.text}")
+
+                # put call to add student as observee to mentor
+                #payload_dictionary = {
+                #    "root_account_id": 1
+                #}
+                #delete_result = apiUtil.api_call(f"aa/CanvasTLAdmin/users/{mentor_canvas_user_id}/observees/{user_canvas_user_id}", "canvastladmin", method="DELETE", payload=payload_dictionary)
+                #logger.info(f"End: result of adding student id {user_canvas_user_id} as observee to {mentor_canvas_user_id} in course {class_site_id}: {DELETE_result.text}")
 
     def iterate_all_student_for_mentor(self, student_list, mentor_canvas_user_id ):
         """
@@ -123,7 +145,8 @@ class StudentExplorerCronJob(CronJobBase):
         # all students associated with the mentor
         for student in student_list:
             uniqname = student.username
-            logger.info(uniqname)
+            student_canvas_id = self.get_user_canvas_id(uniqname)
+            logger.info(f"student uniqname {uniqname} canvas id={student_canvas_id}")
 
             # all current class for given user
             class_sites = student.studentclasssitestatus_set.all()
@@ -132,7 +155,7 @@ class StudentExplorerCronJob(CronJobBase):
                 logger.info(f"class site id {class_site_id} {element.class_site}")
 
                 # if needed, add mentor as Observer to Canvas course site
-                self.add_user_as_observer_to_course(class_site_id, mentor_canvas_user_id)
+                self.add_user_as_observer_to_course(class_site_id, mentor_canvas_user_id, student_canvas_id)
 
     def update_advisors_in_canvas_sites(self):
         """
@@ -147,11 +170,11 @@ class StudentExplorerCronJob(CronJobBase):
         for mentor in Mentor.objects.all():
             mentor_uniqname = mentor.username
 
-            # this is mentor in athletic department
-            if (self.mentor_in_athletic(mentor_uniqname)):
+            # this is mentor in affiliated department
+            if (self.mentor_in_affiliated_department(mentor_uniqname)):
 
                 # iterator through all users for mentor
-                self.iterate_all_student_for_mentor(mentor.students.all(), self.get_mentor_canvas_id(mentor_uniqname))
+                self.iterate_all_student_for_mentor(mentor.students.all(), self.get_user_canvas_id(mentor_uniqname))
 
     def do(self):
             logger.warn("************ Student Explorer cron tab")

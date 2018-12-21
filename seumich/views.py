@@ -16,6 +16,9 @@ from tracking.utils import UserLogPageViewMixin
 import operator
 import logging
 
+from django.conf import settings
+from decouple import config
+
 logger = logging.getLogger(__name__)
 
 
@@ -344,4 +347,11 @@ class StudentClassSiteView(StudentView):
             class_site=class_site).prefetch_related('assignment', '_due_date')
         context['current_status'] = student.studentclasssitestatus_set.get(
             class_site=class_site).status.description
+
+        course_url_prefix = config("CANVAS_COURSE_URL_PREFIX", default="")
+        logger.info("course_url_prefix " + course_url_prefix)
+        if (course_url_prefix != ""):
+            context['class_site_canvas_url'] = course_url_prefix + class_site.code
+
+            logger.info("class_site_canvas_url " + course_url_prefix + class_site.code)
         return context
