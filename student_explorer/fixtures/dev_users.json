@@ -124,5 +124,23 @@
     },
     "model": "auth.user",
     "pk": 11
+},
+{
+    "fields": {
+        "username": "smrech",
+        "first_name": "Sara",
+        "last_name": "RechnitzerProfile",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-11-18T19:16:37Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$93rkHn7zyOIm$q02j77FK+u012Tp4afivmt7vcpJ+3f+e6as7xX9gCPY=",
+        "email": "",
+        "date_joined": "2015-10-15T13:56:47Z"
+    },
+    "model": "auth.user",
+    "pk": 12
 }
 ]

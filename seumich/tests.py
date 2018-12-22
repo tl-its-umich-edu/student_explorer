@@ -488,7 +488,8 @@ class SeumichTest(TestCase):
                                  [
                                  '<Mentor: zander>',
                                  '<Mentor: burl>',
-                                 '<Mentor: lavera>'])
+                                 '<Mentor: lavera>',
+                                 '<Mentor: smrech>'])
 
     def test_student_list_view_redirect(self):
         url = reverse('seumich:students_list')

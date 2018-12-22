@@ -7511,7 +7511,8 @@ VALUES
 	(17,3,1),
 	(20,3,1),
 	(21,3,1),
-	(23,3,2);
+	(23,3,2),
+	(24,3,4);
 
 /*!40000 ALTER TABLE `"CNLYR002"."BG_STDNT_CHRT_MNTR"` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -7593,7 +7594,8 @@ VALUES
 	(3,'LAVERA','20000003','Lavera','Rumore'),
 	(4,'MOLLIE','20000004','Mollie','Whistler'),
 	(5,'CARLA','20000005','Carla','Beumer'),
-	(6,'WILL','20000006','Will','Smith');
+	(6,'WILL','20000006','Will','Smith'),
+	(7,'SMRECH','20000007','Sara','Rechnitzer');
 
 /*!40000 ALTER TABLE `"CNLYR002"."DM_ADVSR"` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -7694,7 +7696,7 @@ VALUES
 	(2,'2','Math 101 Lab',1),
 	(3,'3','Physics 101',1),
 	(4,'4','Physics 101 Lab',1),
-	(5,'5','English 101',2),
+	(5,'253496','English 101',2),
 	(6,'6','History 101',2);
 
 /*!40000 ALTER TABLE `"CNLYR002"."DM_CLASS_SITE"` ENABLE KEYS */;
@@ -7747,7 +7749,8 @@ INSERT INTO `"CNLYR002"."DM_MNTR"` (`MNTR_KEY`, `MNTR_UM_UNQNM`, `MNTR_UM_ID`, `
 VALUES
 	(1,'ZANDER','20000001','Zander','Agrippa'),
 	(2,'BURL','20000002','Burl','Chandler'),
-	(3,'LAVERA','20000003','Lavera','Rumore');
+	(3,'LAVERA','20000003','Lavera','Rumore'),
+	(4,'SMRECH','20000004','Sara','Rechnitzer');
 
 /*!40000 ALTER TABLE `"CNLYR002"."DM_MNTR"` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -7819,7 +7822,8 @@ VALUES
 	(20,'DESMOND','10000020','Desmond','Foxx'),
 	(21,'JAMES','10000021','James','Bond'),
 	(22,'MIKE','10000022','Mike','Brown'),
-	(23,'NOCOURSES','10000023','Nocourses','Guy');
+	(23,'NOCOURSES','10000023','Nocourses','Guy'),
+	(24,'ABBOTTMA','10000024','TEST_FIRST_NAME','TEST_LAST_NAME');
 
 /*!40000 ALTER TABLE `"CNLYR002"."DM_STDNT"` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -7955,7 +7959,8 @@ VALUES
 	(14,6,2),
 	(17,6,3),
 	(21,6,1),
-	(22,6,1);
+	(22,6,1),
+	(24,5,1);
 
 /*!40000 ALTER TABLE `"CNLYR002"."FC_STDNT_CLASS_ACAD_PERF"` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -8045,7 +8050,9 @@ VALUES
 	(3,85,2),
   (21,80,4),
   (21,95,5),
-  (21,150,6);
+  (21,150,6),
+  (24,88,5)
+  ;
 
 /*!40000 ALTER TABLE `"CNLYR002"."FC_STDNT_CLASS_SCR"` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -8180,7 +8187,8 @@ VALUES
 	(1,2,1,2109),
 	(1,2,1,2116),
 	(1,2,1,2123),
-	(1,2,1,2130);
+	(1,2,1,2130),
+	(24,5,1,2130);
 
 /*!40000 ALTER TABLE `"CNLYR002"."FC_STDNT_CLS_WKLY_ACAD_PRF"` ENABLE KEYS */;
 UNLOCK TABLES;
