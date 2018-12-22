@@ -16,7 +16,7 @@ from seumich.models import Mentor
 
 import dateutil.parser as parser
 
-from decouple import config
+from decouple import config, Csv
 
 
 logger = logging.getLogger(__name__)
@@ -49,7 +49,7 @@ class StudentExplorerCronJob(CronJobBase):
         in_affiliated_department = False
 
         # get the array of affiliated department from config settings
-        deptAffiliations = config("DEPT_AFFILIATION", default="").split(",")
+        deptAffiliations = config("DEPT_AFFILIATION", default="", cast=Csv())
 
         logger.info("mentor uniquename=" + mentor_uniqname)
         resp = apiUtil.api_call(f"MCommunity/People/{mentor_uniqname}", "mcommunity")
@@ -66,10 +66,7 @@ class StudentExplorerCronJob(CronJobBase):
             user_affiliation = advisor_json.get("person").get("affiliation", "")
             # array of affiliated department.
             # The advisors of those department will be added as observers to student's Canvas courses
-            for dept in deptAffiliations:
-                if dept in user_affiliation:
-                    # advisor with right dept affiliation
-                    in_affiliated_department = True
+            in_affiliated_department = any(dept in deptAffiliations for dept in user_affiliation)
 
         return in_affiliated_department
 
@@ -91,10 +88,9 @@ class StudentExplorerCronJob(CronJobBase):
             logger.warn(f"errors retrieving enrollments for class {class_site_id}: {enrollments_resp.text}")
         else:
             enrollments_json = json.loads(enrollments_resp.text)
-
+            logger.info(enrollments_resp.text)
             for item in enrollments_json:
                 user_id=item.get("user_id")
-
                 # get the Canvas section id for student enrollment
                 if (user_id == user_canvas_user_id):
                     course_section_id = item.get("course_section_id")
@@ -104,9 +100,8 @@ class StudentExplorerCronJob(CronJobBase):
                     # advisor is enrolled in the course
                     # break and do nothing
                     enrolled = True
-                    break
 
-            logger.info(f" enrolled = {enrolled} user_canvas_user_id = {user_canvas_user_id} course_section_id={course_section_id}")
+            logger.info(f"mentor {mentor_canvas_user_id} enrolled {enrolled} in class {class_site_id}, for student user_canvas_user_id {user_canvas_user_id} in course_section_id {course_section_id}")
             if enrolled:
                 # mentor is already in Canvas course site
                 # do nothing
@@ -121,7 +116,7 @@ class StudentExplorerCronJob(CronJobBase):
                     "enrollment[type]": "ObserverEnrollment",
                     "enrollment[enrollment_state]": "active",
                     "enrollment[course_section_id]": course_section_id,
-                    "enrollment[limit_privileges_to_course_section]": "true",
+                    "enrollment[limit_privileges_to_course_section]": "false",
                     "enrollment[notify]": "true",
                     "enrollment[associated_user_id]":user_canvas_user_id
                 }
@@ -172,6 +167,8 @@ class StudentExplorerCronJob(CronJobBase):
 
             # this is mentor in affiliated department
             if (self.mentor_in_affiliated_department(mentor_uniqname)):
+
+                logger.info(f"{mentor_uniqname} is in affiliated department. ")
 
                 # iterator through all users for mentor
                 self.iterate_all_student_for_mentor(mentor.students.all(), self.get_user_canvas_id(mentor_uniqname))
