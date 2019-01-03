@@ -1,6 +1,13 @@
 from __future__ import unicode_literals
 
+import logging
 from django.db import models
+
+from tracking.eventnames import EventNames
+from tracking.utils import create_event
+
+
+logger = logging.getLogger(__name__)
 
 
 class BaseModel(models.Model):
@@ -24,6 +31,11 @@ class Cohort(BaseModel):
     description = models.CharField(max_length=100)
     group = models.CharField(max_length=50)
     active = models.BooleanField(default=True)
+
+    def delete(self, *args, **kwargs):
+        request = kwargs.pop("request", None)
+        super(Cohort, self).delete(*args, **kwargs)
+        create_event(EventNames.CohortDeleted,request = request)
 
 
 class Student(BaseModel):

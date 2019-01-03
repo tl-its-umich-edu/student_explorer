@@ -14,3 +14,4 @@ class EventNames(object):
     PageError = 'PageError'
     Redirected = 'Redirected'
     Searched = 'Searched'
+    CohortDeleted = 'CohortDeleted'
