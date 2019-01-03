@@ -34,8 +34,8 @@ class Cohort(BaseModel):
 
     def delete(self, *args, **kwargs):
         request = kwargs.pop("request", None)
-        create_event(EventNames.CohortDeleted,request = request)
         super(Cohort, self).delete(*args, **kwargs)
+        create_event(EventNames.CohortDeleted,request = request)
 
 
 class Student(BaseModel):
