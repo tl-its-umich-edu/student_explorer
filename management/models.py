@@ -33,12 +33,8 @@ class Cohort(BaseModel):
     active = models.BooleanField(default=True)
 
     def delete(self, *args, **kwargs):
-        user = kwargs.get('user')
-        if user is None:
-            user = getattr(kwargs.get('request'), 'user', None)
-
-        create_event(EventNames.CohortDeleted, user=user,
-            request=kwargs.get('request'))
+        request = kwargs.pop("request", None)
+        create_event(EventNames.CohortDeleted,request = request)
         super(Cohort, self).delete(*args, **kwargs)
 
 
