@@ -29,4 +29,18 @@ class Migration(migrations.Migration):
                 'get_latest_by': 'timestamp',
             },
         ),
+        migrations.CreateModel(
+            name='MentorStudentCourseObserver',
+            fields=[
+                ('student_id', models.CharField(max_length=50)),
+                ('mentor_uniqname', models.CharField(max_length=50)),
+                ('mentor_id', models.CharField(max_length=50)),
+                ('course_id', models.CharField(max_length=50)),
+                ('course_section_id', models.CharField(max_length=50)),
+            ],
+        ),
+        migrations.AlterUniqueTogether(
+            name='MentorStudentCourseObserver',
+            unique_together=set([('student', 'mentor_id', 'course_id')]),
+        ),
     ]

@@ -14,6 +14,8 @@ from umich_api.api_utils import ApiUtil
 
 from seumich.models import Mentor
 
+from tracking.models import MentorStudentCourseObserver
+
 import dateutil.parser as parser
 
 from decouple import config, Csv
@@ -70,13 +72,15 @@ class StudentExplorerCronJob(CronJobBase):
 
         return in_affiliated_department
 
-    def add_user_as_observer_to_course(self, class_site_id, mentor_canvas_user_id, user_canvas_user_id):
+    def add_user_as_observer_to_course(self, class_site_id, mentor_uniqname, mentor_canvas_user_id, user_canvas_user_id):
         """
         check whether the mentor is enrolled in this Canvas course
         if enrolled, do nothing;
         else add the mentor user to the Canvas course with Observer role
         :param class_site_id:
+        :param mentor_uniqname:
         :param mentor_canvas_user_id:
+        :param user_canvas_user_id:
         :return:
         """
         enrolled = False
@@ -88,52 +92,45 @@ class StudentExplorerCronJob(CronJobBase):
             logger.warn(f"errors retrieving enrollments for class {class_site_id}: {enrollments_resp.text}")
         else:
             enrollments_json = json.loads(enrollments_resp.text)
-            logger.info(enrollments_resp.text)
             for item in enrollments_json:
                 user_id=item.get("user_id")
                 # get the Canvas section id for student enrollment
                 if (user_id == user_canvas_user_id):
                     course_section_id = item.get("course_section_id")
 
-                # check whether mentor has already enrolled in the course
-                if user_id == mentor_canvas_user_id:
-                    # advisor is enrolled in the course
-                    # break and do nothing
-                    enrolled = True
+            #enroll mentor to the Canvas course site with Observer role
+            logger.info(f"Start: User id {mentor_canvas_user_id} is NOT enrolled in course {class_site_id}. Preparing to add user with Observer role. ")
 
-            logger.info(f"mentor {mentor_canvas_user_id} enrolled {enrolled} in class {class_site_id}, for student user_canvas_user_id {user_canvas_user_id} in course_section_id {course_section_id}")
-            if enrolled:
-                # mentor is already in Canvas course site
-                # do nothing
-                logger.info(f"User id {mentor_canvas_user_id} is already enrolled in course {class_site_id}")
-            else:
-                #enroll mentor to the Canvas course site with Observer role
-                logger.info(f"Start: User id {mentor_canvas_user_id} is NOT enrolled in course {class_site_id}. Preparing to add user with Observer role. ")
+            # POST call to add mentor with Observer role to given section
+            payload_dictionary = {
+                "enrollment[user_id]": mentor_canvas_user_id,
+                "enrollment[type]": "ObserverEnrollment",
+                "enrollment[enrollment_state]": "active",
+                "enrollment[course_section_id]": course_section_id,
+                "enrollment[limit_privileges_to_course_section]": "false",
+                "enrollment[notify]": "true",
+                "enrollment[associated_user_id]":user_canvas_user_id
+            }
+            post_result = apiUtil.api_call(f"aa/CanvasTLAdmin/courses/{class_site_id}/enrollments", "canvastladmin", method="POST", payload=payload_dictionary)
 
-                # POST call to add mentor with Observer role to given section
-                payload_dictionary = {
-                    "enrollment[user_id]": mentor_canvas_user_id,
-                    "enrollment[type]": "ObserverEnrollment",
-                    "enrollment[enrollment_state]": "active",
-                    "enrollment[course_section_id]": course_section_id,
-                    "enrollment[limit_privileges_to_course_section]": "false",
-                    "enrollment[notify]": "true",
-                    "enrollment[associated_user_id]":user_canvas_user_id
-                }
-                post_result = apiUtil.api_call(f"aa/CanvasTLAdmin/courses/{class_site_id}/enrollments", "canvastladmin", method="POST", payload=payload_dictionary)
-                logger.info(f"End: result of adding user id {mentor_canvas_user_id} to course {class_site_id}: {post_result.text}")
+            #update the MentorStudentCourseObserver table with the insert information
+            r = MentorStudentCourseObserver(student_id=user_canvas_user_id,
+                                            mentor_id=mentor_canvas_user_id,
+                                            mentor_uniqname= mentor_uniqname,
+                                            course_id=class_site_id,
+                                            course_section_id=course_section_id)
+            r.save()
+            logger.info(f"updated MentorStudentCourseObserver tracking table for student={user_canvas_user_id}, mentor={mentor_canvas_user_id}, course_id={class_site_id} course_section_id={course_section_id}")
 
-                # put call to add student as observee to mentor
-                #payload_dictionary = {
-                #    "root_account_id": 1
-                #}
-                #delete_result = apiUtil.api_call(f"aa/CanvasTLAdmin/users/{mentor_canvas_user_id}/observees/{user_canvas_user_id}", "canvastladmin", method="DELETE", payload=payload_dictionary)
-                #logger.info(f"End: result of adding student id {user_canvas_user_id} as observee to {mentor_canvas_user_id} in course {class_site_id}: {DELETE_result.text}")
 
-    def iterate_all_student_for_mentor(self, student_list, mentor_canvas_user_id ):
+            logger.info(f"End: result of adding user id {mentor_canvas_user_id} to course {class_site_id}: {post_result.text}")
+
+
+    def iterate_all_student_for_mentor(self, student_list, mentor_uniqname, mentor_canvas_user_id ):
         """
         This process is loops through all students associated with the mentor
         :param student_list:
+        :param mentor_uniqname:
         :param mentor_canvas_user_id:
         :return:
         """
@@ -149,8 +146,17 @@ class StudentExplorerCronJob(CronJobBase):
                 class_site_id = element.class_site.code
                 logger.info(f"class site id {class_site_id} {element.class_site}")
 
-                # if needed, add mentor as Observer to Canvas course site
-                self.add_user_as_observer_to_course(class_site_id, mentor_canvas_user_id, student_canvas_id)
+                # check whether mentor has been added into the course as student observer
+                qResult = MentorStudentCourseObserver.objects.filter(
+                            student_id=str(student_canvas_id),
+                            mentor_id = str(mentor_canvas_user_id),
+                            course_id = str(class_site_id))
+
+                if (len(qResult) == 0):
+                    # if needed, add mentor as Observer to Canvas course site
+                    self.add_user_as_observer_to_course(class_site_id, mentor_uniqname, mentor_canvas_user_id, student_canvas_id)
+                else:
+                    logger.info(f"STOP here: existing record in MentorStudentCourseObserver tracking table for student={student_canvas_id}, mentor={mentor_canvas_user_id}, course={class_site_id}")
 
     def update_advisors_in_canvas_sites(self):
         """
@@ -165,13 +171,15 @@ class StudentExplorerCronJob(CronJobBase):
         for mentor in Mentor.objects.all():
             mentor_uniqname = mentor.username
 
-            # this is mentor in affiliated department
-            if (self.mentor_in_affiliated_department(mentor_uniqname)):
-
-                logger.info(f"{mentor_uniqname} is in affiliated department. ")
-
-                # iterator through all users for mentor
-                self.iterate_all_student_for_mentor(mentor.students.all(), self.get_user_canvas_id(mentor_uniqname))
+            qResult = MentorStudentCourseObserver.objects.filter(mentor_uniqname = mentor_uniqname )
+            # if mentor uniqname is NOT already in tracking table, check for affiliated department
+            if (len(qResult) > 0):
+                logger.info(f"{mentor_uniqname} already exist in tracking table. No need to call MCommuity API. ")
+            else:
+                if (self.mentor_in_affiliated_department(mentor_uniqname)):
+                    # iterator through all users for mentor
+                    logger.info(f"{mentor_uniqname} is in affiliated department. ")
+                    self.iterate_all_student_for_mentor(mentor.students.all(), mentor_uniqname, self.get_user_canvas_id(mentor_uniqname))
 
     def do(self):
             logger.warn("************ Student Explorer cron tab")

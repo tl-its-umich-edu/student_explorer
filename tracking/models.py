@@ -8,6 +8,16 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 from django.conf import settings
 
+class MentorStudentCourseObserver(models.Model):
+    student_id = models.CharField(max_length=50)
+    mentor_uniqname = models.CharField(max_length=50)
+    mentor_id = models.CharField(max_length=50)
+    course_id = models.CharField(max_length=50)
+    course_section_id = models.CharField(max_length=50)
+
+    class Meta:
+        unique_together = ('student_id', 'mentor_id', 'course_id')
+
 class Event(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     name = models.CharField(max_length=100)
