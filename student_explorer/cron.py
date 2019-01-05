@@ -173,10 +173,7 @@ class StudentExplorerCronJob(CronJobBase):
 
             qResult = MentorStudentCourseObserver.objects.filter(mentor_uniqname = mentor_uniqname )
             # if mentor uniqname is NOT already in tracking table, check for affiliated department
-            if (len(qResult) > 0):
-                logger.info(f"{mentor_uniqname} already exist in tracking table. No need to call MCommuity API. ")
-            else:
-                if (self.mentor_in_affiliated_department(mentor_uniqname)):
+            if (len(qResult) > 0 or self.mentor_in_affiliated_department(mentor_uniqname)):
                     # iterator through all users for mentor
                     logger.info(f"{mentor_uniqname} is in affiliated department. ")
                     self.iterate_all_student_for_mentor(mentor.students.all(), mentor_uniqname, self.get_user_canvas_id(mentor_uniqname))
