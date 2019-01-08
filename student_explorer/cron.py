@@ -2,6 +2,8 @@
 
 from __future__ import print_function #python 3 support
 
+from __future__ import absolute_import #py3 management conflict in cron
+
 from django.db import connections as conns
 
 import logging, datetime, json
@@ -14,7 +16,7 @@ from umich_api.api_utils import ApiUtil
 
 from seumich.models import Mentor
 
-from tracking.models import MentorStudentCourseObserver
+from management.models import MentorStudentCourseObserver
 
 import dateutil.parser as parser
 
