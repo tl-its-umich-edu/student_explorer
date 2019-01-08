@@ -53,3 +53,12 @@ class StudentCohortMentor(BaseModel):
 
     class Meta:
         unique_together = ('student', 'cohort', 'mentor')
+
+class MentorStudentCourseObserver(models.Model):
+    student_id = models.CharField(max_length=50)
+    mentor_uniqname = models.CharField(max_length=50)
+    course_id = models.CharField(max_length=50)
+    course_section_id = models.CharField(max_length=50)
+
+    class Meta:
+        unique_together = ('student_id', 'mentor_uniqname', 'course_id')
