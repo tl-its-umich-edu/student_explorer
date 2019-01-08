@@ -34,13 +34,12 @@ class Migration(migrations.Migration):
             fields=[
                 ('student_id', models.CharField(max_length=50)),
                 ('mentor_uniqname', models.CharField(max_length=50)),
-                ('mentor_id', models.CharField(max_length=50)),
                 ('course_id', models.CharField(max_length=50)),
                 ('course_section_id', models.CharField(max_length=50)),
             ],
         ),
         migrations.AlterUniqueTogether(
             name='MentorStudentCourseObserver',
-            unique_together=set([('student', 'mentor_id', 'course_id')]),
+            unique_together=set([('student_id', 'mentor_uniqname', 'course_id')]),
         ),
     ]

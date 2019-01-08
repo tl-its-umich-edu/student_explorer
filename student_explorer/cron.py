@@ -115,12 +115,11 @@ class StudentExplorerCronJob(CronJobBase):
 
             #update the MentorStudentCourseObserver table with the insert information
             r = MentorStudentCourseObserver(student_id=user_canvas_user_id,
-                                            mentor_id=mentor_canvas_user_id,
                                             mentor_uniqname= mentor_uniqname,
                                             course_id=class_site_id,
                                             course_section_id=course_section_id)
             r.save()
-            logger.info(f"updated MentorStudentCourseObserver tracking table for student={user_canvas_user_id}, mentor={mentor_canvas_user_id}, course_id={class_site_id} course_section_id={course_section_id}")
+            logger.info(f"updated MentorStudentCourseObserver tracking table for student={user_canvas_user_id}, mentor_uniqname={mentor_uniqname}, course_id={class_site_id} course_section_id={course_section_id}")
 
 
             logger.info(f"End: result of adding user id {mentor_canvas_user_id} to course {class_site_id}: {post_result.text}")
@@ -138,25 +137,24 @@ class StudentExplorerCronJob(CronJobBase):
         for student in student_list:
             uniqname = student.username
             student_canvas_id = self.get_user_canvas_id(uniqname)
-            logger.info(f"student uniqname {uniqname} canvas id={student_canvas_id}")
 
             # all current class for given user
             class_sites = student.studentclasssitestatus_set.all()
             for element in class_sites:
                 class_site_id = element.class_site.code
-                logger.info(f"class site id {class_site_id} {element.class_site}")
+                logger.info(f"checking mentor={mentor_uniqname} for student={uniqname}, class site id={class_site_id}, class title={element.class_site} " )
 
                 # check whether mentor has been added into the course as student observer
                 qResult = MentorStudentCourseObserver.objects.filter(
                             student_id=str(student_canvas_id),
-                            mentor_id = str(mentor_canvas_user_id),
+                            mentor_uniqname = str(mentor_uniqname),
                             course_id = str(class_site_id))
 
                 if (len(qResult) == 0):
                     # if needed, add mentor as Observer to Canvas course site
                     self.add_user_as_observer_to_course(class_site_id, mentor_uniqname, mentor_canvas_user_id, student_canvas_id)
                 else:
-                    logger.info(f"STOP here: existing record in MentorStudentCourseObserver tracking table for student={student_canvas_id}, mentor={mentor_canvas_user_id}, course={class_site_id}")
+                    logger.debug(f"STOP here: existing record in MentorStudentCourseObserver tracking table for student={student_canvas_id}, mentor_uniqname={mentor_uniqname}, course={class_site_id}")
 
     def update_advisors_in_canvas_sites(self):
         """
