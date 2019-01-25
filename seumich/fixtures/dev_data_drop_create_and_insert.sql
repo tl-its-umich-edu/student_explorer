@@ -8214,7 +8214,8 @@ INSERT INTO `"CNLYR002"."LRNG_ANLTCS_STAT"` (`DW_DATA_NM`, `EXTRCT_DT`, `LOAD_DT
 VALUES
 	('Student Explorer Daily Tables','2018-11-25','2018-11-25','cnlyr002'),
 	('LARC Data Set','2018-09-25','2018-09-25','cnlyr002'),
-	('Student Explorer Weekly Tables','2018-11-25','2018-11-25','cnlyr002');
+	('Student Explorer Weekly Tables','2018-11-25','2018-11-25','cnlyr002'),
+	('UDW Daily Tables','2018-11-25','2018-11-25','4.2.1');
 
 /*!40000 ALTER TABLE `"CNLYR002"."LRNG_ANLTCS_STAT"` ENABLE KEYS */;
 UNLOCK TABLES;
