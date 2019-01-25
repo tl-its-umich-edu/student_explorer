@@ -5,6 +5,7 @@ from management.models import Cohort
 
 import csv
 import os
+import re
 
 
 class UserCreateForm(forms.ModelForm):
@@ -78,6 +79,13 @@ class CohortForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(CohortForm, self).clean()
+
+        # verify the code input
+        code = cleaned_data.get('code')
+        if (not bool(re.match('^[-\w\s]+$', code))):
+            msg = ("Please enter only alphanumeric, space, or dash characters for cohort code field")
+            self.add_error('code', msg)
+
         members = cleaned_data.get('members')
         excel_file = cleaned_data.get('excel_file')
 
