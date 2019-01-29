@@ -13,7 +13,7 @@ def get_data_date():
 
     try:
         c = LearningAnalyticsStats.objects.get(dw_data_nm='UDW Daily Tables')
-        return_date_info = "UDW Data Last Updated: " + c.load_dt.strftime("%Y-%m-%d %H:%M:%S") + "; Schema: " + c.dw_ownr_nm
+        return_date_info = "UDW Last Updated on: " + c.load_dt.replace(microsecond=0).isoformat() + "; Schema: " + c.dw_ownr_nm
         return return_date_info
     except LearningAnalyticsStats.DoesNotExist:
-        return datetime.min.strftime("%Y-%m-%d %H:%M:%S")
+        return datetime.min.replace(microsecond=0).isoformat()
