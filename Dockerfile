@@ -55,7 +55,7 @@ RUN if [ "$LOCALHOST_DEV" ] ; then \
     apt-get install --yes yum-utils alien && \
     yum-config-manager --enable ol7_oracle_instantclient && \
     yumdownloader oracle-instantclient18.3-devel oracle-instantclient18.3-basiclite && \
-    alien oracle-instantclient18.3-basiclite-18.3.0.0.0-2.x86_64.rpm oracle-instantclient18.3-devel-18.3.0.0.0-2.x86_64.rpm && \
+    alien oracle-instantclient18.3-basiclite-18.3.0.0.0-1.x86_64.rpm oracle-instantclient18.3-devel-18.3.0.0.0-1.x86_64.rpm && \
     dpkg -i *.deb && rm *.deb *.rpm && \
     pip install cx_Oracle==7.0 \
     ; fi
