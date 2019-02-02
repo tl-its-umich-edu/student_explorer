@@ -31,8 +31,13 @@ ARG LOCALHOST_DEV
 
 WORKDIR /usr/src/app/student_explorer/dependencies/
 
-ENV ORACLE_HOME /usr/lib/oracle/18.3/client64
-ENV LD_LIBRARY_PATH /usr/lib/oracle/18.3/client64/lib
+# This is based on here. It seems like it unfortunately may need to be manually updated
+# http://yum.oracle.com/repo/OracleLinux/OL7/oracle/instantclient/x86_64/index.html
+
+ENV ORACLE_CLIENT_VERSION=18.3
+ENV ORACLE_HOME /usr/lib/oracle/$ORACLE_CLIENT_VERSION/client64
+ENV LD_LIBRARY_PATH /usr/lib/oracle/$ORACLE_CLIENT_VERSION/client64/lib
+
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app/
@@ -54,8 +59,8 @@ RUN if [ "$LOCALHOST_DEV" ] ; then \
     mkdir -p /etc/yum/repos.d && curl -o /etc/yum/repos.d/public-yum-ol7.repo https://yum.oracle.com/public-yum-ol7.repo && \
     apt-get install --yes yum-utils alien && \
     yum-config-manager --enable ol7_oracle_instantclient && \
-    yumdownloader oracle-instantclient18.3-devel oracle-instantclient18.3-basiclite && \
-    alien oracle-instantclient18.3-basiclite-18.3.0.0.0-1.x86_64.rpm oracle-instantclient18.3-devel-18.3.0.0.0-1.x86_64.rpm && \
+    yumdownloader oracle-instantclient${ORACLE_CLIENT_VERSION}-devel oracle-instantclient${ORACLE_CLIENT_VERSION}-basiclite && \
+    alien oracle-instantclient*.rpm && \
     dpkg -i *.deb && rm *.deb *.rpm && \
     pip install cx_Oracle==7.0 \
     ; fi
