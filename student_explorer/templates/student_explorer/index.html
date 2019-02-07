@@ -57,6 +57,12 @@
                         <li {% if request.path == advisorsurl %} class="active" {% endif %}>
                             <a href="{% url 'seumich:advisors_list' %}" data-toggle="collapse" data-target="#navbar.in">Advisors</a>
                         </li>
+                        <li>
+                            <a href="https://documentation.its.umich.edu/node/831" target="_blank">
+                                Resources & Support
+                                <i class="fa fa-external-link" aria-hidden="true" width="25px" hspace="3" alt="External Help Doc Icon"></i>
+                            </a>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
