@@ -1,6 +1,5 @@
 from student_explorer.common import db_util
 import logging
-from datetime import datetime
 import pytz
 
 logger = logging.getLogger(__name__)
@@ -8,7 +7,7 @@ logger = logging.getLogger(__name__)
 def last_updated(request):
     est = pytz.timezone('US/Eastern')
     utc = pytz.utc
-    fmt = '%Y-%m-%d %H:%M:%S %Z%z'
+    fmt = '%Y-%m-%d %H:%M:%S %Z'
 
     results = db_util.get_data_date()
     data_time = results.get("data_time")
