@@ -138,11 +138,13 @@
                     </a>
                 </div>
                 <div class="row main-color-white">
-                    <div class="col-xs-6 text-left">Student Explorer (<a href="{% url 'about' %}" style="text-decoration: none; color: inherit;">2.3.4</a>)
-                        <span class="footer-block">Copyright &copy; 2015 - 2017</span>
+                    <div class="col-xs-6 text-left">Student Explorer (<a href="{% url 'about' %}" style="text-decoration: none; color: inherit;">2.5.1</a>)
+                        <span class="footer-block">Copyright &copy; 2015 - 2019</span>
                         <span class="footer-block">The Regents of the University of Michigan</span>
                     </div>
-                    <div class="col-xs-6 text-right">{{ last_updated }}</div>
+                    <div class="col-xs-6 text-right">
+                            Data last updated from Canvas: {{ data_time|date:"m/d/Y P T"}} | Schema: {{data_schema}}
+                    </div>
                 </div>
             </footer>
         </div>
