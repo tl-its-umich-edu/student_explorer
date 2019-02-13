@@ -35,7 +35,7 @@ urlpatterns = [
         views.ClassListView.as_view(),
         name='class_list'),
     url(
-        r'^advisors/(?P<advisor>\w+)/$',
+        r'^advisors/(?P<advisor>[\s\w-]+)/$',
         views.AdvisorView.as_view(),
         name='advisor'),
     url(
