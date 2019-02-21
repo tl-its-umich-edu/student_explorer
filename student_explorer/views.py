@@ -14,5 +14,7 @@ def logout(request):
 
 
 def about(request):
-    context = {'build_number': os.getenv('OPENSHIFT_BUILD_NAME')}
+    context = {'build_name': os.getenv('OPENSHIFT_BUILD_NAME'),
+                'build_commit': os.getenv('OPENSHIFT_BUILD_COMMIT'),
+                'build_reference': os.getenv('OPENSHIFT_BUILD_REFERENCE')}
     return render(request, 'student_explorer/about.html', context)
