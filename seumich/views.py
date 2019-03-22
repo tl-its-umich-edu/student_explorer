@@ -6,11 +6,11 @@ from seumich.models import (Student, Mentor, Cohort, ClassSite,
                             StudentClassSiteScore)
 from django.shortcuts import get_object_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
-from django.db.models import Q
+from django.db.models import Q, Prefetch, Value as V
+from django.db.models.functions import Concat
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.conf import settings
-from django.db.models import Prefetch
 from tracking.utils import UserLogPageViewMixin
 
 import operator
@@ -112,12 +112,13 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin,
         student_list = []
         if self.query_user:
             # Filtering for id >= 0 eliminates "Bad Value"-type results.
-            query_user_list = self.query_user.split(' ')
-            q_list = [Q(username__icontains=x) for x in query_user_list]
-            q_list += [Q(univ_id__icontains=x) for x in query_user_list]
-            q_list += [Q(first_name__icontains=x) for x in query_user_list]
-            q_list += [Q(last_name__icontains=x) for x in query_user_list]
+            q_list = [Q(username__icontains=self.query_user)]
+            q_list += [Q(univ_id__icontains=self.query_user)]
+            q_list += [Q(first_name__icontains=self.query_user)]
+            q_list += [Q(last_name__icontains=self.query_user)]
+            q_list += [Q(full_name__icontains=self.query_user)]
             student_list = (Student.objects.filter(id__gte=0)
+                            .annotate(full_name=(Concat('first_name', V(' '), 'last_name')))
                             .filter(reduce(operator.or_, q_list))
                             .order_by('last_name').distinct())
             student_list = student_list.prefetch_related(
