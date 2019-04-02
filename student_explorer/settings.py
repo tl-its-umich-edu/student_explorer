@@ -68,6 +68,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'student_explorer.middleware.LoggingMiddleware',
+    'student_explorer.middleware.HttpResourceNotAllowedMiddleware',
 ]
 
 TEMPLATES = [

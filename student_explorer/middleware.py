@@ -1,5 +1,7 @@
 from datetime import datetime
 import logging
+from django.http import HttpResponseNotAllowed
+from django.template.loader import render_to_string
 
 logger = logging.getLogger('access_logs')
 
@@ -31,4 +33,10 @@ class LoggingMiddleware(object):
         l.append('"' + request.META.get('HTTP_USER_AGENT', '-') + '"')
 
         logger.info(' '.join(l))
+        return response
+
+class HttpResourceNotAllowedMiddleware(object):
+    def process_response(self, request, response):
+        if isinstance(response, HttpResponseNotAllowed):
+            response.content = render_to_string("405.html")
         return response
