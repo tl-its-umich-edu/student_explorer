@@ -38,5 +38,5 @@ class LoggingMiddleware(object):
 class HttpResourceNotAllowedMiddleware(object):
     def process_response(self, request, response):
         if isinstance(response, HttpResponseNotAllowed):
-            response.content = render_to_string("405.html")
+            response.content = render_to_string("405.html", request=request)
         return response
