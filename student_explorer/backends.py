@@ -8,6 +8,8 @@ logger = logging.getLogger(__name__)
 class ActiveUserOnlySAML2Backend(Saml2Backend):
     def authenticate(self, **kwargs):
         user = super(ActiveUserOnlySAML2Backend, self).authenticate(**kwargs)
+        if not user:
+            raise PermissionDenied
         if user.is_active:
            return user
         else:
