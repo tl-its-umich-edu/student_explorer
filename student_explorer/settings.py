@@ -195,7 +195,7 @@ if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
     AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
         # Use a custom SAML backend to support disabled users
-        'student_explorer.middleware.ActiveUserOnlySAML2Backend',
+        'student_explorer.backends.ActiveUserOnlySAML2Backend',
     )
     LOGIN_URL = '%slogin/%s' % (SAML2_URL_PATH, SAML2_DEFAULT_IDP)
     SESSION_EXPIRE_AT_BROWSER_CLOSE = True
