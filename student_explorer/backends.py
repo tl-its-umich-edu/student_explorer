@@ -1,5 +1,4 @@
 from djangosaml2.backends import Saml2Backend
-from django.http import HttpResponseForbidden
 from django.core.exceptions import PermissionDenied
 import logging
 
