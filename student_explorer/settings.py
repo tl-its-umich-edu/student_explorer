@@ -68,6 +68,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'student_explorer.middleware.LoggingMiddleware',
+    'student_explorer.middleware.HttpResourceNotAllowedMiddleware',
 ]
 
 TEMPLATES = [
@@ -193,7 +194,8 @@ if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
     INSTALLED_APPS += ('djangosaml2',)
     AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
-        'djangosaml2.backends.Saml2Backend',
+        # Use a custom SAML backend to support disabled users
+        'student_explorer.middleware.ActiveUserOnlySAML2Backend',
     )
     LOGIN_URL = '%slogin/%s' % (SAML2_URL_PATH, SAML2_DEFAULT_IDP)
     SESSION_EXPIRE_AT_BROWSER_CLOSE = True
