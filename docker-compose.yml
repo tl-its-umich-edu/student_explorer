@@ -29,6 +29,7 @@ services:
       - .:/code
     ports:
       - "2082:8000"
+      - "3000:3000"
     depends_on:
       - mysql
     env_file:
