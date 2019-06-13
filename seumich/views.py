@@ -21,39 +21,6 @@ from decouple import config
 
 logger = logging.getLogger(__name__)
 
-
-class PaginationMixin(object):
-
-    paginate_by = settings.PAGINATION_RECORDS_PER_PAGE
-    num_page_links = settings.PAGINATION_NUM_PAGE_LINKS
-
-    def render_pagination(self, context):
-        num_pages = context['paginator'].num_pages
-        context['loop_times'] = self.get_page_range(
-            self.request.GET.get('page'), num_pages)
-        return context
-
-    def get_page_range(self, page, num_pages):
-        if not page:
-            initial = 1
-            final = 1 + self.num_page_links
-        elif num_pages <= self.num_page_links:
-            initial = 1
-            final = 1 + num_pages
-        else:
-            current = int(page)
-            initial = current - 2
-            final = 1 + (current + 2)
-            if current <= 2:
-                initial = 1
-                final = initial + self.num_page_links
-            elif current + 2 >= num_pages:
-                initial = num_pages - (self.num_page_links - 1)
-                final = 1 + num_pages
-
-        return range(initial, final)
-
-
 class AdvisorsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     template_name = 'seumich/advisor_list.html'
     # Filtering for id >= 0 eliminates "Bad Value"-type results.
@@ -68,14 +35,12 @@ class CohortsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     context_object_name = 'cohorts'
 
 
-class ClassListView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
-                    ListView):
+class ClassListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     template_name = 'seumich/class_list.html'
     context_object_name = 'classes'
 
     def get_context_data(self, **kwargs):
         context = super(ClassListView, self).get_context_data(**kwargs)
-        context = self.render_pagination(context)
         return context
 
     def get_queryset(self):
@@ -83,8 +48,7 @@ class ClassListView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
         return class_list
 
 
-class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin,
-                       PaginationMixin, ListView):
+class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     template_name = 'seumich/student_list.html'
     context_object_name = 'students'
 
@@ -102,7 +66,6 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin,
     def get_context_data(self, **kwargs):
         context = super(StudentsListView, self).get_context_data(**kwargs)
         context['studentListHeader'] = 'Search Students'
-        context = self.render_pagination(context)
         context['query_user'] = self.query_user
         return context
 
@@ -139,8 +102,7 @@ class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin,
         return student_list
 
 
-class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
-                  ListView):
+class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     template_name = 'seumich/advisor_detail.html'
     context_object_name = 'students'
 
@@ -149,7 +111,6 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
         context['studentListHeader'] = self.mentor.first_name + \
             " " + self.mentor.last_name
         context['advisor'] = self.mentor
-        context = self.render_pagination(context)
         return context
 
     def get_queryset(self):
@@ -163,8 +124,7 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
         return student_list
 
 
-class CohortView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
-                 ListView):
+class CohortView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     template_name = 'seumich/cohort_detail.html'
     context_object_name = 'students'
 
@@ -172,7 +132,6 @@ class CohortView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
         context = super(CohortView, self).get_context_data(**kwargs)
         context['studentListHeader'] = self.cohort.description
         context['cohort'] = self.cohort
-        context = self.render_pagination(context)
         return context
 
     def get_queryset(self):
@@ -187,8 +146,7 @@ class CohortView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
         return student_list
 
 
-class ClassSiteView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
-                    ListView):
+class ClassSiteView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     template_name = 'seumich/class_site_detail.html'
     context_object_name = 'students'
 
@@ -196,7 +154,6 @@ class ClassSiteView(LoginRequiredMixin, UserLogPageViewMixin, PaginationMixin,
         context = super(ClassSiteView, self).get_context_data(**kwargs)
         context['studentListHeader'] = self.class_site.description
         context['class_site'] = self.class_site
-        context = self.render_pagination(context)
         return context
 
     def get_queryset(self):

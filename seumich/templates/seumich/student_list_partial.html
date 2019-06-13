@@ -1,6 +1,8 @@
 {% load filters %}
 {% load static from staticfiles %}
 
+<script src='{% static 'seumich/sort_table.js' %}'></script>
+
 <h1 class="sub-header">{{ studentListHeader }}</h1>
 {% if students %}
     <hr class="main-no-margin-top"/>
@@ -17,14 +19,54 @@
                 <th scope="col" class="hide-small">
                     <strong class="table-column-name">Student ID</strong>
                 </th>
-                <th scope="col" class="hide-small">
+                <th scope="col" class="hide-small" data-sorter="false">
                     <strong class="table-column-name">Status</strong>
                 </th>
-                <th scope="col" class="hide-small">
+                <th scope="col" class="hide-small" data-sorter="false">
                     <strong class="table-column-name">Cohorts</strong>
                 </th>
             </tr>
         </thead>
+        <tfoot>
+            <tr>
+                <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Name</strong>
+                </th>
+                <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Student ID</strong>
+                </th>
+                <th scope="col" class="hide-small" data-sorter="false">
+                    <strong class="table-column-name">Status</strong>
+                </th>
+                <th scope="col" class="hide-small" data-sorter="false">
+                    <strong class="table-column-name">Cohorts</strong>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="4" class="ts-pager form-inline">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button type="button" class="btn btn-default first"><span
+                                class="glyphicon glyphicon-step-backward"></span></button>
+                        <button type="button" class="btn btn-default prev"><span
+                                class="glyphicon glyphicon-backward"></span></button>
+                    </div>
+                    <span class="pagedisplay"></span>
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button type="button" class="btn btn-default next"><span
+                                class="glyphicon glyphicon-forward"></span></button>
+                        <button type="button" class="btn btn-default last"><span
+                                class="glyphicon glyphicon-step-forward"></span></button>
+                    </div>
+                    <select class="form-control input-sm pagesize" title="Select page size">
+                        <option selected="selected" value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="all">All Rows</option>
+                    </select>
+                    <select class="form-control input-sm pagenum" title="Select page number"></select>
+                </th>
+            </tr>
+        </tfoot>
         <tbody>
             {% for student in students %}
                 <tr>
@@ -69,7 +111,5 @@
             {% endfor %}
         </tbody>
     </table>
-
-    {% include 'seumich/paginated_list.html' %}
 
 </div>
