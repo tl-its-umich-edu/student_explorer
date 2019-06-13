@@ -82,6 +82,16 @@ class Status(models.Model):
     def __str__(self):
         return self.description
 
+    @property
+    def code_value(self):
+        if self.code == "R":
+            return 10
+        elif self.code == "Y": 
+            return 5 
+        elif self.code == "G":
+            return 1
+        return 0
+
     class Meta:
         ordering = ('order',)
         db_table = '"CNLYR002"."DM_ACAD_PERF"'
@@ -105,6 +115,27 @@ class Student(models.Model, SeumichDataMixin):
     def advisors(self):
         return self.aggrate_relationships(self.studentadvisorrole_set.all(),
                                           'advisor', 'role')
+    @property 
+    def status_mean(self, include_empty=False):
+        """[summary]
+        
+        :param include_empty: Whether or not to include empty values, defaults to False
+        :type include_empty: bool, optional
+        :return: Calculated mean of values
+        :rtype: float
+        """
+        n = 0
+        mean = 0.0
+        for status in self.statuses.all():
+            if include_empty == True or status.code_value != 0:
+                n += 1
+                mean += (status.code_value - mean) / n
+        return mean 
+    
+    @property 
+    def status_sum(self):
+        return sum(status.code_value for status in self.statuses.all())
+
     @property
     def email_address(self):
         return self.username + '@umich.edu'
