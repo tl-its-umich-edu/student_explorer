@@ -14,7 +14,7 @@ class Command(BaseCommand):
         for username in options['username']:
             try:
                 user = User.objects.create_user(username, password=None)
-            except Exception, e:
+            except Exception as e:
                 raise CommandError(
                     'User "%s" could not be created ("%s")' % (username, e))
             # user.set_unusable_password()

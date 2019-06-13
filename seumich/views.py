@@ -18,6 +18,7 @@ import logging
 
 from django.conf import settings
 from decouple import config
+from functools import reduce
 
 logger = logging.getLogger(__name__)
 

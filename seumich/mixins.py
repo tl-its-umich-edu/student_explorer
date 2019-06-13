@@ -15,13 +15,13 @@ class SeumichDataMixin(object):
         tmp = {}
         for entry in collection:
             pri = getattr(entry, primary)
-            if pri not in tmp.keys():
+            if pri not in list(tmp.keys()):
                 tmp[pri] = []
             rel = getattr(entry, relationship)
             tmp[pri].append(rel)
 
         aggrated = []
-        for (pri, rels) in tmp.iteritems():
+        for (pri, rels) in list(tmp.items()):
             aggrated.append({primary: pri, relationship_plural: rels})
 
         return aggrated

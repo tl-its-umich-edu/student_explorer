@@ -663,7 +663,7 @@ class SeumichTest(TestCase):
     def test_logout(self):
         self.client.login(username='burl', password='burl')
         response = self.client.get(reverse('auth_logout'))
-        self.assertEquals(response.status_code, 302)
+        self.assertEqual(response.status_code, 302)
 
     def test_about(self):
         response = self.client.get('/about')
