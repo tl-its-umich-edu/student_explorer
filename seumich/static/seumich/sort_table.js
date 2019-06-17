@@ -2,7 +2,7 @@ $(document).ready(function() {
     $(".table").tablesorter({
         theme: "bootstrap",
         headerTemplate: "{content} {icon}",
-        widgets: [ "uitheme", "filter", "columns", "zebra" ]
+        widgets: [ "uitheme", "filter", "zebra" ]
     })
     .tablesorterPager({
         // target the pager markup - see the HTML block below
