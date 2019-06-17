@@ -28,7 +28,6 @@ from seumich.models import (UsernameField,
                             WeeklyStudentClassSiteStatus,
                             WeeklyStudentClassSiteScore,
                             LearningAnalyticsStats,)
-from seumich.views import PaginationMixin
 from seumich.mixins import SeumichDataMixin
 
 
@@ -489,7 +488,7 @@ class SeumichTest(TestCase):
                                  '<Mentor: zander>',
                                  '<Mentor: burl>',
                                  '<Mentor: lavera>',
-                                 '<Mentor: smrech>'])
+                                 '<Mentor: smrech>'], ordered=False)
 
     def test_student_list_view_redirect(self):
         url = reverse('seumich:students_list')
@@ -599,13 +598,6 @@ class SeumichTest(TestCase):
                                   ("{'color': '#F0D654', 'values': [], "
                                    "'key': 'Class'}")
                                   ])
-
-    def test_pagination_mixin(self):
-        pagination = PaginationMixin()
-        pagination.num_page_links = 5
-        self.assertEqual(pagination.get_page_range(1, 3), [1, 2, 3])
-        self.assertEqual(pagination.get_page_range(1, 15), [1, 2, 3, 4, 5])
-        self.assertEqual(pagination.get_page_range(9, 10), [6, 7, 8, 9, 10])
 
     def test_seumich_data_mixin(self):
         seumich_data_mixin = SeumichDataMixin()
