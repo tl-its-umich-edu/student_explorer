@@ -1,7 +1,3 @@
- #python 3 support
-
- #py3 management conflict in cron
-
 from django.db import connections as conns
 
 import logging, datetime, json
