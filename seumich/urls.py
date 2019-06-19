@@ -31,10 +31,6 @@ urlpatterns = [
         views.CohortsListView.as_view(),
         name='cohorts_list'),
     url(
-        r'^classes/$',
-        views.ClassListView.as_view(),
-        name='class_list'),
-    url(
         r'^advisors/(?P<advisor>[\s\w-]+)/$',
         views.AdvisorView.as_view(),
         name='advisor'),
