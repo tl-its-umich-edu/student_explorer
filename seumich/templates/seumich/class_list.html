@@ -1,5 +1,10 @@
 {% extends 'seumich/advisor.html' %}
 
+{% block head %}
+    {% load staticfiles %}
+    <script src='{% static 'seumich/sort_table.js' %}'></script>
+{% endblock %}
+
 {% block content %}
 
     <div class="container content">
@@ -22,6 +27,9 @@
                         </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                    {% include 'seumich/ts_pager.html' %}
+                <tfoot>
             </table>
         </div>
 
