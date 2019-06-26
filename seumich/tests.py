@@ -612,17 +612,6 @@ class SeumichTest(TestCase):
             ), [{'roles': [AdvisorRole.objects.get(id=1)],
                  'advisor': Advisor.objects.get(id=1)}])
 
-    def test_class_list_view(self):
-        self.client.login(username='burl', password='burl')
-        response = self.client.get(reverse('seumich:class_list'))
-        self.assertQuerysetEqual(list(response.context['classes']),
-                                 ['<ClassSite: Math 101>',
-                                  '<ClassSite: Math 101 Lab>',
-                                  '<ClassSite: Physics 101>',
-                                  '<ClassSite: Physics 101 Lab>',
-                                  '<ClassSite: English 101>',
-                                  '<ClassSite: History 101>'])
-
     def test_cohort_view(self):
         url = reverse('seumich:cohort',
                       kwargs={'code': 'SPPRO-W15'})
