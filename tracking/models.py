@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+
 import logging
 
 from django.dispatch import Signal, receiver
@@ -22,7 +22,7 @@ class Event(models.Model):
         get_latest_by = 'timestamp'
         app_label = 'tracking'
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s at %s" % ( self.name, self.timestamp )
 
     @classmethod

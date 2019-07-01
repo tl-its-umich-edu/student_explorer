@@ -1,4 +1,4 @@
-FROM docker.io/python:2.7
+FROM python:3.6
 
 RUN apt-get update
 
