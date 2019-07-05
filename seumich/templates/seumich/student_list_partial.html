@@ -14,7 +14,13 @@
         <thead>
             <tr>
                 <th scope="col" class="hide-small">
-                    <strong class="table-column-name">Name</strong>
+                    <strong class="table-column-name">First Name</strong>
+                </th>
+                <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Last Name</strong>
+                </th>
+                 <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Uniqname</strong>
                 </th>
                 <th scope="col" class="hide-small">
                     <strong class="table-column-name">Student ID</strong>
@@ -30,7 +36,13 @@
         <tfoot>
             <tr>
                 <th scope="col" class="hide-small">
-                    <strong class="table-column-name">Name</strong>
+                    <strong class="table-column-name">First Name</strong>
+                </th>
+                <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Last Name</strong>
+                </th>
+                 <th scope="col" class="hide-small">
+                    <strong class="table-column-name">Uniqname</strong>
                 </th>
                 <th scope="col" class="hide-small">
                     <strong class="table-column-name">Student ID</strong>
@@ -49,10 +61,15 @@
         <tbody>
             {% for student in students %}
                 <tr>
-                    <th scope="row" class="bold">
-                        <a href="{% url 'seumich:student' student.username %}">{{ student.first_name }}
-                            {{ student.last_name }}</a>
-                    </th>
+                    <td scope="row" class="bold">
+                        <a href="{% url 'seumich:student' student.username %}">{{ student.first_name }}</a>
+                    </td>
+                    <td scope="row" class="bold">
+                        <a href="{% url 'seumich:student' student.username %}">{{ student.last_name }}</a>
+                    </td>
+                     <td scope="row" class="bold">
+                        <a href="{% url 'seumich:student' student.username %}">{{ student.username }}</a>
+                    </td>
                     <td class="hide-small">{{ student.univ_id }}</td>
                     <td>
                         {% for element in student.studentclasssitestatus_set.all %}

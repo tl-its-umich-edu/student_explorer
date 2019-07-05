@@ -13,21 +13,32 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col" class="hide-small">
-                            <a href="#" onClick="return false;">Name</a>
-                        </th>
+                        <th scope="col" class="hide-small">First Name</th>
+                        <th scope="col" class="hide-small">Last Name</th>
+                        <th scope="col" class="hide-small">Uniqname</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for advisor in advisors %}
                         <tr>
-                            <th scope="row" class="bold">
+                            <td scope="row" class="bold">
                                 {% url 'seumich:advisor' advisor.username as advisor_url %}
                                 {% if advisor_url %}
-                                    <a href="{{advisor_url}}">
-                                        {{ advisor.first_name }} {{ advisor.last_name }} ({{advisor.username}})</a>
+                                    <a href="{{advisor_url}}">{{ advisor.first_name }}</a>
                                 {% endif %}
-                            </th>
+                            </td>
+                            <td scope="row" class="bold">
+                                {% url 'seumich:advisor' advisor.username as advisor_url %}
+                                {% if advisor_url %}
+                                    <a href="{{advisor_url}}">{{ advisor.last_name }}</a>
+                                {% endif %}
+                            </td>
+                            <td scope="row" class="bold">
+                                {% url 'seumich:advisor' advisor.username as advisor_url %}
+                                {% if advisor_url %}
+                                    <a href="{{advisor_url}}">{{advisor.username}}</a>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
