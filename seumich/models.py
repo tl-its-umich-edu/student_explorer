@@ -2,7 +2,7 @@ from django.db import models
 from seumich.mixins import SeumichDataMixin
 from django.utils import timezone
 
-import logging
+import logging, statistics 
 
 logger = logging.getLogger(__name__)
 
@@ -124,13 +124,10 @@ class Student(models.Model, SeumichDataMixin):
         :return: Calculated mean of values
         :rtype: float
         """
-        n = 0
-        mean = 0.0
-        for status in self.statuses.all():
-            if include_empty == True or status.code_value != 0:
-                n += 1
-                mean += (status.code_value - mean) / n
-        return mean 
+        mean_values = [status.code_value for status in self.statuses.all() if include_empty == True or status.code_value != 0]
+        if len(mean_values) == 0:
+            return 0
+        return statistics.mean(mean_values) 
     
     @property 
     def status_sum(self):

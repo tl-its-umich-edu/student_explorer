@@ -54,7 +54,7 @@
                             {{ student.last_name }}</a>
                     </th>
                     <td class="hide-small">{{ student.univ_id }}</td>
-                    <td data-text="{{student.status_mean}}">Mean:{{student.status_mean}} Sum:{{student.status_sum}}<br>
+                    <td data-text="{{student.status_mean}}">
                         {% for element in student.studentclasssitestatus_set.all %}
                             {% with class_site=element.class_site %}
                             <a href="{% url 'seumich:student_class' student.username class_site.code %}" class="class-site-status-link">
