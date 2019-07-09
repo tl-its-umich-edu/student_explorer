@@ -19,12 +19,23 @@ set -x
 python manage.py migrate
 
 if [ -z "${IS_CRON_POD}" ]; then
-    gunicorn \
-        --workers="${GUNICORN_WORKERS}" \
-        --bind=0.0.0.0:${GUNICORN_PORT} \
-        --timeout=${GUNICORN_TIMEOUT} \
-        student_explorer.wsgi:application
+    if [ "${PTVSD_ENABLE:-"False"}" == "False" ]; then
+        # Start Gunicorn processes
+        echo Starting Gunicorn for production
 
+        # application pod
+        exec gunicorn student_explorer.wsgi:application \
+            --bind 0.0.0.0:${GUNICORN_PORT} \
+            --workers="${GUNICORN_WORKERS}" \
+            ${GUNICORN_RELOAD}
+    else
+        # Currently ptvsd doesn't work with gunicorn
+        # https://github.com/Microsoft/vscode-python/issues/2138
+        echo Starting Runserver for development
+        export PYTHONPATH="/code:$PYTHONPATH"
+        export DJANGO_SETTINGS_MODULE=student_explorer.settings
+        exec django-admin runserver --ptvsd 0.0.0.0:${GUNICORN_PORT}
+    fi
 else
     if [ -z "${CRONTAB_SCHEDULE}" ]; then
         echo "CRONTAB_SCHEDULE environment variable not set, crontab cannot be started. Please set this to a crontab acceptable format."

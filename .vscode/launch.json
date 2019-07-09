@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Student Explorer Docker Django",
+            "type": "python",
+            "request": "attach",
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "/usr/src/app"
+                }
+            ],
+            "port": 3000,
+            "host": "localhost",
+            "justMyCode": false
+        }
+    ]
+}

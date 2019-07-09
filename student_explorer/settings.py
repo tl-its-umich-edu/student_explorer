@@ -33,6 +33,7 @@ ADMINS = [('', config('DJANGO_ERROR_EMAIL', default='vagrant@localhost'))]
 # Application definition
 
 INSTALLED_APPS = (
+    'django_ptvsd',
     'django.contrib.admin',
     'registration',
     'django.contrib.auth',
@@ -337,3 +338,9 @@ LOGGING = {
         },
     },
 }
+
+# Defaults for PTVSD
+PTVSD_ENABLE = config("PTVSD_ENABLE", default=False, cast=bool)
+PTVSD_REMOTE_ADDRESS = config("PTVSD_REMOTE_ADDRESS", default="0.0.0.0")
+PTVSD_REMOTE_PORT = config("PTVSD_REMOTE_PORT", default=3000, cast=int)
+PTVSD_WAIT_FOR_ATTACH = config("PTVSD_WAIT_FOR_ATTACH", default=False, cast=bool)
