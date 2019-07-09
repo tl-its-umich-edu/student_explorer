@@ -22,10 +22,10 @@
                  <th scope="col" class="hide-small">
                     <strong class="table-column-name">Uniqname</strong>
                 </th>
-                <th scope="col" class="hide-small">
+                <th scope="col" class="hide-small sorter-digit">
                     <strong class="table-column-name">Student ID</strong>
                 </th>
-                <th scope="col" class="hide-small" data-sorter="false" data-filter="false">
+                <th scope="col" class="hide-small sorter-digit" data-filter="false">
                     <strong class="table-column-name">Status</strong>
                 </th>
                 <th scope="col" class="hide-small" data-sorter="false">
@@ -71,7 +71,7 @@
                         <a href="{% url 'seumich:student' student.username %}">{{ student.username }}</a>
                     </td>
                     <td class="hide-small">{{ student.univ_id }}</td>
-                    <td>
+                    <td data-text="{{student.status_mean}}">
                         {% for element in student.studentclasssitestatus_set.all %}
                             {% with class_site=element.class_site %}
                             <a href="{% url 'seumich:student_class' student.username class_site.code %}" class="class-site-status-link">
