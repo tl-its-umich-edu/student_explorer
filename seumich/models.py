@@ -127,11 +127,6 @@ class Student(models.Model, SeumichDataMixin):
         mean_values = [status.code_value for status in self.statuses.all() if include_empty == True or status.code_value != 0]
         if len(mean_values) == 0:
             return 0
-        return statistics.mean(mean_values) 
-    
-    @property 
-    def status_sum(self):
-        return sum(status.code_value for status in self.statuses.all())
 
     @property
     def email_address(self):
