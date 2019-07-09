@@ -2,7 +2,7 @@ from django.db import models
 from seumich.mixins import SeumichDataMixin
 from django.utils import timezone
 
-import logging, statistics 
+import logging, statistics
 
 logger = logging.getLogger(__name__)
 
@@ -86,8 +86,8 @@ class Status(models.Model):
     def code_value(self):
         if self.code == "R":
             return 10
-        elif self.code == "Y": 
-            return 5 
+        elif self.code == "Y":
+            return 5
         elif self.code == "G":
             return 1
         return 0
@@ -115,7 +115,7 @@ class Student(models.Model, SeumichDataMixin):
     def advisors(self):
         return self.aggrate_relationships(self.studentadvisorrole_set.all(),
                                           'advisor', 'role')
-    @property 
+    @property
     def status_mean(self, include_empty=False):
         """[summary]
         
@@ -127,6 +127,7 @@ class Student(models.Model, SeumichDataMixin):
         mean_values = [status.code_value for status in self.statuses.all() if include_empty == True or status.code_value != 0]
         if len(mean_values) == 0:
             return 0
+        return statistics.mean(mean_values)
 
     @property
     def email_address(self):
