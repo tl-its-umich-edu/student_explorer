@@ -61,11 +61,7 @@ class CohortForm(forms.ModelForm):
             for line_number, member in enumerate(members):
                 record = member.split(delimiter)
                 if len(record) < 2:
-                    raise (forms
-                           .ValidationError(
-                               "Inconsistent Delimiter at Line %d" % (
-                                   line_number + 1)
-                           ))
+                    raise forms.ValidationError(f"Inconsistent Delimiter at Line {line_number + 1}")
         return data
 
     def clean_excel_file(self):

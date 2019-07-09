@@ -1,9 +1,3 @@
-# -*- coding: future_fstrings -*-
-
-from __future__ import print_function #python 3 support
-
-from __future__ import absolute_import #py3 management conflict in cron
-
 from django.db import connections as conns
 
 import logging, datetime, json

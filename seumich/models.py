@@ -35,7 +35,7 @@ class Advisor(models.Model):
     last_name = models.CharField(max_length=500, db_column='ADVSR_PREF_SURNM')
     students = models.ManyToManyField('Student', through='StudentAdvisorRole')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.username
 
     class Meta:
@@ -46,7 +46,7 @@ class Date(models.Model):
     id = models.IntegerField(primary_key=True, db_column='DT_KEY')
     date = models.DateField(db_column='CAL_DT')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.date.isoformat()
 
     class Meta:
@@ -62,7 +62,7 @@ class Mentor(models.Model):
     last_name = models.CharField(max_length=500, db_column='MNTR_PREF_SURNM')
     students = models.ManyToManyField('Student', through='StudentCohortMentor')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.username
 
     @property
@@ -79,7 +79,7 @@ class Status(models.Model):
     description = models.CharField(max_length=50, db_column='ACAD_PERF_TXT')
     order = models.IntegerField(db_column='ACAD_PERF_ORDNL_NBR', null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description
 
     class Meta:
@@ -109,7 +109,7 @@ class Student(models.Model, SeumichDataMixin):
     def email_address(self):
         return self.username + '@umich.edu'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.username
 
     class Meta:
@@ -155,7 +155,7 @@ class Term(models.Model):
             d += timedelta(days=1)
         return Date.objects.get(date=d)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description
 
     class Meta:
@@ -168,7 +168,7 @@ class SourceSystem(models.Model):
     description = models.CharField(max_length=30, db_column='SRC_SYS_NM')
     long_description = models.CharField(max_length=30, db_column='SRC_SYS_DES')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description
 
     class Meta:
@@ -183,7 +183,7 @@ class AdvisorRole(models.Model):
     code = models.CharField(max_length=4, db_column='ADVSR_ROLE_CD')
     description = models.CharField(max_length=30, db_column='ADVSR_ROLE_DES')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description
 
     class Meta:
@@ -197,7 +197,7 @@ class Assignment(models.Model):
     source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY',
                                       null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description
 
     class Meta:
@@ -212,7 +212,7 @@ class ClassSite(models.Model):
     source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY',
                                       null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description
 
     class Meta:
@@ -227,7 +227,7 @@ class Cohort(models.Model):
     source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY',
                                       null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description
 
     class Meta:
@@ -240,7 +240,7 @@ class EventType(models.Model):
                                       null=True)
     description = models.CharField(max_length=50, db_column='EVENT_TYP_NM')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description
 
     class Meta:
@@ -255,7 +255,7 @@ class ClassSiteTerm(models.Model):
     class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
     term = models.ForeignKey(Term, db_column='TERM_KEY')
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s was held in %s' % (self.class_site, self.term)
 
     class Meta:
@@ -268,7 +268,7 @@ class StudentAdvisorRole(models.Model):
     advisor = models.ForeignKey(Advisor, db_column='ADVSR_KEY')
     role = models.ForeignKey(AdvisorRole, db_column='ADVSR_ROLE_KEY')
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s advises %s as %s' % (self.advisor, self.student, self.role)
 
     class Meta:
@@ -282,7 +282,7 @@ class StudentCohortMentor(models.Model):
     mentor = models.ForeignKey(Mentor, db_column='MNTR_KEY')
     cohort = models.ForeignKey(Cohort, db_column='CHRT_KEY')
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s is in the %s cohort' % (self.student, self.cohort)
 
     class Meta:
@@ -298,7 +298,7 @@ class ClassSiteScore(models.Model):
                                    db_column='CLASS_SITE_KEY')
     current_score_average = models.FloatField(db_column="CLASS_CURR_SCR_AVG")
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s has an average score of %s' % (
             self.class_site, self.current_score_average)
 
@@ -312,7 +312,7 @@ class StudentClassSiteScore(models.Model):
     class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
     current_score_average = models.FloatField(db_column="STDNT_CURR_SCR_AVG")
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s has an average score of %s in %s' % (
             self.student, self.current_score_average, self.class_site)
 
@@ -345,7 +345,7 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
     _due_date = models.ForeignKey(Date, db_column='ASSGN_DUE_SBMT_DT_KEY',
                                   null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s has assignment %s in %s' % (self.student, self.assignment,
                                                self.class_site)
 
@@ -399,7 +399,7 @@ class StudentClassSiteStatus(models.Model):
     class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
     status = models.ForeignKey(Status, db_column='ACAD_PERF_KEY')
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s has status %s in %s' % (self.student, self.status,
                                            self.class_site)
 
@@ -415,7 +415,7 @@ class WeeklyClassSiteScore(models.Model):
     week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
     score = models.FloatField(db_column='CLASS_CURR_SCR_AVG')
 
-    def __unicode__(self):
+    def __str__(self):
         return 'Average score is %s in %s on %s' % (
             self.score, self.class_site, self.week_end_date)
 
@@ -439,7 +439,7 @@ class WeeklyStudentClassSiteEvent(models.Model):
     cumulative_percentile_rank = models.FloatField(
         db_column='STDNT_CUM_PCTL_RNK')
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s in %s on %s had %s events (%s %%ile)' % (
             self.student, self.class_site, self.week_end_date,
             self.event_count, self.percentile_rank)
@@ -457,7 +457,7 @@ class WeeklyStudentClassSiteScore(models.Model):
     week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
     score = models.FloatField(db_column='STDNT_CURR_SCR_AVG')
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s has score %s in %s on %s' % (
             self.student, self.score, self.class_site, self.week_end_date)
 
@@ -474,7 +474,7 @@ class WeeklyStudentClassSiteStatus(models.Model):
     week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
     status = models.ForeignKey(Status, db_column='ACAD_PERF_KEY')
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s has status %s in %s on %s' % (
             self.student, self.status, self.class_site, self.week_end_date)
 
@@ -488,7 +488,7 @@ class LearningAnalyticsStats(models.Model):
     load_dt = models.DateTimeField(default=timezone.now, db_column='LOAD_DT')
     dw_ownr_nm = models.CharField(max_length=8, db_column='DW_OWNR_NM')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.dw_data_nm
 
     class Meta:
