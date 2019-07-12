@@ -25,7 +25,7 @@
                 <th scope="col" class="hide-small sorter-digit">
                     <strong class="table-column-name">Student ID</strong>
                 </th>
-                <th scope="col" class="hide-small sorter-digit" data-filter="false">
+                <th scope="col" class="hide-small sorter-digit" data-filter="false" data-sortinitialorder="desc">
                     <strong class="table-column-name">Status</strong>
                 </th>
                 <th scope="col" class="hide-small" data-sorter="false">
@@ -71,7 +71,7 @@
                         <a href="{% url 'seumich:student' student.username %}">{{ student.username }}</a>
                     </td>
                     <td class="hide-small">{{ student.univ_id }}</td>
-                    <td data-text="{{student.status_mean}}">
+                    <td data-text="{{student.status_calculated_value}}">
                         {% for element in student.studentclasssitestatus_set.all %}
                             {% with class_site=element.class_site %}
                             <a href="{% url 'seumich:student_class' student.username class_site.code %}" class="class-site-status-link">

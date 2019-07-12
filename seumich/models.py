@@ -85,12 +85,13 @@ class Status(models.Model):
     @property
     def code_value(self):
         if self.code == "R":
-            return 10
+            return 10.0
         elif self.code == "Y":
-            return 5
+            return 5.0
         elif self.code == "G":
-            return 1
-        return 0
+            return 1.0
+        # Return "something" for the greys
+        return 0.05
 
     class Meta:
         ordering = ('order',)
@@ -116,17 +117,23 @@ class Student(models.Model, SeumichDataMixin):
         return self.aggrate_relationships(self.studentadvisorrole_set.all(),
                                           'advisor', 'role')
     @property
-    def status_mean(self, include_empty=False):
-        """[summary]
-        
-        :param include_empty: Whether or not to include empty values, defaults to False
-        :type include_empty: bool, optional
-        :return: Calculated mean of values
+    def status_calculated_value(self):
+        """ Calculate a numeric value to represent the status
+        Uses this logic        
+        if student has at least one of [red, yellow, green]: calculate by the average we've been doing
+        elseif student has ONLY grays (one or more): assign a value of .05 return sum if sum < 1 so that more grays sort higher
+        else: assign a value of 0 (should only apply to students with NO courses)
+
+        :return: Calculation of values
         :rtype: float
         """
-        mean_values = [status.code_value for status in self.statuses.all() if include_empty == True or status.code_value != 0]
+        mean_values = [status.code_value for status in self.statuses.all()]
+        # If there's no values (No courses) return 0
         if len(mean_values) == 0:
             return 0
+        values_sum = sum(mean_values)
+        if values_sum < 1:
+            return values_sum
         return statistics.mean(mean_values)
 
     @property
