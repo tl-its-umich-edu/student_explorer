@@ -344,3 +344,16 @@ PTVSD_ENABLE = config("PTVSD_ENABLE", default=False, cast=bool)
 PTVSD_REMOTE_ADDRESS = config("PTVSD_REMOTE_ADDRESS", default="0.0.0.0")
 PTVSD_REMOTE_PORT = config("PTVSD_REMOTE_PORT", default=3000, cast=int)
 PTVSD_WAIT_FOR_ATTACH = config("PTVSD_WAIT_FOR_ATTACH", default=False, cast=bool)
+
+# Setup for debug_toolbar in dev only for admins
+
+# Method to show the user, if they're authenticated and superuser
+def show_debug_toolbar(request):
+    return DEBUG and request.user and request.user.is_authenticated and request.user.is_superuser
+
+if DEBUG:
+    from debug_toolbar import settings as dt_settings
+    DEBUG_TOOLBAR_PANELS = dt_settings.PANELS_DEFAULTS
+    DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK" : show_debug_toolbar,}
+    INSTALLED_APPS += ('debug_toolbar',)
+    MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
