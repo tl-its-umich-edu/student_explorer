@@ -127,7 +127,7 @@ class Student(models.Model, SeumichDataMixin):
         :return: Calculation of values
         :rtype: float
         """
-        mean_values = [status.code_value for status in self.statuses.all()]
+        mean_values = [student_class_site_status.status.code_value for student_class_site_status in self.studentclasssitestatus_set.all()]
         # If there's no values (No courses) return 0
         if len(mean_values) == 0:
             return 0
