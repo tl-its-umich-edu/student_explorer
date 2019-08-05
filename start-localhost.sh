@@ -2,7 +2,9 @@
 
 # These are only needed for dev
 echo "Running on Dev, setting up some test data"
-wait-port ${DJANGO_DB_HOST}:${DJANGO_DB_PORT} -t 15000
+while ! nc -z ${DJANGO_DB_HOST} ${DJANGO_DB_PORT}; do   
+  sleep 1 # wait 1 second before check again
+done
 
 python manage.py migrate
 

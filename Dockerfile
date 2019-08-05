@@ -5,7 +5,7 @@ RUN apt-get update
 RUN apt-get --no-install-recommends install --yes \
     libaio1 libaio-dev xmlsec1 libffi-dev \
     libldap2-dev libsasl2-dev \
-    build-essential default-libmysqlclient-dev git cron
+    build-essential default-libmysqlclient-dev git cron netcat
 
 WORKDIR /tmp/
 
@@ -21,11 +21,6 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Use this tag of API Utils, this will eventually be released
 ENV API_UTILS_VERSION v1.1
 RUN git clone https://github.com/tl-its-umich-edu/api-utils-python && cd api-utils-python && git checkout tags/${API_UTILS_VERSION} && pip install .
-
-# Install npm and wait-port globally
-# https://github.com/nodesource/distributions/blob/master/README.md
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
-    apt-get -y install npm && npm install -g wait-port@"~0.2.2"
 
 ARG LOCALHOST_DEV
 
@@ -50,7 +45,7 @@ RUN if [ "$LOCALHOST_DEV" ] ; then \
     touch /usr/src/app/student_explorer/local/__init__.py && \
 # Create default settings_override module:
     echo "from student_explorer.settings import *\n\nDEBUG = True" > /usr/src/app/student_explorer/local/settings_override.py && \
-    apt-get --no-install-recommends install --yes mysql-client && \
+    apt-get --no-install-recommends install --yes default-mysql-client && \
     pip install coverage\
     ; else \
     echo "LOCALHOST_DEV is not set, building production (Oracle) dependencies" && \
