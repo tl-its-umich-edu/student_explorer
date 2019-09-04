@@ -27,6 +27,7 @@ if [ -z "${IS_CRON_POD}" ]; then
         exec gunicorn student_explorer.wsgi:application \
             --bind 0.0.0.0:${GUNICORN_PORT} \
             --workers="${GUNICORN_WORKERS}" \
+            --timeout="${GUNICORN_TIMEOUT}" \
             ${GUNICORN_RELOAD}
     else
         # Currently ptvsd doesn't work with gunicorn
