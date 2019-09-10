@@ -51,10 +51,11 @@
                 </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
+                    {% url 'about' as abouturl %}
                     {% url 'seumich:advisor' advisor.username as mystudentsurl%}
                     {% url 'seumich:advisors_list' as advisorsurl %}
                     <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li {% if request.path == abouturl %} class="active" {% endif %}>
                             <a href="{% url 'about' %}">About</a>
                         </li>
                         <li {% if request.path == mystudentsurl %} class="active" {% endif %}>
