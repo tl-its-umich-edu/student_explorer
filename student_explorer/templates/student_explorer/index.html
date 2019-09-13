@@ -51,9 +51,13 @@
                 </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
+                    {% url 'about' as abouturl %}
                     {% url 'seumich:advisor' advisor.username as mystudentsurl%}
                     {% url 'seumich:advisors_list' as advisorsurl %}
                     <ul class="nav navbar-nav">
+                        <li {% if request.path == abouturl %} class="active" {% endif %}>
+                            <a href="{% url 'about' %}">About</a>
+                        </li>
                         <li {% if request.path == mystudentsurl %} class="active" {% endif %}>
                             <a href="{% url 'seumich:index' %}" data-toggle="collapse" data-target="#navbar.in">My Students</a>
                         </li>
@@ -133,20 +137,21 @@
             {% block content %}{% endblock %}
             <footer>
                 <div class="container-fluid">
-                <div class='feedback center-align'>
-                    <a href="{% url 'feedback:feedback' %}">
-                        <button type="button" class="btn btn-sm btn-default">
-                            <img src="{% static 'seumich/images/feedback.svg' %}" alt="Feedback icon"></img>
-                            Submit Feedback</button>
-                    </a>
-                </div>
-                <div class="row main-color-white">
-                    <div class="col-xs-6 text-left"><a href="{% url 'about' %}" style="text-decoration: none; color: inherit;">Student Explorer </a>
-                        <span class="footer-block">Copyright &copy; 2015 - 2019</span>
-                        <span class="footer-block">The Regents of the University of Michigan</span>
+                    <div class='feedback center-align'>
+                        <a href="{% url 'feedback:feedback' %}">
+                            <button type="button" class="btn btn-sm btn-default">
+                                <img src="{% static 'seumich/images/feedback.svg' %}" alt="Feedback icon"></img>
+                                Submit Feedback</button>
+                        </a>
                     </div>
-                    <div class="col-xs-6 text-right">
-                            Data last updated from Canvas: {{ data_time|date:"m/d/Y P T"}} | Schema: {{data_schema}}
+                    <div class="row main-color-white">
+                        <div class="col-xs-6 text-left"><a href="{% url 'about' %}" style="text-decoration: none; color: inherit;">Student Explorer </a>
+                            <span class="footer-block">Copyright &copy; 2015 - 2019</span>
+                            <span class="footer-block">The Regents of the University of Michigan</span>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                                Data last updated from Canvas: {{ data_time|date:"m/d/Y P T"}} | Schema: {{data_schema}}
+                        </div>
                     </div>
                 </div>
             </footer>
