@@ -15,40 +15,45 @@ Including another URLconf
 """
 from django.conf.urls import url
 from seumich import views
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.views.decorators.cache import cache_page
+from django.conf import settings
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 urlpatterns = [
     url(
         r'^$',
-        views.IndexView.as_view(),
+        cache_page(CACHE_TTL)(views.IndexView.as_view()),
         name='index'),
 
     url(
         r'^advisors/$',
-        views.AdvisorsListView.as_view(),
+        cache_page(CACHE_TTL)(views.AdvisorsListView.as_view()),
         name='advisors_list'),
     url(
         r'^cohorts/$',
-        views.CohortsListView.as_view(),
+        cache_page(CACHE_TTL)(views.CohortsListView.as_view()),
         name='cohorts_list'),
     url(
         r'^advisors/(?P<advisor>[\s\w-]+)/$',
-        views.AdvisorView.as_view(),
+        cache_page(CACHE_TTL)(views.AdvisorView.as_view()),
         name='advisor'),
     url(
         r'^cohorts/(?P<code>[\s\w-]+)/$',
-        views.CohortView.as_view(),
+        cache_page(CACHE_TTL)(views.CohortView.as_view()),
         name='cohort'),
     url(
         r'^classes/(?P<class_site_id>\d+)/$',
-        views.ClassSiteView.as_view(),
+        cache_page(CACHE_TTL)(views.ClassSiteView.as_view()),
         name='class_site'),
     url(r'^students/$',
-        views.StudentsListView.as_view(),
+        cache_page(CACHE_TTL)(views.StudentsListView.as_view()),
         name='students_list'),
     url(r'^students/(?P<student>\w+)/$',
-        views.StudentView.as_view(),
+        cache_page(CACHE_TTL)(views.StudentView.as_view()),
         name='student'),
     url(r'^students/(?P<student>\w+)/class_sites/(?P<classcode>[\w-]+)/$',
-        views.StudentClassSiteView.as_view(),
+        cache_page(CACHE_TTL)(views.StudentClassSiteView.as_view()),
         name='student_class'),
 ]

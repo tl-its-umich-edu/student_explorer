@@ -8,7 +8,7 @@ to the top, then override settings initialized in this module.
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, json
 from decouple import config, Csv
 
 BASE_DIR = os.path.dirname(
@@ -357,3 +357,19 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK" : show_debug_toolbar,}
     INSTALLED_APPS += ('debug_toolbar',)
     MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+
+# Cache time to live
+CACHE_TTL = config("CACHE_TTL", default=60 * 15, cast=int)
+
+CACHE_OPTIONS = json.loads(config('CACHE_OPTIONS', default='{"CLIENT_CLASS": "django_redis.client.DefaultClient"}'))
+
+# Configure a cache
+CACHES = {
+    "default": {
+        "BACKEND": config('CACHE_BACKEND', default="django_redis.cache.RedisCache"),
+        "LOCATION": config('CACHE_LOCATION', default="redis://student_explorer_redis:6379/1"),
+        "OPTIONS": CACHE_OPTIONS,
+        "KEY_PREFIX": config('CACHE_KEY_PREFIX', default="student_explorer"),
+        "TIMEOUT": CACHE_TTL
+    }
+}
