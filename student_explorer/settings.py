@@ -360,7 +360,7 @@ if DEBUG:
     MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
 # Cache time to live
-CACHE_TTL = config("CACHE_TTL", default=60 * 15, cast=int)
+CACHALOT_TIMEOUT = config("CACHE_TTL", default=60 * 15, cast=int)
 
 CACHE_OPTIONS = json.loads(config('CACHE_OPTIONS', default='{"CLIENT_CLASS": "django_redis.client.DefaultClient"}'))
 
@@ -371,6 +371,6 @@ CACHES = {
         "LOCATION": config('CACHE_LOCATION', default="redis://student_explorer_redis:6379/1"),
         "OPTIONS": CACHE_OPTIONS,
         "KEY_PREFIX": config('CACHE_KEY_PREFIX', default="student_explorer"),
-        "TIMEOUT": CACHE_TTL
+        "TIMEOUT": CACHALOT_TIMEOUT,
     }
 }
