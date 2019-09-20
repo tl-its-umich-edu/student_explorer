@@ -1,6 +1,5 @@
 from djangosaml2.backends import Saml2Backend
 from django.core.exceptions import PermissionDenied
-from django.conf import settings
 
 import logging
 
