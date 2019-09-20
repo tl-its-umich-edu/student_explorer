@@ -260,14 +260,14 @@ if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
         BASE_DIR, 'student_explorer/local/saml/student-explorer-saml.pem'),
       }
 
-SAML_CREATE_UNKNOWN_USER = False
+    SAML_CREATE_UNKNOWN_USER = True
 
-SAML_ATTRIBUTE_MAPPING = {
-    'uid': ('username', ),
-    'mail': ('email', ),
-    'givenName': ('first_name', ),
-    'sn': ('last_name', ),
-}
+    SAML_ATTRIBUTE_MAPPING = {
+        'uid': ('username', ),
+        'mail': ('email', ),
+        'givenName': ('first_name', ),
+        'sn': ('last_name', ),
+    }
 
 
 # Logging
