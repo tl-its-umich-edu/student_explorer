@@ -260,6 +260,8 @@ if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
         BASE_DIR, 'student_explorer/local/saml/student-explorer-saml.pem'),
       }
 
+    # The desired behavior from issue #121
+    # Is user in M-Community Group (yes) -> Does user have an SE account (no) -> SE account is created.
     SAML_CREATE_UNKNOWN_USER = True
 
     SAML_ATTRIBUTE_MAPPING = {

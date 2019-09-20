@@ -30,6 +30,7 @@ class ActiveUserOnlySAML2Backend(Saml2Backend):
 
     def is_authorized(self, attributes, attribute_mapping):
         # If there are any groups that we're a member of, return true
+        # These groups are controlled via request to Shibboleth team INC1715416
         if attributes.get('isMemberOf'):
             logger.debug(attributes.get('isMemberOf'))
             return True
