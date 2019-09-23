@@ -1,8 +1,6 @@
 FROM python:3.6
 
-RUN apt-get update
-
-RUN apt-get --no-install-recommends install --yes \
+RUN apt-get update && apt-get --no-install-recommends install --yes \
     libaio1 libaio-dev xmlsec1 libffi-dev \
     libldap2-dev libsasl2-dev \
     build-essential default-libmysqlclient-dev git cron netcat
