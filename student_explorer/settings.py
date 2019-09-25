@@ -367,8 +367,8 @@ CACHE_OPTIONS = json.loads(config('CACHE_OPTIONS', default='{"CLIENT_CLASS": "dj
 # Configure a cache
 CACHES = {
     "default": {
-        "BACKEND": config('CACHE_BACKEND', default="django_redis.cache.RedisCache"),
-        "LOCATION": config('CACHE_LOCATION', default="redis://student_explorer_redis:6379/1"),
+        "BACKEND": config('CACHE_BACKEND', default="django.core.cache.backends.dummy.DummyCache"),
+        "LOCATION": config('CACHE_LOCATION', default=""),
         "OPTIONS": CACHE_OPTIONS,
         "KEY_PREFIX": config('CACHE_KEY_PREFIX', default="student_explorer"),
         "TIMEOUT": CACHALOT_TIMEOUT,
