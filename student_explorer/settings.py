@@ -360,7 +360,7 @@ if DEBUG:
     MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
 # Cache time to live
-CACHALOT_TIMEOUT = config("CACHE_TTL", default=60 * 15, cast=int)
+CACHALOT_TIMEOUT = config("CACHE_TTL", default=60 * 10, cast=int)
 
 CACHE_OPTIONS = json.loads(config('CACHE_OPTIONS', default='{"CLIENT_CLASS": "django_redis.client.DefaultClient"}'))
 
