@@ -11,13 +11,11 @@ class ActiveUserOnlySAML2Backend(Saml2Backend):
         user = None
         try:
             user = super(ActiveUserOnlySAML2Backend, self).authenticate(**kwargs)
-        except PermissionDenied:
-            # If user 
-            if user:
-                user.is_active = False
-                user.save()
+        except Exception:
+            # If there's any exception with this authenticate just return PermisisonDenied
+            logger.exception("Exception thrown from authenticate")
             raise PermissionDenied
-        # If the user doesn't exist for some reason return permission denied
+        # If the user returned is None then we should also give raise PermissionDenied
         if not user:
             raise PermissionDenied
         # The user should be made active if they exist and aren't active
@@ -35,4 +33,4 @@ class ActiveUserOnlySAML2Backend(Saml2Backend):
             return True
         else:
             logger.warn('The user "%s" is not in one of the allowed groups', attributes.get('uid'))
-            raise PermissionDenied
+            return False 
