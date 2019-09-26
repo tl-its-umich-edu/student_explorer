@@ -8,7 +8,7 @@ to the top, then override settings initialized in this module.
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, json
 from decouple import config, Csv
 
 BASE_DIR = os.path.dirname(
@@ -33,6 +33,7 @@ ADMINS = [('', config('DJANGO_ERROR_EMAIL', default='vagrant@localhost'))]
 # Application definition
 
 INSTALLED_APPS = (
+    'cachalot',
     'django_ptvsd',
     'django.contrib.admin',
     'registration',
@@ -353,7 +354,23 @@ def show_debug_toolbar(request):
 
 if DEBUG:
     from debug_toolbar import settings as dt_settings
-    DEBUG_TOOLBAR_PANELS = dt_settings.PANELS_DEFAULTS
+    DEBUG_TOOLBAR_PANELS = dt_settings.PANELS_DEFAULTS + ['cachalot.panels.CachalotPanel',]
     DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK" : show_debug_toolbar,}
     INSTALLED_APPS += ('debug_toolbar',)
     MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+
+# Cache time to live
+CACHALOT_TIMEOUT = config("CACHE_TTL", default=60 * 10, cast=int)
+
+CACHE_OPTIONS = json.loads(config('CACHE_OPTIONS', default='{"CLIENT_CLASS": "django_redis.client.DefaultClient"}'))
+
+# Configure a cache
+CACHES = {
+    "default": {
+        "BACKEND": config('CACHE_BACKEND', default="django.core.cache.backends.dummy.DummyCache"),
+        "LOCATION": config('CACHE_LOCATION', default=""),
+        "OPTIONS": CACHE_OPTIONS,
+        "KEY_PREFIX": config('CACHE_KEY_PREFIX', default="student_explorer"),
+        "TIMEOUT": CACHALOT_TIMEOUT,
+    }
+}

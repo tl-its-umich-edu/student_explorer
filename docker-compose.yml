@@ -1,6 +1,19 @@
 version: '3'
 
 services:
+  redis:
+    container_name: student_explorer_redis
+    image: 'redis:3.2'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6379:6379'
+    volumes:
+      - ./redis:/data
+    entrypoint: redis-server --appendonly yes
+    restart: on-failure
   mysql:
     image: mysql:5.7.22
     restart: on-failure
@@ -30,6 +43,7 @@ services:
       - "3000:3000"
     depends_on:
       - mysql
+      - redis
     env_file:
       - .env
     environment:
