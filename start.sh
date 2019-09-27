@@ -33,9 +33,9 @@ if [ -z "${IS_CRON_POD}" ]; then
         # Currently ptvsd doesn't work with gunicorn
         # https://github.com/Microsoft/vscode-python/issues/2138
         echo Starting Runserver for development
-        export PYTHONPATH="/code:$PYTHONPATH"
+        export PYTHONPATH="/usr/src/app:$PYTHONPATH"
         export DJANGO_SETTINGS_MODULE=student_explorer.settings
-        exec django-admin runserver --ptvsd 0.0.0.0:${GUNICORN_PORT}
+        exec django-admin runserver --nothreading --ptvsd 0.0.0.0:${GUNICORN_PORT}
     fi
 else
     if [ -z "${CRONTAB_SCHEDULE}" ]; then
