@@ -38,6 +38,10 @@
 
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
+            {% url 'seumich:advisor' advisor.username as mystudentsurl%}
+            {% url 'about' as abouturl %}
+            {% url 'seumich:advisors_list' as advisorsurl %}
+            {% url 'management:index' as manageurl %}
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -46,23 +50,23 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                <a href="{% url 'seumich:index' %}">
+                <a href="{% url 'about' %}">
                     <span class="main-color-white main-navbar-brand navbar-brand"><img id="student-explorer-logo" src="/static/seumich/images/se-logo.svg" alt="student explorer logo">Student Explorer</span>
                 </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
-                    {% url 'about' as abouturl %}
-                    {% url 'seumich:advisor' advisor.username as mystudentsurl%}
-                    {% url 'seumich:advisors_list' as advisorsurl %}
-                    <ul class="nav navbar-nav">
-                        <li {% if request.path == abouturl %} class="active" {% endif %}>
-                            <a href="{% url 'about' %}">About</a>
-                        </li>
+                    <form action="{% url 'seumich:students_list' %}" method="get" class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label>
+                            <input id="student-search" value="{{ query_user | default_if_none:'' }}" name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
                         <li {% if request.path == mystudentsurl %} class="active" {% endif %}>
                             <a href="{% url 'seumich:index' %}" data-toggle="collapse" data-target="#navbar.in">My Students</a>
                         </li>
-                        <li {% if request.path == advisorsurl %} class="active" {% endif %}>
-                            <a href="{% url 'seumich:advisors_list' %}" data-toggle="collapse" data-target="#navbar.in">Advisors</a>
+                        <li {% if request.path == abouturl %} class="active" {% endif %}>
+                            <a href="{% url 'about' %}">About</a>
                         </li>
                         <li>
                             <a href="https://documentation.its.umich.edu/node/831" target="_blank">
@@ -70,22 +74,22 @@
                                 <i class="fa fa-external-link" aria-hidden="true" width="25px" hspace="3" alt="External Help Doc Icon"></i>
                             </a>
                         </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
                             <li class="dropdown hidden-xs hidden-sm">
                                 <a class="dropdown-toggle" aria-label="expand for logout" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="">{{user.username}}
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
+                                    {% if user.first_name and user.last_name %}
                                     <li>
-                                        <p>
-                                            <strong>{{user.first_name}}
-                                                {{user.last_name}}</strong>
-                                        </p>
+                                        <p><strong>{{user.first_name}} {{user.last_name}}</strong></p>
                                     </li>
+                                    {% endif %}
                                     {% if user.is_superuser %}
-                                        <li>
+                                        <li {% if request.path == advisorsurl %} class="active" {% endif %}>
+                                            <a href="{% url 'seumich:advisors_list' %}">Advisors</a>
+                                        </li>
+                                        <li {% if request.path == manageurl %} class="active" {% endif %}>
                                             <a href="{% url 'management:index' %}">Manage</a>
                                         </li>
                                     {% endif %}
@@ -97,9 +101,7 @@
                             </li>
                             <li class="visible-xs visible-sm">
                                 <p class="mobile-nav-right">
-                                    <strong>{{user.first_name}}
-                                        {{user.last_name}}
-                                        ({{user.username}})</strong>
+                                    <strong>{{user.first_name}} {{user.last_name}} ({{user.username}})</strong>
                                 </p>
                             </li>
                             <li class="visible-xs visible-sm">
@@ -111,12 +113,6 @@
                             </li>
                         {% endif %}
                     </ul>
-                    <form action="{% url 'seumich:students_list' %}" method="get" class="navbar-form navbar-right">
-                        <div class="form-group">
-                            <label for="student-search" class="sr-only">Search student name, uniqname, or UMID...</label>
-                            <input id="student-search" value="{{ query_user | default_if_none:'' }}" name="search" type="text" class="form-control" placeholder="Search student name, uniqname, or UMID...">
-                        </div>
-                    </form>
                 </div>
             </div>
         </nav>
