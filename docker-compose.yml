@@ -38,6 +38,12 @@ services:
             - LOCALHOST_DEV=1
             - ORACLE_CLIENT_VERSION=18.3
     command: bash -c "./start-localhost.sh"
+    volumes:
+      - .:/usr/src/app
+      # use the container's static folder (don't override)
+      - /usr/src/app/staticfiles
+      - /usr/src/app/seumich/static
+      - /usr/src/app/student_explorer/local
     ports:
       - "2082:8000"
       - "3000:3000"
@@ -48,4 +54,5 @@ services:
       - .env
     environment:
       - LOCALHOST_DEV=1
+      - GUNICORN_RELOAD=True
     container_name: student_explorer
