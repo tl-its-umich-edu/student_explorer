@@ -59,7 +59,7 @@ CRON_CLASSES = [
 # Time to run cron
 RUN_AT_TIMES = config('RUN_AT_TIMES', default="", cast= Csv())
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -359,7 +359,7 @@ if DEBUG:
     DEBUG_TOOLBAR_PANELS = dt_settings.PANELS_DEFAULTS + ['cachalot.panels.CachalotPanel',]
     DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK" : show_debug_toolbar,}
     INSTALLED_APPS += ('debug_toolbar',)
-    MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+    MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
 # Cache time to live
 CACHALOT_TIMEOUT = config("CACHE_TTL", default=60 * 10, cast=int)
