@@ -14,6 +14,12 @@ if [ -z "${GUNICORN_TIMEOUT}" ]; then
     GUNICORN_TIMEOUT=120
 fi
 
+if [ "${GUNICORN_RELOAD}" ]; then
+    GUNICORN_RELOAD="--reload"
+else
+    GUNICORN_RELOAD=""
+fi
+
 set -x
 
 python manage.py migrate
