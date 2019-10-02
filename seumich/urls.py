@@ -17,29 +17,22 @@ from django.conf.urls import url
 from seumich import views
 
 urlpatterns = [
-    url(
-        r'^$',
+    url(r'^$',
         views.IndexView.as_view(),
         name='index'),
-
-    url(
-        r'^advisors/$',
+    url(r'^advisors/$',
         views.AdvisorsListView.as_view(),
         name='advisors_list'),
-    url(
-        r'^cohorts/$',
+    url(r'^cohorts/$',
         views.CohortsListView.as_view(),
         name='cohorts_list'),
-    url(
-        r'^advisors/(?P<advisor>[\s\w-]+)/$',
+    url(r'^advisors/(?P<advisor>[\s\w-]+)/$',
         views.AdvisorView.as_view(),
         name='advisor'),
-    url(
-        r'^cohorts/(?P<code>[\s\w-]+)/$',
+    url(r'^cohorts/(?P<code>[\s\w-]+)/$',
         views.CohortView.as_view(),
         name='cohort'),
-    url(
-        r'^classes/(?P<class_site_id>\d+)/$',
+    url(r'^classes/(?P<class_site_id>\d+)/$',
         views.ClassSiteView.as_view(),
         name='class_site'),
     url(r'^students/$',
