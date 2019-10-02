@@ -1,6 +1,7 @@
 {% load filters %}
 {% load static from staticfiles %}
-
+{% load cache %}
+{% cache settings.CACHE_TTL student_list_partial advisor.username %}
 <script src='{% static 'seumich/sort_table.js' %}'></script>
 
 <h1 class="sub-header">{{ studentListHeader }}</h1>
@@ -109,3 +110,4 @@
     </table>
 
 </div>
+{% endcache %}
