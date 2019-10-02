@@ -2,11 +2,15 @@ from datetime import datetime
 import logging
 from django.http import HttpResponseNotAllowed
 from django.template.loader import render_to_string
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    MiddlewareMixin = object
 
 logger = logging.getLogger('access_logs')
 
 
-class LoggingMiddleware(object):
+class LoggingMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
         l = []
 
@@ -35,7 +39,7 @@ class LoggingMiddleware(object):
         logger.info(' '.join(l))
         return response
 
-class HttpResourceNotAllowedMiddleware(object):
+class HttpResourceNotAllowedMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
         if isinstance(response, HttpResponseNotAllowed):
             response.content = render_to_string("405.html", request=request)
