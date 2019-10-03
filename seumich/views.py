@@ -108,7 +108,7 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
         self.mentor = None
         try:
             self.mentor = Mentor.objects.get(username=self.kwargs['advisor'])
-            student_list = self.mentor.students.order_by('last_name').distinct()
+            student_list = self.mentor.students.filter(id__gt=0).order_by('last_name').distinct()
             student_list = student_list.prefetch_related(
                 'studentclasssitestatus_set__status',
                 'studentclasssitestatus_set__class_site',
@@ -116,6 +116,7 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
             )
         except ObjectDoesNotExist:
             student_list = []
+        logger.debug(student_list)
         return student_list
 
 
