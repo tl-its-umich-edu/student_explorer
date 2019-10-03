@@ -8,19 +8,19 @@ from django.shortcuts import get_object_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db.models import Q, Prefetch, Value as V
 from django.db.models.functions import Concat
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.conf import settings
 from tracking.utils import UserLogPageViewMixin
 
 import operator
 import logging
 
-from django.conf import settings
 from decouple import config
 from functools import reduce
 
 logger = logging.getLogger(__name__)
+
 
 class AdvisorsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     template_name = 'seumich/advisor_list.html'
@@ -95,19 +95,28 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(AdvisorView, self).get_context_data(**kwargs)
-        context['studentListHeader'] = self.mentor.first_name + \
-            " " + self.mentor.last_name
-        context['advisor'] = self.mentor
+        user = get_user_model().objects.get(username=self.kwargs['advisor'])
+        if self.mentor is not None:
+            context['studentListHeader'] = " ".join([self.mentor.first_name, self.mentor.last_name])
+            context['advisor'] = self.mentor
+        else:
+            context['studentListHeader'] = " ".join([user.first_name, user.last_name])
+            context['advisor'] = user
         return context
 
     def get_queryset(self):
-        self.mentor = get_object_or_404(Mentor,
-                                        username=self.kwargs['advisor'])
-        student_list = self.mentor.students.order_by('last_name').distinct()
-        student_list = student_list.prefetch_related(
-            'studentclasssitestatus_set__status',
-            'studentclasssitestatus_set__class_site',
-            'cohorts')
+        self.mentor = None
+        try:
+            self.mentor = Mentor.objects.get(username=self.kwargs['advisor'])
+            student_list = self.mentor.students.filter(id__gte=0).order_by('last_name').distinct()
+            student_list = student_list.prefetch_related(
+                'studentclasssitestatus_set__status',
+                'studentclasssitestatus_set__class_site',
+                'cohorts'
+            )
+        except ObjectDoesNotExist:
+            student_list = []
+        logger.debug(student_list)
         return student_list
 
 
@@ -159,13 +168,6 @@ class ClassSiteView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
 class IndexView(LoginRequiredMixin, UserLogPageViewMixin, View):
 
     def get(self, request):
-        # If the user has no mentors (is an admin) just redirect to main list
-        try:
-            has_mentor = Mentor.objects.get(username=request.user.username)
-        except Mentor.DoesNotExist:
-            logger.info('(%s) not found as mentor. Redirecting to advisors_list'
-                            % request.user.username)
-            return redirect('seumich:advisors_list')
         return redirect('seumich:advisor', advisor=request.user.username)
 
 
