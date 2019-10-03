@@ -19,8 +19,8 @@ import logging
 from decouple import config
 from functools import reduce
 
-User = get_user_model()
 logger = logging.getLogger(__name__)
+
 
 class AdvisorsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     template_name = 'seumich/advisor_list.html'
@@ -95,7 +95,7 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(AdvisorView, self).get_context_data(**kwargs)
-        user = User.objects.get(username=self.kwargs['advisor'])
+        user = get_user_model().objects.get(username=self.kwargs['advisor'])
         if self.mentor is not None:
             context['studentListHeader'] = " ".join([self.mentor.first_name, self.mentor.last_name])
             context['advisor'] = self.mentor
