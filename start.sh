@@ -25,7 +25,7 @@ set -x
 python manage.py migrate
 
 if [ "${CACHE_BACKEND:-""}" == "django.core.cache.backends.db.DatabaseCache" ]; then
-    echo "Database cache set, creating cache table"
+    echo "Database cache set; creating cache table"
     python manage.py createcachetable
 fi
 
