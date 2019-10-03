@@ -15,7 +15,7 @@
 
 ### Running the unit tests
 - You should periodically run the unit tests and keep these updated. These have to be up when the server is up.
-- `docker exec student_explorer ./manage.py test
+- `docker exec -it student_explorer /bin/bash -c "echo yes | python manage.py test"`
 
 ### Using the Django Debug Toolbar ###
 For the [Django Debug Toolbar](https://django-debug-toolbar.readthedocs.io/en/1.5/) to work in development. This is configured to only display if DEBUG=True and the logged in user is an admin.
