@@ -48,9 +48,7 @@ class SeumichTest(TestCase):
     def setUp(self):
         self.client = Client()
         os.system((
-            'mysql -h 127.0.0.1 -u student_explorer -pstudent_explorer '
-            'test_student_explorer < '
-            'seumich/fixtures/dev_data_drop_create_and_insert.sql'
+            f"mysql -h {settings.DATABASES['default']['HOST']} -u {settings.DATABASES['default']['USER']} -p{settings.DATABASES['default']['PASSWORD']} test_student_explorer < seumich/fixtures/dev_data_drop_create_and_insert.sql"
         ))
 
     def test_from_db_value(self):
