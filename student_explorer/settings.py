@@ -380,4 +380,4 @@ CACHES = {
 }
 
 # These are the settings exported from this file to templates
-SETTINGS_EXPORT = ['CACHE_TTL',]
+SETTINGS_EXPORT = ['CACHE_TTL','LOGIN_URL',]
