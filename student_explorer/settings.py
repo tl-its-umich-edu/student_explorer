@@ -33,7 +33,6 @@ ADMINS = [('', config('DJANGO_ERROR_EMAIL', default='vagrant@localhost'))]
 # Application definition
 
 INSTALLED_APPS = (
-    'cachalot',
     'django_ptvsd',
     'django.contrib.admin',
     'registration',
@@ -85,6 +84,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'student_explorer.context_processors.last_updated',
+                'django_settings_export.settings_export',
             ],
         },
     },
@@ -356,15 +356,17 @@ def show_debug_toolbar(request):
 
 if DEBUG:
     from debug_toolbar import settings as dt_settings
-    DEBUG_TOOLBAR_PANELS = dt_settings.PANELS_DEFAULTS + ['cachalot.panels.CachalotPanel',]
+    DEBUG_TOOLBAR_PANELS = dt_settings.PANELS_DEFAULTS
+    # Currently a conflict with per-site caching
+    DEBUG_TOOLBAR_PANELS.remove("debug_toolbar.panels.cache.CachePanel")
     DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK" : show_debug_toolbar,}
     INSTALLED_APPS += ('debug_toolbar',)
     MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
 # Cache time to live
-CACHALOT_TIMEOUT = config("CACHE_TTL", default=60 * 10, cast=int)
+CACHE_TTL = config("CACHE_TTL", default=60 * 10, cast=int)
 
-CACHE_OPTIONS = json.loads(config('CACHE_OPTIONS', default='{"CLIENT_CLASS": "django_redis.client.DefaultClient"}'))
+CACHE_OPTIONS = json.loads(config('CACHE_OPTIONS', default='{}'))
 
 # Configure a cache
 CACHES = {
@@ -373,6 +375,9 @@ CACHES = {
         "LOCATION": config('CACHE_LOCATION', default=""),
         "OPTIONS": CACHE_OPTIONS,
         "KEY_PREFIX": config('CACHE_KEY_PREFIX', default="student_explorer"),
-        "TIMEOUT": CACHALOT_TIMEOUT,
+        "TIMEOUT": CACHE_TTL,
     }
 }
+
+# These are the settings exported from this file to templates
+SETTINGS_EXPORT = ['CACHE_TTL',]
