@@ -35,6 +35,7 @@ class CohortsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     queryset = Cohort.objects.filter(id__gte=0)
     context_object_name = 'cohorts'
 
+
 class StudentsListView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
     template_name = 'seumich/student_list.html'
     context_object_name = 'students'

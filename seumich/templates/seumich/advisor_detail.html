@@ -2,8 +2,14 @@
 
 {% block content %}
     <div class="container content">
+        <h1 class="sub-header">{{ studentListHeader }}</h1>
+        <hr class="main-no-margin-top"/>
         {% if advisor %}
-            {% include 'seumich/student_list_partial.html' %}
+            {% if advisor.username == user.username and not students %}
+                {% include 'seumich/advisor_without_students.html' %}
+            {% else %}
+                {% include 'seumich/student_list_partial.html' %}
+            {% endif %}
         {% else %}
             <div class="panel panel-warning not-found">
                 <div class="panel-heading">
