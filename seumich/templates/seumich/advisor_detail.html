@@ -2,8 +2,6 @@
 
 {% block content %}
     <div class="container content">
-        <h1 class="sub-header">{{ studentListHeader }}</h1>
-        <hr class="main-no-margin-top"/>
         {% if advisor %}
             {% if advisor.username == user.username and not students %}
                 {% include 'seumich/advisor_without_students.html' %}
