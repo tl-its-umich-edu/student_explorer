@@ -95,11 +95,11 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(AdvisorView, self).get_context_data(**kwargs)
-        user = get_user_model().objects.get(username=self.kwargs['advisor'])
         if self.mentor is not None:
             context['studentListHeader'] = " ".join([self.mentor.first_name, self.mentor.last_name])
             context['advisor'] = self.mentor
         else:
+            user = get_user_model().objects.get(username=self.kwargs['advisor'])
             context['studentListHeader'] = " ".join([user.first_name, user.last_name])
             context['advisor'] = user
         return context
@@ -116,7 +116,7 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
             )
         except ObjectDoesNotExist:
             student_list = []
-        logger.debug(student_list)
+        logger.info(student_list)
         return student_list
 
 

@@ -2,6 +2,7 @@ import os
 from django.test import TestCase
 from django.conf import settings
 from django.test.client import Client
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from seumich.models import (UsernameField,
                             Advisor,
@@ -26,8 +27,7 @@ from seumich.models import (UsernameField,
                             WeeklyClassSiteScore,
                             WeeklyStudentClassSiteEvent,
                             WeeklyStudentClassSiteStatus,
-                            WeeklyStudentClassSiteScore,
-                            LearningAnalyticsStats,)
+                            WeeklyStudentClassSiteScore)
 from seumich.mixins import SeumichDataMixin
 
 
@@ -524,6 +524,46 @@ class SeumichTest(TestCase):
         self.assertContains(response, 'gabriela')
         self.assertContains(response, 'james')
         self.assertNotContains(response, 'grace')
+
+    def test_advisor_user_without_mentor(self):
+        # Set up
+        user_ebenezer = get_user_model().objects.create(
+            username="ebenezer", first_name="Ebenezer", last_name="Scrooge"
+        )
+        user_ebenezer.set_password("ebenezer")
+        user_ebenezer.save()
+        # Test
+        self.client.login(username="ebenezer", password="ebenezer")
+        url = reverse("seumich:advisor", kwargs={"advisor": "ebenezer"})
+        response = self.client.get(url)
+        full_name = response.context["studentListHeader"]
+        self.assertEqual(full_name, "Ebenezer Scrooge")
+        self.assertEqual(len(response.context["students"]), 0)
+        # Clean up
+        user_ebenezer.delete()
+
+    def test_advisor_mentor_without_user(self):
+        # Set up
+        expected_students = [
+            {'username': 'james', 'first_name': 'James', 'last_name': 'Bond'},
+            {'username': 'gianna', 'first_name': 'Gianna', 'last_name': 'Fekete'},
+            {'username': 'deirdre', 'first_name': 'Deirdre', 'last_name': 'Haupt'},
+            {'username': 'gabriela', 'first_name': 'Gabriela', 'last_name': 'Rea'}
+        ]
+        user_lavera = get_user_model().objects.get(username="lavera")
+        user_lavera.delete()
+        # Test
+        self.client.login(username='burl', password='burl')
+        url = reverse('seumich:advisor', kwargs={'advisor': 'lavera'})
+        response = self.client.get(url)
+        students = list(response.context['students'].values('username', 'first_name', 'last_name'))
+        self.assertCountEqual(expected_students, students)
+        # Clean up
+        user_lavera = get_user_model().objects.create(
+            username="lavera", first_name="Lavera", last_name="Rumore"
+        )
+        user_lavera.set_password("lavera")
+        user_lavera.save()
 
     def test_student_view_redirect(self):
         url = reverse('seumich:student', kwargs={'student': 'james'})
