@@ -99,9 +99,13 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
             context['studentListHeader'] = " ".join([self.mentor.first_name, self.mentor.last_name])
             context['advisor'] = self.mentor
         else:
-            user = get_user_model().objects.get(username=self.kwargs['advisor'])
-            context['studentListHeader'] = " ".join([user.first_name, user.last_name])
-            context['advisor'] = user
+            try:
+                user = get_user_model().objects.get(username=self.kwargs['advisor'])
+                context['studentListHeader'] = " ".join([user.first_name, user.last_name])
+                context['advisor'] = user
+            except ObjectDoesNotExist:
+                context['studentListHeader'] = ''
+                context['advisor'] = None
         return context
 
     def get_queryset(self):
