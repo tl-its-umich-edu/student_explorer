@@ -48,7 +48,10 @@ class SeumichTest(TestCase):
     def setUp(self):
         self.client = Client()
         os.system((
-            f"mysql -h {settings.DATABASES['default']['HOST']} -u {settings.DATABASES['default']['USER']} -p{settings.DATABASES['default']['PASSWORD']} test_student_explorer < seumich/fixtures/dev_data_drop_create_and_insert.sql"
+            f"mysql -h {settings.DATABASES['default']['HOST']} "
+            f"-u {settings.DATABASES['default']['USER']} "
+            f"-p{settings.DATABASES['default']['PASSWORD']} "
+            f"test_student_explorer < seumich/fixtures/dev_data_drop_create_and_insert.sql"
         ))
 
     def test_from_db_value(self):
@@ -525,7 +528,7 @@ class SeumichTest(TestCase):
         self.assertContains(response, 'james')
         self.assertNotContains(response, 'grace')
 
-    def test_advisor_user_without_mentor(self):
+    def test_advisor_view_user_without_mentor(self):
         # Set up
         user_ebenezer = get_user_model().objects.create(
             username="ebenezer", first_name="Ebenezer", last_name="Scrooge"
@@ -542,7 +545,7 @@ class SeumichTest(TestCase):
         # Clean up
         user_ebenezer.delete()
 
-    def test_advisor_mentor_without_user(self):
+    def test_advisor_view_mentor_without_user(self):
         # Set up
         expected_students = [
             {'username': 'james', 'first_name': 'James', 'last_name': 'Bond'},
