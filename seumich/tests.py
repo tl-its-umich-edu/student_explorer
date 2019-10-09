@@ -1,5 +1,4 @@
 import os
-import sys
 from django.test import TestCase
 from django.conf import settings
 from django.test.client import Client
@@ -571,7 +570,6 @@ class SeumichTest(TestCase):
         self.assertQuerysetEqual(response.context['advisors'],
                                  [('<StudentCohortMentor: grace is in the '
                                    'Special Probation F14 cohort>')])
-#       sys.stderr.write(repr(response.context['scoreData']))
         self.assertCountEqual(response.context['scoreData'],
             [{'key': 'Student', 'values':
             [[1, 0], [2, 0], [3, 0], [4, 0], [5, 65],
