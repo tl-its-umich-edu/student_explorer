@@ -120,7 +120,6 @@ class AdvisorView(LoginRequiredMixin, UserLogPageViewMixin, ListView):
             )
         except ObjectDoesNotExist:
             student_list = []
-        logger.info(student_list)
         return student_list
 
 
