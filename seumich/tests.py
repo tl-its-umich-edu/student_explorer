@@ -48,9 +48,7 @@ class SeumichTest(TestCase):
     def setUp(self):
         self.client = Client()
         os.system((
-            'mysql -h 127.0.0.1 -u student_explorer -pstudent_explorer '
-            'test_student_explorer < '
-            'seumich/fixtures/dev_data_drop_create_and_insert.sql'
+            f"mysql -h {settings.DATABASES['default']['HOST']} -u {settings.DATABASES['default']['USER']} -p{settings.DATABASES['default']['PASSWORD']} test_student_explorer < seumich/fixtures/dev_data_drop_create_and_insert.sql"
         ))
 
     def test_from_db_value(self):
@@ -572,17 +570,16 @@ class SeumichTest(TestCase):
         self.assertQuerysetEqual(response.context['advisors'],
                                  [('<StudentCohortMentor: grace is in the '
                                    'Special Probation F14 cohort>')])
-        self.assertQuerysetEqual(response.context['scoreData'],
-                                 [("{'color': '#255c91', 'values': [[1, 0L], "
-                                   "[2, 0L], [3, 0L], [4, 0L], [5, 65L], "
-                                   "[6, 68L], [7, 68L], [8, 68L], [9], [10], "
-                                   "[11], [12], [13], [14]], "
-                                   "'key': 'Student'}"),
-                                  ("{'color': '#F0D654', 'values': [[1, 0L], "
-                                   "[2, 0L], [3, 0L], [4, 0L], [5, 58L], "
-                                   "[6, 58L], [7, 58L], [8, 57L], [9], [10], "
-                                   "[11], [12], [13], [14]], 'key': 'Class'}")
-                                  ])
+        self.assertCountEqual(response.context['scoreData'],
+            [{'key': 'Student', 'values':
+            [[1, 0], [2, 0], [3, 0], [4, 0], [5, 65],
+            [6, 68], [7, 68], [8, 68], [9], [10],
+            [11], [12], [13], [14]], 'color': '#255c91'},
+            {'key': 'Class', 'values': [[1, 0],
+            [2, 0], [3, 0], [4, 0], [5, 58],
+            [6, 58], [7, 58], [8, 57], [9], [10],
+            [11], [12], [13], [14]], 'color': '#F0D654'}]
+        )
         self.assertQuerysetEqual(response.context['assignments'],
                                  [('<StudentClassSiteAssignment: grace has '
                                    'assignment Assessment in Math 101>'),
@@ -592,12 +589,12 @@ class SeumichTest(TestCase):
                       kwargs={'student': 'james', 'classcode': 3})
         self.client.login(username='burl', password='burl')
         response = self.client.get(url)
-        self.assertQuerysetEqual(response.context['scoreData'],
-                                 [("{'color': '#255c91', 'values': [], "
-                                   "'key': 'Student'}"),
-                                  ("{'color': '#F0D654', 'values': [], "
-                                   "'key': 'Class'}")
-                                  ])
+        self.assertCountEqual(response.context['scoreData'],
+            [{'key': 'Student', 'values': [],
+            'color': '#255c91'},
+            {'key': 'Class', 'values': [],
+            'color': '#F0D654'}]
+        )
 
     def test_seumich_data_mixin(self):
         seumich_data_mixin = SeumichDataMixin()
