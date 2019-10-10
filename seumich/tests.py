@@ -562,10 +562,6 @@ class SeumichTest(TestCase):
         students = list(response.context['students'].values('username', 'first_name', 'last_name'))
         self.assertCountEqual(expected_students, students)
         # Clean up
-        user_lavera = get_user_model().objects.create(
-            username="lavera", first_name="Lavera", last_name="Rumore"
-        )
-        user_lavera.set_password("lavera")
         user_lavera.save()
 
     def test_student_view_redirect(self):
