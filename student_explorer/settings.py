@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'tracking',
     'feedback',
     'usage',
+    'django_mysql',
 )
 
 CRON_CLASSES = [
