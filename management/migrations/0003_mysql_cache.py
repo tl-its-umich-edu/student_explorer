@@ -4,8 +4,6 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        # Add a dependency in here on an existing migration in the app you
-        # put this migration in, for example:
         ('management', '0002_auto_20190108_0943'),
     ]
 
