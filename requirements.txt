@@ -1,5 +1,5 @@
 Django>=1.11,<1.11.99
-mysqlclient>=1.3.13,<1.3.99
+mysqlclient>=1.4.4,<1.4.99
 python-ldap==3.2.0
 requests==2.20,<2.20.99
 django-watchman==0.15.0,<0.15.99
