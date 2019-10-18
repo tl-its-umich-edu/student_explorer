@@ -358,8 +358,6 @@ def show_debug_toolbar(request):
 if DEBUG:
     from debug_toolbar import settings as dt_settings
     DEBUG_TOOLBAR_PANELS = dt_settings.PANELS_DEFAULTS
-    # Currently a conflict with per-site caching
-    DEBUG_TOOLBAR_PANELS.remove("debug_toolbar.panels.cache.CachePanel")
     DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK" : show_debug_toolbar,}
     INSTALLED_APPS += ('debug_toolbar',)
     MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
