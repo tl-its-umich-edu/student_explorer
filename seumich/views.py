@@ -215,11 +215,14 @@ class StudentClassSiteView(StudentView):
         except:
             return studentData, classData, activityData
 
-        events = class_site.weeklystudentclasssiteevent_set.filter(
-            student=student)
-        student_scores = class_site.weeklystudentclasssitescore_set.filter(
-            student=student)
-        class_scores = class_site.weeklyclasssitescore_set.all()
+        events = {x.get('week_end_date_id'):x
+            for x in class_site.weeklystudentclasssiteevent_set.filter(
+            student=student).values()}
+        student_scores = {x.get('week_end_date_id'):x
+            for x in class_site.weeklystudentclasssitescore_set.filter(
+            student=student).values()}
+        class_scores = {x.get('week_end_date_id'):x
+            for x in class_site.weeklyclasssitescore_set.all().values()}
         todays_week_end_date = term.todays_week_end_date()
 
         week_number = 0
@@ -234,26 +237,17 @@ class StudentClassSiteView(StudentView):
             tempClassData.append(week_number)
             tempActivityData.append(week_number)
 
-            try:
-                event = events.get(week_end_date=week_end_date)
-            except ObjectDoesNotExist:
-                pass
-            else:
-                tempActivityData.append(round(event.percentile_rank * 100))
+            event = events.get(week_end_date.id)
+            if event:
+                tempActivityData.append(round(event.get('percentile_rank') * 100))
 
-            try:
-                score = student_scores.get(week_end_date=week_end_date)
-            except ObjectDoesNotExist:
-                pass
-            else:
-                tempStudentData.append(score.score)
+            score = student_scores.get(week_end_date.id)
+            if score:
+                tempStudentData.append(score.get('score'))
 
-            try:
-                score = class_scores.get(week_end_date=week_end_date)
-            except ObjectDoesNotExist:
-                pass
-            else:
-                tempClassData.append(score.score)
+            score = class_scores.get(week_end_date.id)
+            if score:
+                tempClassData.append(score.get('score'))
 
             if week_end_date == todays_week_end_date:
                 tempStudentData.append(student.studentclasssitescore_set

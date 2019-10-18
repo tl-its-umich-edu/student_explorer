@@ -174,9 +174,9 @@ class Term(models.Model):
         for i in range(delta.days + 1):
             date = begin_date + timedelta(days=i)
             if date.weekday() == 5:
-                dates.append(Date.objects.get(date=date))
+                dates.append(date)
 
-        return dates
+        return list(Date.objects.filter(date__in=dates))
 
     def todays_week_end_date(self):
         from datetime import date, timedelta
