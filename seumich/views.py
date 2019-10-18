@@ -179,7 +179,9 @@ class StudentView(LoginRequiredMixin, UserLogPageViewMixin, TemplateView):
 
     def get_context_data(self, student, **kwargs):
         context = super(StudentView, self).get_context_data(**kwargs)
-        selected_student = get_object_or_404(Student, username=student)
+        selected_student = get_object_or_404(
+            Student.objects.prefetch_related('studentclasssitestatus_set__status'), 
+            username=student)
         context['student'] = selected_student
         prefetch_student_score = Prefetch(
             'class_site__studentclasssitescore_set',
