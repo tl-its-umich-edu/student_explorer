@@ -1,12 +1,12 @@
 {% extends 'seumich/student.html' %}
-{% load filters %}
+{% load filters cache %}
 {% block head %}
     {% load staticfiles %}
     <script src='{% static "seumich/student.js" %}'></script>
     <script src='{% static "seumich/assignment_list_table.js" %}'></script>
 {% endblock %}
 {% block content %}
-
+{% cache settings.CACHE_TTL student_class_site_detail request.get_full_path %}
     <div class="container-fluid content">
         <div class="student-detail-left-menu" id="student-detail-menu">
             <div class="student-detail-left-menu-top">
@@ -297,4 +297,5 @@
         </div>
     </div>
 
+{% endcache %}
 {% endblock %}
