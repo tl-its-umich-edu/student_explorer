@@ -25,6 +25,11 @@ services:
             - LOCALHOST_DEV=1
             - ORACLE_CLIENT_VERSION=18.3
     command: bash -c "./start-localhost.sh"
+    volumes:
+      - student-explorer-sync:/usr/src/app:nocopy
+      - /usr/src/app/staticfiles
+      - /usr/src/app/seumich/static
+      - /usr/src/app/student_explorer/local
     ports:
       - "2082:8000"
       - "3000:3000"
@@ -36,3 +41,6 @@ services:
       - LOCALHOST_DEV=1
       - GUNICORN_RELOAD=True
     container_name: student_explorer
+volumes:
+    student-explorer-sync:
+        external: true

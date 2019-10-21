@@ -7,8 +7,14 @@
 2. Follow steps in the "Run development server" section below.
 
 ### Run development server ###
+- If you intend to do local development you should install and use docker-sync
+  - See the directions here for installing the gem https://docker-sync.readthedocs.io/en/latest/getting-started/installation.html
+  - If you can execute `docker-sync` you're good to go!
 - `cd student_explorer`
-- `docker-compose down; docker-compose build; docker-compose up -d`
+- `docker-compose down; docker-compose build;`
+- Either run 
+  - `docker-sync start` if you want to be able to modify files (dev)
+  - `docker-compose up -d` if you don't want to modify files (prod) 
 - Browse to [http://localhost:2082/](http://localhost:2082/)
 - Login as individual advisors using their lower-case first name as username/password (e.g.: burl/burl)
 - Student with useful data: [http://localhost:2082/students/grace/](http://localhost:2082/students/grace/)

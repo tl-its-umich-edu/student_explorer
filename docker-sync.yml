@@ -1,0 +1,6 @@
+version: "2"
+syncs:
+  student-explorer-sync:
+    notify_terminal: true
+    src: './'
+    sync_excludes: ['staticfiles', 'seumich/static', 'student_explorer/local']
