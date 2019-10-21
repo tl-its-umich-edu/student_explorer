@@ -3,11 +3,7 @@
 {% block content %}
     <div class="container content">
         {% if advisor %}
-            {% if not students %}
-                {% include 'seumich/advisor_without_students.html' %}
-            {% else %}
-                {% include 'seumich/student_list_partial.html' %}
-            {% endif %}
+            {% include 'seumich/student_list_partial.html' %}
         {% else %}
             <div class="panel panel-warning not-found">
                 <div class="panel-heading">
