@@ -1,20 +1,23 @@
 {% extends 'seumich/student.html' %}
+{% load cache %}
 
 {% block content %}
-    <div class="container content">
-        {% if not students %}
-            {% if user.is_authenticated %}
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">No Results</h3>
+    {% cache settings.CACHE_TTL student_list request.get_full_path %}
+        <div class="container content">
+            {% if not students %}
+                {% if user.is_authenticated %}
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">No Results</h3>
+                        </div>
+                        <div class="panel-body">
+                            No students found that match the query terms.
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        No students found that match the query terms.
-                    </div>
-                </div>
+                {% endif %}
+            {% else %}
+                {% include 'seumich/student_list_partial.html' %}
             {% endif %}
-        {% else %}
-            {% include 'seumich/student_list_partial.html' %}
-        {% endif %}
-    </div>
+        </div>
+    {% endcache %}
 {% endblock %}
