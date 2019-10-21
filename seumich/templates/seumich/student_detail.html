@@ -1,5 +1,5 @@
 {% extends 'seumich/student.html' %}
-{% load filters %}
+{% load filters cache %}
 
 {% block head %}
     {% load staticfiles %}
@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-
+{% cache settings.CACHE_TTL student_detail request.get_full_path %}
     <div class="container-fluid content">
         <div class="student-detail-main-menu">
             <div class="student-detail-main-menu-top">
@@ -123,4 +123,5 @@
         </div>
     </div>
 
+{% endcache %}
 {% endblock %}
