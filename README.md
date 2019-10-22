@@ -1,5 +1,25 @@
 # Student Explorer
 
+## Overview
+
+Student Explorer is an early warning system that helps academic advisors at the University of Michigan-Ann Arbor identify at-risk students based on current term Learning Management System data. It started in 2011 as a research project at the University of Michigan USE Lab; LSA Technology Services, Academic Innovation, and ITS Teaching & Learning have contributed to the design, development, and management of the tool. Student Explorer is in use as an enterprise production application at U-M and continues to be developed by ITS Teaching & Learning. The code is open source and is licensed under Apache 2.0. The application primarily relies on Python Django for the backend and Bootstrap and jQuery for the frontend.
+
+- [About the Student Explorer Application](https://studentexplorer.ai.umich.edu/about)
+- [Student Explorer Documentation](https://documentation.its.umich.edu/student-explorer-general)
+- [Student Explorer Release Notes](https://github.com/tl-its-umich-edu/student_explorer/releases)
+
+To contact the Student Explorer team, please email student-explorer-help@umich.edu.
+
+## Data Sources
+
+Student Explorer uses two separate data sources in production:
+
+1. Local MySQL database, which contains administrative and management tables typical for Django databases, including django_admin_log (log of changes made in Django admin), tracking_event (log of events tracked in the application such as page views, logins, and redirects), and auth_user (user accounts).
+
+2. U-M Data Warehouse Oracle database edwprod.world, which contains the data served up in the application, including basic student and course data, grades, assignments, etc. For full information on the tables in the U-M Data Warehouse that are used by Student Explorer, see [Teaching & Learning Student Explorer dataset information.](https://its.umich.edu/enterprise/administrative-systems/data-warehouse/data-areas/teaching-learning#student-explorer)
+
+To demonstrate the tool's functionality outside of production, setting up the application using the below instructions will also load fake prepared data.
+
 ## Development Environment
 
 ### Application Setup
