@@ -2,7 +2,7 @@
 
 ## Overview
 
-Student Explorer is an early warning system that helps academic advisors at the University of Michigan-Ann Arbor identify at-risk students based on current term Learning Management System data. It started in 2011 as a research project at the University of Michigan USE Lab; LSA Technology Services, Academic Innovation, and ITS Teaching & Learning have contributed to the design, development, and management of the tool. Student Explorer is in use as an enterprise production application at U-M and continues to be developed by ITS Teaching & Learning. The code is open source and is licensed under Apache 2.0. The application primarily relies on Python Django for the backend and Bootstrap and jQuery for the frontend.
+Student Explorer is an early warning system that helps academic advisors at the University of Michigan-Ann Arbor identify at-risk students based on current term Learning Management System data. It started in 2011 as a research project at the University of Michigan USE Lab; LSA Technology Services, Academic Innovation, and ITS Teaching & Learning have contributed to the design, development, and management of the tool. Student Explorer is in use as an enterprise production application at U-M and continues to be developed by ITS Teaching & Learning. The code is open source and is licensed under Apache 2.0. The application primarily relies on Django for the backend and Bootstrap and jQuery for the frontend.
 
 - [About the Student Explorer Application](https://studentexplorer.ai.umich.edu/about)
 - [Student Explorer Documentation](https://documentation.its.umich.edu/student-explorer-general)
