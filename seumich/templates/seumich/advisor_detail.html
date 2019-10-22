@@ -1,22 +1,25 @@
 {% extends 'seumich/advisor.html' %}
+{% load cache %}
 
 {% block content %}
-    <div class="container content">
-        {% if advisor %}
-            {% if not students %}
-                {% include 'seumich/advisor_without_students.html' %}
+    {% cache settings.CACHE_TTL advisor_detail request.get_full_path %}
+        <div class="container content">
+            {% if advisor %}
+                {% if not students %}
+                    {% include 'seumich/advisor_without_students.html' %}
+                {% else %}
+                    {% include 'seumich/student_list_partial.html' %}
+                {% endif %}
             {% else %}
-                {% include 'seumich/student_list_partial.html' %}
+                <div class="panel panel-warning not-found">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Not Found</h3>
+                    </div>
+                    <div class="panel-body">
+                        No advisor profile found.
+                    </div>
+                </div>
             {% endif %}
-        {% else %}
-            <div class="panel panel-warning not-found">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Not Found</h3>
-                </div>
-                <div class="panel-body">
-                    No advisor profile found.
-                </div>
-            </div>
-        {% endif %}
-    </div>
+        </div>
+    {% endcache %}
 {% endblock %}
