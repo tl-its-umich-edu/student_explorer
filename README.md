@@ -18,15 +18,14 @@ Student Explorer uses two separate data sources in production:
 
 2. U-M Data Warehouse Oracle database edwprod.world, which contains the data served up in the application, including basic student and course data, grades, assignments, etc. For full information on the tables in the U-M Data Warehouse that are used by Student Explorer, see [Teaching & Learning Student Explorer dataset information.](https://its.umich.edu/enterprise/administrative-systems/data-warehouse/data-areas/teaching-learning#student-explorer)
 
-To demonstrate the tool's functionality outside of production, setting up the application using the below instructions will also load fake prepared data.
+Note that when you follow the instructions below to start up a local version of the application, instead two local databases will be created and populated with fake data. This data will help demonstrate the tool's functionality.
 
 ## Development Environment
 
 ### Application Setup
 
 To follow these instructions, you will need to have [Docker](https://www.docker.com/) installed. For those new to the
-technology, the [documentation](https://docs.docker.com/) includes a detailed introduction. When following the below
-instructions, the application will use fake prepared data to help demonstrate the tool's functionality.
+technology, the [documentation](https://docs.docker.com/) includes a detailed introduction.
 
 1. Clone and navigate into the repository.
 
