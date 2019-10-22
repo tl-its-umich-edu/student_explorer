@@ -1,39 +1,68 @@
-# Student Explorer #
+# Student Explorer
 
-## Development Environment ##
+## Development Environment
 
-### Setup ###
-1. Install [Docker](https://www.docker.com/)
-2. Follow steps in the "Run development server" section below.
+### Application Setup
 
-### Run development server ###
-- `cd student_explorer`
-- `docker-compose down; docker-compose build; docker-compose up -d`
-- Browse to [http://localhost:2082/](http://localhost:2082/)
-- Login as individual advisors using their lower-case first name as username/password (e.g.: burl/burl)
-- Student with useful data: [http://localhost:2082/students/grace/](http://localhost:2082/students/grace/)
+To follow these instructions, you will need to have [Docker](https://www.docker.com/) installed. For those new to the
+technology, the [documentation](https://docs.docker.com/) includes a detailed introduction. When following the below
+instructions, the application will use fake prepared data to help demonstrate the tool's functionality.
 
-### Running the unit tests
-- You should periodically run the unit tests and keep these updated. These have to be up when the server is up.
-- `docker exec -it student_explorer /bin/bash -c "echo yes | python manage.py test"`
+1. Clone and navigate into the repository.
 
-### Using the Django Debug Toolbar ###
-For the [Django Debug Toolbar](https://django-debug-toolbar.readthedocs.io/en/1.5/) to work in development. This is configured to only display if DEBUG=True and the logged in user is an admin.
+    ```
+    git clone https://github.com/tl-its-umich-edu/student_explorer.git # HTTPS
+    git clone git@github.com:tl-its-umich-edu/student_explorer.git # SSH
+    
+    cd student_explorer
+    ```
 
-### Note on settings ###
-By default manage.py looks for the student_explorer.local.settings_override module. This file is created manually as documented in the setup steps above.
+2. Create a `.env` using `.env.sample` as a template.
 
-By default wsgi.py (which is used by start.sh) looks for the student_explorer.settings module. This file is versioned as part of this repository.
+    ```
+    mv .env.sample .env
+    ```
 
-This behavior can be changed for both manage.py and wsgi.py by setting the DJANGO_SETTINGS_MODULE environment variable.
+3. Build and bring up the development server using `docker-compose`.
 
-### Cron JOB
-Users and files are loaded now with the cron job. This is run on a separate pod in Openshift when the environment variable IS_CRON_POD=true.
+    ```
+    docker-compose build
+    docker-compose up
+    ```
+    
+    Use `^C` and `docker-compose down` to bring the application down.
 
-Crons are configured in this project with django-cron. Django-cron is executed whenever python manage.py runcrons is run but it is limited via a few environment variables.
+4. Browse the application on localhost.
 
-The installation notes recommends that you have a Unix crontab scheduled to run every 5 minutes to run this command. https://django-cron.readthedocs.io/en/latest/installation.html
+    - Navigate to [http://localhost:2082/](http://localhost:2082/).
+    - Log in as `admin` or an advisor (e.g. `burl`). All passwords are the same as the user's username.
+    
+    Not all pages will have complete data. The pages for 
+    [Grace Devilbiss](http://localhost:2082/students/grace/) provide a comprehensive example of how the tool
+    presents and visualizes student data.
+    
+### Running the Tests
+    
+When working on the application, you should periodically run and update the unit tests. To run them, use
+the following command while the development server is up.
 
-For local testing, make sure your secrets are added and your VPN is active. Then run this command on a running container to execute the cronjob
+```
+docker exec -it student_explorer /bin/bash -c "echo yes | python manage.py test"
+```
 
-`docker exec -it student_explorer /bin/bash -c "python manage.py migrate django_cron && python manage.py runcrons --force"`
+You can also enter the running Docker container &mdash; and then run your own commands &mdash; by using the first part 
+of the above command, `docker exec -it student_explorer /bin/bash`.
+
+### Django Debug Toolbar
+
+The application is currently configured to use the
+[Django Debug Toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/) to assist with development. The toolbar
+will only appear if `DJANGO_DEBUG` is set to `true` in the `.env` and the user is logged in as a superuser.
+
+### Note on Settings
+
+By default, Django's `manage.py` process looks for the `student_explorer.local.settings_override module`. This file is 
+created automatically when using `docker-compose` based on instructions in the `Dockerfile`. In addition, `wsgi.py` 
+(which is used by `start.sh`) looks by default for the `student_explorer.settings` module. This file is versioned as 
+part of the repository. This behavior can be changed for both `manage.py` and `wsgi.py` by setting the 
+`DJANGO_SETTINGS_MODULE` environment variable.
