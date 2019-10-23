@@ -1,12 +1,31 @@
 # Student Explorer
 
+## Overview
+
+Student Explorer is an early warning system that helps academic advisors at the University of Michigan-Ann Arbor identify at-risk students based on current term Learning Management System data. It started in 2011 as a research project at the University of Michigan USE Lab; LSA Technology Services, Academic Innovation, and ITS Teaching & Learning have contributed to the design, development, and management of the tool. Student Explorer is in use as an enterprise production application at U-M and continues to be developed by ITS Teaching & Learning. The code is open source and is licensed under Apache 2.0. The application primarily relies on Django for the backend and Bootstrap and jQuery for the frontend.
+
+- [About the Student Explorer Application](https://studentexplorer.ai.umich.edu/about)
+- [Student Explorer Documentation](https://documentation.its.umich.edu/student-explorer-general)
+- [Student Explorer Release Notes](https://github.com/tl-its-umich-edu/student_explorer/releases)
+
+To contact the Student Explorer team, please email student-explorer-help@umich.edu.
+
+## Data Sources
+
+Student Explorer uses two separate data sources in production:
+
+1. A MySQL database, which contains administrative and management tables typical for Django databases, including django_admin_log (log of changes made in Django admin), tracking_event (log of events tracked in the application such as page views, logins, and redirects), and auth_user (user accounts). This database also maintains the cohort relationships and is being used to cache page templates to improve performance.
+
+2. U-M Data Warehouse Oracle database edwprod.world, which contains the data served up in the application, including basic student and course data, grades, assignments, etc. For full information on the tables in the U-M Data Warehouse that are used by Student Explorer, see [Teaching & Learning Student Explorer dataset information.](https://its.umich.edu/enterprise/administrative-systems/data-warehouse/data-areas/teaching-learning#student-explorer)
+
+Note that when you follow the instructions below to start up a local version of the application,  both data sources will be created in the same MySQL database and populated with fake data. This data will help demonstrate the tool's functionality.
+
 ## Development Environment
 
 ### Application Setup
 
 To follow these instructions, you will need to have [Docker](https://www.docker.com/) installed. For those new to the
-technology, the [documentation](https://docs.docker.com/) includes a detailed introduction. When following the below
-instructions, the application will use fake prepared data to help demonstrate the tool's functionality.
+technology, the [documentation](https://docs.docker.com/) includes a detailed introduction.
 
 1. Clone and navigate into the repository.
 
