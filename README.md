@@ -14,7 +14,7 @@ To contact the Student Explorer team, please email student-explorer-help@umich.e
 
 Student Explorer uses two separate data sources in production:
 
-1. Local MySQL database, which contains administrative and management tables typical for Django databases, including django_admin_log (log of changes made in Django admin), tracking_event (log of events tracked in the application such as page views, logins, and redirects), and auth_user (user accounts).
+1. A MySQL database, which contains administrative and management tables typical for Django databases, including django_admin_log (log of changes made in Django admin), tracking_event (log of events tracked in the application such as page views, logins, and redirects), and auth_user (user accounts). This database also maintains the cohort relationships and is being used to cache page templates to improve performance.
 
 2. U-M Data Warehouse Oracle database edwprod.world, which contains the data served up in the application, including basic student and course data, grades, assignments, etc. For full information on the tables in the U-M Data Warehouse that are used by Student Explorer, see [Teaching & Learning Student Explorer dataset information.](https://its.umich.edu/enterprise/administrative-systems/data-warehouse/data-areas/teaching-learning#student-explorer)
 
