@@ -32,5 +32,6 @@ class ActiveUserOnlySAML2Backend(Saml2Backend):
             logger.debug(attributes.get('isMemberOf'))
             return True
         else:
-            logger.warn('The user "%s" is not in one of the allowed groups', attributes.get('uid'))
+            logger.warning('The user "%s" is not in one of the allowed groups', attributes.get('uid'))
+            logger.warning(attributes)
             return False 
