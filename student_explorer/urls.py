@@ -31,10 +31,9 @@ urlpatterns = [
 
 if 'djangosaml2' in settings.INSTALLED_APPS:
     from djangosaml2.views import echo_attributes
-    from django.contrib.auth.decorators import login_required
     urlpatterns += (
         url(r'^accounts/', include('djangosaml2.urls')),
-        url(r'^accounts/echo_attributes/', login_required(echo_attributes)),
+        url(r'^accounts/echo_attributes/', echo_attributes),
     )
 elif 'registration' in settings.INSTALLED_APPS:
     urlpatterns += (
