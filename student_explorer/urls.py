@@ -29,6 +29,9 @@ urlpatterns = [
     url(r'^usage/', include('usage.urls', namespace='usage')),
 ]
 
+# Override auth_logout from djangosaml2 and registration for consistant behavior
+urlpatterns.append(url(r'^accounts/logout/?', views.logout, name='auth_logout'))
+
 if 'djangosaml2' in settings.INSTALLED_APPS:
     from djangosaml2.views import echo_attributes
     urlpatterns += (
@@ -40,9 +43,6 @@ elif 'registration' in settings.INSTALLED_APPS:
         url(r'^accounts/', include('registration.backends.default.urls')),
     )
 
-# Override auth_logout from djangosaml2 and registration for consistant
-# behavior
-urlpatterns.append(url(r'^accounts/logout', views.logout, name='auth_logout'))
 urlpatterns.append(url(r'^about', views.about, name='about'))
 
 
