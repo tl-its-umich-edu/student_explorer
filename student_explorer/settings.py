@@ -190,9 +190,10 @@ if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
     SAML2_REMOTE_PEM_FILE = config('STUDENT_EXPLORER_SAML_REMOTE_PEM_FILE',default='')
 
     SAML2_DEFAULT_IDP = config('STUDENT_EXPLORER_SAML_DEFAULT_IDP',default='')
-
     if SAML2_DEFAULT_IDP:
         SAML2_DEFAULT_IDP = '?idp=%s' % SAML2_DEFAULT_IDP
+
+    SAML2_ENTITYID = config('SAML2_ENTITYID', default=SAML2_URL_BASE + 'metadata/')
 
     INSTALLED_APPS += ('djangosaml2',)
     AUTHENTICATION_BACKENDS = (
@@ -206,7 +207,7 @@ if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
     import saml2
     SAML_CONFIG = {
       'xmlsec_binary': '/usr/bin/xmlsec1',
-      'entityid': '%smetadata/' % SAML2_URL_BASE,
+      'entityid': SAML2_ENTITYID,
 
       # directory with attribute mapping
       # 'attribute_map_dir': os.path.join(BASE_DIR, 'attribute-maps'),
