@@ -102,6 +102,12 @@ FORCE_SCRIPT_NAME = config('DJANGO_FORCE_SCRIPT_NAME', default=None)
 WATCHMAN_TOKEN = config('DJANGO_WATCHMAN_TOKEN', default=None)
 WATCHMAN_TOKEN_NAME = config('DJANGO_WATCHMAN_TOKEN_NAME', default='token')
 
+# Storage check is not included because filesystem is not writable
+WATCHMAN_CHECKS = (
+    'watchman.checks.caches',
+    'watchman.checks.databases',
+)
+
 DOWNLOAD_TOKEN = config('DJANGO_DOWNLOAD_TOKEN', default=None)
 
 PAGINATION_RECORDS_PER_PAGE = config('DJANGO_PAGINATION_RECORDS_PER_PAGE', default=10, cast=int)
