@@ -158,6 +158,8 @@ EMAIL_USE_SSL = config('DJANGO_EMAIL_USE_SSL', default=None)
 
 FEEDBACK_EMAIL = config('DJANGO_FEEDBACK_EMAIL', default=None)
 
+EMAIL_SUBJECT_PREFIX = 'Student Explorer'
+
 # Databases
 
 DATABASES = {}
