@@ -688,13 +688,14 @@ class SeumichTest(TestCase):
         self.assertTemplateUsed(response, 'student_explorer/about.html')
 
     def test_about_advisor_without_student(self):
+        """
+        Verify renderer_content for the new section is correct
+        correct path: {% url 'about' %} evaluates to "/about"
+        """
         self.client.login(username='mollie', password='mollie')
         url = reverse("seumich:advisor", kwargs={"advisor": "mollie"})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-
-        #Verify renderer_content for the new section is correct
-        #correct path: {% url 'about' %} evaluates to "/about"
         self.assertContains(response, '\"/about\"')
         self.assertNotContains(response, '\"/about/\"')
 
