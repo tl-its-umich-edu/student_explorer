@@ -687,6 +687,17 @@ class SeumichTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'student_explorer/about.html')
 
+    def test_about_advisor_without_student(self):
+        self.client.login(username='mollie', password='mollie')
+        url = reverse("seumich:advisor", kwargs={"advisor": "mollie"})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        #Verify renderer_content for the new section is correct
+        #correct path: {% url 'about' %} evaluates to "/about"
+        self.assertContains(response, '\"/about\"')
+        self.assertNotContains(response, '\"/about/\"')
+
     def test_feedback(self):
         self.client.login(username='burl', password='burl')
         response = self.client.get(reverse('feedback:feedback'))
