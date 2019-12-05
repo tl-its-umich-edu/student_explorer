@@ -692,12 +692,23 @@ class SeumichTest(TestCase):
         Verify renderer_content for the new section is correct
         correct path: {% url 'about' %} evaluates to "/about"
         """
-        self.client.login(username='mollie', password='mollie')
-        url = reverse("seumich:advisor", kwargs={"advisor": "mollie"})
+        # Set up
+        user_ebenezer = get_user_model().objects.create(
+            username="ebenezer", first_name="Ebenezer", last_name="Scrooge"
+        )
+        user_ebenezer.set_password("ebenezer")
+        user_ebenezer.save()
+        # Test
+        self.client.login(username="ebenezer", password="ebenezer")
+        url = reverse("seumich:advisor", kwargs={"advisor": "ebenezer"})
+
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '\"/about\"')
         self.assertNotContains(response, '\"/about/\"')
+
+        # Clean up
+        user_ebenezer.delete()
 
     def test_feedback(self):
         self.client.login(username='burl', password='burl')
