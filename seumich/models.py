@@ -1,6 +1,7 @@
 from django.db import models
 from seumich.mixins import SeumichDataMixin
 from django.utils import timezone
+import re  # Added for newlines in assignment comments fix
 
 import logging, statistics
 
@@ -369,7 +370,8 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
         db_column='CLASS_ASSGN_PNTS_ERND_NBR')
     included_in_grade = models.CharField(max_length=1,
                                          db_column='INCL_IN_CLASS_GRD_IND')
-    grader_comment = models.CharField(max_length=4000, null=True,
+    # Line below modified
+    raw_grader_comment = models.CharField(max_length=4000, null=True,
                                       db_column='STDNT_ASSGN_GRDR_CMNT_TXT')
     weight = models.FloatField(max_length=126,
                                db_column='ASSGN_WT_NBR')
@@ -379,6 +381,12 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
     def __str__(self):
         return '%s has assignment %s in %s' % (self.student, self.assignment,
                                                self.class_site)
+    # Function to insert breaks in place of newline characters so HTML will
+    # actually render newlines
+    @property
+    def grader_comment(self):
+        if not self.raw_grader_comment == None:
+            return re.sub('/\n/g', '<br />', self.raw_grader_comment.rstrip())
 
     @property
     def due_date(self):
