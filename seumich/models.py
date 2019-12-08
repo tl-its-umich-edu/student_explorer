@@ -385,16 +385,20 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
     # actually render newlines --harryrs && csubram
     @property
     def grader_comment(self):
-        if not self.raw_grader_comment == None:
 
-            # Functionally, <br> or <br /> would also work, but using <br><br />
-            # complies with XHTML standards, in case that is a necessity of this
-            # project --harryrs && csubram
-            return re.sub(
-                '/\n/g',
-                '<br><br />',
-                self.raw_grader_comment.rstrip()
-            )
+        # Check if grader comment is empty string and exit if so
+        # --harryrs && csubram
+        if self.raw_grader_comment is None:
+            return
+
+        # Functionally, <br> or <br /> would also work, but using <br><br />
+        # complies with XHTML standards, in case that is a necessity of this
+        # project --harryrs && csubram
+        return re.sub(
+            '/\n/g',
+            '<br><br />',
+            self.raw_grader_comment.rstrip()
+        )
 
     @property
     def due_date(self):
