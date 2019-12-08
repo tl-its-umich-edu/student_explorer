@@ -156,9 +156,10 @@ EMAIL_HOST_PASSWORD = config('DJANGO_EMAIL_HOST_PASSWORD', default=None)
 EMAIL_USE_TLS = config('DJANGO_EMAIL_USE_TLS', default=None)
 EMAIL_USE_SSL = config('DJANGO_EMAIL_USE_SSL', default=None)
 
-FEEDBACK_EMAIL = config('DJANGO_FEEDBACK_EMAIL', default=None)
+FEEDBACK_EMAIL = config('DJANGO_FEEDBACK_EMAIL', default='aanant@umich.edu')
 
-EMAIL_SUBJECT_PREFIX = 'Student Explorer'
+EMAIL_SUBJECT_PREFIX = config('EMAIL_SUBJECT_PREFIX', default="Student_Explorer")
+
 
 # Databases
 
