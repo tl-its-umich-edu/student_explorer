@@ -389,7 +389,7 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
         # Check if grader comment is empty string and exit if so
         # --harryrs && csubram
         if self.raw_grader_comment is None:
-            return
+            return self.raw_grader_comment
 
         # Functionally, <br> or <br /> would also work, but using <br><br />
         # complies with XHTML standards, in case that is a necessity of this
