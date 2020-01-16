@@ -1,4 +1,6 @@
-from django.conf.urls import url, include
+from django.urls import path
 from tracking import views
 
-urlpatterns = [url(r'^record-event/$', views.record_event, name="record-event"),]
+urlpatterns = [
+    path('record-event/', views.record_event, name="record-event"),
+]

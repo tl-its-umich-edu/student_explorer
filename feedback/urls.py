@@ -1,6 +1,8 @@
-from django.conf.urls import url
+from django.urls import path
 from feedback import views
 
+app_name = 'feedback'
+
 urlpatterns = [
-    url(
-        r'^$', views.submitFeedback, name='feedback'), ]
+    path('', views.submitFeedback, name='feedback'),
+]

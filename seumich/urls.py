@@ -13,35 +13,19 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import url
+from django.urls import path
 from seumich import views
 
+app_name = 'seumich'
+
 urlpatterns = [
-    url(r'^$',
-        views.IndexView.as_view(),
-        name='index'),
-    url(r'^advisors/$',
-        views.AdvisorsListView.as_view(),
-        name='advisors_list'),
-    url(r'^cohorts/$',
-        views.CohortsListView.as_view(),
-        name='cohorts_list'),
-    url(r'^advisors/(?P<advisor>[\s\w-]+)/$',
-        views.AdvisorView.as_view(),
-        name='advisor'),
-    url(r'^cohorts/(?P<code>[\s\w-]+)/$',
-        views.CohortView.as_view(),
-        name='cohort'),
-    url(r'^classes/(?P<class_site_id>\d+)/$',
-        views.ClassSiteView.as_view(),
-        name='class_site'),
-    url(r'^students/$',
-        views.StudentsListView.as_view(),
-        name='students_list'),
-    url(r'^students/(?P<student>\w+)/$',
-        views.StudentView.as_view(),
-        name='student'),
-    url(r'^students/(?P<student>\w+)/class_sites/(?P<classcode>[\w-]+)/$',
-        views.StudentClassSiteView.as_view(),
-        name='student_class'),
+    path('', views.IndexView.as_view(), name='index'),
+    path('advisors/', views.AdvisorsListView.as_view(), name='advisors_list'),
+    path('cohorts/', views.CohortsListView.as_view(), name='cohorts_list'),
+    path('advisors/<advisor>/', views.AdvisorView.as_view(), name='advisor'),
+    path('cohorts/<code>/', views.CohortView.as_view(), name='cohort'),
+    path('classes/<class_site_id>/', views.ClassSiteView.as_view(), name='class_site'),
+    path('students/', views.StudentsListView.as_view(), name='students_list'),
+    path('students/<student>/', views.StudentView.as_view(), name='student'),
+    path('students/<student>/class_sites/<classcode>/', views.StudentClassSiteView.as_view(), name='student_class'),
 ]

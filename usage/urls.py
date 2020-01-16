@@ -1,8 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 from usage import views
 
+app_name = 'usage'
+
 urlpatterns = [
-    url(r'^$', views.UsageView.as_view(), name='usage_index'),
-    url(r'^download/$', views.DownloadCsvView.as_view(),
-        name='usage_download'),
+    path('', views.UsageView.as_view(), name='usage_index'),
+    path('download/', views.DownloadCsvView.as_view(), name='usage_download'),
 ]
