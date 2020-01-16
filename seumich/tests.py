@@ -1,9 +1,9 @@
 import os
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import Client
+from django.urls import reverse
 from seumich.models import (UsernameField,
                             Advisor,
                             Date,
@@ -44,6 +44,7 @@ class SeumichTest(TestCase):
     status = Status.objects.get(id=1)
     term = Term.objects.get(id=1)
     fixtures = ['dev_users.json']
+    databases = ['default', 'seumich']
 
     def setUp(self):
         self.client = Client()
