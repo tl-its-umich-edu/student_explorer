@@ -16,12 +16,12 @@ def create_event(name, request=None, user=None, note=None, related_object=None):
     given, the user is pulled from the request, and in the absence of a note,
     the note is set to the request path."""
     if request is not None:        
-        if user is None and hasattr(request, 'user') and request.user.is_authenticated():
+        if user is None and hasattr(request, 'user') and request.user.is_authenticated:
             user = request.user
         if note is None:
             note = request.path
     e = Event(name=name)
-    if user is not None and user.is_authenticated():
+    if user is not None and user.is_authenticated:
         e.user = user
     if related_object is not None:
         e.related_object = related_object
@@ -37,7 +37,7 @@ def create_event(name, request=None, user=None, note=None, related_object=None):
 def user_log_page_view(f):
     @wraps(f)
     def wrapper(request, *args, **kwargs):
-        user = request.user if request.user.is_authenticated() else None
+        user = request.user if request.user.is_authenticated else None
         response = f(request, *args, **kwargs)
         if response.status_code != 200:
             if response.status_code == 302:

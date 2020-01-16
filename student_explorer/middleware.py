@@ -20,7 +20,7 @@ class LoggingMiddleware(MiddlewareMixin):
             )
         )
 
-        if hasattr(request, 'user') and request.user.is_authenticated():
+        if hasattr(request, 'user') and request.user.is_authenticated:
             l.append(request.user.username)
         else:
             l.append('-')
