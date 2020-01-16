@@ -66,7 +66,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'student_explorer.middleware.LoggingMiddleware',
@@ -183,8 +182,8 @@ DATABASES['seumich'] = {
     'HOST': config('DJANGO_SEUMICH_DB_HOST', default=''),
     'PORT': config('DJANGO_SEUMICH_DB_PORT', default=''),
     'MIGRATE': config('DJANGO_SEUMICH_DB_MIGRATE', default='no', cast=bool),
-
 }
+
 DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
 
 
