@@ -1,5 +1,3 @@
-
-
 import logging
 from django.db import models
 
@@ -47,9 +45,9 @@ class Student(BaseModel):
 
 
 class StudentCohortMentor(BaseModel):
-    student = models.ForeignKey(Student)
-    cohort = models.ForeignKey(Cohort)
-    mentor = models.ForeignKey(Mentor)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE)
+    mentor = models.ForeignKey(Mentor, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('student', 'cohort', 'mentor')

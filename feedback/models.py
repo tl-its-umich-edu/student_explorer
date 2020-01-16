@@ -1,12 +1,10 @@
-
-
 from django.db import models
 from django.contrib.auth.models import User
 from django_extensions.db.models import TimeStampedModel
 
 
 class Feedback(TimeStampedModel):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     feedback_message = models.TextField()
 
     def __str__(self):
