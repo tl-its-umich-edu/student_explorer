@@ -18,12 +18,13 @@ urlpatterns = [
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
         name="robots_file"
     ),
-    path('admin/', admin.site.urls),
     path('', include('seumich.urls', namespace='seumich')),
-    path('status/', include('watchman.urls')),
+    path('about', views.about, name='about'),
+    path('admin/', admin.site.urls),
     path('manage/', include('management.urls')),
     path('feedback/', include('feedback.urls', namespace='feedback')),
     path('usage/', include('usage.urls', namespace='usage')),
+    path('status/', include('watchman.urls')),
 ]
 
 # Override auth_logout from djangosaml2 and registration for consistent behavior
@@ -31,16 +32,14 @@ urlpatterns.append(path('accounts/logout/', views.logout, name='auth_logout'))
 
 if 'djangosaml2' in settings.INSTALLED_APPS:
     from djangosaml2.views import echo_attributes
-    urlpatterns += (
+    urlpatterns += [
         path('accounts/', include('djangosaml2.urls')),
         path('accounts/echo_attributes/', echo_attributes),
-    )
+    ]
 elif 'registration' in settings.INSTALLED_APPS:
-    urlpatterns += (
+    urlpatterns += [
         path('accounts/', include('registration.backends.default.urls')),
-    )
-
-urlpatterns.append(path('about', views.about, name='about'))
+    ]
 
 # Configure Django Debug Toolbar
 if settings.DEBUG:
