@@ -11,7 +11,6 @@ urlpatterns = [
     path('users/add/', views.AddUserView.as_view(), name='add-user'),
     path('cohorts/download/', views.CohortListDownloadView.as_view(), name='cohort-list-download'),
     path('cohorts/detail/download/', views.CohortDetailDownloadView.as_view(), name='cohort-detail-download'),
-    # trying this without re_path, will need to test
     path(
         'cohorts/<code>/members/download/',
         views.CohortMembersDownloadView.as_view(),
