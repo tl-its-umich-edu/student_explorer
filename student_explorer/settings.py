@@ -186,6 +186,10 @@ DATABASES['seumich'] = {
 
 DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
 
+# This is the default AUTHENTICATION_BACKENDS and used for localhost
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # SAML Auth
 
@@ -280,11 +284,6 @@ if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
         'givenName': ('first_name', ),
         'sn': ('last_name', ),
     }
-else:
-    # This is the default and used for localhost
-    AUTHENTICATION_BACKENDS = (
-        'django.contrib.auth.backends.ModelBackend',
-    )
 
 # Logging
 
