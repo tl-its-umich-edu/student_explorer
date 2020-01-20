@@ -7,10 +7,10 @@ logger = logging.getLogger(__name__)
 
 
 class ActiveUserOnlySAML2Backend(Saml2Backend):
-    def authenticate(self, **kwargs):
+    def authenticate(self, request, **kwargs):
         user = None
         try:
-            user = super(ActiveUserOnlySAML2Backend, self).authenticate(**kwargs)
+            user = super(ActiveUserOnlySAML2Backend, self).authenticate(request, **kwargs)
         except Exception:
             # If there's any exception with this authenticate just return PermisisonDenied
             logger.exception("Exception thrown from authenticate")

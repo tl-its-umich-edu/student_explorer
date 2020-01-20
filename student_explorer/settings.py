@@ -205,7 +205,6 @@ if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
 
     INSTALLED_APPS += ('djangosaml2',)
     AUTHENTICATION_BACKENDS = (
-        'django.contrib.auth.backends.ModelBackend',
         # Use a custom SAML backend to support disabled users
         'student_explorer.backends.ActiveUserOnlySAML2Backend',
     )
@@ -281,7 +280,11 @@ if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
         'givenName': ('first_name', ),
         'sn': ('last_name', ),
     }
-
+else:
+    # This is the default and used for localhost
+    AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+    )
 
 # Logging
 
