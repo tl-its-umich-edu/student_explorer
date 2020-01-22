@@ -32,7 +32,7 @@ ADMINS = [('', config('DJANGO_ERROR_EMAIL', default='vagrant@localhost'))]
 
 # Application definition
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django_ptvsd',
     'django.contrib.admin',
     'registration',
@@ -50,7 +50,7 @@ INSTALLED_APPS = (
     'feedback',
     'usage',
     'django_mysql',
-)
+]
 
 CRON_CLASSES = [
     "student_explorer.cron.StudentExplorerCronJob",
@@ -102,10 +102,10 @@ WATCHMAN_TOKEN = config('DJANGO_WATCHMAN_TOKEN', default=None)
 WATCHMAN_TOKEN_NAME = config('DJANGO_WATCHMAN_TOKEN_NAME', default='token')
 
 # Storage check is not included because filesystem is not writable
-WATCHMAN_CHECKS = (
+WATCHMAN_CHECKS = [
     'watchman.checks.caches',
     'watchman.checks.databases',
-)
+]
 
 DOWNLOAD_TOKEN = config('DJANGO_DOWNLOAD_TOKEN', default=None)
 
@@ -138,10 +138,10 @@ STATIC_ROOT = config('DJANGO_STATIC_ROOT',
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATICFILES_FINDERS = (
+STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
+]
 
 LOGIN_URL = config('DJANGO_LOGIN_URL', default='/accounts/login/')
 LOGIN_REDIRECT_URL = '/'
@@ -187,9 +187,9 @@ DATABASES['seumich'] = {
 DATABASE_ROUTERS += ['seumich.routers.SeumichRouter']
 
 # This is the default AUTHENTICATION_BACKENDS and used for localhost
-AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-)
+]
 
 # SAML Auth
 
@@ -207,11 +207,11 @@ if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
 
     SAML2_ENTITYID = config('SAML2_ENTITYID', default=SAML2_URL_BASE + 'metadata/')
 
-    INSTALLED_APPS += ('djangosaml2',)
-    AUTHENTICATION_BACKENDS = (
+    INSTALLED_APPS += ['djangosaml2']
+    AUTHENTICATION_BACKENDS = [
         # Use a custom SAML backend to support disabled users
         'student_explorer.backends.ActiveUserOnlySAML2Backend',
-    )
+    ]
     LOGIN_URL = '%slogin/%s' % (SAML2_URL_PATH, SAML2_DEFAULT_IDP)
     SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
@@ -370,7 +370,7 @@ if DEBUG:
     from debug_toolbar import settings as dt_settings
     DEBUG_TOOLBAR_PANELS = dt_settings.PANELS_DEFAULTS
     DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK" : show_debug_toolbar,}
-    INSTALLED_APPS += ('debug_toolbar',)
+    INSTALLED_APPS += ['debug_toolbar']
     MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
 # Cache time to live
