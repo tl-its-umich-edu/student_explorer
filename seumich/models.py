@@ -225,7 +225,7 @@ class Assignment(models.Model):
     id = models.IntegerField(primary_key=True, db_column='ASSGN_KEY')
     code = models.CharField(max_length=20, db_column='ASSGN_CD')
     description = models.CharField(max_length=50, db_column='ASSGN_DES')
-    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY',
+    source_system = models.ForeignKey(SourceSystem, on_delete=models.CASCADE, db_column='SRC_SYS_KEY',
                                       null=True)
 
     def __str__(self):
@@ -240,7 +240,7 @@ class ClassSite(models.Model):
     code = models.CharField(max_length=20, db_column='CLASS_SITE_CD')
     description = models.CharField(max_length=50, db_column='CLASS_SITE_DES')
     terms = models.ManyToManyField('Term', through='ClassSiteTerm')
-    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY',
+    source_system = models.ForeignKey(SourceSystem, on_delete=models.CASCADE, db_column='SRC_SYS_KEY',
                                       null=True)
 
     def __str__(self):
@@ -255,7 +255,7 @@ class Cohort(models.Model):
     code = models.CharField(max_length=20, db_column='CHRT_CD')
     description = models.CharField(max_length=50, db_column='CHRT_DES')
     group = models.CharField(max_length=100, db_column='CHRT_GRP_NM')
-    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY',
+    source_system = models.ForeignKey(SourceSystem, on_delete=models.CASCADE, db_column='SRC_SYS_KEY',
                                       null=True)
 
     def __str__(self):
@@ -267,7 +267,7 @@ class Cohort(models.Model):
 
 class EventType(models.Model):
     id = models.IntegerField(primary_key=True, db_column='EVENT_TYP_KEY')
-    source_system = models.ForeignKey(SourceSystem, db_column='SRC_SYS_KEY',
+    source_system = models.ForeignKey(SourceSystem, on_delete=models.CASCADE, db_column='SRC_SYS_KEY',
                                       null=True)
     description = models.CharField(max_length=50, db_column='EVENT_TYP_NM')
 
@@ -283,8 +283,8 @@ class EventType(models.Model):
 
 class ClassSiteTerm(models.Model):
     id = models.IntegerField(primary_key=True, db_column='CLASS_SITE_TERM_KEY')
-    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
-    term = models.ForeignKey(Term, db_column='TERM_KEY')
+    class_site = models.ForeignKey(ClassSite, on_delete=models.CASCADE, db_column='CLASS_SITE_KEY')
+    term = models.ForeignKey(Term, on_delete=models.CASCADE, db_column='TERM_KEY')
 
     def __str__(self):
         return '%s was held in %s' % (self.class_site, self.term)
@@ -294,10 +294,10 @@ class ClassSiteTerm(models.Model):
 
 
 class StudentAdvisorRole(models.Model):
-    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, db_column='STDNT_KEY',
                                 primary_key=True)
-    advisor = models.ForeignKey(Advisor, db_column='ADVSR_KEY')
-    role = models.ForeignKey(AdvisorRole, db_column='ADVSR_ROLE_KEY')
+    advisor = models.ForeignKey(Advisor, on_delete=models.CASCADE, db_column='ADVSR_KEY')
+    role = models.ForeignKey(AdvisorRole, on_delete=models.CASCADE, db_column='ADVSR_ROLE_KEY')
 
     def __str__(self):
         return '%s advises %s as %s' % (self.advisor, self.student, self.role)
@@ -308,10 +308,10 @@ class StudentAdvisorRole(models.Model):
 
 
 class StudentCohortMentor(models.Model):
-    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, db_column='STDNT_KEY',
                                 primary_key=True)
-    mentor = models.ForeignKey(Mentor, db_column='MNTR_KEY')
-    cohort = models.ForeignKey(Cohort, db_column='CHRT_KEY')
+    mentor = models.ForeignKey(Mentor, on_delete=models.CASCADE, db_column='MNTR_KEY')
+    cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE, db_column='CHRT_KEY')
 
     def __str__(self):
         return '%s is in the %s cohort' % (self.student, self.cohort)
@@ -325,7 +325,7 @@ class StudentCohortMentor(models.Model):
 
 
 class ClassSiteScore(models.Model):
-    class_site = models.ForeignKey(ClassSite, primary_key=True,
+    class_site = models.ForeignKey(ClassSite, on_delete=models.CASCADE, primary_key=True,
                                    db_column='CLASS_SITE_KEY')
     current_score_average = models.FloatField(db_column="CLASS_CURR_SCR_AVG")
 
@@ -338,9 +338,9 @@ class ClassSiteScore(models.Model):
 
 
 class StudentClassSiteScore(models.Model):
-    student = models.ForeignKey(Student, primary_key=True,
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, primary_key=True,
                                 db_column='STDNT_KEY')
-    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
+    class_site = models.ForeignKey(ClassSite, on_delete=models.CASCADE, db_column='CLASS_SITE_KEY')
     current_score_average = models.FloatField(db_column="STDNT_CURR_SCR_AVG")
 
     def __str__(self):
@@ -353,10 +353,10 @@ class StudentClassSiteScore(models.Model):
 
 
 class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
-    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, db_column='STDNT_KEY',
                                 primary_key=True)
-    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
-    assignment = models.ForeignKey(Assignment, db_column='ASSGN_KEY')
+    class_site = models.ForeignKey(ClassSite, on_delete=models.CASCADE, db_column='CLASS_SITE_KEY')
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, db_column='ASSGN_KEY')
     points_possible = models.FloatField(max_length=10,
                                         db_column='STDNT_ASSGN_PNTS_PSBL_NBR')
     points_earned = models.FloatField(max_length=10,
@@ -373,7 +373,7 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
                                       db_column='STDNT_ASSGN_GRDR_CMNT_TXT')
     weight = models.FloatField(max_length=126,
                                db_column='ASSGN_WT_NBR')
-    _due_date = models.ForeignKey(Date, db_column='ASSGN_DUE_SBMT_DT_KEY',
+    _due_date = models.ForeignKey(Date, on_delete=models.CASCADE, db_column='ASSGN_DUE_SBMT_DT_KEY',
                                   null=True)
 
     def __str__(self):
@@ -425,10 +425,10 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
 
 
 class StudentClassSiteStatus(models.Model):
-    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, db_column='STDNT_KEY',
                                 primary_key=True)
-    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
-    status = models.ForeignKey(Status, db_column='ACAD_PERF_KEY')
+    class_site = models.ForeignKey(ClassSite, on_delete=models.CASCADE, db_column='CLASS_SITE_KEY')
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, db_column='ACAD_PERF_KEY')
 
     def __str__(self):
         return '%s has status %s in %s' % (self.student, self.status,
@@ -441,9 +441,9 @@ class StudentClassSiteStatus(models.Model):
 
 
 class WeeklyClassSiteScore(models.Model):
-    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY',
+    class_site = models.ForeignKey(ClassSite, on_delete=models.CASCADE, db_column='CLASS_SITE_KEY',
                                    primary_key=True)
-    week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
+    week_end_date = models.ForeignKey(Date, on_delete=models.CASCADE, db_column='WEEK_END_DT_KEY')
     score = models.FloatField(db_column='CLASS_CURR_SCR_AVG')
 
     def __str__(self):
@@ -457,11 +457,11 @@ class WeeklyClassSiteScore(models.Model):
 
 
 class WeeklyStudentClassSiteEvent(models.Model):
-    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, db_column='STDNT_KEY',
                                 primary_key=True)
-    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
-    week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
-    event_type = models.ForeignKey(EventType, db_column='EVENT_TYP_KEY')
+    class_site = models.ForeignKey(ClassSite, on_delete=models.CASCADE, db_column='CLASS_SITE_KEY')
+    week_end_date = models.ForeignKey(Date, on_delete=models.CASCADE, db_column='WEEK_END_DT_KEY')
+    event_type = models.ForeignKey(EventType, on_delete=models.CASCADE, db_column='EVENT_TYP_KEY')
 
     event_count = models.IntegerField(db_column='STDNT_WKLY_EVENT_CNT')
     cumulative_event_count = models.IntegerField(
@@ -482,10 +482,10 @@ class WeeklyStudentClassSiteEvent(models.Model):
 
 
 class WeeklyStudentClassSiteScore(models.Model):
-    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, db_column='STDNT_KEY',
                                 primary_key=True)
-    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
-    week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
+    class_site = models.ForeignKey(ClassSite, on_delete=models.CASCADE, db_column='CLASS_SITE_KEY')
+    week_end_date = models.ForeignKey(Date, on_delete=models.CASCADE, db_column='WEEK_END_DT_KEY')
     score = models.FloatField(db_column='STDNT_CURR_SCR_AVG')
 
     def __str__(self):
@@ -499,11 +499,11 @@ class WeeklyStudentClassSiteScore(models.Model):
 
 
 class WeeklyStudentClassSiteStatus(models.Model):
-    student = models.ForeignKey(Student, db_column='STDNT_KEY',
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, db_column='STDNT_KEY',
                                 primary_key=True)
-    class_site = models.ForeignKey(ClassSite, db_column='CLASS_SITE_KEY')
-    week_end_date = models.ForeignKey(Date, db_column='WEEK_END_DT_KEY')
-    status = models.ForeignKey(Status, db_column='ACAD_PERF_KEY')
+    class_site = models.ForeignKey(ClassSite, on_delete=models.CASCADE, db_column='CLASS_SITE_KEY')
+    week_end_date = models.ForeignKey(Date, on_delete=models.CASCADE, db_column='WEEK_END_DT_KEY')
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, db_column='ACAD_PERF_KEY')
 
     def __str__(self):
         return '%s has status %s in %s on %s' % (

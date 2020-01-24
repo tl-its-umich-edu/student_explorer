@@ -46,7 +46,7 @@ if [ -z "${IS_CRON_POD}" ]; then
         echo Starting Runserver for development
         export PYTHONPATH="/usr/src/app:$PYTHONPATH"
         export DJANGO_SETTINGS_MODULE=student_explorer.settings
-        exec django-admin runserver --nothreading --ptvsd 0.0.0.0:${GUNICORN_PORT}
+        exec django-admin runserver --ptvsd 0.0.0.0:${GUNICORN_PORT}
     fi
 else
     if [ -z "${CRONTAB_SCHEDULE}" ]; then

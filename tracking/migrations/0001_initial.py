@@ -21,8 +21,8 @@ class Migration(migrations.Migration):
                 ('timestamp', models.DateTimeField(auto_now_add=True)),
                 ('note', models.CharField(default='', max_length=255)),
                 ('related_object_id', models.PositiveIntegerField(null=True, blank=True)),
-                ('related_content_type', models.ForeignKey(blank=True, to='contenttypes.ContentType', null=True)),
-                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('related_content_type', models.ForeignKey(on_delete=models.CASCADE, blank=True, to='contenttypes.ContentType', null=True)),
+                ('user', models.ForeignKey(on_delete=models.CASCADE, blank=True, to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={
                 'ordering': ('-timestamp',),

@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.7
 
 RUN apt-get update && apt-get --no-install-recommends install --yes \
     libaio1 libaio-dev xmlsec1 libffi-dev \

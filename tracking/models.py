@@ -1,4 +1,3 @@
-
 import logging
 
 from django.dispatch import Signal, receiver
@@ -8,12 +7,13 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 from django.conf import settings
 
+
 class Event(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
     timestamp = models.DateTimeField(auto_now_add=True)
     note = models.CharField(max_length=255, default='')
-    related_content_type = models.ForeignKey(ContentType, null=True, blank=True)
+    related_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
     related_object_id = models.PositiveIntegerField(null=True, blank=True)
     related_object = GenericForeignKey('related_content_type', 'related_object_id')
 
