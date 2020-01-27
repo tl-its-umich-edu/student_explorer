@@ -384,8 +384,8 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
     # Replace all newline literals in grader comments with HTML break tags
     @property
     def formatted_grader_comment(self):
-        if self.grader_comment is None:
-            return self.grader_comment
+        if self.grader_comment:
+            return "None"
         nl_literal_pattern = re.compile(r"\\n")
         comment_with_repls = nl_literal_pattern.sub("<br><br />", self.grader_comment.strip())
         return format_html(f'"{comment_with_repls}"')
