@@ -334,7 +334,6 @@ class SeumichTest(TestCase):
             class_site=ClassSite.objects.get(id=2)
         )
         br_tag_pattern = re.compile("<br><br />")
-
         matches = br_tag_pattern.findall(student_class_site_assignment.formatted_grader_comment)
         self.assertEqual(len(matches), 3)
 
