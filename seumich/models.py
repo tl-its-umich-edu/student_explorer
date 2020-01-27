@@ -1,9 +1,9 @@
 from django.db import models
 from seumich.mixins import SeumichDataMixin
 from django.utils import timezone
-import re  # Added for newlines in assignment comments fix
+from django.utils.html import format_html
 
-import logging, statistics
+import logging, re, statistics
 
 logger = logging.getLogger(__name__)
 
@@ -370,8 +370,7 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
         db_column='CLASS_ASSGN_PNTS_ERND_NBR')
     included_in_grade = models.CharField(max_length=1,
                                          db_column='INCL_IN_CLASS_GRD_IND')
-    # Identifier name modified to be distinct from new function name
-    raw_grader_comment = models.CharField(max_length=4000, null=True,
+    grader_comment = models.CharField(max_length=4000, null=True,
                                       db_column='STDNT_ASSGN_GRDR_CMNT_TXT')
     weight = models.FloatField(max_length=126,
                                db_column='ASSGN_WT_NBR')
@@ -381,23 +380,15 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
     def __str__(self):
         return '%s has assignment %s in %s' % (self.student, self.assignment,
                                                self.class_site)
-    # Function to insert breaks in place of newline characters so HTML will
-    # actually render newlines
+
+    # Replace all newline literals in grader comments with HTML break tags
     @property
-    def grader_comment(self):
-
-        # Check if grader comment is empty string and exit if so
-        if self.raw_grader_comment is None:
-            return self.raw_grader_comment
-
-        # Functionally, <br> or <br /> would also work, but using <br><br />
-        # complies with XHTML standards, in case that is a necessity of this
-        # project
-        return re.sub(
-            '/\n/g',
-            '<br><br />',
-            self.raw_grader_comment.rstrip()
-        )
+    def formatted_grader_comment(self):
+        if self.grader_comment is None:
+            return self.grader_comment
+        nl_literal_pattern = re.compile(r"\\n")
+        comment_with_repls = nl_literal_pattern.sub('<br><br />', self.grader_comment.strip())
+        return format_html(f'"{comment_with_repls}"')
 
     @property
     def due_date(self):
