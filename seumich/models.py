@@ -387,7 +387,7 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
         if self.grader_comment is None:
             return self.grader_comment
         nl_literal_pattern = re.compile(r"\\n")
-        comment_with_repls = nl_literal_pattern.sub('<br><br />', self.grader_comment.strip())
+        comment_with_repls = nl_literal_pattern.sub("<br><br />", self.grader_comment.strip())
         return format_html(f'"{comment_with_repls}"')
 
     @property
