@@ -1,4 +1,4 @@
-import os
+import os, re
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import TestCase
@@ -322,6 +322,20 @@ class SeumichTest(TestCase):
                                                 assignment=self.assignment))
         self.assertEqual(
             round(student_class_site_assignment[0].class_percentage, 2), 84.76)
+
+    def test_studentclasssiteassignment_formatted_grader_comment(self):
+        """
+        Testing whether the formatted_grader_comment method
+        properly replaces newline literals with HTML break tags
+        """
+        student_class_site_assignment = StudentClassSiteAssignment.objects.get(
+            student=Student.objects.get(id=1),
+            assignment=Assignment.objects.get(id=15),
+            class_site=ClassSite.objects.get(id=2)
+        )
+        br_tag_pattern = re.compile("<br><br />")
+        matches = br_tag_pattern.findall(student_class_site_assignment.formatted_grader_comment)
+        self.assertEqual(len(matches), 3)
 
     def test_studentclasssiteassignment_relative_to_average(self):
         """

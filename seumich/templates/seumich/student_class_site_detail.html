@@ -232,7 +232,7 @@
                                                             <img id="plus-button-{{assignment.assignment.id}}" class="assignment-button" src="{% static 'seumich/images/Dropdown_Plus.png' %}" alt="Expand"/>
                                                             <img id="minus-button-{{assignment.assignment.id}}" class="assignment-button" src="{% static 'seumich/images/Dropdown_Minus.png' %}" alt="Expand"/>
                                                         </a>
-                                                        <p id="assignment-grader-comment-{{assignment.assignment.id}}">&quot;{{assignment.grader_comment}}&quot;</p>
+                                                        <p id="assignment-grader-comment-{{assignment.assignment.id}}">{{assignment.formatted_grader_comment}}</p>
                                                     </span>
                                                 {% endif %}
                                             </div>
@@ -281,7 +281,7 @@
                                                     <div>
                                                         <div class="assignment-detail-comment">
                                                             <span class="assignment-detail-bold">Comments</span>
-                                                            <br>{{assignment.grader_comment}}</div>
+                                                            <br>{{assignment.formatted_grader_comment}}</div>
                                                     </div>
                                                 </div>
                                             </div>

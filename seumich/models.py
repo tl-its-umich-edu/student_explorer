@@ -1,8 +1,9 @@
 from django.db import models
 from seumich.mixins import SeumichDataMixin
 from django.utils import timezone
+from django.utils.html import format_html
 
-import logging, statistics
+import logging, re, statistics
 
 logger = logging.getLogger(__name__)
 
@@ -379,6 +380,15 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
     def __str__(self):
         return '%s has assignment %s in %s' % (self.student, self.assignment,
                                                self.class_site)
+
+    # Replace all newline literals in grader comments with HTML break tags
+    @property
+    def formatted_grader_comment(self):
+        if not self.grader_comment:
+            return "None"
+        nl_literal_pattern = re.compile(r"\\n")
+        comment_with_repls = nl_literal_pattern.sub("<br><br />", self.grader_comment.strip())
+        return format_html(f'"{comment_with_repls}"')
 
     @property
     def due_date(self):
