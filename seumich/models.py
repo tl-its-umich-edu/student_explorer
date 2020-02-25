@@ -385,9 +385,8 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
     @property
     def formatted_grader_comment(self):
         if not self.grader_comment:
-            return "None"
-        nl_literal_pattern = re.compile(r"\\n")
-        comment_with_repls = nl_literal_pattern.sub("<br><br />", self.grader_comment.strip())
+            return 'None'
+        comment_with_repls = self.grader_comment.strip().replace('\\n', '<br><br />').replace('{', '{{').replace('}', '}}')
         return format_html(f'"{comment_with_repls}"')
 
     @property
@@ -522,6 +521,7 @@ class WeeklyStudentClassSiteStatus(models.Model):
     class Meta:
         unique_together = ('student', 'class_site', 'week_end_date', 'status')
         db_table = '"CNLYR002"."FC_STDNT_CLS_WKLY_ACAD_PRF"'
+
 
 class LearningAnalyticsStats(models.Model):
     dw_data_nm = models.CharField(primary_key=True, max_length=50, db_column='DW_DATA_NM')
