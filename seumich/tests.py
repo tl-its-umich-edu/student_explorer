@@ -340,7 +340,7 @@ class SeumichTest(TestCase):
     def test_studentclasssiteassignment_formatted_grader_comment_with_curly_braces(self):
         """
         Testing whether the formatted_grader_comment method
-        properly replaces '{' and '}' with '{{' and  '}}' in the 
+        properly replaces '{' and '}' with '{{' and  '}}' in the
         input string before passing it to format_html.
         """
         # Set up
