@@ -8017,7 +8017,7 @@ VALUES
 	(1,0,4,0,65,'Y',NULL,0,2133,14,2),
 	(1,10,6,220,183,'Y','This part looks good!\\nBut you need to work on this other part.\\n\\nI am confident you can succeed in this course!',0,2133,15,2),
 	(3,100,98,600,500,'Y','Good!',0,2113,17,1),
-	(3,10,8,180,150,'Y','',1,2121,10,2);
+	(3,10,8,180,150,'Y','{x,y}',1,2121,10,2);
 
 /*!40000 ALTER TABLE `"CNLYR002"."FC_STDNT_CLASS_ASSGN"` ENABLE KEYS */;
 UNLOCK TABLES;

@@ -337,6 +337,27 @@ class SeumichTest(TestCase):
         matches = br_tag_pattern.findall(student_class_site_assignment.formatted_grader_comment)
         self.assertEqual(len(matches), 3)
 
+    def test_studentclasssiteassignment_formatted_grader_comment_with_curly_braces(self):
+        """
+        Testing whether the formatted_grader_comment method
+        properly replaces '{' and '}' with '{{' and  '}}' in the 
+        input string before passing it to format_html.
+        """
+        # Set up
+        self.client.login(username='burl', password='burl')
+        student_class_site_assignment = StudentClassSiteAssignment.objects.get(
+            student=Student.objects.get(id=3),
+            assignment=Assignment.objects.get(id=10),
+            class_site=ClassSite.objects.get(id=2)
+        )
+        # Test that '{something}' is present in the method's output.
+        curly_braces_exp_pattern = re.compile(r"{[^{}]+}")
+        match = curly_braces_exp_pattern.search(student_class_site_assignment.formatted_grader_comment)
+        self.assertTrue(match)
+        # Test that the page with the comment properly loads.
+        response = self.client.get('/students/shannon/class_sites/2/')
+        self.assertEqual(response.status_code, 200)
+
     def test_studentclasssiteassignment_relative_to_average(self):
         """
         Testing whether the student's relative to average
