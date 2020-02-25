@@ -7,11 +7,6 @@ import logging, re, statistics
 
 logger = logging.getLogger(__name__)
 
-# Regular expression patterns
-NL_LITERAL_PATTERN = re.compile(r"\\n")
-L_BRACE_PATTERN = re.compile(r'{')
-R_BRACE_PATTERN = re.compile(r'}')
-
 
 class UsernameField(models.CharField):
     '''Convert case for data warehouse values. Only handles read situations,
@@ -390,10 +385,8 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
     @property
     def formatted_grader_comment(self):
         if not self.grader_comment:
-            return "None"
-        comment_with_repls = NL_LITERAL_PATTERN.sub("<br><br />", self.grader_comment.strip())
-        comment_with_repls = L_BRACE_PATTERN.sub(r'{{', comment_with_repls)
-        comment_with_repls = R_BRACE_PATTERN.sub(r'}}', comment_with_repls)
+            return 'None'
+        comment_with_repls = self.grader_comment.strip().replace('\\n', '<br><br />').replace('{', '{{').replace('}', '}}')
         return format_html(f'"{comment_with_repls}"')
 
     @property
