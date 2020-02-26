@@ -22,16 +22,16 @@
 
         <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'nvd3/src/nv.d3.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'components-font-awesome/css/font-awesome.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'components-font-awesome/css/all.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'seumich/styles/main.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'tablesorter/theme.bootstrap_3.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'tablesorter/jquery.tablesorter.pager.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'tablesorter/dist/css/theme.bootstrap_3.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'tablesorter/dist/css/jquery.tablesorter.pager.min.css' %}">
         <script src="{% static 'jquery/dist/jquery.js' %}"></script>
         <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
         <script src="{% static 'd3/d3.js' %}"></script>
         <script src="{% static 'nvd3/nv.d3.js' %}"></script>
-        <script src="{% static 'tablesorter/jquery.tablesorter.combined.min.js' %}"></script>
-        <script src="{% static 'tablesorter/jquery.tablesorter.pager.min.js' %}"></script>
+        <script src="{% static 'tablesorter/dist/js/jquery.tablesorter.combined.min.js' %}"></script>
+        <script src="{% static 'tablesorter/dist/js/extras/jquery.tablesorter.pager.min.js' %}"></script>
         <script src="{% static 'seumich/index.js' %}"></script>
         {% block head %}{% endblock %}
     </head>
@@ -71,7 +71,7 @@
                         <li>
                             <a href="https://documentation.its.umich.edu/node/831" target="_blank">
                                 Resources & Support
-                                <i class="fa fa-external-link" aria-hidden="true" width="25px" hspace="3" alt="External Help Doc Icon"></i>
+                                <i class="fa fa-external-link-alt" aria-hidden="true" width="25px" hspace="3" alt="External Help Doc Icon"></i>
                             </a>
                         </li>
                         {% if user.is_authenticated %}

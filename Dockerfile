@@ -5,6 +5,9 @@ RUN apt-get update && apt-get --no-install-recommends install --yes \
     libldap2-dev libsasl2-dev \
     build-essential default-libmysqlclient-dev git cron netcat
 
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - 
+RUN apt-get install -y nodejs
+
 WORKDIR /tmp/
 
 COPY requirements.txt /tmp/
@@ -30,7 +33,6 @@ WORKDIR /usr/src/app/student_explorer/dependencies/
 ENV ORACLE_CLIENT_VERSION=18.3
 ENV ORACLE_HOME /usr/lib/oracle/$ORACLE_CLIENT_VERSION/client64
 ENV LD_LIBRARY_PATH /usr/lib/oracle/$ORACLE_CLIENT_VERSION/client64/lib
-
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app/
@@ -60,6 +62,11 @@ RUN if [ "$LOCALHOST_DEV" ] ; then \
 
 # Compile the css file
 RUN pysassc seumich/static/seumich/styles/main.scss seumich/static/seumich/styles/main.css
+
+RUN npm install
+
+# This is needed to clean up the examples files as these cause collectstatic to fail (and take up extra space)
+RUN find node_modules -type d -name "examples" | xargs rm -rf
 
 RUN python manage.py collectstatic --settings=student_explorer.settings --noinput --verbosity 0
 

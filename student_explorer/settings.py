@@ -136,11 +136,14 @@ STATIC_URL = config('DJANGO_STATIC_URL', default='/static/')
 STATIC_ROOT = config('DJANGO_STATIC_ROOT',
                      default=os.path.join(BASE_DIR, 'staticfiles'))
 
+NPM_ROOT_PATH = BASE_DIR
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'npm.finders.NpmFinder'
 ]
 
 LOGIN_URL = config('DJANGO_LOGIN_URL', default='/accounts/login/')

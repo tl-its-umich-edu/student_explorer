@@ -128,3 +128,6 @@ dmypy.json
 
 # IDE resources
 .idea
+
+# Node stuff
+node_modules
