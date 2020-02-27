@@ -1,12 +1,12 @@
 FROM python:3.7
 
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+
 RUN apt-get update && apt-get --no-install-recommends install --yes \
     libaio1 libaio-dev xmlsec1 libffi-dev \
     libldap2-dev libsasl2-dev \
-    build-essential default-libmysqlclient-dev git cron netcat
-
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - 
-RUN apt-get install -y nodejs
+    build-essential default-libmysqlclient-dev git cron netcat \
+    nodejs
 
 WORKDIR /tmp/
 
@@ -66,7 +66,7 @@ RUN pysassc seumich/static/seumich/styles/main.scss seumich/static/seumich/style
 RUN npm install
 
 # This is needed to clean up the examples files as these cause collectstatic to fail (and take up extra space)
-RUN find node_modules -type d -name "examples" | xargs rm -rf
+RUN find node_modules -type d -name "examples" -print0 | xargs -0 rm -rf
 
 RUN python manage.py collectstatic --settings=student_explorer.settings --noinput --verbosity 0
 
