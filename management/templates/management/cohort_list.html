@@ -1,7 +1,20 @@
 {% extends 'management/base.html' %}
-
+{% load staticfiles %}
 {% block management %}
 
+<script src='{% static 'seumich/sort_table.js' %}'></script>
+    <a href="{% url 'management:add-cohort' %}" class="btn btn-info">
+        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        Add Cohort
+    </a>
+    <a class="btn btn-default btn-sm" href="{% url 'management:cohort-list-download' %}">
+        <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+        Download TLA_Cohort_USELAB.dat
+    </a>
+    <a class="btn btn-default btn-sm" href="{% url 'management:cohort-detail-download' %}">
+        <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+        Download TLA_StudentCohortMentor_USELAB.dat
+    </a>
     <div id="resultsTable">
         <table class="table table-bordered">
             <caption>
@@ -23,7 +36,7 @@
                     <th>Code</th>
                     <th>Description</th>
                     <th>Group</th>
-                    <th>Action</th>
+                    <th data-filter="false" data-sorter="false">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -122,18 +135,5 @@
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{% url 'management:add-cohort' %}" class="btn btn-info">
-            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-            Add Cohort
-        </a>
-        <a class="btn btn-default btn-sm" href="{% url 'management:cohort-list-download' %}">
-            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-            Download TLA_Cohort_USELAB.dat
-        </a>
-        <a class="btn btn-default btn-sm" href="{% url 'management:cohort-detail-download' %}">
-            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-            Download TLA_StudentCohortMentor_USELAB.dat
-        </a>
-        {% include 'management/pagination.html' %}
     </div>
 {% endblock %}
