@@ -26,7 +26,7 @@ class Mentor(BaseModel):
 
 class Cohort(BaseModel):
     code = models.CharField(max_length=50, primary_key=True)
-    description = models.CharField(max_length=100)
+    description = models.CharField(max_length=50)
     group = models.CharField(max_length=50)
     active = models.BooleanField(default=True)
 
