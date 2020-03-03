@@ -5,6 +5,7 @@ django-cron>=0.5.1,<0.5.99
 django-debug-toolbar>=2.1,<2.1.99
 django-extensions>=2.2.6,<2.2.99
 django-mysql>=3.3.0,<3.3.99
+django-npm==1.0.0
 django-ptvsd-debug==1.0.3
 django-redis>=4.11.0,<4.11.99
 django-registration-redux==2.7
