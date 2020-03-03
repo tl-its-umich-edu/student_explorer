@@ -2,7 +2,7 @@
   "name": "student_explorer",
   "version": "2.7.1",
   "dependencies": {
-    "bootstrap": "3.3.4",
+    "bootstrap": "3.4.1",
     "components-font-awesome": "5.9.0",
     "d3": "3.5.17",
     "jquery": "^3.4.1",
