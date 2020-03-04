@@ -7,6 +7,8 @@ import logging, re, statistics
 
 logger = logging.getLogger(__name__)
 
+NEWLINE_PATTERN = re.compile(r'(\\r)?\\n')
+
 
 class UsernameField(models.CharField):
     '''Convert case for data warehouse values. Only handles read situations,
@@ -386,7 +388,7 @@ class StudentClassSiteAssignment(models.Model, SeumichDataMixin):
     def formatted_grader_comment(self):
         if not self.grader_comment:
             return 'None'
-        comment_with_repls = self.grader_comment.strip().replace('\\n', '<br><br />').replace('{', '{{').replace('}', '}}')
+        comment_with_repls = NEWLINE_PATTERN.sub('<br><br />', self.grader_comment.strip().replace('{', '{{').replace('}', '}}'))
         return format_html(f'"{comment_with_repls}"')
 
     @property
