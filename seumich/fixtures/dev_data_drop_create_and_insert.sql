@@ -7632,7 +7632,7 @@ VALUES
 	(9,'820','Quiz 10',2),
 	(10,'814','Quiz 5',2),
 	(11,'810','Homework 2',2),
-	(12,'006','Homework 3',2),
+	(12,'006','Homework_3_With_Some_Crazzzzzzzzzzzzzzzy_Long_Name',2),
 	(13,'747','Quiz extra 1',2),
 	(14,'819','Homework 4',2),
 	(15,'062','Quiz extra 2',2),
