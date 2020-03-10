@@ -21,11 +21,6 @@ $chart-width: 1150px;
         @content;
     }
 }
-@mixin chart {
-     @media screen and (min-width: #{$chart-width}){
-        @content;
-    }
-}
 @mixin font ($size: null, $color: null, $weight: null) {
     font-size: $size;
     color: $color;
