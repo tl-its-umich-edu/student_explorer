@@ -118,18 +118,14 @@
                             chart.y(function (d) {
                                 return d[1];
                             });
-                            chart.xAxis.axisLabel('Week').tickFormat(function (d) {
-                                if (window.innerWidth >= 1150) {
-                                    return 'Week ' + d;
-                                } else {
-                                    return d;
-                                }
 
+                            chart.xAxis.axisLabel('Week').tickFormat(function (d) {
+                                return d;
                             });
                             chart.yAxis.tickFormat(function (d) {
                                 return d + '%';
-
                             });
+
                             d3.select('#chart1 svg').datum(data).transition().duration(500).call(chart);
                             nv.utils.windowResize(chart.update);
                             return chart;
@@ -154,18 +150,14 @@
                             chart.y(function (d) {
                                 return d[1];
                             });
-                            chart.xAxis.axisLabel('Week').tickFormat(function (d) {
-                                if (window.innerWidth >= 1150) {
-                                    return 'Week ' + d;
-                                } else {
-                                    return d;
-                                }
 
+                            chart.xAxis.axisLabel('Week').tickFormat(function (d) {
+                                return d;
                             });
                             chart.yAxis.tickFormat(function (d) {
                                 return d + '%ile';
-
                             });
+
                             d3.select('#chart2 svg').datum(data).transition().duration(500).call(chart);
                             nv.utils.windowResize(chart.update);
                             return chart;
@@ -217,13 +209,13 @@
                                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                     {% for assignment in assignments %}
                                         <div class="row hide-small-grid">
-                                            <div class="col-md-2">{{assignment.assignment.description}}</div>
+                                            <div class="col-md-2 assignment-row-description">{{assignment.assignment.description}}</div>
                                             <div class="col-md-2">
                                                 {% if assignment.due_date %}{{assignment.due_date.date}}{% endif %}
                                             </div>
-                                            <div class="col-md-2 text-center">{{assignment.points_earned|floatformat}}/{{assignment.points_possible|floatformat}}</div>
-                                            <div class="col-md-2 text-center">{{assignment.points_earned|divide:assignment.points_possible|multiply:100|floatformat}}%</div>
-                                            <div class="col-md-2 text-center">{{assignment.class_points_earned|divide:assignment.class_points_possible|multiply:100|floatformat}}%</div>
+                                            <div class="col-md-2">{{assignment.points_earned|floatformat}}/{{assignment.points_possible|floatformat}}</div>
+                                            <div class="col-md-2">{{assignment.points_earned|divide:assignment.points_possible|multiply:100|floatformat}}%</div>
+                                            <div class="col-md-2">{{assignment.class_points_earned|divide:assignment.class_points_possible|multiply:100|floatformat}}%</div>
                                             <div class="col-md-2">
                                                 {% if assignment.grader_comment %}
                                                     <span>

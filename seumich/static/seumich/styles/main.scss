@@ -327,11 +327,6 @@ footer {
         border-bottom: 0;
     }
 }
-.nv-axislabel {
-    @include chart {
-        display: none;
-    }
-}
 .container {
     @include desktop {
         max-width: 100% !important;
@@ -682,6 +677,9 @@ svg {
 .assignment-row {
     height: 80px;
     display: block;
+}
+.assignment-row-description {
+  overflow-wrap: break-word;
 }
 .assignment-row-lower {
     margin-bottom: $primary-margin;
