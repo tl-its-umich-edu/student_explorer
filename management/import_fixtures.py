@@ -23,7 +23,7 @@ def main():
         code = cohort_sheet.cell(row_idx, 0).value.strip()
         description = cohort_sheet.cell(row_idx, 1).value.strip()
         group = cohort_sheet.cell(row_idx, 2).value.strip()
-        cohort, created = Cohort.objects.get_or_create(
+        Cohort.objects.get_or_create(
             code=code,
             description=description,
             group=group,
@@ -36,8 +36,8 @@ def main():
         code = student_cohort_mentor_sheet.cell(row_idx, 1).value.strip()
         mentor_id = student_cohort_mentor_sheet.cell(row_idx, 2).value.strip()
         cohort = Cohort.objects.get(code=code)
-        student, created = Student.objects.get_or_create(username=student_id)
-        mentor, created = Mentor.objects.get_or_create(username=mentor_id)
+        student = Student.objects.get_or_create(username=student_id)[0]
+        mentor = Mentor.objects.get_or_create(username=mentor_id)[0]
         StudentCohortMentor.objects.get_or_create(
             student=student,
             cohort=cohort,
