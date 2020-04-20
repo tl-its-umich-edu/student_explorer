@@ -1,0 +1,257 @@
+[
+    {
+        "code": "98FallWhistling",
+        "description": "Cohort for whistlers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallSleeping",
+        "description": "Cohort for sleepers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallRunning",
+        "description": "Cohort for runners",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallDreaming",
+        "description": "Cohort for dreamers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallEating",
+        "description": "Cohort for eaters",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallJumping",
+        "description": "Cohort for jumpers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallStretching",
+        "description": "Cohort for stretchers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallWaltzing",
+        "description": "Cohort for waltzers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallSkateboarding",
+        "description": "Cohort for skateboarders",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallJuggling",
+        "description": "Cohort for jugglers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallSkipping",
+        "description": "Cohort for people who skip",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallThinking",
+        "description": "Cohort for thinkers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallCooking",
+        "description": "Cohort for cookers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallActivisting",
+        "description": "Cohort for activists",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallReading",
+        "description": "Cohort for reading",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallGaming",
+        "description": "Cohort for gamers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallHaircutting",
+        "description": "Cohort for haircutters",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallPuzzling",
+        "description": "Cohort for puzzlers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallKnitting",
+        "description": "Cohort for knitters",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallWoodworking",
+        "description": "Cohort for woodworkers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallCollaging",
+        "description": "Cohort for people who collage",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallWhispering",
+        "description": "Cohort for whisperers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallStyling",
+        "description": "Cohort for who people who style",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallTriviaing",
+        "description": "Cohort for who people who trivia",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "98FallSocializing",
+        "description": "Cohort for people who socialize",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterWhistling",
+        "description": "Cohort for whistlers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterSleeping",
+        "description": "Cohort for sleepers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterRunning",
+        "description": "Cohort for runners",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterDreaming",
+        "description": "Cohort for dreamers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterEating",
+        "description": "Cohort for eaters",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterJumping",
+        "description": "Cohort for jumpers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterStretching",
+        "description": "Cohort for stretchers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterWaltzing",
+        "description": "Cohort for waltzers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterSkateboarding",
+        "description": "Cohort for skateboarders",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterJuggling",
+        "description": "Cohort for jugglers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterSkipping",
+        "description": "Cohort for people who skip",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterThinking",
+        "description": "Cohort for thinkers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterCooking",
+        "description": "Cohort for cookers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterActivisting",
+        "description": "Cohort for activists",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterReading",
+        "description": "Cohort for reading",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterGaming",
+        "description": "Cohort for gamers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterHaircutting",
+        "description": "Cohort for haircutters",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterPuzzling",
+        "description": "Cohort for puzzlers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterKnitting",
+        "description": "Cohort for knitters",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterWoodworking",
+        "description": "Cohort for woodworkers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterCollaging",
+        "description": "Cohort for people who collage",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterWhispering",
+        "description": "Cohort for whisperers",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterStyling",
+        "description": "Cohort for who people who style",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterTriviaing",
+        "description": "Cohort for who people who trivia",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterSocializing",
+        "description": "Cohort for people who socialize",
+        "group": "Hobby Action Coalition (HAC)"
+    },
+    {
+        "code": "99WinterJoking",
+        "description": "Cohort for jokers",
+        "group": "Hobby Action Coalition (HAC)"
+    }
+]

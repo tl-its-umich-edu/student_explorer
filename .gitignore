@@ -1,5 +1,6 @@
 # Local gitignore
 *.pyc
+.DS_Store
 
 /student_explorer/local/
 !/student_explorer/local/README.md
