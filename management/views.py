@@ -49,7 +49,6 @@ class IndexView(StaffRequiredMixin, TemplateView):
 class CohortListView(StaffRequiredMixin, ListView):
     template_name = 'management/cohort_list.html'
     model = Cohort
-    paginate_by = 50
 
     def get_context_data(self, **kwargs):
         context = super(CohortListView, self).get_context_data(**kwargs)
