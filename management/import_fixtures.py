@@ -1,6 +1,5 @@
-import os, sys
+import json, os, sys
 
-import xlrd
 from django.core.wsgi import get_wsgi_application
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -11,30 +10,31 @@ application = get_wsgi_application()
 
 from management.models import Student, Cohort, Mentor, StudentCohortMentor
 
-FIXTURES_PATH = os.path.join('management', 'fixtures', 'Student_Explorer_Management_Fixtures.xlsx')
+FIXTURES_PATH = os.path.join('management', 'fixtures')
 
 
 def main():
-    # Open Excel workbook with fake management data
-    xl_workbook = xlrd.open_workbook(FIXTURES_PATH)
 
-    cohort_sheet = xl_workbook.sheet_by_name('Cohorts')
-    for row_idx in range(1, cohort_sheet.nrows):
-        code = cohort_sheet.cell(row_idx, 0).value.strip()
-        description = cohort_sheet.cell(row_idx, 1).value.strip()
-        group = cohort_sheet.cell(row_idx, 2).value.strip()
+    # Opening JSON fixture files with fake management data
+    with open(os.path.join(FIXTURES_PATH, 'cohorts.json'), encoding='utf8') as cohorts_file:
+        cohorts = json.loads(cohorts_file.read())
+    
+    with open(os.path.join(FIXTURES_PATH, 'student_mentor_mappings.json'), encoding='utf8') as student_mentor_file:
+        student_mentor_mappings = json.loads(student_mentor_file.read())
+
+    for cohort in cohorts:
         Cohort.objects.get_or_create(
-            code=code,
-            description=description,
-            group=group,
+            code=cohort['code'].strip(),
+            description=cohort['description'].strip(),
+            group=cohort['group'].strip(),
             active=True
         )
 
-    student_cohort_mentor_sheet = xl_workbook.sheet_by_name('Students')
-    for row_idx in range(1, student_cohort_mentor_sheet.nrows):
-        student_id = student_cohort_mentor_sheet.cell(row_idx, 0).value.strip()
-        code = student_cohort_mentor_sheet.cell(row_idx, 1).value.strip()
-        mentor_id = student_cohort_mentor_sheet.cell(row_idx, 2).value.strip()
+    for student_mentor_mapping in student_mentor_mappings:
+        student_id = student_mentor_mapping['student_id'].strip()
+        code = student_mentor_mapping['code'].strip()
+        mentor_id = student_mentor_mapping['mentor_id'].strip()
+
         cohort = Cohort.objects.get(code=code)
         student = Student.objects.get_or_create(username=student_id)[0]
         mentor = Mentor.objects.get_or_create(username=mentor_id)[0]
