@@ -18,7 +18,7 @@ def main():
     # Opening JSON fixture files with fake management data
     with open(os.path.join(FIXTURES_PATH, 'cohorts.json'), encoding='utf8') as cohorts_file:
         cohorts = json.loads(cohorts_file.read())
-    
+
     with open(os.path.join(FIXTURES_PATH, 'student_mentor_mappings.json'), encoding='utf8') as student_mentor_file:
         student_mentor_mappings = json.loads(student_mentor_file.read())
 
