@@ -39,6 +39,17 @@
                     <th data-filter="false" data-sorter="false">Action</th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>Group</th>
+                    <th data-filter="false" data-sorter="false">Action</th>
+                </tr>
+                <tr>
+                    {% include 'seumich/ts_pager.html' with colspan="6" %}
+                </tr>
+            </tfoot>
             <tbody>
                 {% for cohort in object_list %}
                     <tr>
