@@ -16,7 +16,9 @@ BASE_DIR = os.path.dirname(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DJANGO_DEBUG', default='off', cast=bool)
+#DEBUG = config('DJANGO_DEBUG', default='off', cast=bool)
+DEBUG = False
+
 ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', 'localhost', cast=Csv())
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'constance',
     'django_cron',
     'watchman',
     'student_explorer',
@@ -49,7 +52,7 @@ INSTALLED_APPS = [
     'tracking',
     'feedback',
     'usage',
-    'django_mysql',
+    'django_mysql'
 ]
 
 CRON_CLASSES = [
@@ -89,6 +92,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 ROOT_URLCONF = 'student_explorer.urls'
 
@@ -160,7 +165,7 @@ EMAIL_USE_SSL = config('DJANGO_EMAIL_USE_SSL', default=None)
 
 FEEDBACK_EMAIL = config('DJANGO_FEEDBACK_EMAIL', default=None)
 
-EMAIL_SUBJECT_PREFIX = config('EMAIL_SUBJECT_PREFIX', default="Student_Explorer")
+#EMAIL_SUBJECT_PREFIX = config('EMAIL_SUBJECT_PREFIX', default="Student_Explorer")
 
 
 # Databases
@@ -392,7 +397,25 @@ CACHES = {
     }
 }
 
+
+
 # These are the settings exported from this file to templates
 # CACHE_TTL is used by some of the caching lines
 # LOGIN_URL appears to be used in the index.html but I don't know if this code is still used or not -MJ
 SETTINGS_EXPORT = ['CACHE_TTL','LOGIN_URL',]
+
+CONSTANCE_CONFIG = {
+    # 'THE_ANSWER': (42, 'Answer to the Ultimate Question of Life, '
+    #                    'The Universe, and Everything'),
+    # 'LANGUAGE_CODE': ('en-us', 'DJANGO_LANGUAGE_CODE'),
+    # 'TIME_ZONE': ('America/Detroit', 'DJANGO_TIME_ZONE'),
+    # 'USE_I18N': (True, 'DJANGO_USE_I18N', bool),
+    # 'USE_L10N': (True, 'DJANGO_USE_L10N', bool),
+    # 'USE_TZ': (True, 'DJANGO_USE_TZ', bool)
+    'EMAIL_SUBJECT_PREFIX': ('Student_Explorer', 'Prefix to identify Student Explorer emails')
+}
+
+CONSTANCE_CONFIG_FIELDSETS = {
+    'Email': ('EMAIL_SUBJECT_PREFIX')
+}
+
