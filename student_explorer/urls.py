@@ -31,10 +31,10 @@ urlpatterns = [
 urlpatterns.append(path('accounts/logout/', views.logout, name='auth_logout'))
 
 if 'djangosaml2' in settings.INSTALLED_APPS:
-    from djangosaml2.views import echo_attributes
+    from djangosaml2.views import EchoAttributesView
     urlpatterns += [
         path('accounts/', include('djangosaml2.urls')),
-        path('accounts/echo_attributes/', echo_attributes),
+        path('accounts/echo_attributes/', EchoAttributesView.as_view()),
     ]
 elif 'registration' in settings.INSTALLED_APPS:
     urlpatterns += [
