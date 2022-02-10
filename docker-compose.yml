@@ -23,7 +23,6 @@ services:
         dockerfile: Dockerfile
         args:
             - LOCALHOST_DEV=1
-            - ORACLE_CLIENT_VERSION=18.3
     command: bash -c "./start-localhost.sh"
     volumes:
       - .:/usr/src/app
