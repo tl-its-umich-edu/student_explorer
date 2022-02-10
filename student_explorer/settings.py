@@ -396,3 +396,5 @@ CACHES = {
 # CACHE_TTL is used by some of the caching lines
 # LOGIN_URL appears to be used in the index.html but I don't know if this code is still used or not -MJ
 SETTINGS_EXPORT = ['CACHE_TTL','LOGIN_URL',]
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

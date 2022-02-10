@@ -15,7 +15,7 @@ class UsernameField(models.CharField):
     this implementation would need to be extended if writing to the dataset is
     necessary.'''
 
-    def from_db_value(self, value, expression, connection, context):
+    def from_db_value(self, value, expression, connection, context=None):
         return value.lower()
 
     def get_db_prep_value(self, value, connection, prepared=False):
