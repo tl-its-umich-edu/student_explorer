@@ -70,6 +70,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'student_explorer.middleware.LoggingMiddleware',
     'student_explorer.middleware.HttpResourceNotAllowedMiddleware',
+    'djangosaml2.middleware.SamlSessionMiddleware',
 ]
 
 TEMPLATES = [
@@ -287,6 +288,9 @@ if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
         'givenName': ('first_name', ),
         'sn': ('last_name', ),
     }
+
+    # Need to set this for SAML
+    SESSION_COOKIE_SECURE = True
 
 # Logging
 
