@@ -1,11 +1,11 @@
-FROM python:3.7
+FROM python:3.8-slim
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 
 RUN apt-get update && apt-get --no-install-recommends install --yes \
     libaio1 libaio-dev xmlsec1 libffi-dev libsasl2-dev \
     build-essential default-libmysqlclient-dev git cron netcat \
-    nodejs
+    nodejs npm
 
 WORKDIR /tmp/
 
