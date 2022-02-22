@@ -2,7 +2,6 @@ from functools import wraps
 
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
-from django.utils.decorators import available_attrs
 from django.http import HttpResponseBadRequest, HttpResponse
 from django.contrib import messages
 from django.shortcuts import redirect

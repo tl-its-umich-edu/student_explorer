@@ -70,6 +70,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'student_explorer.middleware.LoggingMiddleware',
     'student_explorer.middleware.HttpResourceNotAllowedMiddleware',
+    'djangosaml2.middleware.SamlSessionMiddleware',
 ]
 
 TEMPLATES = [
@@ -288,6 +289,9 @@ if config('STUDENT_EXPLORER_SAML', default='no', cast=bool):
         'sn': ('last_name', ),
     }
 
+    # Need to set this for SAML
+    SESSION_COOKIE_SECURE = True
+
 # Logging
 
 LOGGING = {
@@ -396,3 +400,5 @@ CACHES = {
 # CACHE_TTL is used by some of the caching lines
 # LOGIN_URL appears to be used in the index.html but I don't know if this code is still used or not -MJ
 SETTINGS_EXPORT = ['CACHE_TTL','LOGIN_URL',]
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

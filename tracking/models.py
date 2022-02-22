@@ -7,6 +7,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 from django.conf import settings
 
+logger = logging.getLogger(__name__)
 
 class Event(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)

@@ -7,7 +7,11 @@ logger = logging.getLogger(__name__)
 
 
 class ActiveUserOnlySAML2Backend(Saml2Backend):
-    def authenticate(self, request, **kwargs):
+    def authenticate(
+        self,
+        request,
+        **kwargs,
+    ):
         user = None
         try:
             user = super(ActiveUserOnlySAML2Backend, self).authenticate(request, **kwargs)
@@ -25,7 +29,14 @@ class ActiveUserOnlySAML2Backend(Saml2Backend):
         return user
             
 
-    def is_authorized(self, attributes, attribute_mapping):
+    def is_authorized(
+        self,
+        attributes: dict,
+        attribute_mapping: dict,
+        idp_entityid: str,
+        assertion_info: dict,
+        **kwargs,
+    ) -> bool:
         # If there are any groups that we're a member of, return true
         # These groups are controlled via request to Shibboleth team INC1715416
         if attributes.get('isMemberOf'):
