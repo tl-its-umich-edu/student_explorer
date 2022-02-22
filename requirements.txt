@@ -20,7 +20,7 @@ django-watchman>=1.2.0,<1.2.99
 libsass>=0.21.0,<0.21.99
 mysqlclient>=2.1.0,<2.1.99
 
-#This needs to be switched to debugpy
+# This needs to be switched to debugpy
 ptvsd>=4.3.2,<4.3.99
 
 python-dateutil>=2.8.2,<2.8.99
