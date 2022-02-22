@@ -1,4 +1,4 @@
-Django>=3.2.9,<3.2.99
+Django>=3.2.12,<3.2.99
 djangosaml2==1.3.6
 
 # Hasn't been updated since 2018
