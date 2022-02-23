@@ -4,7 +4,7 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 
 RUN apt-get update && apt-get --no-install-recommends install --yes \
     libaio1 libaio-dev xmlsec1 libffi-dev libsasl2-dev \
-    build-essential default-libmysqlclient-dev git cron netcat \
+    build-essential default-libmysqlclient-dev git netcat \
     nodejs npm
 
 WORKDIR /tmp/
@@ -17,10 +17,6 @@ RUN pip install -r requirements.txt && \
 # Sets the local timezone of the docker image
 ENV TZ=America/Detroit
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-# Use this tag of API Utils, this will eventually be released
-ENV API_UTILS_VERSION v1.1
-RUN git clone https://github.com/tl-its-umich-edu/api-utils-python && cd api-utils-python && git checkout tags/${API_UTILS_VERSION} && pip install .
 
 ARG LOCALHOST_DEV
 

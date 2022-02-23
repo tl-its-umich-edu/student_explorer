@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_cron',
     'watchman',
     'student_explorer',
     'seumich',
@@ -51,13 +50,6 @@ INSTALLED_APPS = [
     'usage',
     'django_mysql',
 ]
-
-CRON_CLASSES = [
-    "student_explorer.cron.StudentExplorerCronJob",
-]
-
-# Time to run cron
-RUN_AT_TIMES = config('RUN_AT_TIMES', default="", cast= Csv())
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
