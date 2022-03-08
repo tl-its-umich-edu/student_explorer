@@ -47,7 +47,7 @@ RUN if [ "$LOCALHOST_DEV" ] ; then \
     echo "LOCALHOST_DEV is not set, building production (Oracle) dependencies" && \
     # Converted to Debian format
     apt-get install --yes alien && \
-    curl -sO https://yum.oracle.com/repo/OracleLinux/OL7/oracle/instantclient/x86_64/getPackage/oracle-instantclient${ORACLE_CLIENT_VERSION}-basiclite-${ORACLE_CLIENT_VERSION_FULL}.x86_64.rpm https://yum.oracle.com/repo/OracleLinux/OL7/oracle/instantclient/x86_64/getPackage/oracle-instantclient${ORACLE_CLIENT_VERSION}-devel-${ORACLE_CLIENT_VERSION_FULL}.x86_64.rpm && \
+    curl -sO https://yum.oracle.com/repo/OracleLinux/OL7/oracle/instantclient/x86_64/getPackage/oracle-instantclient${ORACLE_CLIENT_VERSION}-basiclite-${ORACLE_CLIENT_VERSION_FULL}.x86_64.rpm && \
     alien oracle-instantclient*.rpm && \
     dpkg -i *.deb && rm *.deb *.rpm && \
     pip install cx_Oracle==7.0 \
