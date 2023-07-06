@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'watchman',
     'student_explorer',
     'seumich',
@@ -90,6 +92,8 @@ WSGI_APPLICATION = 'student_explorer.wsgi.application'
 USE_X_FORWARDED_HOST = config('DJANGO_USE_X_FORWARDED_HOST', default='no', cast=bool)
 
 FORCE_SCRIPT_NAME = config('DJANGO_FORCE_SCRIPT_NAME', default=None)
+
+SITE_ID = 1
 
 WATCHMAN_TOKEN = config('DJANGO_WATCHMAN_TOKEN', default=None)
 WATCHMAN_TOKEN_NAME = config('DJANGO_WATCHMAN_TOKEN_NAME', default='token')
