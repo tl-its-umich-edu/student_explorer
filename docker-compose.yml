@@ -2,7 +2,7 @@ version: '3'
 
 services:
   mysql:
-    image: mysql:5.7.22
+    image: mysql:8-oracle
     restart: on-failure
     environment:
       - MYSQL_HOST=${DJANGO_DB_HOST}
@@ -11,6 +11,7 @@ services:
       - MYSQL_USER=${DJANGO_DB_USER}
       - MYSQL_PASSWORD=${DJANGO_DB_PASSWORD}
       - MYSQL_PORT=${DJANGO_DB_PORT}
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--socket=/tmp/mysql.sock']
     entrypoint: ['docker-entrypoint.sh', '--default-authentication-plugin=mysql_native_password']
     ports:
       - "2034:3306"

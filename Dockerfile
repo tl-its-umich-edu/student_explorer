@@ -1,13 +1,16 @@
-FROM python:3.8-slim
+FROM node:18-bullseye-slim as node-build
 
-RUN apt-get update && apt-get --no-install-recommends install --yes curl
+WORKDIR /build/
 
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+COPY package*.json .
 
-RUN apt-get --no-install-recommends install --yes \
+RUN npm install
+
+FROM python:3.8-slim-bullseye
+
+RUN apt-get update && apt-get --no-install-recommends install --yes \
     libaio1 libaio-dev xmlsec1 libffi-dev libsasl2-dev \
-    build-essential default-libmysqlclient-dev git netcat \
-    nodejs
+    build-essential default-libmysqlclient-dev git netcat curl
 
 WORKDIR /tmp/
 
@@ -59,7 +62,7 @@ WORKDIR /usr/src/app/
 # Compile the css file
 RUN pysassc seumich/static/seumich/styles/main.scss seumich/static/seumich/styles/main.css
 
-RUN npm install
+COPY --from=node-build /build/node_modules /usr/src/app/
 
 # This is needed to clean up the examples files as these cause collectstatic to fail (and take up extra space)
 RUN find node_modules -type d -name "examples" -print0 | xargs -0 rm -rf
