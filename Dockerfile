@@ -1,8 +1,8 @@
-FROM python:3.8-slim
+FROM python:3.8-slim-bullseye
 
 RUN apt-get update && apt-get --no-install-recommends install --yes curl
 
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 
 RUN apt-get --no-install-recommends install --yes \
     libaio1 libaio-dev xmlsec1 libffi-dev libsasl2-dev \
