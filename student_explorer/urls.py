@@ -25,6 +25,7 @@ urlpatterns = [
     path('feedback/', include('feedback.urls', namespace='feedback')),
     path('usage/', include('usage.urls', namespace='usage')),
     path('status/', include('watchman.urls')),
+    path('pages/', include('django.contrib.flatpages.urls')),
 ]
 
 # Override auth_logout from djangosaml2 and registration for consistent behavior

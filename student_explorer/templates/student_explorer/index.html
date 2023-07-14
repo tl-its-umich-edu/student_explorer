@@ -1,3 +1,5 @@
+{% load flatpages %}
+{% get_flatpages as flatpages %}
 <!doctype html>
 <html lang="en" class="no-js">
 
@@ -120,7 +122,11 @@
                 </div>
             </div>
         </nav>
-
+        {% for page in flatpages %}
+            {% if page.url == "/user-comm-banner/" %}
+                {{page.content|safe}}
+            {% endif %}
+        {% endfor %}
         <div class="container-index">
             {% if messages %}
                 <div class="container alert-message">
