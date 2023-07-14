@@ -93,6 +93,8 @@ USE_X_FORWARDED_HOST = config('DJANGO_USE_X_FORWARDED_HOST', default='no', cast=
 
 FORCE_SCRIPT_NAME = config('DJANGO_FORCE_SCRIPT_NAME', default=None)
 
+# Added to support flatpages
+# https://docs.djangoproject.com/en/3.2/ref/contrib/flatpages/#installation
 SITE_ID = 1
 
 WATCHMAN_TOKEN = config('DJANGO_WATCHMAN_TOKEN', default=None)
