@@ -5,14 +5,15 @@
 
     <head>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120370966-1"></script>
+        {% if request.path != '/admin/' and settings.GA4_CONFIG_ID %} {# Exclude admin pages from tracking #}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.GA4_CONFIG_ID }}"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-
-          gtag('config', 'UA-120370966-1');
+          gtag('config', '{{ settings.GA4_CONFIG_ID }}');
         </script>
+        {% endif %}
         {% load static %}
         <meta charset="utf-8">
         <title>Student Explorer</title>

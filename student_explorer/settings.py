@@ -400,3 +400,5 @@ CACHES = {
 SETTINGS_EXPORT = ['CACHE_TTL','LOGIN_URL',]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+GA4_CONFIG_ID = config('GA4_CONFIG_ID', default='')
