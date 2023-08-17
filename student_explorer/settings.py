@@ -394,11 +394,14 @@ CACHES = {
     }
 }
 
+# Google Analytics 4 Config ID value
+GA4_CONFIG_ID = config('GA4_CONFIG_ID', default='')
+
 # These are the settings exported from this file to templates
 # CACHE_TTL is used by some of the caching lines
 # LOGIN_URL appears to be used in the index.html but I don't know if this code is still used or not -MJ
-SETTINGS_EXPORT = ['CACHE_TTL','LOGIN_URL',]
+# GA4_CONFIG_ID is used for Google Analytics
+SETTINGS_EXPORT = ['CACHE_TTL','LOGIN_URL','GA4_CONFIG_ID']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-GA4_CONFIG_ID = config('GA4_CONFIG_ID', default='')

@@ -4,8 +4,8 @@
 <html lang="en" class="no-js">
 
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
         {% if request.path != '/admin/' and settings.GA4_CONFIG_ID %} {# Exclude admin pages from tracking #}
+        <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.GA4_CONFIG_ID }}"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
